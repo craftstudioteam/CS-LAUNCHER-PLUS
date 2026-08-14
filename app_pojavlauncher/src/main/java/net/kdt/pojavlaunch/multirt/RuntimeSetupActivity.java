@@ -122,14 +122,24 @@ public class RuntimeSetupActivity extends BaseActivity {
         mSkipButton.setOnClickListener(v -> finish());
         mInstallButton.setOnClickListener(v -> beginInstall());
         mDoneButton.setOnClickListener(v -> finish());
+        UiMotion.pressFeedback(mSkipButton, mInstallButton, mDoneButton);
         updateCta();
 
-        // Entrance: content slides up softly
+        // Runtime Forge entrance: compositor-only alpha/translation so first
+        // launch remains smooth even while runtime metadata is being resolved.
         float d = getResources().getDisplayMetrics().density;
         mSelectContainer.setAlpha(0f);
-        mSelectContainer.setTranslationY(30 * d);
-        mSelectContainer.animate().alpha(1f).translationY(0f)
-                .setDuration(380).setInterpolator(new DecelerateInterpolator(1.4f)).start();
+        mSelectContainer.setTranslationX(22 * d);
+        mSelectContainer.animate().alpha(1f).translationX(0f)
+                .setDuration(320).setInterpolator(new DecelerateInterpolator(1.7f))
+                .withLayer().start();
+        View orbit = findViewById(R.id.rs_brand_orbit);
+        if (orbit != null) {
+            orbit.setAlpha(0f); orbit.setScaleX(0.72f); orbit.setScaleY(0.72f);
+            orbit.animate().alpha(1f).scaleX(1f).scaleY(1f).setStartDelay(90)
+                    .setDuration(360).setInterpolator(new android.view.animation.OvershootInterpolator(0.9f))
+                    .withLayer().start();
+        }
     }
 
     // ─────────────────────────── selection ───────────────────────────
@@ -177,13 +187,15 @@ public class RuntimeSetupActivity extends BaseActivity {
             }
             mCards.add(st);
             mCardContainer.addView(st.root);
+            UiMotion.pressFeedback(st.root);
             if (st.root.getVisibility() == View.VISIBLE) {
                 float dd = getResources().getDisplayMetrics().density;
                 st.root.setAlpha(0f);
                 st.root.setTranslationX(36f * dd);
                 st.root.animate().alpha(1f).translationX(0f)
-                        .setStartDelay(70L + i * 70L).setDuration(300)
-                        .setInterpolator(new DecelerateInterpolator(1.4f)).start();
+                        .setStartDelay(60L + i * 45L).setDuration(240)
+                        .setInterpolator(new DecelerateInterpolator(1.8f))
+                        .withLayer().start();
             }
         }
     }
@@ -193,14 +205,28 @@ public class RuntimeSetupActivity extends BaseActivity {
         st.chip.setText(text.toUpperCase(Locale.ROOT));
         st.chip.setBackgroundResource(installed
                 ? R.drawable.bg_runtime_chip_installed : R.drawable.bg_runtime_chip_recommended);
-        st.chip.setTextColor(installed ? 0xFF9FD6AC : 0xFFD8C79A);
+        st.chip.setTextColor(installed ? 0xFF9FD6AC : 0xFFC9CBD3);
     }
 
     private void applySelectionVisual(CardState st) {
         st.root.setBackgroundResource(st.selected
                 ? R.drawable.bg_runtime_card_selected : R.drawable.bg_runtime_card);
-        st.root.animate().scaleX(st.selected ? 1f : 0.985f).scaleY(st.selected ? 1f : 0.985f)
-                .setDuration(140).start();
+        View check = st.root.findViewById(R.id.runtime_check);
+        if (check != null && !st.installed) {
+            check.animate().cancel();
+            if (st.selected) {
+                check.setVisibility(View.VISIBLE);
+                check.setAlpha(0f); check.setScaleX(0.55f); check.setScaleY(0.55f);
+                check.animate().alpha(1f).scaleX(1f).scaleY(1f).setDuration(190)
+                        .setInterpolator(new android.view.animation.OvershootInterpolator(1.1f))
+                        .withLayer().start();
+            } else {
+                check.setVisibility(View.GONE);
+            }
+        }
+        st.root.animate().scaleX(st.selected ? 1f : 0.99f).scaleY(st.selected ? 1f : 0.99f)
+                .setDuration(150).setInterpolator(new DecelerateInterpolator(1.8f))
+                .withLayer().start();
     }
 
     private void updateCta() {

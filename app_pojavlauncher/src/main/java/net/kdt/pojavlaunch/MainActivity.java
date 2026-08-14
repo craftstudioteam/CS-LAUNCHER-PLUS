@@ -697,10 +697,22 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
             File optFile = new File(Tools.getGameDirPath(minecraftProfile), "options.txt");
             if (!optFile.exists()) {
                 MCOptionUtils.load(optFile.getParent());
+                // Mobile-first baseline. These are written only for a brand-new
+                // profile; after that the player's in-game choices are untouched.
                 MCOptionUtils.set("enableVsync", "false");
                 MCOptionUtils.set("maxFps", "260");
+                MCOptionUtils.set("graphicsMode", "0");
+                MCOptionUtils.set("fancyGraphics", "false");
+                MCOptionUtils.set("renderDistance", "8");
+                MCOptionUtils.set("simulationDistance", "6");
+                MCOptionUtils.set("entityShadows", "false");
+                MCOptionUtils.set("ao", "1");
+                MCOptionUtils.set("biomeBlendRadius", "0");
+                MCOptionUtils.set("particles", "2");
+                MCOptionUtils.set("clouds", "false");
+                MCOptionUtils.set("mipmapLevels", "2");
                 MCOptionUtils.save();
-                Log.i("runCraft", "[ProfileInit] new profile options.txt initialized; default FPS applied");
+                Log.i("runCraft", "[ProfileInit] mobile performance baseline applied (Fast, 8/6 chunks, no VSync/shadows/clouds)");
             } else {
                 Log.i("runCraft", "[ProfileInit] existing=true; skipped default options copy to preserve user settings");
             }

@@ -27,6 +27,7 @@
             android:background="@drawable/bg_s4_iconwell">
 
             <ImageView
+                android:id="@+id/setting_icon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
@@ -170,7 +171,7 @@
                 android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="2048 MB RAM • 80% resolution • VSync off • Balanced smoothness"
+                android:text="2048 MB RAM • 75% resolution • VSync off • Balanced frame pacing"
                 android:textColor="#9A9AA6"
                 android:textSize="10sp" />
         </LinearLayout>
@@ -225,7 +226,7 @@
                 android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="Auto device RAM • 100% resolution • VSync on • Maximum fidelity"
+                android:text="Auto device RAM • 90% resolution • VSync off • Big-core maximum FPS"
                 android:textColor="#9A9AA6"
                 android:textSize="10sp" />
         </LinearLayout>

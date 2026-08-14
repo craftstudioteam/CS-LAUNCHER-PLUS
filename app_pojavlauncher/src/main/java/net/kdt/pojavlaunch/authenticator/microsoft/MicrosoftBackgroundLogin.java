@@ -59,6 +59,8 @@ public class MicrosoftBackgroundLogin {
     public String mcName;
     public String mcToken;
     public String mcUuid;
+    public String mcSkinUrl;
+    public String mcSkinVariant = "CLASSIC";
     public boolean doesOwnGame;
     public long expiresAt;
 
@@ -96,7 +98,12 @@ public class MicrosoftBackgroundLogin {
                     acc.isMicrosoft = true;
                     acc.msaRefreshToken = msRefreshToken;
                     acc.expiresAt = expiresAt;
-                    acc.updateSkinFace();
+                    // Prefer the first-party skin URL included in the authenticated
+                    // Minecraft profile. Fall back to the legacy head resolver only
+                    // when the profile has no active skin or the download fails.
+                    if (!acc.updateOfficialSkin(mcSkinUrl, mcSkinVariant)) {
+                        acc.updateSkinFace();
+                    }
                 }
                 acc.save();
 
@@ -295,6 +302,30 @@ public class MicrosoftBackgroundLogin {
             Log.i("MicrosoftLogin","Uuid Minecraft = " + uuidDashes);
             mcName=name;
             mcUuid=uuidDashes;
+            // Minecraft Services returns the account's currently active skin.
+            // Capture it during the authenticated profile request so launcher UI
+            // never has to guess through a third-party username service.
+            org.json.JSONArray skins = jsonObject.optJSONArray("skins");
+            if (skins != null) {
+                for (int i = 0; i < skins.length(); i++) {
+                    JSONObject skin = skins.optJSONObject(i);
+                    if (skin == null) continue;
+                    String state = skin.optString("state", "ACTIVE");
+                    String candidate = skin.optString("url", "");
+                    // Mojang historically returned an http textures URL even
+                    // though the same host supports TLS. Upgrade only this
+                    // trusted host; never permit arbitrary cleartext URLs.
+                    if (candidate.startsWith("http://textures.minecraft.net/")) {
+                        candidate = "https://" + candidate.substring("http://".length());
+                    }
+                    if (("ACTIVE".equalsIgnoreCase(state) || mcSkinUrl == null)
+                            && candidate.startsWith("https://textures.minecraft.net/")) {
+                        mcSkinUrl = candidate;
+                        mcSkinVariant = skin.optString("variant", "CLASSIC");
+                        if ("ACTIVE".equalsIgnoreCase(state)) break;
+                    }
+                }
+            }
         }else{
             Log.i("MicrosoftLogin","It seems that this Microsoft Account does not own the game.");
             doesOwnGame = false;

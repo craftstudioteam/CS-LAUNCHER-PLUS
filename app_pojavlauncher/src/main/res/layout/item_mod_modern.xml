@@ -1,211 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- ✦ CS Premium — immersive store card (grid, two-column).
-     All legacy IDs preserved; adds share action + installed-state pill. -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Browse Resources — compact, aligned one-column result card.
+     IDs are kept stable for ModItemAdapter. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mod_card_root"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="6dp"
-    android:layout_marginVertical="6dp"
-    android:background="@drawable/bg_cs_glass_card"
+    android:layout_height="112dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginEnd="12dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/bg_browse_result_card"
     android:clickable="true"
     android:focusable="true"
-    android:clipChildren="true"
-    android:foreground="?attr/selectableItemBackground">
+    android:foreground="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="10dp">
 
-    <!-- Gallery Background Slideshow Layer -->
+    <!-- Legacy slideshow IDs are retained but intentionally hidden. Gallery
+         art made neighbouring cards visually inconsistent and reduced legibility. -->
     <ImageView
         android:id="@+id/mod_background_image_1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:alpha="0" />
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/mod_background_image_2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:alpha="0" />
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:visibility="gone" />
 
-    <!-- Scrim for readability -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_mod_card_scrim" />
+    <FrameLayout
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:background="@drawable/bg_browse_icon_frame"
+        android:padding="3dp">
+
+        <ImageView
+            android:id="@+id/mod_thumbnail_imageview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_profile_icon_rounded"
+            android:clipToOutline="true"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            tools:src="@mipmap/ic_launcher_foreground" />
+
+        <ImageView
+            android:id="@+id/mod_source_imageview"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="bottom|end"
+            android:background="@drawable/bg_browse_source_badge"
+            android:elevation="3dp"
+            android:padding="3dp"
+            tools:src="@drawable/ic_modrinth" />
+    </FrameLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="14dp">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="11dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
-        <!-- Identity row -->
-        <LinearLayout
+        <TextView
+            android:id="@+id/mod_title_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="top">
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:textColor="#F4F4F7"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="Fabric API" />
 
-            <FrameLayout
-                android:layout_width="52dp"
-                android:layout_height="52dp"
-                android:background="@drawable/bg_cs_icon_ring"
-                android:padding="2dp">
+        <TextView
+            android:id="@+id/mod_info_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#8F919C"
+            android:textSize="10sp"
+            tools:text="by modmuss50" />
 
-                <ImageView
-                    android:id="@+id/mod_thumbnail_imageview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_profile_icon_rounded"
-                    android:padding="4dp"
-                    android:scaleType="fitCenter"
-                    tools:src="@mipmap/ic_launcher_foreground" />
-
-                <ImageView
-                    android:id="@+id/mod_source_imageview"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:layout_gravity="bottom|end"
-                    android:background="@drawable/bg_circle"
-                    android:padding="2dp"
-                    android:elevation="2dp"
-                    tools:src="@drawable/ic_modrinth" />
-            </FrameLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginStart="12dp">
-
-                <TextView
-                    android:id="@+id/mod_title_textview"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="#FFFFFF"
-                    android:textSize="14.5sp"
-                    android:textStyle="bold"
-                    tools:text="Fabric API" />
-
-                <TextView
-                    android:id="@+id/mod_info_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textColor="#C9CBD6"
-                    android:textSize="10.5sp"
-                    android:layout_marginTop="2dp"
-                    tools:text="by modmuss50" />
-
-                <TextView
-                    android:id="@+id/mod_downloads_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:textColor="#8B90A6"
-                    android:textSize="10sp"
-                    app:drawableStartCompat="@drawable/ic_download_trend"
-                    app:drawableTint="#6B7280"
-                    android:drawablePadding="4dp"
-                    tools:text="179M" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Description -->
         <TextView
             android:id="@+id/mod_body_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
             android:ellipsize="end"
+            android:lineSpacingExtra="1dp"
             android:maxLines="2"
-            android:textColor="#9BA0B5"
-            android:textSize="11.5sp"
-            android:lineSpacingExtra="2dp"
-            tools:text="Lightweight and modular API providing common hooks and intercompatibility measures for Fabric mods." />
+            android:textColor="#B7B9C3"
+            android:textSize="10.5sp"
+            tools:text="Lightweight and modular API providing common hooks for Fabric mods." />
+    </LinearLayout>
 
-        <!-- Action row -->
+    <LinearLayout
+        android:layout_width="118dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="10dp"
+        android:gravity="center_vertical|end"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/mod_downloads_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="4dp"
+            android:gravity="center_vertical"
+            android:textColor="#8F919C"
+            android:textSize="9.5sp"
+            app:drawableStartCompat="@drawable/ic_download_trend"
+            app:drawableTint="#737580"
+            tools:text="179M downloads" />
+
+        <TextView
+            android:id="@+id/btn_install"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/bg_browse_install_button"
+            android:contentDescription="@string/global_download"
+            android:gravity="center"
+            android:letterSpacing="0.08"
+            android:text="INSTALL"
+            android:textColor="#101114"
+            android:textSize="10sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/mod_install_state_pill"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_cs_installed_pill"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="7dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/mod_install_state_icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/ic_check"
+                app:tint="#2BD97B" />
+
+            <TextView
+                android:id="@+id/mod_install_state_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/cs_installed_profile"
+                android:textColor="#8FEBBC"
+                android:textSize="8.5sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="14dp">
-
-            <ImageButton
-                android:id="@+id/btn_install"
-                android:layout_width="42dp"
-                android:layout_height="34dp"
-                android:background="@drawable/bg_cs_primary_button"
-                android:contentDescription="@string/global_download"
-                android:padding="9dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_download_trend"
-                app:tint="#0D0D0D" />
-
-            <!-- Installed / Update state pill -->
-            <LinearLayout
-                android:id="@+id/mod_install_state_pill"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/bg_cs_installed_pill"
-                android:paddingHorizontal="11dp"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/mod_install_state_icon"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@drawable/ic_check"
-                    app:tint="#2BD97B" />
-
-                <TextView
-                    android:id="@+id/mod_install_state_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:text="@string/cs_installed_profile"
-                    android:textColor="#8FEBBC"
-                    android:textSize="10.5sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+            android:layout_height="24dp"
+            android:layout_marginTop="4dp"
+            android:gravity="end|center_vertical"
+            android:orientation="horizontal">
 
             <ImageButton
                 android:id="@+id/btn_share"
-                android:layout_width="36dp"
-                android:layout_height="34dp"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/bg_cs_ghost_button"
+                android:layout_width="28dp"
+                android:layout_height="24dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Share"
-                android:padding="9dp"
-                android:scaleType="centerInside"
+                android:padding="5dp"
                 android:src="@drawable/ic_menu_share"
-                app:tint="#9CA3AF" />
+                app:tint="#858792" />
 
             <ImageButton
                 android:id="@+id/btn_like"
-                android:layout_width="36dp"
-                android:layout_height="34dp"
-                android:background="@drawable/bg_cs_ghost_button"
+                android:layout_width="28dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="2dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Favorite"
-                android:padding="9dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_heart_outline" />
+                android:padding="5dp"
+                android:src="@drawable/ic_heart_outline"
+                app:tint="#858792" />
         </LinearLayout>
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

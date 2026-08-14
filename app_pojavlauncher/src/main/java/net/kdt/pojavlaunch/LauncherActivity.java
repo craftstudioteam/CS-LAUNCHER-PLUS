@@ -1205,10 +1205,38 @@ public class LauncherActivity extends BaseActivity {
 
     public void updateNavSkinIcon() {
         final ImageView navSkinIcon = findViewById(R.id.nav_skin_icon);
-        if (navSkinIcon != null) {
-            // Replaced live player model face with standard clean icon per user request
-            navSkinIcon.setImageResource(R.drawable.ic_manage_skin);
-        }
+        if (navSkinIcon == null) return;
+        navSkinIcon.setImageResource(R.drawable.ic_manage_skin);
+
+        // Resolve the selected account off the UI thread. Premium accounts now
+        // use the first-party Minecraft Services skin cached during login.
+        final String expectedAccount = PojavProfile.getCurrentProfileName(this);
+        PojavApplication.sExecutorService.execute(() -> {
+            MinecraftAccount account = PojavProfile.getCurrentProfileContent(this, expectedAccount);
+            if (account == null) return;
+            android.graphics.Bitmap face = account.getSkinFace();
+            if ((face == null || face.isRecycled()) && account.isMicrosoft
+                    && account.username != null && !account.username.isEmpty()) {
+                face = net.kdt.pojavlaunch.shortcuts.ShortcutSkinHeadHelper
+                        .getSkinHead(getApplicationContext(), account.username);
+            }
+            if (face == null || face.isRecycled()) return;
+            final android.graphics.Bitmap resolvedFace = face;
+            runOnUiThread(() -> {
+                if (isFinishing() || isDestroyed()) return;
+                String current = PojavProfile.getCurrentProfileName(this);
+                if (!java.util.Objects.equals(expectedAccount, current)) return;
+                navSkinIcon.animate().cancel();
+                navSkinIcon.setAlpha(0f);
+                navSkinIcon.setScaleX(0.82f);
+                navSkinIcon.setScaleY(0.82f);
+                navSkinIcon.setImageBitmap(resolvedFace);
+                navSkinIcon.animate().alpha(1f).scaleX(1f).scaleY(1f)
+                        .setDuration(220)
+                        .setInterpolator(new android.view.animation.DecelerateInterpolator(1.8f))
+                        .start();
+            });
+        });
     }
 
     private void bindViews(){

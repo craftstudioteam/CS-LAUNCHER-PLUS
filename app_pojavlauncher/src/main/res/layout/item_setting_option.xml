@@ -21,12 +21,7 @@
     <FrameLayout
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:background="@drawable/bg_s4h_icon_tile">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg_s4h_icon_glow" />
+        android:background="@drawable/bg_setting_unique_icon_well">
 
         <ImageView
             android:id="@+id/setting_icon"

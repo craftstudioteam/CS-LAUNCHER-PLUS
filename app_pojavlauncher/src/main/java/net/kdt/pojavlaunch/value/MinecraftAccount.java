@@ -8,6 +8,8 @@ import net.kdt.pojavlaunch.*;
 import net.kdt.pojavlaunch.utils.FileUtils;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import com.google.gson.*;
 import android.graphics.Bitmap;
 import android.util.Base64;
@@ -85,6 +87,85 @@ public class MinecraftAccount {
     
     public void updateSkinFace() {
         updateSkinFace(profileId);
+    }
+
+    /**
+     * Cache the skin URL returned by Minecraft Services for a Microsoft account.
+     * This avoids third-party head services and makes the launcher portrait match
+     * the exact premium skin selected on minecraft.net. Network and bitmap work
+     * runs on the authentication executor, never on the UI thread.
+     */
+    public boolean updateOfficialSkin(String skinUrl, String variant) {
+        if (skinUrl == null || !skinUrl.startsWith("https://") || username == null) return false;
+        final long maxBytes = 4L * 1024L * 1024L;
+        File skinsDir = new File(Tools.DIR_DATA, "skins");
+        File target = new File(skinsDir, username + "_skin.png");
+        File temp = new File(skinsDir, username + "_skin.tmp");
+        HttpURLConnection connection = null;
+        try {
+            skinsDir.mkdirs();
+            connection = (HttpURLConnection) new URL(skinUrl).openConnection();
+            connection.setConnectTimeout(8000);
+            connection.setReadTimeout(12000);
+            connection.setInstanceFollowRedirects(true);
+            connection.setRequestProperty("User-Agent", "CS-Launcher-V3");
+            int code = connection.getResponseCode();
+            if (code < 200 || code >= 300) return false;
+            long declared = connection.getContentLength();
+            if (declared > maxBytes) return false;
+
+            long total = 0;
+            try (InputStream in = connection.getInputStream();
+                 FileOutputStream out = new FileOutputStream(temp)) {
+                byte[] buffer = new byte[8192];
+                int read;
+                while ((read = in.read(buffer)) != -1) {
+                    total += read;
+                    if (total > maxBytes) throw new IOException("Premium skin exceeds size limit");
+                    out.write(buffer, 0, read);
+                }
+                out.flush();
+            }
+
+            Bitmap fullSkin = BitmapFactory.decodeFile(temp.getAbsolutePath());
+            if (fullSkin == null || fullSkin.getWidth() < 64
+                    || (fullSkin.getHeight() != fullSkin.getWidth()
+                    && fullSkin.getHeight() * 2 != fullSkin.getWidth())) {
+                if (fullSkin != null) fullSkin.recycle();
+                temp.delete();
+                return false;
+            }
+            Bitmap head = extractSkinHead(fullSkin);
+            fullSkin.recycle();
+            if (head == null) {
+                temp.delete();
+                return false;
+            }
+
+            File headFile = getSkinFaceFile(username);
+            try (FileOutputStream headOut = new FileOutputStream(headFile)) {
+                head.compress(Bitmap.CompressFormat.PNG, 100, headOut);
+            }
+            head.recycle();
+            clearFaceCache();
+
+            if (target.exists()) target.delete();
+            if (!temp.renameTo(target)) {
+                org.apache.commons.io.FileUtils.copyFile(temp, target);
+                temp.delete();
+            }
+            String model = "SLIM".equalsIgnoreCase(variant) ? "slim" : "classic";
+            Tools.write(new File(skinsDir, username + "_metadata.json").getAbsolutePath(),
+                    "{\"model\":\"" + model + "\",\"source\":\"minecraft_services\"}");
+            Log.i("PremiumSkin", "Official Microsoft skin cached for " + username + " (" + model + ")");
+            return true;
+        } catch (Throwable error) {
+            temp.delete();
+            Log.w("PremiumSkin", "Unable to cache official Microsoft skin", error);
+            return false;
+        } finally {
+            if (connection != null) connection.disconnect();
+        }
     }
     
     public String save(String outPath) throws IOException {

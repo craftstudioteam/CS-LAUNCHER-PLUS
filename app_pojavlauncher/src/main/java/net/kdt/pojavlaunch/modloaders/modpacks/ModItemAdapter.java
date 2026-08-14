@@ -43,6 +43,9 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private SearchFilters mSearchFilters;
     private SearchResult mCurrentResult;
     private boolean mLastPage;
+    /** Highest row already animated for the current result set. Prevents recycled
+     * cards from replaying entrance motion while the user scrolls. */
+    private int mLastAnimatedPosition = -1;
 
     private OnItemClickListener mOnItemClickListener;
 
@@ -89,6 +92,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         }
         this.mSearchFilters = searchFilters;
         this.mLastPage = false;
+        this.mLastAnimatedPosition = -1;
         mTaskInProgress = new SelfReferencingFuture(new SearchApiTask(mSearchFilters, null))
                 .startOnExecutor(PojavApplication.sExecutorService);
     }
@@ -175,7 +179,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         private final TextView mDescriptionView;
         private final ImageButton mLikeButton;
         private final ImageButton mShareButton;
-        private final ImageButton mInstallButton;
+        private final View mInstallButton;
         private final View mInstallStatePill;
         private final ImageView mInstallStateIcon;
         private final TextView mInstallStateText;
@@ -205,19 +209,38 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             mInstallStateIcon = itemView.findViewById(R.id.mod_install_state_icon);
             mInstallStateText = itemView.findViewById(R.id.mod_install_state_text);
             itemView.setOnClickListener(this);
+            net.kdt.pojavlaunch.UiMotion.pressFeedback(
+                    itemView, mInstallButton, mShareButton, mLikeButton);
         }
 
         public void bind(ModItem item) {
             mCurrentItem = item;
             mTitleView.setText(item.title);
             
-            // Premium Entrance Animation
-            itemView.setAlpha(0f);
-            itemView.setTranslationY(24f);
-            itemView.animate().alpha(1f).translationY(0f).setDuration(450)
-                    .setInterpolator(new android.view.animation.DecelerateInterpolator())
-                    .setStartDelay(getBindingAdapterPosition() % 6 * 40L)
-                    .start();
+            // Lightweight first-appearance motion only. Alpha + translation are
+            // compositor-friendly and do not trigger layout passes on mobile GPUs.
+            int position = getBindingAdapterPosition();
+            itemView.animate().cancel();
+            if (position != RecyclerView.NO_POSITION && position > mLastAnimatedPosition) {
+                mLastAnimatedPosition = position;
+                float d = itemView.getResources().getDisplayMetrics().density;
+                itemView.setAlpha(0f);
+                itemView.setTranslationX(18f * d);
+                itemView.setScaleX(0.985f);
+                itemView.setScaleY(0.985f);
+                itemView.animate()
+                        .alpha(1f).translationX(0f).scaleX(1f).scaleY(1f)
+                        .setDuration(240)
+                        .setStartDelay(Math.min(position, 4) * 28L)
+                        .setInterpolator(new android.view.animation.DecelerateInterpolator(1.7f))
+                        .withLayer()
+                        .start();
+            } else {
+                itemView.setAlpha(1f);
+                itemView.setTranslationX(0f);
+                itemView.setScaleX(1f);
+                itemView.setScaleY(1f);
+            }
 
             if (item.author != null && !item.author.isEmpty()) {
                 mInfoView.setText("by " + item.author);
@@ -228,7 +251,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             if (mDownloadsView != null) {
                 if (item.downloads != null && !item.downloads.isEmpty()) {
-                    mDownloadsView.setText(formatDownloads(item.downloads));
+                    mDownloadsView.setText(formatDownloads(item.downloads) + " downloads");
                     mDownloadsView.setVisibility(View.VISIBLE);
                 } else {
                     mDownloadsView.setVisibility(View.GONE);
@@ -244,25 +267,14 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             mSourceIconView.setImageResource(getSourceDrawable(item.apiSource));
 
-            // Slideshow Init
+            // Result rows intentionally use a stable graphite surface instead of
+            // per-card gallery slideshows. This keeps text contrast consistent,
+            // prevents recycler image churn and makes every row align identically.
             stopSlideshow();
             mBackgroundView1.animate().cancel();
             mBackgroundView2.animate().cancel();
-            mBackgroundView1.setAlpha(0f);
-            mBackgroundView2.setAlpha(0f);
             mBackgroundView1.setImageDrawable(null);
             mBackgroundView2.setImageDrawable(null);
-            mCurrentImageIndex = 0;
-            mUsingFirstView = true;
-
-            if (item.galleryUrls != null && item.galleryUrls.length > 0) {
-                loadSlideshowImage(item.galleryUrls[0], mBackgroundView1, true);
-                if (item.galleryUrls.length > 1) {
-                    startSlideshow();
-                }
-            } else if (item.galleryUrl != null && !item.galleryUrl.isEmpty()) {
-                 loadSlideshowImage(item.galleryUrl, mBackgroundView1, true);
-            }
 
             mIconView.setImageDrawable(null);
             mIconCache.getImage(
@@ -316,7 +328,7 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             if (mInstallStatePill == null || mInstallButton == null) return;
             if (mInstallProfileKey == null || item == null || item.id == null) {
                 mInstallStatePill.setVisibility(View.GONE);
-                mInstallButton.setVisibility(View.VISIBLE);
+                showInstallAction(false);
                 return;
             }
             int state = InstalledContentTracker.queryState(
@@ -340,17 +352,27 @@ public class ModItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     mInstallStateText.setTextColor(Color.parseColor("#8FEBBC"));
                     break;
                 case InstalledContentTracker.STATE_UPDATE_AVAILABLE:
-                    mInstallButton.setVisibility(View.VISIBLE);
-                    mInstallStatePill.setVisibility(View.VISIBLE);
-                    mInstallStatePill.setBackgroundResource(R.drawable.bg_cs_update_pill);
-                    mInstallStateIcon.setColorFilter(Color.parseColor("#FFB020"));
-                    mInstallStateText.setText(R.string.cs_update_available);
-                    mInstallStateText.setTextColor(Color.parseColor("#FFD07A"));
+                    // The old card displayed UPDATE and INSTALL controls together,
+                    // making the action column overflow. One explicit CTA is clearer.
+                    mInstallStatePill.setVisibility(View.GONE);
+                    showInstallAction(true);
                     break;
                 default:
                     mInstallStatePill.setVisibility(View.GONE);
-                    mInstallButton.setVisibility(View.VISIBLE);
+                    showInstallAction(false);
                     break;
+            }
+        }
+
+        private void showInstallAction(boolean update) {
+            mInstallButton.setVisibility(View.VISIBLE);
+            mInstallButton.setBackgroundResource(update
+                    ? R.drawable.bg_browse_update_button
+                    : R.drawable.bg_browse_install_button);
+            if (mInstallButton instanceof TextView) {
+                TextView label = (TextView) mInstallButton;
+                label.setText(update ? "UPDATE" : "INSTALL");
+                label.setTextColor(Color.parseColor(update ? "#FFD07A" : "#101114"));
             }
         }
 

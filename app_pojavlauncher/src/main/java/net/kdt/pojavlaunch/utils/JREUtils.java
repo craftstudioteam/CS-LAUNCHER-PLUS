@@ -211,10 +211,30 @@ public class JREUtils {
         envMap.put("FORCE_VSYNC", String.valueOf(LauncherPreferences.PREF_FORCE_VSYNC));
 
         envMap.put("MESA_GLSL_CACHE_DIR", Tools.DIR_CACHE.getAbsolutePath());
+        // Mesa renamed the GLSL cache variables; provide both generations so
+        // Zink/Freedreno/Panfrost can reuse compiled shaders across launches.
+        envMap.put("MESA_SHADER_CACHE_DIR", Tools.DIR_CACHE.getAbsolutePath());
+        envMap.put("MESA_SHADER_CACHE_DISABLE", "false");
+        envMap.put("MESA_SHADER_CACHE_MAX_SIZE", "256M");
         envMap.put("force_glsl_extensions_warn", "true");
         envMap.put("allow_higher_compat_version", "true");
         envMap.put("allow_glsl_extension_directive_midshader", "true");
-        envMap.put("MESA_LOADER_DRIVER_OVERRIDE", "zink");
+        // FCL-style renderer-specific Mesa routing. The old unconditional
+        // "zink" override accidentally forced the wrong Gallium driver for
+        // Freedreno/Panfrost selections.
+        if ("opengles3_desktopgl_zink".equals(LOCAL_RENDERER)
+                || "vulkan_zink".equals(LOCAL_RENDERER)) {
+            envMap.put("MESA_LOADER_DRIVER_OVERRIDE", "zink");
+            envMap.put("GALLIUM_DRIVER", "zink");
+            envMap.put("MESA_GL_VERSION_OVERRIDE", "4.6");
+            envMap.put("MESA_GLSL_VERSION_OVERRIDE", "460");
+        } else if ("gallium_freedreno".equals(LOCAL_RENDERER)) {
+            envMap.put("MESA_LOADER_DRIVER_OVERRIDE", "freedreno");
+            envMap.put("GALLIUM_DRIVER", "freedreno");
+        } else if ("gallium_panfrost".equals(LOCAL_RENDERER)) {
+            envMap.put("MESA_LOADER_DRIVER_OVERRIDE", "panfrost");
+            envMap.put("GALLIUM_DRIVER", "panfrost");
+        }
         envMap.put("VTEST_SOCKET_NAME", new File(Tools.DIR_CACHE, ".virgl_test").getAbsolutePath());
 
         envMap.put("LD_LIBRARY_PATH", LD_LIBRARY_PATH);
@@ -405,10 +425,15 @@ public class JREUtils {
         int effectiveRam = LauncherPreferences.PREF_RAM_ALLOCATION;
         // Safety policy: the launched JVM always receives a device-safe value.
         effectiveRam = Tools.sanitizeRamAllocation(activity, effectiveRam);
-        userArgs.add("-Xms" + effectiveRam + "M");
+        // Do not commit the whole Xmx heap at startup. On Android, Xms=Xmx plus
+        // AlwaysPreTouch competes with the GPU/OS and can trigger LMK or long
+        // first-frame stalls. Grow from a modest, aligned initial heap instead.
+        int initialRam = Math.max(256, Math.min(1024, effectiveRam / 2));
+        initialRam = Math.max(256, (initialRam / 128) * 128);
+        userArgs.add("-Xms" + initialRam + "M");
         userArgs.add("-Xmx" + effectiveRam + "M");
-        Log.i("ProfileLaunch", "Effective JVM RAM: -Xms" + effectiveRam
-                + "M -Xmx" + effectiveRam + "M");
+        Log.i("ProfileLaunch", "Effective JVM RAM: -Xms" + initialRam
+                + "M -Xmx" + effectiveRam + "M (mobile adaptive heap)");
 
         // CS Perf (user req — stable FPS, no cap): low-pause GC smoothing.
         // G1GC + a pause target cuts long stop-the-world pauses during chunk
@@ -420,12 +445,16 @@ public class JREUtils {
             purgeArg(userArgs, "-XX:+UseSerialGC");
             purgeArg(userArgs, "-XX:+UseParallelGC");
             purgeArg(userArgs, "-XX:MaxGCPauseMillis");
+            purgeArg(userArgs, "-XX:ParallelGCThreads");
+            purgeArg(userArgs, "-XX:ConcGCThreads");
+            purgeArg(userArgs, "-XX:ReservedCodeCacheSize");
+            purgeArg(userArgs, "-XX:+UseStringDeduplication");
+            purgeArg(userArgs, "-XX:+UseCodeCacheFlushing");
             userArgs.add("-XX:+UseG1GC");
             userArgs.add("-XX:+ParallelRefProcEnabled");
             userArgs.add("-XX:MaxGCPauseMillis=50");
             userArgs.add("-XX:+UnlockExperimentalVMOptions");
             userArgs.add("-XX:+DisableExplicitGC");
-            userArgs.add("-XX:+AlwaysPreTouch");
             userArgs.add("-XX:G1NewSizePercent=30");
             userArgs.add("-XX:G1MaxNewSizePercent=40");
             userArgs.add("-XX:G1HeapRegionSize=8M");
@@ -438,10 +467,21 @@ public class JREUtils {
             userArgs.add("-XX:SurvivorRatio=32");
             userArgs.add("-XX:+PerfDisableSharedMem");
             userArgs.add("-XX:MaxTenuringThreshold=1");
+            int cpuCount = Math.max(2, java.lang.Runtime.getRuntime().availableProcessors());
+            int parallelGcThreads = Math.max(2, Math.min(4, cpuCount / 2));
+            int concurrentGcThreads = Math.max(1, Math.min(2, parallelGcThreads / 2));
+            userArgs.add("-XX:ParallelGCThreads=" + parallelGcThreads);
+            userArgs.add("-XX:ConcGCThreads=" + concurrentGcThreads);
+            userArgs.add("-XX:+UseStringDeduplication");
+            userArgs.add("-XX:ReservedCodeCacheSize=128M");
+            userArgs.add("-XX:+UseCodeCacheFlushing");
             userArgs.add("-Djava.awt.headless=true");
             userArgs.add("-Djava.net.preferIPv4Stack=true");
             userArgs.add("-Dlog4j2.formatMsgNoLookups=true");
-            Log.i("ProfileLaunch", "CS Perf: ultra low-pause GC enabled (G1GC, 50ms pause target, parallel references, pre-touched heap)");
+            // Pojav/FCL-style LWJGL compatibility: harmless without Sodium,
+            // avoids an expensive compatibility abort on supported Sodium builds.
+            userArgs.add("-Dsodium.checks.issue2561=false");
+            Log.i("ProfileLaunch", "CS Perf: mobile G1 enabled (50ms target, capped GC workers, adaptive heap, code cache)");
         }
         if(LOCAL_RENDERER != null) userArgs.add("-Dorg.lwjgl.opengl.libname=" + graphicsLib);
 

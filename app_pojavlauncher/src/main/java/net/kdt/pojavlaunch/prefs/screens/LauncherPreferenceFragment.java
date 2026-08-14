@@ -78,9 +78,10 @@ public class LauncherPreferenceFragment extends Fragment {
     // ══ Phase 3: search / favorites / recent / focus-jump ══
     private String mSearchQuery = "";
     private EditText mSearchInput;
+    private final java.util.Set<String> mAnimatedSettingIcons = new java.util.HashSet<>();
     private static final String[] ALL_CATEGORIES = {
-            "Launcher Settings", "Video & Graphics", "Controls", "Java Runtime",
-            "Audio", "Account", "Experimental", "Advanced", "Miscellaneous", "Sponsors"};
+            "Launcher Customisation", "Launcher Settings", "Video & Graphics", "Controls", "Java Runtime",
+            "Audio", "Account", "Experimental", "Advanced", "Miscellaneous", "Sponsors", "Performance"};
     /** One-shot: a pinned setting (Favorite/Recent) asked its page to flash a row. */
     private static String sPendingFocusKey;
 
@@ -168,14 +169,47 @@ public class LauncherPreferenceFragment extends Fragment {
 
         setupSettingsList();
         mRecyclerView.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(
-                requireContext(), R.anim.s4h_grid_layout_animation));
+                requireContext(), R.anim.settings_rows_layout_v4));
         mRecyclerView.scheduleLayoutAnimation();
+        playSettingsStudioEntrance(view);
         updateSaveBar();
+    }
+
+    /** GPU-friendly page choreography: transform/alpha only, no animated sizes. */
+    private void playSettingsStudioEntrance(@NonNull View root) {
+        View sidebar = root.findViewById(R.id.settings_header_bar);
+        if (sidebar != null) {
+            float d = getResources().getDisplayMetrics().density;
+            sidebar.animate().cancel();
+            sidebar.setAlpha(0f);
+            sidebar.setTranslationX(-18f * d);
+            sidebar.animate().alpha(1f).translationX(0f)
+                    .setDuration(280)
+                    .setInterpolator(new android.view.animation.DecelerateInterpolator(1.8f))
+                    .withLayer().start();
+        }
+        if (mRecyclerView != null) {
+            float d = getResources().getDisplayMetrics().density;
+            mRecyclerView.animate().cancel();
+            mRecyclerView.setAlpha(0f);
+            mRecyclerView.setTranslationX(16f * d);
+            mRecyclerView.animate().alpha(1f).translationX(0f)
+                    .setStartDelay(55).setDuration(300)
+                    .setInterpolator(new android.view.animation.DecelerateInterpolator(1.7f))
+                    .withLayer().start();
+        }
+        if (mCategoryRailScroll != null && mCategoryRailScroll.getVisibility() == View.VISIBLE) {
+            mCategoryRailScroll.setAlpha(0f);
+            mCategoryRailScroll.setTranslationY(-8f * getResources().getDisplayMetrics().density);
+            mCategoryRailScroll.animate().alpha(1f).translationY(0f)
+                    .setStartDelay(80).setDuration(240).withLayer().start();
+        }
     }
 
     private int resolveCategoryIconByName(String catName) {
         if (catName == null) return R.drawable.ic_menu_settings;
         switch (catName) {
+            case "Launcher Customisation": return R.drawable.ic_settings_launcher;
             case "Launcher Settings": return R.drawable.ic_settings_launcher;
             case "Video & Graphics": return R.drawable.ic_settings_video;
             case "Controls": return R.drawable.ic_settings_control;
@@ -194,17 +228,29 @@ public class LauncherPreferenceFragment extends Fragment {
 
     private void setupHeaderUi() {
         if (mHeaderTitle != null) {
-            mHeaderTitle.setText("Settings");
+            mHeaderTitle.setText(mCategoryName != null ? mCategoryName : "Settings Hub");
         }
         if (mHeaderSubtitle != null) {
-            mHeaderSubtitle.setVisibility(View.GONE);
+            mHeaderSubtitle.setText(mCategoryName != null
+                    ? resolveCategorySubtitleByName(mCategoryName)
+                    : "Everything that shapes your launcher, controls, graphics and Java runtime — organized for landscape play.");
+            mHeaderSubtitle.setVisibility(View.VISIBLE);
         }
         if (mHeaderBadge != null) {
-            mHeaderBadge.setVisibility(View.GONE);
+            mHeaderBadge.setText(mCategoryName != null
+                    ? resolveCategoryBadgeByName(mCategoryName)
+                    : "10 SECTIONS");
+            mHeaderBadge.setVisibility(View.VISIBLE);
         }
         if (mHeaderIcon != null) {
             mHeaderIcon.setImageResource(mCategoryName != null ? resolveCategoryIconByName(mCategoryName) : R.drawable.ic_menu_settings);
-            mHeaderIcon.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_scale_in));
+            mHeaderIcon.setAlpha(0f);
+            mHeaderIcon.setScaleX(0.78f);
+            mHeaderIcon.setScaleY(0.78f);
+            mHeaderIcon.animate().alpha(1f).scaleX(1f).scaleY(1f)
+                    .setDuration(240)
+                    .setInterpolator(new android.view.animation.DecelerateInterpolator(1.8f))
+                    .start();
         }
     }
 
@@ -252,6 +298,7 @@ public class LauncherPreferenceFragment extends Fragment {
 
     private String shortenCategoryLabel(@NonNull String fullName) {
         switch (fullName) {
+            case "Launcher Customisation": return "Customise";
             case "Launcher Settings": return "Launcher";
             case "Video & Graphics": return "Graphics";
             case "Java Runtime": return "Java";
@@ -263,6 +310,8 @@ public class LauncherPreferenceFragment extends Fragment {
     private String resolveCategorySubtitleByName(@Nullable String catName) {
         if (catName == null) return "";
         switch (catName) {
+            case "Launcher Customisation":
+                return "Home artwork, launch-stage motion, language and theme controls in one visual deck.";
             case "Launcher Settings":
                 return "Language, downloads, permissions, and launcher-side behavior in one quick deck.";
             case "Video & Graphics":
@@ -283,6 +332,8 @@ public class LauncherPreferenceFragment extends Fragment {
                 return "Verification, capes, and extra compatibility switches that support special cases.";
             case "Sponsors":
                 return "Official partners who keep CS Launcher fast, free, and professionally backed.";
+            case "Performance":
+                return "Live FPS, memory telemetry and low-pause runtime tuning for steadier gameplay.";
             default:
                 return "Premium launcher settings tailored for a mobile Minecraft experience.";
         }
@@ -291,6 +342,7 @@ public class LauncherPreferenceFragment extends Fragment {
     private String resolveCategoryBadgeByName(@Nullable String catName) {
         if (catName == null) return "HUB";
         switch (catName) {
+            case "Launcher Customisation": return "STYLE";
             case "Launcher Settings": return "CORE";
             case "Video & Graphics": return "GPU";
             case "Controls": return "INPUT";
@@ -607,7 +659,7 @@ public class LauncherPreferenceFragment extends Fragment {
                             false));
                     perfItems.add(new SettingItem("low_pause_gc", SettingItem.TYPE_SWITCH,
                             "Low-Pause GC (Stable FPS)",
-                            "G1GC with an 80ms pause target — cuts stutter from long garbage-collection pauses during chunk loads. FPS cap untouched.",
+                            "Mobile-tuned G1GC with a 50ms pause target, capped GC workers and adaptive heap growth to reduce chunk-load stutter.",
                             true));
                     categories.add(new SettingCategory("Performance", perfItems));
                     break;
@@ -847,8 +899,13 @@ public class LauncherPreferenceFragment extends Fragment {
 
         if (mIsDirty) {
             if (bar.getVisibility() != View.VISIBLE) {
+                float d = getResources().getDisplayMetrics().density;
                 bar.setVisibility(View.VISIBLE);
-                bar.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.slide_up_bottom_bar));
+                bar.setAlpha(0f);
+                bar.setTranslationY(18f * d);
+                bar.animate().alpha(1f).translationY(0f).setDuration(230)
+                        .setInterpolator(new android.view.animation.DecelerateInterpolator(1.8f))
+                        .withLayer().start();
             }
             if (saveBtn != null) {
                 saveBtn.setEnabled(true);
@@ -868,18 +925,15 @@ public class LauncherPreferenceFragment extends Fragment {
             }
         } else {
             if (bar.getVisibility() == View.VISIBLE) {
-                Animation anim = AnimationUtils.loadAnimation(getContext(), R.anim.slide_down_bottom_bar);
-                bar.startAnimation(anim);
-                anim.setAnimationListener(new Animation.AnimationListener() {
-                    @Override
-                    public void onAnimationStart(Animation animation) {}
-                    @Override
-                    public void onAnimationRepeat(Animation animation) {}
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        bar.setVisibility(View.GONE);
-                    }
-                });
+                float d = getResources().getDisplayMetrics().density;
+                bar.animate().cancel();
+                bar.animate().alpha(0f).translationY(18f * d).setDuration(180)
+                        .withLayer()
+                        .withEndAction(() -> {
+                            bar.setVisibility(View.GONE);
+                            bar.setAlpha(1f);
+                            bar.setTranslationY(0f);
+                        }).start();
             }
             if (saveBtn != null) {
                 saveBtn.setEnabled(false);
@@ -889,7 +943,12 @@ public class LauncherPreferenceFragment extends Fragment {
                 statusText.setText("\u25cf Changes Saved");
                 statusText.setTextColor(Color.parseColor("#9CA3AF"));
             }
-            if (mHeaderBadge != null) mHeaderBadge.setVisibility(View.GONE);
+            if (mHeaderBadge != null) {
+                mHeaderBadge.setText(mCategoryName != null
+                        ? resolveCategoryBadgeByName(mCategoryName)
+                        : "10 SECTIONS");
+                mHeaderBadge.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -1220,6 +1279,7 @@ public class LauncherPreferenceFragment extends Fragment {
 
                 } else if (item.type == SettingItem.TYPE_PRESET_PANEL) {
                     itemView = inflater.inflate(R.layout.item_setting_presets, holder.container, false);
+                    bindSettingIcon(itemView, item);
                     bindPresetPanel(itemView);
                     holder.container.addView(itemView);
                     continue;
@@ -1809,11 +1869,14 @@ public class LauncherPreferenceFragment extends Fragment {
                     totalMb = (int) (mi.totalMem / 1048576L);
                 }
             } catch (Throwable ignored) {}
-            final int highRam = Math.min(6144, Math.max(4096, (int) ((totalMb * 0.35f) / 256f) * 256));
+            // Leave Android, renderer native memory and GPU buffers enough headroom.
+            // More heap is not more FPS on mobile; LMK/GC pressure does the opposite.
+            final int highRam = Math.max(1536,
+                    Math.min(4096, (int) ((totalMb * 0.38f) / 256f) * 256));
 
             TextView points = panel.findViewById(R.id.preset_high_points);
             if (points != null) points.setText(
-                    highRam + " MB RAM • 100% resolution • VSync on • Maximum fidelity");
+                    highRam + " MB RAM • 90% resolution • VSync off • Big-core boost");
 
             View lowApply = panel.findViewById(R.id.preset_low_apply);
             View midApply = panel.findViewById(R.id.preset_mid_apply);
@@ -1828,22 +1891,26 @@ public class LauncherPreferenceFragment extends Fragment {
             android.content.Context ctx = panel.getContext();
             int ram = 1024;
             int resRatio = 60;
-            boolean vsync = false;
-            boolean sustained = false;
+            boolean sustained = true;
+            boolean bigCore = false;
+            String fsrMode = "4"; // MobileGlues FSR: performance
             String modeName = "low";
             String toastMsg = "Low-End Mobile preset applied (1024 MB RAM, 60% resolution)";
             if (presetType == 1) {
                 ram = 2048;
-                resRatio = 80;
+                resRatio = 75;
+                sustained = false;
+                fsrMode = "3"; // balanced
                 modeName = "med";
-                toastMsg = "Medium Mobile preset applied (2048 MB RAM, 80% resolution)";
+                toastMsg = "Balanced Mobile preset applied (2048 MB RAM, 75% resolution)";
             } else if (presetType == 2) {
                 ram = highRam;
-                resRatio = 100;
-                vsync = true;
-                sustained = true;
+                resRatio = 90;
+                sustained = false;
+                bigCore = true;
+                fsrMode = "2"; // quality
                 modeName = "high";
-                toastMsg = "High-End Mobile preset applied (" + highRam + " MB RAM, 100% resolution)";
+                toastMsg = "Maximum FPS preset applied (" + highRam + " MB RAM, 90% resolution)";
             }
             try {
                 android.content.SharedPreferences p = LauncherPreferences.DEFAULT_PREF != null
@@ -1853,8 +1920,13 @@ public class LauncherPreferenceFragment extends Fragment {
                 e.putInt("allocation", ram);
                 e.putInt("resolutionRatio", resRatio);
                 e.putBoolean("force_vsync", false);
-                e.putBoolean("vsync_in_zink", vsync);
+                e.putBoolean("vsync_in_zink", false);
                 e.putBoolean("sustainedPerformance", sustained);
+                e.putBoolean("bigCoreAffinity", bigCore);
+                e.putBoolean("alternate_surface", false);
+                e.putBoolean("low_pause_gc", true);
+                e.putString("mg_renderer_setting_fsr", fsrMode);
+                e.putString("mg_renderer_setting_multidraw", "0");
                 e.putString("perfPreset", modeName);
                 e.commit();
                 try {
@@ -1863,8 +1935,13 @@ public class LauncherPreferenceFragment extends Fragment {
                     d.putInt("allocation", ram);
                     d.putInt("resolutionRatio", resRatio);
                     d.putBoolean("force_vsync", false);
-                    d.putBoolean("vsync_in_zink", vsync);
+                    d.putBoolean("vsync_in_zink", false);
                     d.putBoolean("sustainedPerformance", sustained);
+                    d.putBoolean("bigCoreAffinity", bigCore);
+                    d.putBoolean("alternate_surface", false);
+                    d.putBoolean("low_pause_gc", true);
+                    d.putString("mg_renderer_setting_fsr", fsrMode);
+                    d.putString("mg_renderer_setting_multidraw", "0");
                     d.apply();
                 } catch (Throwable ignored) {}
                 LauncherPreferences.loadPreferences(ctx.getApplicationContext());
@@ -2081,108 +2158,35 @@ public class LauncherPreferenceFragment extends Fragment {
         ImageView icon = itemView.findViewById(R.id.setting_icon);
         if (icon == null) return;
         icon.setImageResource(resolveSettingIcon(item.key));
+        if (item.key != null && mAnimatedSettingIcons.add(item.key)) {
+            icon.animate().cancel();
+            icon.setAlpha(0f);
+            icon.setScaleX(0.62f);
+            icon.setScaleY(0.62f);
+            icon.setRotation(-9f);
+            icon.animate().alpha(1f).scaleX(1f).scaleY(1f).rotation(0f)
+                    .setDuration(220)
+                    .setInterpolator(new android.view.animation.OvershootInterpolator(0.8f))
+                    .withLayer().start();
+        } else {
+            icon.setAlpha(1f);
+            icon.setScaleX(1f);
+            icon.setScaleY(1f);
+            icon.setRotation(0f);
+        }
     }
 
     private int resolveSettingIcon(@Nullable String key) {
-        if (key == null) return R.drawable.ic_menu_settings;
-        switch (key) {
-            case "cat_launcher":
-                return R.drawable.ic_settings_launcher;
-            case "cat_video":
-            case "mg_renderer_setting_angle":
-            case "mg_renderer_setting_multidraw":
-            case "mg_renderer_setting_fsr":
-            case "mg_renderer_setting_errorSetting":
-            case "mg_renderer_setting_timerQueryExt":
-            case "mg_renderer_setting_angleDepthClearFixMode":
-            case "mg_renderer_setting_gl43exts":
-            case "mg_renderer_computeShaderext":
-            case "mg_renderer_dsaExt":
-            case "mg_renderer_multidrawCompute":
-            case "mg_renderer_setting_glsl_cache_size":
-            case "resolutionRatio":
-            case "alternate_surface":
-            case "force_vsync":
-            case "vsync_in_zink":
-            case "dump_shaders":
-                return R.drawable.ic_settings_video;
-            case "cat_controls":
-            case "buttonscale":
-            case "mousescale":
-            case "mousespeed":
-            case "disableGestures":
-            case "timeLongPressTrigger":
-            case "disableDoubleTap":
-            case "mouse_start":
-            case "always_grab_mouse":
-            case "enableGyro":
-            case "gyroSensitivity":
-            case "gyroSampleRate":
-            case "gyroSmoothing":
-            case "gyroInvertX":
-            case "gyroInvertY":
-            case "gamepad_deadzone_scale":
-            case "gamepadPassthru":
-            case "gamepadPassthruForced":
-            case "forceEnableTouchController":
-            case "touchControllerVibrateLength":
-            case "gamepad_remap_action":
-            case "gamepad_wipe_action":
-                return R.drawable.ic_settings_control;
-            case "cat_java":
-            case "install_jre":
-            case "javaArgs":
-            case "allocation":
-            case "disable_autojre_select":
-            case "java_sandbox":
-                return R.drawable.ic_settings_java;
-            case "cat_audio":
-            case "enable_audio":
-            case "launcher_volume":
-            case "use_opensles":
-                return R.drawable.ic_settings_audio;
-            case "cat_account":
-            case "active_profile_info":
-                return R.drawable.ic_settings_account;
-            case "cat_experimental":
-            case "bigCoreAffinity":
-            case "force_landscape":
-            case "enable_bg_gradient":
-            case "set_custom_launcher_bg":
-            case "remove_custom_launcher_bg":
-            case "colour_theme_presets":
-                return R.drawable.ic_settings_experimental;
-            case "cat_advanced":
-            case "clear_cache_files":
-            case "reset_all_settings":
-                return R.drawable.ic_settings_advanced;
-            case "cat_misc":
-            case "checkLibraries":
-            case "arc_capes":
-            case "zinkPreferSystemDriver":
-            case "ignoreNotch":
-            case "sustainedPerformance":
-            case "verifyManifest":
-            case "downloadSource":
-            case "force_english":
-                return R.drawable.ic_settings_misc;
-            case "notification_permission_request":
-                return R.drawable.ic_settings_notification;
-            case "microphone_permission_request":
-                return R.drawable.ic_settings_microphone;
-            case "cat_sponsors":
-            case "infrawire_partner_info":
-            case "infrawire_about_info":
-            case "infrawire_view_partner_page":
-            case "infrawire_visit_website":
-            case "infrawire_deploy_vps":
-            case "infrawire_promotions":
-            case "infrawire_documentation":
-            case "infrawire_support":
-                return R.drawable.ic_infrawire_mark_white;
-            default:
-                return R.drawable.ic_menu_settings;
-        }
+        if (key == null || key.trim().isEmpty()) return R.drawable.ic_menu_settings;
+        // Every setting owns a dedicated vector drawable named after its key.
+        // getIdentifier keeps this mapping maintainable as new settings are added;
+        // missing resources still fall back safely instead of crashing a page.
+        String resourceName = "ic_setting_" + key.toLowerCase(java.util.Locale.US)
+                .replaceAll("[^a-z0-9_]+", "_")
+                .replaceAll("^_+|_+$", "");
+        int icon = getResources().getIdentifier(
+                resourceName, "drawable", requireContext().getPackageName());
+        return icon != 0 ? icon : R.drawable.ic_menu_settings;
     }
 
     // ── Setting Data Models ───────────────────────────────────────────────────

@@ -1,172 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Settings Studio — landscape-first two-pane shell.
+     One layout powers Settings Home and every nested category page. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_settings_page"
-    android:clipToPadding="false">
+    android:background="@drawable/bg_settings_studio_page">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
+        <!-- Persistent identity / search pane -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_settings_header_bar"
+            android:id="@+id/settings_header_bar"
+            android:layout_width="264dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_settings_studio_sidebar"
             android:orientation="vertical"
             android:paddingStart="16dp"
-            android:paddingTop="10dp"
+            android:paddingTop="14dp"
             android:paddingEnd="16dp"
-            android:paddingBottom="8dp">
+            android:paddingBottom="14dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
+                android:layout_height="42dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/settings_back_button"
-                    android:layout_width="42dp"
-                    android:layout_height="40dp"
-                    android:background="@drawable/bg_settings_back_chip"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_arrow_back"
-                        app:tint="#C9CBD6" />
-                </LinearLayout>
-
                 <FrameLayout
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
-                    android:layout_marginStart="10dp"
-                    android:background="@drawable/bg_settings_icon_well">
+                    android:id="@+id/settings_back_button"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_settings_studio_control"
+                    android:clickable="true"
+                    android:focusable="true">
 
                     <ImageView
-                        android:id="@+id/settings_header_icon"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
                         android:layout_gravity="center"
-                        android:contentDescription="@null"
-                        android:src="@drawable/ic_menu_settings"
-                        app:tint="#C9CBD6" />
+                        android:contentDescription="@string/global_back"
+                        android:src="@drawable/ic_arrow_back"
+                        app:tint="#E4E4EA" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/settings_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:text="Settings"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/settings_live_badge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone" />
+                    android:layout_marginStart="11dp"
+                    android:letterSpacing="0.13"
+                    android:text="SETTINGS STUDIO"
+                    android:textColor="#8B8D98"
+                    android:textSize="9sp"
+                    android:textStyle="bold" />
             </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_settings_studio_icon">
+
+                <ImageView
+                    android:id="@+id/settings_header_icon"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_menu_settings"
+                    app:tint="#F1F1F4" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/settings_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Settings"
+                android:textColor="#F5F5F7"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/settings_subtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <HorizontalScrollView
-                android:id="@+id/settings_category_rail_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:overScrollMode="never"
-                android:scrollbars="none"
+                android:layout_marginTop="6dp"
+                android:lineSpacingExtra="2dp"
+                android:maxLines="3"
+                android:text="Tune your launcher and game experience."
+                android:textColor="#8F919C"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/settings_live_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_marginTop="13dp"
+                android:background="@drawable/bg_settings_studio_badge"
+                android:gravity="center"
+                android:letterSpacing="0.08"
+                android:paddingHorizontal="10dp"
+                android:text="10 SECTIONS"
+                android:textColor="#C9CBD3"
+                android:textSize="8.5sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="16dp"
+                android:background="#2B2C33" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.1"
+                android:text="FIND A SETTING"
+                android:textColor="#6F717C"
+                android:textSize="8.5sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/bg_settings_studio_search"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_cs_search"
+                    app:tint="#777984" />
+
+                <EditText
+                    android:id="@+id/settings_search_input"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="9dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="Search all settings"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="#F1F1F4"
+                    android:textColorHint="#70727D"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_settings_studio_tip"
+                android:orientation="vertical"
+                android:padding="11dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PROFILE SAFE"
+                    android:textColor="#D7D8DE"
+                    android:textSize="8.5sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:text="Changes apply only after you press Apply."
+                    android:textColor="#747681"
+                    android:textSize="9.5sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Content pane -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <HorizontalScrollView
+                    android:id="@+id/settings_category_rail_scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_settings_studio_rail"
+                    android:fillViewport="false"
+                    android:overScrollMode="never"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="14dp"
+                    android:scrollbars="none"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:id="@+id/settings_category_rail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal" />
+                </HorizontalScrollView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/settings_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    android:paddingStart="14dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="14dp"
+                    android:paddingBottom="92dp"
+                    android:scrollbars="none" />
+            </LinearLayout>
+
+            <!-- Floating save control, shared by every nested page -->
+            <LinearLayout
+                android:id="@+id/unsaved_changes_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:paddingStart="18dp"
+                android:paddingEnd="18dp"
+                android:paddingBottom="14dp"
                 android:visibility="gone">
 
                 <LinearLayout
-                    android:id="@+id/settings_category_rail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal" />
-            </HorizontalScrollView>
-        </LinearLayout>
+                    android:layout_width="match_parent"
+                    android:layout_height="54dp"
+                    android:background="@drawable/bg_settings_studio_savebar"
+                    android:elevation="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="17dp"
+                    android:paddingEnd="8dp">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingStart="16dp"
-            android:paddingTop="10dp"
-            android:paddingEnd="16dp">
+                    <TextView
+                        android:id="@+id/save_status_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Unsaved changes"
+                        android:textColor="#F0C06C"
+                        android:textSize="11.5sp"
+                        android:textStyle="bold" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/settings_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:overScrollMode="never"
-                android:paddingBottom="102dp"
-                android:scrollbars="none" />
+                    <Button
+                        android:id="@+id/btn_save_settings"
+                        android:layout_width="112dp"
+                        android:layout_height="38dp"
+                        android:background="@drawable/bg_settings_studio_apply"
+                        android:minWidth="0dp"
+                        android:stateListAnimator="@null"
+                        android:text="APPLY"
+                        android:textAllCaps="true"
+                        android:textColor="#101114"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
         </FrameLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/unsaved_changes_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:elevation="16dp"
-        android:paddingStart="22dp"
-        android:paddingEnd="22dp"
-        android:paddingBottom="14dp"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:background="@drawable/bg_settings_save_bar"
-            android:elevation="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingStart="18dp"
-            android:paddingEnd="10dp">
-
-            <TextView
-                android:id="@+id/save_status_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="● Unsaved Changes"
-                android:textColor="#FFB74D"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/btn_save_settings"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:background="@drawable/bg_settings_save_button"
-                android:minWidth="116dp"
-                android:stateListAnimator="@null"
-                android:text="APPLY"
-                android:textAllCaps="true"
-                android:textColor="#061018"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-    </LinearLayout>
-
 </FrameLayout>

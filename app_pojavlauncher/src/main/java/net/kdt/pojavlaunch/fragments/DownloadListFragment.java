@@ -102,9 +102,19 @@ public class DownloadListFragment extends Fragment implements ModItemAdapter.Sea
         mLoadingCard = view.findViewById(R.id.download_loading_card);
         mStatusText = view.findViewById(R.id.download_list_status);
 
-        mRecyclerView.setLayoutManager(new androidx.recyclerview.widget.GridLayoutManager(getContext(), 2));
-        // Add Grid spacing decoration
-        mRecyclerView.addItemDecoration(new net.kdt.pojavlaunch.modloaders.modpacks.GridSpacingItemDecoration(2, (int) (10 * getResources().getDisplayMetrics().density), true));
+        // A single compact result column remains readable inside the profile's
+        // right pane and avoids the uneven card heights of the old 2-column grid.
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setHasFixedSize(true);
+        // Keep result updates fluid without the default cross-fade blinking every
+        // installed-state refresh. Entrance motion is handled once by the adapter.
+        androidx.recyclerview.widget.DefaultItemAnimator animator =
+                new androidx.recyclerview.widget.DefaultItemAnimator();
+        animator.setSupportsChangeAnimations(false);
+        animator.setAddDuration(180L);
+        animator.setRemoveDuration(140L);
+        animator.setMoveDuration(180L);
+        mRecyclerView.setItemAnimator(animator);
 
         // Use ModrinthApi directly for non-standard types (CF doesn't support them)
         if (mContentType.equals("mod")) {
