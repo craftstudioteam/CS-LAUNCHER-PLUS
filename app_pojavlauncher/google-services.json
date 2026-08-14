@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "732724476857",
+    "firebase_url": "https://cs-launcher-v3-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "cs-launcher-v3",
+    "storage_bucket": "cs-launcher-v3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732724476857:android:1be4e89fd19fc620b35468",
+        "android_client_info": {
+          "package_name": "com.craftstudio.cslauncherv3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAQxumO_kMIWOHOv7oN52SC0MN28vo9ms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
