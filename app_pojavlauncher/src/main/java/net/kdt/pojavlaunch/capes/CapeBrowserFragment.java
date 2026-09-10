@@ -1,7 +1,11 @@
 package net.kdt.pojavlaunch.capes;
 
+import android.app.AlertDialog;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,6 +20,8 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -30,6 +36,9 @@ import net.kdt.pojavlaunch.Tools;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +78,16 @@ public class CapeBrowserFragment extends Fragment implements CapeAdapter.CapeAct
     private TextView mTabCollection;
 
     private final Handler mMainHandler = new Handler(Looper.getMainLooper());
+    private ActivityResultLauncher<String> mCapePickerLauncher;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mCapePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                this::handleSelectedCapeUri
+        );
+    }
 
     @Nullable
     @Override
@@ -125,6 +144,16 @@ public class CapeBrowserFragment extends Fragment implements CapeAdapter.CapeAct
         Button btnUnequipTop = view.findViewById(R.id.cape_btn_unequip_top);
         if (btnUnequipTop != null) {
             btnUnequipTop.setOnClickListener(v -> unequipCape());
+        }
+
+        Button btnImport = view.findViewById(R.id.cape_btn_import_top);
+        if (btnImport != null) {
+            btnImport.setOnClickListener(v -> promptImportCustomCape());
+        }
+
+        Button btnOptifine = view.findViewById(R.id.cape_btn_optifine_top);
+        if (btnOptifine != null) {
+            btnOptifine.setOnClickListener(v -> promptOptifineUsername());
         }
 
         if (mBtnPrevPage != null) {
@@ -303,7 +332,7 @@ public class CapeBrowserFragment extends Fragment implements CapeAdapter.CapeAct
         }
 
         mAdapter.setCapes(filtered);
-        checkEmpty(filtered.isEmpty(), "Your Cape Collection is empty", "Save capes from the Official catalog or Online gallery!");
+        checkEmpty(filtered.isEmpty(), "Your Cape Collection is empty", "Save capes from the Official catalog or import a custom PNG!");
     }
 
     private void loadOnlineCapes() {
@@ -335,6 +364,101 @@ public class CapeBrowserFragment extends Fragment implements CapeAdapter.CapeAct
                 });
     }
 
+    private void promptImportCustomCape() {
+        if (mCapePickerLauncher != null) {
+            try {
+                mCapePickerLauncher.launch("image/png");
+            } catch (Exception e) {
+                MineToast.show(requireContext(), "Could not open file picker: " + e.getMessage(), MineToast.TYPE_ERROR);
+            }
+        }
+    }
+
+    private void handleSelectedCapeUri(Uri uri) {
+        if (uri == null || getContext() == null) return;
+        try (InputStream is = requireContext().getContentResolver().openInputStream(uri)) {
+            Bitmap bmp = BitmapFactory.decodeStream(is);
+            if (bmp == null) {
+                MineToast.show(requireContext(), "Invalid image file", MineToast.TYPE_ERROR);
+                return;
+            }
+
+            String customName = "Custom Cape " + (System.currentTimeMillis() % 10000);
+            mRepository.importCustomCape(customName, bmp, new CapeRepository.CapeActionCallback() {
+                @Override
+                public void onSuccess() {
+                    MineToast.show(requireContext(), "Custom Cape imported to Collection!", MineToast.TYPE_NORMAL);
+                    selectTab(TAB_COLLECTION);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    MineToast.show(requireContext(), "Import error: " + e.getMessage(), MineToast.TYPE_ERROR);
+                }
+            });
+        } catch (Exception e) {
+            MineToast.show(requireContext(), "Failed to read cape: " + e.getMessage(), MineToast.TYPE_ERROR);
+        }
+    }
+
+    private void promptOptifineUsername() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("OptiFine Cape Lookup");
+        final EditText input = new EditText(requireContext());
+        input.setHint("Enter Minecraft Username");
+        input.setTextColor(Color.WHITE);
+        input.setPadding(32, 24, 32, 24);
+        builder.setView(input);
+
+        builder.setPositiveButton("Fetch & Equip", (dialog, which) -> {
+            String name = input.getText().toString().trim();
+            if (!name.isEmpty()) {
+                fetchOptifineCape(name);
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
+    }
+
+    private void fetchOptifineCape(String username) {
+        MineToast.show(requireContext(), "Fetching OptiFine cape for " + username + "...", MineToast.TYPE_NORMAL);
+        new Thread(() -> {
+            try {
+                String urlStr = "http://s.optifine.net/capes/" + username + ".png";
+                URL url = new URL(urlStr);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestProperty("User-Agent", MinecraftCapesService.USER_AGENT);
+                conn.setConnectTimeout(8000);
+                conn.setReadTimeout(8000);
+                if (conn.getResponseCode() == 200) {
+                    try (InputStream is = conn.getInputStream()) {
+                        Bitmap bmp = BitmapFactory.decodeStream(is);
+                        if (bmp != null) {
+                            mMainHandler.post(() -> {
+                                mRepository.importCustomCape(username + "'s OptiFine Cape", bmp, new CapeRepository.CapeActionCallback() {
+                                    @Override
+                                    public void onSuccess() {
+                                        MineToast.show(requireContext(), "OptiFine Cape saved!", MineToast.TYPE_NORMAL);
+                                        selectTab(TAB_COLLECTION);
+                                    }
+
+                                    @Override
+                                    public void onError(Exception e) {
+                                        MineToast.show(requireContext(), "Error saving cape: " + e.getMessage(), MineToast.TYPE_ERROR);
+                                    }
+                                });
+                            });
+                            return;
+                        }
+                    }
+                }
+                mMainHandler.post(() -> MineToast.show(requireContext(), "No OptiFine cape found for " + username, MineToast.TYPE_WARNING));
+            } catch (Exception e) {
+                mMainHandler.post(() -> MineToast.show(requireContext(), "OptiFine query error: " + e.getMessage(), MineToast.TYPE_ERROR));
+            }
+        }).start();
+    }
+
     private void showLoading(boolean loading) {
         if (mProgressBar != null) mProgressBar.setVisibility(loading ? View.VISIBLE : View.GONE);
         if (mRecyclerView != null) mRecyclerView.setVisibility(loading ? View.GONE : View.VISIBLE);
@@ -356,7 +480,7 @@ public class CapeBrowserFragment extends Fragment implements CapeAdapter.CapeAct
         if (mActiveAccount == null) return;
         File localCape = new File(Tools.DIR_DATA + "/capes/" + mActiveAccount.username + "_cape.png");
         if (localCape.exists()) {
-            mTvActiveStatus.setText("Equipped for: " + mActiveAccount.username + " (" + localCape.length() / 1024 + " KB)");
+            mTvActiveStatus.setText("Equipped for: " + mActiveAccount.username + " (" + (localCape.length() / 1024) + " KB)");
             mTvActiveStatus.setTextColor(0xFF5BD097);
         } else {
             mTvActiveStatus.setText("Equipped: None");

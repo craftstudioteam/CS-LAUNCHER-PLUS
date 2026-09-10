@@ -31,28 +31,35 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build Debug APK
-      run: ./gradlew assembleDebug --stacktrace
+    - name: Build Debug and Release APKs
+      run: ./gradlew assembleDebug assembleRelease --stacktrace
 
-    - name: Upload Debug APK Artifact
+    - name: Upload APK Artifacts
       uses: actions/upload-artifact@v4
       continue-on-error: true
       with:
-        name: CS-Launcher-Plus-Debug-APK
-        path: app_pojavlauncher/build/outputs/apk/debug/*.apk
+        name: CS-Launcher-Plus-APKs
+        path: app_pojavlauncher/build/outputs/apk/**/*.apk
 
-    - name: Publish Release APK
+    - name: Publish Release APKs to GitHub Releases
       if: github.ref == 'refs/heads/main'
       uses: softprops/action-gh-release@v2
       with:
         tag_name: v3.1.0-plus
         name: CS Launcher Plus v3.1.0
         body: |
-          ### CS Launcher Plus v3.1.0 (Build Artifact)
-          - Updated application package name to `com.cslaucher.plus`
-          - Integrated updated Firebase `google-services.json`
-          - Redesigned Client Download & Installation UI with holographic cyber gyroscope rings and live stage telemetry
-          - Redesigned Shortcut Creator UI for 1-tap desktop shortcuts
-        files: app_pojavlauncher/build/outputs/apk/debug/*.apk
+          ### CS Launcher Plus v3.1.0 Official Release
+          - **Debug APK**: `app_pojavlauncher-debug.apk` (Development / Test build)
+          - **Release APK**: `app_pojavlauncher-release.apk` (Optimized production build)
+          
+          #### What's New:
+          - **Minecraft Cape System**: Authentic Mojang (Minecon, 15th Anniversary, Vanilla, Cherry Blossom, Migrator, etc.) & OptiFine capes with crisp, pixel-accurate rendering.
+          - **Custom Cape Importer**: 1-Tap local PNG picker & OptiFine username fetcher.
+          - **Redesigned Client Download & Installation**: Holographic cyber gyroscope HUD with live stage telemetry.
+          - **Redesigned Shortcut Creator**: Elevated graphite tile creator for 1-tap desktop shortcuts.
+          - **Firebase Realtime Sync & Push Notifications**: Instant admin announcements and update prompts.
+        files: |
+          app_pojavlauncher/build/outputs/apk/debug/*.apk
+          app_pojavlauncher/build/outputs/apk/release/*.apk
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

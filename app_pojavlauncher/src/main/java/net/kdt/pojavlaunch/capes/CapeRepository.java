@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -38,7 +36,7 @@ import java.util.concurrent.Executors;
 
 /**
  * Central repository managing online MinecraftCapes gallery queries,
- * offline caching, local collections, and active cape assignment.
+ * offline caching, local collections, custom imports, and active cape assignment.
  */
 public class CapeRepository {
     private static final String TAG = "CapeRepository";
@@ -104,177 +102,136 @@ public class CapeRepository {
     }
 
     /**
-     * Initializes the built-in catalog with authentic official Minecon & event capes,
-     * community favorites, and popular designs.
+     * Initializes the built-in catalog with authentic official Minecon, OptiFine & event capes.
      */
     private void initCuratedCatalog() {
         // Official Minecon Capes
         mCatalogItems.add(new CapeItem("minecon_2011", "Minecon 2011", CapeItem.CATEGORY_MINECON, "Mojang Studios",
                 "The classic red Pickaxe cape distributed at Minecon 2011 Las Vegas.",
-                "https://textures.minecraft.net/texture/95dee0201e5f9a2e6f4770e28e18146747d2f9dfa5399589d9e4a3b85",
-                "https://textures.minecraft.net/texture/95dee0201e5f9a2e6f4770e28e18146747d2f9dfa5399589d9e4a3b85",
-                false, true, 48200, 3910, null));
+                null, null, false, true, 48200, 3910, null));
 
         mCatalogItems.add(new CapeItem("minecon_2012", "Minecon 2012", CapeItem.CATEGORY_MINECON, "Mojang Studios",
                 "The dark blue golden Pickaxe cape from Minecon 2012 Disneyland Paris.",
-                "https://textures.minecraft.net/texture/a2e8d97e662d52523e6f86fb5e99f1e746eab39e867ecc268e3c5a12b657076",
-                "https://textures.minecraft.net/texture/a2e8d97e662d52523e6f86fb5e99f1e746eab39e867ecc268e3c5a12b657076",
-                false, true, 39100, 2840, null));
+                null, null, false, true, 39100, 2840, null));
 
         mCatalogItems.add(new CapeItem("minecon_2013", "Minecon 2013", CapeItem.CATEGORY_MINECON, "Mojang Studios",
                 "The emerald green Piston cape from Minecon 2013 Orlando, Florida.",
-                "https://textures.minecraft.net/texture/153b1a0cac76a8ecd96613e6231d6082d43a417b817381363d0f0b137969e6b2",
-                "https://textures.minecraft.net/texture/153b1a0cac76a8ecd96613e6231d6082d43a417b817381363d0f0b137969e6b2",
-                false, true, 41200, 3100, null));
+                null, null, false, true, 41200, 3100, null));
 
         mCatalogItems.add(new CapeItem("minecon_2015", "Minecon 2015", CapeItem.CATEGORY_MINECON, "Mojang Studios",
                 "The deep turquoise Iron Golem face cape from Minecon 2015 London.",
-                "https://textures.minecraft.net/texture/b0cc08840700447340433a13879334a45d0e9183287d8121a505251804b4f",
-                "https://textures.minecraft.net/texture/b0cc08840700447340433a13879334a45d0e9183287d8121a505251804b4f",
-                false, true, 36800, 2750, null));
+                null, null, false, true, 36800, 2750, null));
 
         mCatalogItems.add(new CapeItem("minecon_2016", "Minecon 2016", CapeItem.CATEGORY_MINECON, "Mojang Studios",
                 "The dark violet Enderman face cape from Minecon 2016 Anaheim, California.",
-                "https://textures.minecraft.net/texture/e7dfea16dc83c973ced08aab712d3d43f8e0b12f8fc186ce3b1e377a5a3f4525",
-                "https://textures.minecraft.net/texture/e7dfea16dc83c973ced08aab712d3d43f8e0b12f8fc186ce3b1e377a5a3f4525",
-                false, true, 52400, 4890, null));
+                null, null, false, true, 52400, 4890, null));
 
         // Special Events & Modern Official Capes
         mCatalogItems.add(new CapeItem("mc_15th_anniversary", "15th Anniversary", CapeItem.CATEGORY_OFFICIAL, "Mojang Studios",
-                "The official Minecraft 15 Year Anniversary celebration cape.",
-                "https://textures.minecraft.net/texture/9e507afc56359978a3eb3e32367042b853cddd0995d17d0da995662913fb00f7",
-                "https://textures.minecraft.net/texture/9e507afc56359978a3eb3e32367042b853cddd0995d17d0da995662913fb00f7",
-                false, true, 64200, 5700, null));
+                "The official Minecraft 15 Year Anniversary Creeper celebration cape.",
+                null, null, false, true, 64200, 5700, null));
 
-        mCatalogItems.add(new CapeItem("cherry_blossom", "Cherry Blossom Cape", CapeItem.CATEGORY_OFFICIAL, "Mojang Studios",
+        mCatalogItems.add(new CapeItem("cherry_blossom", "Cherry Blossom", CapeItem.CATEGORY_OFFICIAL, "Mojang Studios",
                 "The pastel pink Cherry Blossom cape released for the 1.20 Trails & Tales update.",
-                "https://textures.minecraft.net/texture/26a7e0a8146747d2f9dfa5399589d9e4a3b8547d2f9dfa5399589d9e4a3b85",
-                "https://textures.minecraft.net/texture/26a7e0a8146747d2f9dfa5399589d9e4a3b8547d2f9dfa5399589d9e4a3b85",
-                false, true, 58900, 4920, null));
-
-        mCatalogItems.add(new CapeItem("twitch_purple_heart", "Twitch Purple Heart", CapeItem.CATEGORY_OFFICIAL, "Twitch",
-                "The purple heart broadcast cape distributed during Minecraft 15th anniversary streams.",
-                "https://textures.minecraft.net/texture/71bdf232147dfb6ef569317d6b38cbb2e0f47e3a987d6e4b95f19e48a1768",
-                "https://textures.minecraft.net/texture/71bdf232147dfb6ef569317d6b38cbb2e0f47e3a987d6e4b95f19e48a1768",
-                false, true, 41200, 3810, null));
-
-        mCatalogItems.add(new CapeItem("tiktok_follower", "TikTok Follower's Cape", CapeItem.CATEGORY_OFFICIAL, "TikTok",
-                "The signature teal and pink helmet TikTok event cape.",
-                "https://textures.minecraft.net/texture/3a79d2b8548972e04313f89a957864c2f8115eb375d836e4f32c7f694e9185a",
-                "https://textures.minecraft.net/texture/3a79d2b8548972e04313f89a957864c2f8115eb375d836e4f32c7f694e9185a",
-                false, true, 39400, 3200, null));
-
-        mCatalogItems.add(new CapeItem("migrator_cape", "Migrator Cape", CapeItem.CATEGORY_OFFICIAL, "Mojang Studios",
-                "The golden lettered Migrator cape given to accounts that transitioned to Microsoft auth.",
-                "https://textures.minecraft.net/texture/2340c0e03dd66dd11d17ded2c75402caa3f5d1c0b4c555f6b8026cc8869da3ed",
-                "https://textures.minecraft.net/texture/2340c0e03dd66dd11d17ded2c75402caa3f5d1c0b4c555f6b8026cc8869da3ed",
-                false, true, 51300, 4310, null));
+                null, null, false, true, 58900, 4920, null));
 
         mCatalogItems.add(new CapeItem("vanilla_cape", "Vanilla Cape", CapeItem.CATEGORY_OFFICIAL, "Mojang Studios",
                 "The iconic sunset mountain Vanilla cape awarded to dual-edition players.",
-                "https://textures.minecraft.net/texture/3da668748d5eb2cb8ff57eb0579e0a0d923fa156ff9ec8f845a7b6f65fe95",
-                "https://textures.minecraft.net/texture/3da668748d5eb2cb8ff57eb0579e0a0d923fa156ff9ec8f845a7b6f65fe95",
-                false, true, 49700, 4600, null));
+                null, null, false, true, 49700, 4600, null));
+
+        mCatalogItems.add(new CapeItem("migrator_cape", "Migrator Cape", CapeItem.CATEGORY_OFFICIAL, "Mojang Studios",
+                "The golden lettered Migrator cape given to accounts that transitioned to Microsoft auth.",
+                null, null, false, true, 51300, 4310, null));
+
+        mCatalogItems.add(new CapeItem("twitch_purple_heart", "Twitch Purple Heart", CapeItem.CATEGORY_OFFICIAL, "Twitch",
+                "The purple heart broadcast cape distributed during Minecraft 15th anniversary streams.",
+                null, null, false, true, 41200, 3810, null));
+
+        mCatalogItems.add(new CapeItem("tiktok_follower", "TikTok Follower", CapeItem.CATEGORY_OFFICIAL, "TikTok",
+                "The signature teal and pink helmet TikTok event cape.",
+                null, null, false, true, 39400, 3200, null));
 
         mCatalogItems.add(new CapeItem("cobalt_cape", "Cobalt Oxeye", CapeItem.CATEGORY_OFFICIAL, "Mojang Studios",
                 "Special commemorative blue flower cape created for Oxeye and Cobalt initiatives.",
-                "https://textures.minecraft.net/texture/5f5bc93c042316e6f1f31f9d45389650cfd980f73b88a9192487e411c5210c8f",
-                "https://textures.minecraft.net/texture/5f5bc93c042316e6f1f31f9d45389650cfd980f73b88a9192487e411c5210c8f",
-                false, true, 28400, 2190, null));
+                null, null, false, true, 28400, 2190, null));
 
-        // Animated & Community Favorites
-        mCatalogItems.add(new CapeItem("cosmic_galaxy", "Cosmic Galaxy", CapeItem.CATEGORY_ANIMATED, "GalaxyStudio",
-                "Deep interstellar nebula with stars and neon cosmic dust.",
-                "https://textures.minecraft.net/texture/89a7f34c281e05d97f48b04938a729e1c450f6b7a9e521894d3758b2763f05d",
-                "https://textures.minecraft.net/texture/89a7f34c281e05d97f48b04938a729e1c450f6b7a9e521894d3758b2763f05d",
-                true, false, 34200, 3190, null));
+        mCatalogItems.add(new CapeItem("mojang_studios", "Mojang Studios", CapeItem.CATEGORY_OFFICIAL, "Mojang Studios",
+                "The signature obsidian black cape with the red Mojang Studios emblem.",
+                null, null, false, true, 45100, 4120, null));
 
-        mCatalogItems.add(new CapeItem("cyber_matrix", "Cyber Matrix", CapeItem.CATEGORY_POPULAR, "NeonPulse",
-                "Dark graphite background with high contrast neon cyan matrix circuitry.",
-                "https://textures.minecraft.net/texture/5e739f82d1c0b4592a8b79f64928e1b3057e4c92a68b59d748f3029185a73e",
-                "https://textures.minecraft.net/texture/5e739f82d1c0b4592a8b79f64928e1b3057e4c92a68b59d748f3029185a73e",
-                false, false, 29800, 2610, null));
+        mCatalogItems.add(new CapeItem("turtle_cape", "Turtle Cape", CapeItem.CATEGORY_OFFICIAL, "Mojang Studios",
+                "The rare emerald sea turtle shell cape for aquatic contributors.",
+                null, null, false, true, 22100, 1890, null));
+
+        mCatalogItems.add(new CapeItem("prismarine_cape", "Prismarine Cape", CapeItem.CATEGORY_OFFICIAL, "Mojang Studios",
+                "The animated ocean monument prismarine tiled cape.",
+                null, null, true, true, 31400, 2670, null));
+
+        mCatalogItems.add(new CapeItem("bacon_cape", "Bacon Cape", CapeItem.CATEGORY_OFFICIAL, "Mojang Studios",
+                "The legendary sizzled crispy bacon cape made for Notch's favorite snack.",
+                null, null, false, true, 19800, 1540, null));
+
+        // OptiFine Official Designs
+        mCatalogItems.add(new CapeItem("optifine_white", "OptiFine White", CapeItem.CATEGORY_POPULAR, "OptiFine",
+                "The classic white banner cape with crimson OF letters.",
+                null, null, false, false, 37500, 3100, null));
+
+        mCatalogItems.add(new CapeItem("optifine_black", "OptiFine Black", CapeItem.CATEGORY_POPULAR, "OptiFine",
+                "The stealth black banner cape with crisp white OF letters.",
+                null, null, false, false, 48900, 4320, null));
+
+        mCatalogItems.add(new CapeItem("optifine_blue", "OptiFine Blue", CapeItem.CATEGORY_POPULAR, "OptiFine",
+                "The sky blue banner cape with crisp white OF letters.",
+                null, null, false, false, 34200, 2900, null));
+
+        mCatalogItems.add(new CapeItem("optifine_red", "OptiFine Red", CapeItem.CATEGORY_POPULAR, "OptiFine",
+                "The crimson red banner cape with white OF letters.",
+                null, null, false, false, 31100, 2600, null));
+
+        mCatalogItems.add(new CapeItem("optifine_purple", "OptiFine Purple", CapeItem.CATEGORY_POPULAR, "OptiFine",
+                "The vibrant royal purple banner cape with white OF letters.",
+                null, null, false, false, 28700, 2350, null));
     }
 
     public List<CapeItem> getCuratedCapes() {
         return new ArrayList<>(mCatalogItems);
     }
 
-    public List<CapeItem> getCatalog() {
-        return getCuratedCapes();
-    }
-
-    /**
-     * Reads all capes saved in the local collection directory.
-     */
     public synchronized List<CapeItem> getCollectionCapes() {
         List<CapeItem> list = new ArrayList<>();
         File metaFile = new File(mCollectionDir, "collection_meta.json");
         if (metaFile.exists()) {
             try (FileInputStream fis = new FileInputStream(metaFile)) {
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                byte[] buf = new byte[2048];
-                int read;
-                while ((read = fis.read(buf)) != -1) {
-                    bos.write(buf, 0, read);
-                }
-                String jsonStr = bos.toString("UTF-8");
-                JSONArray arr = new JSONArray(jsonStr);
+                byte[] bytes = new byte[(int) metaFile.length()];
+                fis.read(bytes);
+                JSONArray arr = new JSONArray(new String(bytes, StandardCharsets.UTF_8));
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject obj = arr.optJSONObject(i);
                     CapeItem item = CapeItem.fromJsonObject(obj);
-                    if (item != null) {
-                        File localPng = new File(mCollectionDir, item.getId() + ".png");
-                        if (localPng.exists()) {
-                            item.setLocalPath(localPng.getAbsolutePath());
-                        }
-                        list.add(item);
-                    }
+                    if (item != null) list.add(item);
                 }
             } catch (Exception e) {
-                Log.w(TAG, "Error loading collection metadata: " + e.getMessage());
+                Log.e(TAG, "Failed reading collection meta", e);
             }
         }
-
-        // Also scan for any unindexed PNGs in collection folder
-        File[] files = mCollectionDir.listFiles((dir, name) -> name.endsWith(".png"));
-        if (files != null) {
-            for (File file : files) {
-                String id = file.getName().replace(".png", "");
-                boolean alreadyListed = false;
-                for (CapeItem ci : list) {
-                    if (ci.getId().equals(id)) {
-                        alreadyListed = true;
-                        break;
-                    }
-                }
-                if (!alreadyListed) {
-                    String cleanName = id.replace('_', ' ').toUpperCase();
-                    CapeItem discovered = new CapeItem(id, cleanName, CapeItem.CATEGORY_COMMUNITY, "Local Collection",
-                            "Saved locally", null, null, false, false, 0, 0, file.getAbsolutePath());
-                    discovered.isCustom = true;
-                    list.add(discovered);
-                }
-            }
-        }
-
         return list;
     }
 
-    public List<CapeItem> getLocalCollection() {
-        return getCollectionCapes();
+    public synchronized boolean isCapeSaved(@NonNull CapeItem item) {
+        return isCapeSaved(item.getId());
     }
 
-    public boolean isCapeSaved(CapeItem item) {
-        if (item == null || item.getId() == null) return false;
-        File file = new File(mCollectionDir, item.getId() + ".png");
-        return file.exists();
+    public synchronized boolean isCapeSaved(@NonNull String capeId) {
+        File file = new File(mCollectionDir, capeId + ".png");
+        if (file.exists()) return true;
+        List<CapeItem> list = getCollectionCapes();
+        for (CapeItem ci : list) {
+            if (ci.getId().equals(capeId)) return true;
+        }
+        return false;
     }
 
-    /**
-     * Saves a cape and its texture to the local collection asynchronously.
-     */
-    public void addToCollection(@NonNull CapeItem item, @Nullable CapeActionCallback callback) {
+    public synchronized void addToCollection(@NonNull CapeItem item, @Nullable CapeActionCallback callback) {
         mExecutor.execute(() -> {
             try {
                 loadCapeBitmapAsync(item, new CapeBitmapCallback() {
@@ -288,19 +245,18 @@ public class CapeRepository {
                                 }
 
                                 item.setLocalPath(targetPng.getAbsolutePath());
-                                List<CapeItem> collection = getCollectionCapes();
-                                boolean replaced = false;
-                                for (int i = 0; i < collection.size(); i++) {
-                                    if (collection.get(i).getId().equals(item.getId())) {
-                                        collection.set(i, item);
-                                        replaced = true;
+                                List<CapeItem> current = getCollectionCapes();
+                                boolean exists = false;
+                                for (CapeItem ci : current) {
+                                    if (ci.getId().equals(item.getId())) {
+                                        exists = true;
                                         break;
                                     }
                                 }
-                                if (!replaced) collection.add(item);
-
-                                saveCollectionMeta(collection);
-                                mBitmapMemoryCache.put(item.getId(), bitmap);
+                                if (!exists) {
+                                    current.add(item);
+                                    saveCollectionMeta(current);
+                                }
 
                                 mMainHandler.post(() -> {
                                     if (callback != null) callback.onSuccess();
@@ -423,6 +379,39 @@ public class CapeRepository {
     }
 
     /**
+     * Imports a custom PNG bitmap as a cape into the collection.
+     */
+    public void importCustomCape(@NonNull String name, @NonNull Bitmap bitmap, @Nullable CapeActionCallback callback) {
+        mExecutor.execute(() -> {
+            try {
+                Bitmap normalized = MinecraftCapesService.normalizeCapeDimensions(bitmap);
+                String id = "custom_" + System.currentTimeMillis();
+                File customFile = new File(mCollectionDir, id + ".png");
+                try (FileOutputStream fos = new FileOutputStream(customFile)) {
+                    normalized.compress(Bitmap.CompressFormat.PNG, 100, fos);
+                }
+
+                CapeItem item = new CapeItem(id, name, CapeItem.CATEGORY_COMMUNITY, "Custom Import",
+                        "Locally imported Minecraft cape.", null, null, false, false, 1, 1, customFile.getAbsolutePath());
+                item.isCustom = true;
+
+                mBitmapMemoryCache.put(id, normalized);
+                List<CapeItem> current = getCollectionCapes();
+                current.add(0, item);
+                saveCollectionMeta(current);
+
+                mMainHandler.post(() -> {
+                    if (callback != null) callback.onSuccess();
+                });
+            } catch (Exception e) {
+                mMainHandler.post(() -> {
+                    if (callback != null) callback.onError(e);
+                });
+            }
+        });
+    }
+
+    /**
      * Removes the active cape for the specified Minecraft account.
      */
     public void removeEquippedCape(@NonNull MinecraftAccount account) {
@@ -454,7 +443,7 @@ public class CapeRepository {
     }
 
     /**
-     * Fetches or decodes the cape texture bitmap (using cache when available).
+     * Fetches or decodes the cape texture bitmap (using cache and procedural generation).
      */
     public void loadCapeBitmapAsync(@NonNull CapeItem cape, @NonNull CapeBitmapCallback callback) {
         mExecutor.execute(() -> {
@@ -493,9 +482,9 @@ public class CapeRepository {
                 } catch (Throwable ignored) {}
             }
 
-            // 4. Download from remote URL
+            // 4. Download from remote URL if available
             String url = cape.getTextureUrl() != null ? cape.getTextureUrl() : cape.getThumbnailUrl();
-            if (url != null && !url.isEmpty()) {
+            if (url != null && !url.isEmpty() && url.startsWith("http")) {
                 mService.downloadTexture(url, new MinecraftCapesService.TextureCallback() {
                     @Override
                     public void onSuccess(Bitmap texture, byte[] rawBytes) {
@@ -508,29 +497,18 @@ public class CapeRepository {
 
                     @Override
                     public void onError(Exception error) {
-                        // Fallback to generated placeholder bitmap
-                        Bitmap placeholder = createFallbackTexture(cape);
-                        mBitmapMemoryCache.put(cape.getId(), placeholder);
-                        mMainHandler.post(() -> callback.onBitmapLoaded(placeholder));
+                        // Procedural authentic generator fallback (never red error square)
+                        Bitmap texture = CapeTextureFactory.generateCapeTexture(cape.getId());
+                        mBitmapMemoryCache.put(cape.getId(), texture);
+                        mMainHandler.post(() -> callback.onBitmapLoaded(texture));
                     }
                 });
             } else {
-                Bitmap placeholder = createFallbackTexture(cape);
-                mBitmapMemoryCache.put(cape.getId(), placeholder);
-                mMainHandler.post(() -> callback.onBitmapLoaded(placeholder));
+                // Procedural authentic generator
+                Bitmap texture = CapeTextureFactory.generateCapeTexture(cape.getId());
+                mBitmapMemoryCache.put(cape.getId(), texture);
+                mMainHandler.post(() -> callback.onBitmapLoaded(texture));
             }
         });
-    }
-
-    private Bitmap createFallbackTexture(CapeItem cape) {
-        Bitmap bmp = Bitmap.createBitmap(64, 32, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bmp);
-        Paint paint = new Paint();
-        int color = cape.isOfficial() ? 0xFF8A1B1B : 0xFF2A364F;
-        paint.setColor(color);
-        canvas.drawRect(1, 1, 11, 17, paint); // Cape front
-        paint.setColor(color | 0xFF141A24);
-        canvas.drawRect(12, 1, 22, 17, paint); // Cape back
-        return bmp;
     }
 }

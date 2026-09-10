@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
-                android:text="Cape Gallery &amp; Collection"
+                android:text="Minecraft Cape Gallery"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -53,13 +53,39 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/cape_btn_import_top"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/st_btn_ghost"
+            android:letterSpacing="0.04"
+            android:paddingHorizontal="10dp"
+            android:text="+ IMPORT PNG"
+            android:textColor="#5BD097"
+            android:textSize="10.5sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/cape_btn_optifine_top"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/st_btn_ghost"
+            android:letterSpacing="0.04"
+            android:paddingHorizontal="10dp"
+            android:text="OPTIFINE"
+            android:textColor="#38BDF8"
+            android:textSize="10.5sp"
+            android:textStyle="bold" />
+
+        <Button
             android:id="@+id/cape_btn_unequip_top"
             android:layout_width="wrap_content"
             android:layout_height="34dp"
             android:background="@drawable/st_btn_ghost"
             android:letterSpacing="0.04"
-            android:paddingHorizontal="12dp"
-            android:text="REMOVE CAPE"
+            android:paddingHorizontal="10dp"
+            android:text="REMOVE"
             android:textColor="#E05B5B"
             android:textSize="10.5sp"
             android:textStyle="bold" />
@@ -96,7 +122,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center"
                     android:paddingHorizontal="14dp"
-                    android:text="Official &amp; Events"
+                    android:text="Official &amp; OptiFine"
                     android:textColor="#0E1017"
                     android:textSize="11sp"
                     android:textStyle="bold" />
