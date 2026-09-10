@@ -191,7 +191,6 @@
             app:boxStrokeColor="#5BD097"
             app:counterEnabled="true"
             app:counterMaxLength="25"
-            app:counterTextColor="#7C8494"
             app:hintTextColor="#5BD097"
             android:hint="Home Tile Label">
 
