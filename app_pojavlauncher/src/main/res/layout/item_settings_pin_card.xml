@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="52dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/st_tile"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="10dp"
+    android:paddingEnd="4dp">
+
+    <FrameLayout
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:background="@drawable/st_icon_well">
+
+        <ImageView
+            android:id="@+id/pin_card_glyph"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_csp_star_filled"
+            app:tint="#E6E9EF" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:maxWidth="170dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/pin_card_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:maxWidth="160dp"
+            android:textColor="#F4F6F9"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/pin_card_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:maxLines="1"
+            android:textColor="#6B7180"
+            android:textSize="9sp" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/pin_card_remove"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="4dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@null"
+        android:padding="8dp"
+        android:src="@drawable/ic_rb_close"
+        app:tint="#6B7180" />
+</LinearLayout>

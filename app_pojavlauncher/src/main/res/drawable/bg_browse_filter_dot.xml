@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tiny silver dot shown on the filter button while filters are active -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#FFFFFF" />
+    <size android:width="7dp" android:height="7dp" />
+    <stroke android:width="1.5dp" android:color="#111116" />
+</shape>

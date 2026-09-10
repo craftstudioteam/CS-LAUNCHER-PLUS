@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     SKIN STUDIO — one wardrobe slot card.
+
+     A tall, recognisable full-body render instead of a cramped thumbnail,
+     a clear ACTIVE / SAVED / EMPTY pill, an obvious selection ring and a
+     single obvious action. Three of these sit side by side in both
+     portrait and landscape.
+
+     Ids consumed by SkinManagerFragment are all preserved.
+     ═══════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/skin_slot_root"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:background="@drawable/bg_skinv2_slot_idle"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- ── render + badges ── -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="94dp"
+        android:background="@drawable/bg_skinv2_slot_preview">
+
+        <net.kdt.pojavlaunch.skins.SkinSlotPreviewView
+            android:id="@+id/skin_slot_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="7dp" />
+
+        <TextView
+            android:id="@+id/skin_slot_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="+"
+            android:textColor="#5F6572"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <!-- selected / active badge, top-right -->
+        <TextView
+            android:id="@+id/skin_slot_check"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="top|end"
+            android:layout_margin="6dp"
+            android:background="@drawable/bg_skinv2_check"
+            android:gravity="center"
+            android:text="✓"
+            android:textColor="#14151A"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <!-- ── meta ── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/skin_slot_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:letterSpacing="0.08"
+            android:text="SLOT 1"
+            android:textColor="#8D93A1"
+            android:textSize="7.5sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/skin_slot_status"
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:background="@drawable/bg_skinv2_pill"
+            android:gravity="center"
+            android:paddingHorizontal="6dp"
+            android:text="EMPTY"
+            android:textColor="#9AA0AE"
+            android:textSize="6.5sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/skin_slot_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Skin Slot 1"
+        android:textColor="#EDEFF4"
+        android:textSize="10.5sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/skin_slot_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="NO SKIN"
+        android:textColor="#6B7180"
+        android:textSize="7.5sp"
+        android:textStyle="bold" />
+
+    <!-- ── action ── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/skin_slot_action"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/bg_skinv2_action_ghost"
+            android:gravity="center"
+            android:letterSpacing="0.06"
+            android:text="ADD"
+            android:textColor="#C9CDD8"
+            android:textSize="8.5sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/skin_slot_delete"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/bg_skinv2_danger"
+            android:contentDescription="Delete skin slot"
+            android:padding="9dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_menu_delete_forever"
+            android:tint="#E5A0A6" />
+    </LinearLayout>
+</LinearLayout>

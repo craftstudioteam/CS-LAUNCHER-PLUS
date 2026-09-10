@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora settings row — glass outline, teal glow on press. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#2E62D99B">
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="#FFFFFF" />
+            <corners android:radius="22dp" />
+        </shape>
+    </item>
+    <item>
+        <selector>
+            <item android:state_pressed="true">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="135"
+                        android:startColor="#1B2A24"
+                        android:centerColor="#151E26"
+                        android:endColor="#10141B" />
+                    <corners android:radius="22dp" />
+                    <stroke
+                        android:width="1dp"
+                        android:color="#4062D99B" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="135"
+                        android:startColor="#161B24"
+                        android:centerColor="#11151D"
+                        android:endColor="#0C0F15" />
+                    <corners android:radius="22dp" />
+                    <stroke
+                        android:width="1dp"
+                        android:color="#243140" />
+                </shape>
+            </item>
+        </selector>
+    </item>
+</ripple>

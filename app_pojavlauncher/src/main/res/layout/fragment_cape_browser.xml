@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A0B10"
+    android:orientation="vertical">
+
+    <!-- Top Navigation & Header Bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#10131B"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="10dp">
+
+        <ImageButton
+            android:id="@+id/cape_btn_back"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/st_btn_ghost"
+            android:contentDescription="Back to Skin Manager"
+            android:src="@drawable/ic_arrow_back_white"
+            app:tint="#C5C8D4" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Cape Gallery &amp; Collection"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cape_tv_active_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="Equipped: None"
+                android:textColor="#7C8494"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/cape_btn_unequip_top"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:background="@drawable/st_btn_ghost"
+            android:letterSpacing="0.04"
+            android:paddingHorizontal="12dp"
+            android:text="REMOVE CAPE"
+            android:textColor="#E05B5B"
+            android:textSize="10.5sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Main Body Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="12dp">
+
+        <!-- Tab & Filter Bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Primary Section Tabs -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_skinv2_card"
+                android:padding="3dp">
+
+                <TextView
+                    android:id="@+id/tab_curated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_skinv2_pill_on"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:paddingHorizontal="14dp"
+                    android:text="Official &amp; Events"
+                    android:textColor="#0E1017"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tab_online"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:paddingHorizontal="14dp"
+                    android:text="Online Gallery"
+                    android:textColor="#8890A0"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tab_collection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:paddingHorizontal="14dp"
+                    android:text="My Collection"
+                    android:textColor="#8890A0"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <!-- Search Input Box -->
+            <FrameLayout
+                android:id="@+id/cape_search_container"
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_skinv2_card">
+
+                <EditText
+                    android:id="@+id/cape_et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="Search capes by name or tag..."
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:paddingHorizontal="12dp"
+                    android:textColor="#FFFFFF"
+                    android:textColorHint="#5A6275"
+                    android:textSize="12sp" />
+
+                <ImageButton
+                    android:id="@+id/cape_btn_clear_search"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_gravity="end|center_vertical"
+                    android:layout_marginEnd="4dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_close"
+                    android:visibility="gone"
+                    app:tint="#7F8593" />
+            </FrameLayout>
+
+            <Button
+                android:id="@+id/cape_btn_search"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/st_btn_ghost"
+                android:text="SEARCH"
+                android:textColor="#C5C8D4"
+                android:textSize="10.5sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Category Chip Selector (for Online Gallery) -->
+        <HorizontalScrollView
+            android:id="@+id/cape_category_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:scrollbars="none"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/chip_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:background="@drawable/bg_skinv2_pill_on"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:text="ALL"
+                    android:textColor="#0E1017"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/chip_minecon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/st_key_cap"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:text="MINECON"
+                    android:textColor="#8890A0"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/chip_official"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/st_key_cap"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:text="OFFICIAL"
+                    android:textColor="#8890A0"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/chip_animated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/st_key_cap"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:text="ANIMATED"
+                    android:textColor="#8890A0"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/chip_popular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@drawable/st_key_cap"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:paddingHorizontal="10dp"
+                    android:text="TOP RATED"
+                    android:textColor="#8890A0"
+                    android:textSize="10sp" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- Grid Recycler & States Frame -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1">
+
+            <!-- Capes Grid RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/cape_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp"
+                android:scrollbars="vertical" />
+
+            <!-- Loading Indicator -->
+            <ProgressBar
+                android:id="@+id/cape_progress_bar"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_gravity="center"
+                android:indeterminate="true"
+                android:indeterminateTint="#C5C8D4"
+                android:visibility="gone" />
+
+            <!-- Empty State -->
+            <LinearLayout
+                android:id="@+id/cape_empty_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_search"
+                    app:tint="#4A5265" />
+
+                <TextView
+                    android:id="@+id/cape_tv_empty_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="No capes found"
+                    android:textColor="#C5C8D4"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/cape_tv_empty_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Try another search query or check your connection"
+                    android:textColor="#6C7486"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- Pagination Controls Bar (for Online Gallery) -->
+        <LinearLayout
+            android:id="@+id/cape_pagination_bar"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="6dp"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/cape_btn_prev_page"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:background="@drawable/st_btn_ghost"
+                android:text="&lt; PREV"
+                android:textColor="#C5C8D4"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/cape_tv_page_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:fontFamily="monospace"
+                android:text="PAGE 1"
+                android:textColor="#8890A0"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/cape_btn_next_page"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:background="@drawable/st_btn_ghost"
+                android:text="NEXT &gt;"
+                android:textColor="#C5C8D4"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

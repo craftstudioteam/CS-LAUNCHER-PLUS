@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Primary CTA: premium light gradient + ripple (dark text) (Deploy VPS) -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#66FFFFFF">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="0"
+                android:startColor="#F0F0F3"
+                android:endColor="#C3C4CB" />
+            <corners android:radius="14dp" />
+        </shape>
+    </item>
+</ripple>

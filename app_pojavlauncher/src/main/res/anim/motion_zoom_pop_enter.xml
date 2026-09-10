@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shared-axis Z back (cinematic): the parent settles forward from 1.10 with an outExpo curve. -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shareInterpolator="false">
+    <scale
+        android:fromXScale="1.10"
+        android:toXScale="1.0"
+        android:fromYScale="1.10"
+        android:toYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration="520"
+        android:interpolator="@interpolator/motion_out_expo" />
+    <alpha
+        android:fromAlpha="0"
+        android:toAlpha="1"
+        android:duration="260"
+        android:interpolator="@interpolator/motion_standard" />
+</set>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Modrinth-style browse page: deep neutral canvas, no banding. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:angle="270"
+        android:startColor="#15161B"
+        android:centerColor="#101116"
+        android:endColor="#0C0D11"
+        android:centerY="0.35" />
+</shape>

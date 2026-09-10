@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora slider thumb — teal ring -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <size android:width="20dp" android:height="20dp" />
+    <solid android:color="#D4D8E0" />
+    <stroke android:width="2dp" android:color="#0C1016" />
+</shape>

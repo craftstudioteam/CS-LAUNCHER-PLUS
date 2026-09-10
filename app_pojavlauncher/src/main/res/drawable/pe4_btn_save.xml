@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora SAVE button — teal gradient, dark text -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#22000000">
+    <item>
+        <selector>
+            <item android:state_enabled="false">
+                <shape android:shape="rectangle">
+                    <corners android:radius="18dp" />
+                    <solid android:color="#1B2430" />
+                </shape>
+            </item>
+            <item android:state_pressed="true">
+                <shape android:shape="rectangle">
+                    <corners android:radius="18dp" />
+                    <gradient
+                        android:angle="135"
+                        android:startColor="#C9CED8"
+                        android:endColor="#AEB4BF" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="18dp" />
+                    <gradient
+                        android:angle="135"
+                        android:startColor="#D4D8E0"
+                        android:endColor="#B9BEC7" />
+                </shape>
+            </item>
+        </selector>
+    </item>
+</ripple>

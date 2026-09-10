@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- v4 — one-time staggered nav reveal -->
+<layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
+    android:animation="@anim/pe4_nav_in"
+    android:animationOrder="normal"
+    android:delay="4%" />

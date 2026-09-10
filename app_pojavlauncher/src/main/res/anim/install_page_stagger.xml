@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CSL v3 PASS-2 rebuilt animation — premium, smooth, 60fps. -->
+<layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
+    android:animation="@anim/install_item_rise" android:animationOrder="normal" android:delay="7%" />

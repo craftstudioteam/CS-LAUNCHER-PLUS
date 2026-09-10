@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     SERVER CARD v3 — premium multiplayer row.
+     Favicon in a platinum ring + live status dot • name / address •
+     full-width coloured MOTD rendered exactly like the vanilla
+     multiplayer screen • live stat chips • ping bars • EDIT / REMOVE / PLAY.
+     All ServerAdapter IDs preserved.
+     ═══════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="9dp"
+    android:background="@drawable/bg_cursorx_card"
+    android:orientation="vertical"
+    android:padding="13dp">
+
+    <!-- ── identity row ── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="52dp"
+            android:layout_height="52dp">
+
+            <FrameLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="top|start"
+                android:background="@drawable/pe4_icon_ring"
+                android:padding="2dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="#0C0E12"
+                    app:cardCornerRadius="11dp"
+                    app:cardElevation="0dp">
+
+                    <ImageView
+                        android:id="@+id/server_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_globe" />
+                </androidx.cardview.widget.CardView>
+            </FrameLayout>
+
+            <View
+                android:id="@+id/server_online_dot"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_gravity="bottom|end"
+                android:background="@drawable/bg_server_online_dot" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/server_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="13.5sp"
+                    android:textStyle="bold"
+                    tools:text="Hypixel Network" />
+
+                <TextView
+                    android:id="@+id/server_offline_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="17dp"
+                    android:layout_marginStart="7dp"
+                    android:background="@drawable/bg_cursorx_chip"
+                    android:gravity="center"
+                    android:letterSpacing="0.08"
+                    android:paddingHorizontal="7dp"
+                    android:textColor="#FF8A8A"
+                    android:textSize="7sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    tools:text="Offline"
+                    tools:visibility="visible" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/server_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="middle"
+                android:maxLines="1"
+                android:textColor="#5C6070"
+                android:textSize="9sp"
+                tools:text="mc.hypixel.net" />
+        </LinearLayout>
+
+        <!-- ping -->
+        <LinearLayout
+            android:id="@+id/server_ping_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical|end"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/server_ping_bars"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <View android:id="@+id/ping_bar_1" android:layout_width="3dp" android:layout_height="5dp"  android:layout_marginEnd="2dp" android:background="#3A404C" />
+                <View android:id="@+id/ping_bar_2" android:layout_width="3dp" android:layout_height="7dp"  android:layout_marginEnd="2dp" android:background="#3A404C" />
+                <View android:id="@+id/ping_bar_3" android:layout_width="3dp" android:layout_height="9dp"  android:layout_marginEnd="2dp" android:background="#3A404C" />
+                <View android:id="@+id/ping_bar_4" android:layout_width="3dp" android:layout_height="11dp" android:layout_marginEnd="2dp" android:background="#3A404C" />
+                <View android:id="@+id/ping_bar_5" android:layout_width="3dp" android:layout_height="13dp" android:background="#3A404C" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/server_ping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:letterSpacing="0.02"
+                android:textColor="#9AA0AE"
+                android:textSize="9sp"
+                android:textStyle="bold"
+                tools:text="42 ms" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ── coloured MOTD (full width, vanilla-style) ── -->
+    <TextView
+        android:id="@+id/server_motd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:ellipsize="end"
+        android:lineSpacingExtra="1dp"
+        android:maxLines="2"
+        android:textColor="#8D93A1"
+        android:textSize="10.5sp"
+        tools:text="The largest Minecraft minigame network" />
+
+    <!-- ── stats + actions ── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/server_players"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:background="@drawable/bg_cursorx_chip"
+            android:gravity="center"
+            android:letterSpacing="0.04"
+            android:paddingHorizontal="8dp"
+            android:textColor="#C6CAD3"
+            android:textSize="7.5sp"
+            android:textStyle="bold"
+            tools:text="41,352 online" />
+
+        <TextView
+            android:id="@+id/server_version"
+            android:layout_width="wrap_content"
+            android:layout_height="19dp"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/bg_cursorx_chip"
+            android:gravity="center"
+            android:letterSpacing="0.04"
+            android:paddingHorizontal="8dp"
+            android:textColor="#C6CAD3"
+            android:textSize="7.5sp"
+            android:textStyle="bold"
+            tools:text="1.8 – 1.21" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/server_btn_edit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/pe4_btn_ghost"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="⟳"
+            android:textColor="#9AA0AE"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/server_btn_remove"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/pe4_btn_ghost"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="✕"
+            android:textColor="#B98A8E"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/server_btn_join"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/pe4_btn_save"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:letterSpacing="0.08"
+            android:paddingHorizontal="16dp"
+            android:textColor="#14151A"
+            android:textSize="9.5sp"
+            android:textStyle="bold"
+            tools:text="PLAY" />
+    </LinearLayout>
+</LinearLayout>

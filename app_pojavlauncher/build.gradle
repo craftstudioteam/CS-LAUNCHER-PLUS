@@ -1,0 +1,283 @@
+plugins {
+    id 'com.android.application' version '8.7.2'
+    id 'com.google.gms.google-services'
+}
+
+static def getDate() { return new Date().format('yyyyMMdd') }
+
+def getVersionName = {
+    // Show clean "CS Launcher Plus v3.1" style version names.
+    String semVer = "3.1.0"
+    
+    // Try to get a git tag for the full version
+    ByteArrayOutputStream TAG = new ByteArrayOutputStream()
+    exec {
+        try {
+            commandLine 'git', 'describe', '--tags'
+            ignoreExitValue true
+            standardOutput = TAG
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    String tagStr = TAG.toString().trim()
+    if (!tagStr.isEmpty()) {
+        if (tagStr ==~ /^v?\d+(?:\.\d+)*.*/) {
+            return tagStr
+        }
+    }
+    
+    return "v" + semVer
+}
+
+def getCFApiKey = {
+    String key = System.getenv("CURSEFORGE_API_KEY");
+    if(key != null) return key;
+    File curseforgeKeyFile = new File("$projectDir/curseforge_key.txt");
+    if(curseforgeKeyFile.canRead() && curseforgeKeyFile.isFile()) {
+        return curseforgeKeyFile.text;
+    }
+    logger.warn('BUILD: You have no CurseForge key, the curseforge api will get disabled !');
+    return "DUMMY";
+}
+
+configurations {
+    instrumentedClasspath {
+        canBeConsumed = false
+        canBeResolved = true
+    }
+}
+
+android {
+    namespace 'net.kdt.pojavlaunch'
+
+    compileSdk = 34
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    signingConfigs {
+        customDebug {
+            storeFile file("debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+        release {
+            if (project.hasProperty("signingKeystore") && new File(project.property("signingKeystore")).exists()) {
+                storeFile file(project.property("signingKeystore"))
+                storePassword project.property("signingStorePassword")
+                keyAlias project.property("signingKeyAlias")
+                keyPassword project.property("signingKeyPassword")
+            } else {
+                storeFile file("release.keystore")
+                storePassword "cslauncher2026"
+                keyAlias "cslauncher"
+                keyPassword "cslauncher2026"
+            }
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.cslaucher.plus"
+        minSdkVersion 21
+        targetSdkVersion 34
+        versionCode 10010000
+        versionName getVersionName()
+        multiDexEnabled true //important
+        resValue 'string', 'curseforge_api_key', getCFApiKey()
+        externalNativeBuild {
+            ndkBuild {
+                // Fix for Windows command line length limit
+                arguments "APP_SHORT_COMMANDS=true"
+            }
+        }
+
+        // ── APK slimming ────────────────────────────────────────────────
+        // x86 / x86_64 only exist for emulators and a handful of Chromebooks, yet they cost
+        // ~60 MB of the release APK (native libs + LWJGL natives + the x86 JRE tarballs).
+        // Build with -PkeepX86=true to put them back.
+        if (!(project.findProperty("keepX86") ?: "false").toBoolean()) {
+            ndk {
+                abiFilters "arm64-v8a", "armeabi-v7a"
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix '.debug'
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.customDebug
+            resValue "string", "app_name", "CS Launcher Plus"
+            resValue "string", "app_short_name", "CS Launcher Plus"
+            resValue 'string', 'application_package', 'com.cslaucher.plus.debug'
+            resValue 'string', 'storageProviderAuthorities', 'com.cslaucher.plus.scoped.gamefolder.debug'
+            resValue 'string', 'shareProviderAuthority', 'com.cslaucher.plus.scoped.controlfolder.debug'
+        }
+        proguard {
+            initWith debug
+            minifyEnabled true
+            shrinkResources true
+        }
+        proguardNoDebug {
+            initWith proguard
+            debuggable false
+        }
+
+        release {
+            // Do not enable minification — it obfuscates java.awt classes.
+            minifyEnabled false
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // defaultConfig already set
+            // multiDexEnabled = true
+            signingConfig signingConfigs.release
+            resValue "string", "app_name", "CS Launcher Plus"
+            resValue "string", "app_short_name", "CS Launcher Plus"
+            resValue 'string', 'storageProviderAuthorities', 'com.cslaucher.plus.gamefolder'
+            resValue 'string', 'application_package', 'com.cslaucher.plus'
+        }
+        gplay {
+            initWith release
+            matchingFallbacks = [ 'release' ]
+        }
+    }
+
+    ndkVersion = "27.3.13750724"
+
+    externalNativeBuild {
+        ndkBuild {
+            path file('src/main/jni/Android.mk')
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+        doNotStrip += [
+                "**/libcutils.so"
+        ]
+        pickFirst '**/libbytehook.so'
+    }
+
+    buildFeatures {
+        prefab true
+        buildConfig true
+    }
+
+    buildToolsVersion = '34.0.0'
+}
+
+afterEvaluate {
+    // Explicit dependencies for which the apk relies on
+    tasks.mergeDebugAssets.dependsOn(":forge_installer:jar", ":arc_dns_injector:jar", ":methods_injector_agent:jar", ":jre_lwjgl3glfw:jar")
+    tasks.mergeReleaseAssets.dependsOn(":forge_installer:jar", ":arc_dns_injector:jar", ":methods_injector_agent:jar", ":jre_lwjgl3glfw:jar")
+}
+
+dependencies {
+    // Firebase real-time sync (admin panel): announcements, notifications,
+    // sponsorship toggle and update management.
+    implementation platform('com.google.firebase:firebase-bom:32.8.1')
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'javax.annotation:javax.annotation-api:1.3.2'
+    implementation 'commons-codec:commons-codec:1.15'
+    // implementation 'com.wu-man:android-bsf-api:3.1.3'
+    implementation 'androidx.preference:preference:1.2.0'
+    implementation 'androidx.palette:palette:1.0.0'
+    // Required for ShortcutManagerCompat / IconCompat used by the home screen
+    // shortcut system (net.kdt.pojavlaunch.shortcuts). Gives us one API that
+    // covers the legacy broadcast path (21-24) and requestPinShortcut (25+).
+    implementation 'androidx.core:core:1.13.1'
+    implementation 'androidx.drawerlayout:drawerlayout:1.2.0'
+    implementation 'androidx.viewpager2:viewpager2:1.1.0-beta01'
+    implementation 'androidx.annotation:annotation:1.5.0'
+
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+
+    implementation 'com.github.duanhong169:checkerboarddrawable:1.0.2'
+    implementation 'com.github.PojavLauncherTeam:portrait-sdp:ed33e89cbc'
+    implementation 'com.github.PojavLauncherTeam:portrait-ssp:6c02fd739b'
+    implementation 'com.github.Mathias-Boulay:ExtendedView:1.0.0'
+    implementation 'com.github.Mathias-Boulay:android_gamepad_remapper:2.0.3'
+    implementation 'com.github.Mathias-Boulay:virtual-joystick-android:1.14'
+
+    // implementation 'com.intuit.sdp:sdp-android:1.0.5'
+    // implementation 'com.intuit.ssp:ssp-android:1.0.5'
+
+    implementation 'org.tukaani:xz:1.8'
+    // Our version of exp4j can be built from source at
+    // https://github.com/PojavLauncherTeam/exp4j
+    implementation 'net.sourceforge.htmlcleaner:htmlcleaner:2.6.1'
+    implementation 'com.bytedance:bytehook:1.0.9'
+    // Animated GIF support for profile backgrounds (native decoder, memory-efficient)
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.28'
+    implementation 'com.caverock:androidsvg-aar:1.4'
+
+    // implementation 'net.sourceforge.streamsupport:streamsupport-cfuture:1.7.0'
+
+    implementation 'top.fifthlight.touchcontroller:proxy-client-android:0.0.4'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+
+    implementation "net.java.dev.jna:jna:5.13.0@aar"
+    implementation 'com.google.android.material:material:1.12.0'
+}
+
+
+// ── APK slimming: drop emulator-only assets ────────────────────────────────
+// The LWJGL native bundles and the JRE tarballs ship one copy per ABI inside assets/.
+// abiFilters only trims lib/, so the asset copies are removed from the merged asset
+// folder here. Build with -PkeepX86=true to keep them.
+def csKeepX86 = (project.findProperty("keepX86") ?: "false").toBoolean()
+def csDroppedAssetDirs = ["x86", "x86_64"] as Set
+def csDroppedAssetFiles = ["bin-x86.tar.xz", "bin-x86_64.tar.xz"] as Set
+
+tasks.configureEach { task ->
+    if (csKeepX86) return
+    if (!(task.name ==~ /^merge[A-Za-z0-9]*Assets$/)) return
+    task.doLast {
+        def roots = []
+        try {
+            def out = task.outputDir
+            if (out != null) roots << out.get().asFile
+        } catch (Throwable ignored) { }
+        if (roots.isEmpty()) roots.addAll(task.outputs.files.files)
+
+        long freed = 0
+        def victims = []
+        roots.findAll { it != null && it.isDirectory() }.each { root ->
+            root.traverse(type: groovy.io.FileType.ANY) { f ->
+                if (f.isDirectory() && csDroppedAssetDirs.contains(f.name)) victims << f
+                else if (f.isFile() && csDroppedAssetFiles.contains(f.name)) victims << f
+            }
+        }
+        victims.each { f ->
+            if (!f.exists()) return
+            if (f.isDirectory()) { freed += f.directorySize(); f.deleteDir() }
+            else { freed += f.length(); f.delete() }
+        }
+
+        if (freed > 0) {
+            logger.lifecycle("APK slimming: removed ${(freed / 1048576) as long} MB of x86/x86_64 assets")
+        }
+    }
+}

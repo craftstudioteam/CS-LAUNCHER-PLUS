@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- anime.js easeOutExpo approximation: near-instant launch, long silky settle. -->
+<pathInterpolator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:controlX1="0.16"
+    android:controlY1="1.0"
+    android:controlX2="0.3"
+    android:controlY2="1.0" />

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora landscape side-menu row: glass + teal edge when selected -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#26D4D8E0">
+    <item>
+        <selector>
+            <item android:state_selected="true">
+                <shape android:shape="rectangle">
+                    <corners android:radius="14dp" />
+                    <gradient android:angle="0" android:startColor="#1D3326" android:endColor="#14241C" />
+                    <stroke android:width="1.2dp" android:color="#D4D8E0" />
+                </shape>
+            </item>
+            <item android:state_pressed="true">
+                <shape android:shape="rectangle">
+                    <corners android:radius="14dp" />
+                    <solid android:color="#18202C" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="14dp" />
+                    <solid android:color="#00000000" />
+                </shape>
+            </item>
+        </selector>
+    </item>
+</ripple>

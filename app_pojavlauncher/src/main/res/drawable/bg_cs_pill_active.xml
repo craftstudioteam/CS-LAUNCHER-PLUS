@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Solid platinum pill (selected chip) — dark text goes on top. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#33000000">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <corners android:radius="18dp" />
+            <gradient android:angle="135" android:startColor="#F4F4F8" android:endColor="#D9DAE0" />
+        </shape>
+    </item>
+</ripple>

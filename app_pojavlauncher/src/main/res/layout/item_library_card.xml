@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ✦ Compact instance chip — icon + name + ⋮ (play + favorite kept small).
+     No large background imagery: the async background slot is zero-sized. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lib_card_root"
+    android:layout_width="188dp"
+    android:layout_height="48dp"
+    android:layout_marginHorizontal="4dp"
+    android:background="@drawable/bg_lh_glass"
+    android:stateListAnimator="@animator/card_press_anim"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Async background slot (kept for the adapter; zero size = never shown) -->
+    <ImageView
+        android:id="@+id/lib_card_bg"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
+
+    <!-- Primary indicator: slim accent strip on the leading edge -->
+    <View
+        android:id="@+id/lib_card_primary"
+        android:layout_width="3dp"
+        android:layout_height="22dp"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginStart="7dp"
+        android:background="@drawable/bg_lh_primary_strip" />
+
+    <!-- Favorite star — tiny, pinned top-end -->
+    <ImageView
+        android:id="@+id/lib_card_fav"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="30dp"
+        android:src="@drawable/ic_csp_star_filled"
+        app:tint="#D8C79A"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:paddingStart="14dp"
+        android:paddingEnd="4dp">
+
+        <ImageView
+            android:id="@+id/lib_card_icon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:scaleType="fitCenter"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/lib_card_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="9dp"
+            android:layout_marginEnd="4dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textColor="#F0F0F3"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:includeFontPadding="false" />
+
+        <!-- Meta slot (kept for the adapter; hidden in the compact chip) -->
+        <TextView
+            android:id="@+id/lib_card_meta"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            android:textSize="9sp"
+            android:textColor="#A6A1B5"
+            android:includeFontPadding="false" />
+
+        <!-- Quick play — small ghost circle -->
+        <FrameLayout
+            android:id="@+id/lib_card_play"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/bg_cs_ghost_button"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_play_arrow"
+                app:tint="#C9C4D8"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:contentDescription="@null" />
+        </FrameLayout>
+
+        <!-- ⋮ menu — always present -->
+        <FrameLayout
+            android:id="@+id/lib_card_more"
+            android:layout_width="34dp"
+            android:layout_height="40dp"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_more_vert"
+                app:tint="#C9C4D8"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:contentDescription="Instance menu" />
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  OptiFine mark — pixel-exact vector trace of the official 16×16 favicon served
+  by optifine.net (images/of16r.png): red panel with a vertical
+  #812A2A → #621E1F gradient, gold "OF" (#E29F00) with its #441616 drop shadow.
+  Phase 11: replaces the earlier hand-drawn approximation.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16">
+
+    <!-- Panel (1px rounded corners exactly like the favicon) -->
+    <path android:pathData="M1,0h14v1h1v14h-1v1h-14v-1h-1v-14h1z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="8" android:startY="0"
+                android:endX="8" android:endY="16"
+                android:type="linear">
+                <item android:offset="0" android:color="#FF812A2A" />
+                <item android:offset="1" android:color="#FF621E1F" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Letter shadow -->
+    <path
+        android:fillColor="#FF441616"
+        android:pathData="M4,5h2v1h-2zM11,5h3v1h-3zM4,6h2v1h-2zM11,6h3v1h-3zM11,9h2v1h-2zM11,10h2v1h-2zM2,12h1v1h-1zM7,12h1v1h-1zM2,13h6v1h-6zM9,13h2v1h-2zM3,14h4v1h-4zM9,14h2v1h-2z" />
+
+    <!-- "OF" -->
+    <path
+        android:fillColor="#FFE29F00"
+        android:pathData="M3,3h4v1h-4zM9,3h5v1h-5zM2,4h6v1h-6zM9,4h5v1h-5zM2,5h2v1h-2zM6,5h2v1h-2zM9,5h2v1h-2zM2,6h2v1h-2zM6,6h2v1h-2zM9,6h2v1h-2zM2,7h2v1h-2zM6,7h2v1h-2zM9,7h4v1h-4zM2,8h2v1h-2zM6,8h2v1h-2zM9,8h4v1h-4zM2,9h2v1h-2zM6,9h2v1h-2zM9,9h2v1h-2zM2,10h2v1h-2zM6,10h2v1h-2zM9,10h2v1h-2zM2,11h6v1h-6zM9,11h2v1h-2zM3,12h4v1h-4zM9,12h2v1h-2z" />
+</vector>

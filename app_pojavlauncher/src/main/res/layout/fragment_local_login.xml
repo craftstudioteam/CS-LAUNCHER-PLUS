@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     LOCAL PROFILE — "PLAYER BADGE" (Phase 9 redesign)
+     LEFT  : physical badge card — punched strip, live head, name, status
+             dot + LOCAL / OFFLINE stamp.
+     RIGHT : terminal sheet — prompt-style name field, live counter,
+             checklist, MINT PROFILE action.
+     All ids used by LocalLoginFragment are preserved:
+       header_container, ll_identity_well, live_head_preview, auth_status_dot,
+       ll_preview_name, ll_preview_badge, ll_preview_hint, card_account_input,
+       ll_title, ll_counter, login_edit_email, ll_rules, ll_rule_*_dot,
+       ll_rule_*, login_button
+     ═══════════════════════════════════════════════════════════════════ -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/au9_page"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:minHeight="300dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="22dp"
+        android:paddingVertical="16dp">
+
+        <!-- ── LEFT: PLAYER BADGE ── -->
+        <LinearLayout
+            android:id="@+id/header_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.9"
+            android:background="@drawable/lb_badge"
+            android:orientation="vertical">
+
+            <!-- punched strip -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/lb_strip"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="14dp">
+
+                <View
+                    android:layout_width="26dp"
+                    android:layout_height="8dp"
+                    android:background="@drawable/lb_punch" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:fontFamily="monospace"
+                    android:letterSpacing="0.16"
+                    android:text="PLAYER BADGE"
+                    android:textColor="#8A909C"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/ll_preview_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="18dp"
+                    android:background="@drawable/au9_keycap"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:paddingHorizontal="6dp"
+                    android:text="LOCAL"
+                    android:textColor="#C9CED8"
+                    android:textSize="8.5sp" />
+            </LinearLayout>
+
+            <!-- badge body -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <FrameLayout
+                    android:id="@+id/ll_identity_well"
+                    android:layout_width="84dp"
+                    android:layout_height="84dp"
+                    android:background="@drawable/lb_photo_frame"
+                    android:padding="5dp">
+
+                    <ImageView
+                        android:id="@+id/live_head_preview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@null"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/cs_default_skin" />
+
+                    <View
+                        android:id="@+id/auth_status_dot"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_gravity="bottom|end"
+                        android:background="@drawable/lb_status_dot" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:letterSpacing="0.14"
+                        android:text="NAME"
+                        android:textColor="#5C6068"
+                        android:textSize="8.5sp" />
+
+                    <TextView
+                        android:id="@+id/ll_preview_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif-medium"
+                        android:maxLines="1"
+                        android:text="Player"
+                        android:textColor="#F4F6F9"
+                        android:textSize="22sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="monospace"
+                        android:letterSpacing="0.14"
+                        android:text="ACCESS"
+                        android:textColor="#5C6068"
+                        android:textSize="8.5sp" />
+
+                    <TextView
+                        android:id="@+id/ll_preview_hint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="Offline &amp; LAN worlds · skin from your file or a matching Mojang name"
+                        android:textColor="#8A909C"
+                        android:textSize="10.5sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- badge foot -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/lb_foot"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="monospace"
+                    android:text="CS LAUNCHER PLUS  ·  NO PASSWORD"
+                    android:textColor="#4F5460"
+                    android:textSize="8.5sp" />
+
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/lb_barcode" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ── RIGHT: TERMINAL SHEET ── -->
+        <LinearLayout
+            android:id="@+id/card_account_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_weight="1.1"
+            android:background="@drawable/au9_terminal"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ll_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Mint a local profile"
+                    android:textColor="#F4F6F9"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/ll_counter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:background="@drawable/au9_keycap"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:paddingHorizontal="8dp"
+                    android:text="0 / 16"
+                    android:textColor="#8A909C"
+                    android:textSize="9.5sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Type the name other players will see. Nothing leaves your device."
+                android:textColor="#8A909C"
+                android:textSize="11sp" />
+
+            <!-- prompt-style field -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/au9_input"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="14dp"
+                android:paddingEnd="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:text="&gt;_"
+                    android:textColor="#C9CED8"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/login_edit_email"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:fontFamily="monospace"
+                    android:hint="player_name"
+                    android:imeOptions="actionDone"
+                    android:importantForAutofill="no"
+                    android:inputType="textNoSuggestions|textVisiblePassword"
+                    android:maxLength="16"
+                    android:maxLines="1"
+                    android:textColor="#F4F6F9"
+                    android:textColorHint="#4F5460"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <!-- checklist -->
+            <LinearLayout
+                android:id="@+id/ll_rules"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/Au9Step" android:layout_marginTop="0dp">
+                    <View android:id="@+id/ll_rule_len_dot" style="@style/Au9StepDot" android:background="@drawable/ll_rule_dot_off" />
+                    <TextView android:id="@+id/ll_rule_len" style="@style/Au9StepText" android:text="3 – 16 characters" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/Au9Step">
+                    <View android:id="@+id/ll_rule_chars_dot" style="@style/Au9StepDot" android:background="@drawable/ll_rule_dot_off" />
+                    <TextView android:id="@+id/ll_rule_chars" style="@style/Au9StepText" android:text="letters, numbers, underscore" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/Au9Step">
+                    <View android:id="@+id/ll_rule_free_dot" style="@style/Au9StepDot" android:background="@drawable/ll_rule_dot_off" />
+                    <TextView android:id="@+id/ll_rule_free" style="@style/Au9StepText" android:text="not already on this launcher" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/au9_btn_primary"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:letterSpacing="0.1"
+                android:text="MINT PROFILE"
+                android:textColor="#141519"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

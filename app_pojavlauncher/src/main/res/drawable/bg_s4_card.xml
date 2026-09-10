@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora glass card: dark, subtle teal top sheen -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#140D1016" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+    <item android:bottom="1.5dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="135"
+                android:startColor="#1E2634"
+                android:endColor="#12161F"
+                android:type="linear" />
+            <corners android:radius="18dp" />
+            <stroke
+                android:width="1dp"
+                android:color="#2A3544" />
+        </shape>
+    </item>
+    <item
+        android:bottom="1.5dp"
+        android:gravity="top"
+        android:height="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#2E62D99B" />
+            <corners
+                android:topLeftRadius="18dp"
+                android:topRightRadius="18dp" />
+        </shape>
+    </item>
+</layer-list>

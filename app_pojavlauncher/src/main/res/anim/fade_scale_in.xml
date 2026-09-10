@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CSL v3 dialog motion: soft spring pop with a small rise. The scale rides the
+     shared spring curve so a dialog lands with the same physics as a button
+     release, and the fade stays short so the dialog never feels slow to read. -->
+<set xmlns:android="http://schemas.android.com/apk/res/android" android:fillAfter="true">
+    <alpha
+        android:duration="200"
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:interpolator="@interpolator/motion_standard" />
+    <scale
+        android:duration="380"
+        android:fromXScale="0.9"
+        android:toXScale="1.0"
+        android:fromYScale="0.9"
+        android:toYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:interpolator="@interpolator/motion_spring" />
+    <translate
+        android:duration="340"
+        android:fromYDelta="3%"
+        android:toYDelta="0"
+        android:interpolator="@interpolator/motion_emphasized_decelerate" />
+</set>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ═══════════════════════════════════════════════════════════════════
+  CS LAUNCHER PLUS — RUNTIME CHOICE ROW (V4 REDESIGN)
+  Card layout: [ Major Well ]  Java Name & Compatibility Chips   ( Check )
+  While downloading, the progress track smoothly slides in.
+  ═══════════════════════════════════════════════════════════════════
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/rt_row"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="14dp"
+    android:paddingTop="14dp"
+    android:paddingEnd="14dp"
+    android:paddingBottom="14dp">
+
+    <!-- Version Badge Well -->
+    <FrameLayout
+        android:id="@+id/runtime_major_well"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/rt_well">
+
+        <TextView
+            android:id="@+id/runtime_major_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="21"
+            android:textColor="#F8FAFC"
+            android:textSize="20sp" />
+    </FrameLayout>
+
+    <!-- Version Meta & Info Column -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/runtime_name_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Java 21"
+                android:textColor="#F8FAFC"
+                android:textSize="16.5sp" />
+
+            <TextView
+                android:id="@+id/runtime_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/rt_chip"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.06"
+                android:paddingStart="8dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="2dp"
+                android:text="RECOMMENDED"
+                android:textColor="#CBD5E1"
+                android:textSize="9.5sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/runtime_role_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Minecraft 1.20.5 and newer"
+            android:textColor="#94A3B8"
+            android:textSize="12.5sp" />
+
+        <TextView
+            android:id="@+id/runtime_meta_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="arm64-v8a · ~60 MB"
+            android:textColor="#64748B"
+            android:textSize="11sp" />
+
+        <!-- Live Progress Track (Shown only during download / install) -->
+        <LinearLayout
+            android:id="@+id/runtime_live_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <FrameLayout
+                android:id="@+id/runtime_prog_track"
+                android:layout_width="0dp"
+                android:layout_height="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/rt_progress">
+
+                <View
+                    android:id="@+id/runtime_prog_fill"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rt_chip_light" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/runtime_state_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="sans-serif-medium"
+                android:text="0%"
+                android:textColor="#F8FAFC"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Custom Animated Check Indicator -->
+    <View
+        android:id="@+id/runtime_check"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/rt_check" />
+</LinearLayout>

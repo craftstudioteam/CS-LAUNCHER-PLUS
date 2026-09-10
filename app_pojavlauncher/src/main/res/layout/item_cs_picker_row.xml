@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pkr_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="6dp"
+    android:background="@drawable/pk_row"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:minHeight="58dp"
+    android:orientation="horizontal"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:paddingTop="9dp"
+    android:paddingBottom="9dp">
+
+    <TextView
+        android:id="@+id/pkr_glyph"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:background="@drawable/pk_row_glyph"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:text="17"
+        android:textColor="#E6E9EF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/pkr_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:text="Java 17"
+            android:textColor="#F4F6F9"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/pkr_meta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:ellipsize="end"
+            android:fontFamily="monospace"
+            android:maxLines="2"
+            android:text="jre-17 · aarch64"
+            android:textColor="#8A909C"
+            android:textSize="10.5sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/pkr_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/pk_badge"
+        android:gravity="center"
+        android:paddingHorizontal="8dp"
+        android:text="DEFAULT"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.08"
+        android:textColor="#C9CED8"
+        android:textSize="8.5sp"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/pkr_check"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/pk_check_dot" />
+</LinearLayout>

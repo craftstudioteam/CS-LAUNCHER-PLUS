@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     CS LAUNCHER PLUS — Premium Design System (Phase-2 LOCK, final)
+     Master reference = Controller Customisation page:
+       • Base obsidian           #0B0B0E
+       • Graphite gradients      #F21B1B22 → #F2131318
+       • Accent platinum/silver  #FFFFFF / #D0D0D0 (metallic — NO violet)
+       • Card radius             20dp (unified across every card family)
+       • Stroke                  0.75–1dp #2D2D35 family
+       • Ripple                  platinum-alpha family (#1-3x FFFFFF/FFFFFF)
+       • Semantic                installed green #22C55E · danger #FF4444
+     Legacy token names (cs_violet / cs_cyan / accent_purple / am_accent)
+     are KEPT for ID compatibility but now resolve to metallic silver.
+     ═══════════════════════════════════════════════════════════════════ -->
+<resources>
+    <!-- Base layers (exact brand values) -->
+    <color name="cs_bg_base">#0B0B0E</color>
+    <color name="cs_bg_surface">#121212</color>
+    <color name="cs_bg_elevated">#1C1C1C</color>
+    <color name="cs_bg_overlay">#242424</color>
+
+    <!-- Glass -->
+    <color name="cs_glass_fill">#0FFFFFFF</color>
+    <color name="cs_glass_fill_strong">#17FFFFFF</color>
+    <color name="cs_glass_stroke">#26FFFFFF</color>
+    <color name="cs_glass_stroke_soft">#1AFFFFFF</color>
+
+    <!-- Primary accent — platinum silver (the CS Launcher identity) -->
+    <color name="cs_accent">#FFFFFF</color>
+    <color name="cs_accent_deep">#D0D0D0</color>
+    <color name="cs_accent_light">#F4F4F8</color>
+    <color name="cs_accent_soft">#33FFFFFF</color>
+    <color name="cs_accent_glow">#40FFFFFF</color>
+
+    <!-- Glow accent — metallic silver (legacy name kept; brand has no violet) -->
+    <color name="cs_violet">#D0D0D0</color>
+    <color name="cs_violet_deep">#888888</color>
+    <color name="cs_violet_soft">#33D0D0D0</color>
+
+    <!-- Legacy alias kept so Phase-1 references stay valid -->
+    <color name="cs_cyan">#D0D0D0</color>
+
+    <!-- Semantic -->
+    <color name="cs_success">#22C55E</color>
+    <color name="cs_success_soft">#2622C55E</color>
+    <color name="cs_danger">#FF4444</color>
+    <color name="cs_danger_deep">#D63A3A</color>
+    <color name="cs_danger_soft">#26FF4444</color>
+    <color name="cs_warning">#FFB020</color>
+    <color name="cs_warning_soft">#26FFB020</color>
+
+    <!-- Text (exact brand values) -->
+    <color name="cs_text_primary">#FFFFFF</color>
+    <color name="cs_text_secondary">#9CA3AF</color>
+    <color name="cs_text_dim">#6B7280</color>
+    <color name="cs_text_on_accent">#0D0D0D</color>
+    <color name="cs_text_accent">#FFFFFF</color>
+</resources>

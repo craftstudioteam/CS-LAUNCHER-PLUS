@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Phase-5 log chip toggle: filled when ON, ghost when OFF (checked state) -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#2E2E38" />
+            <stroke android:width="0.75dp" android:color="#50FFFFFF" />
+            <corners android:radius="8dp" />
+            <padding android:left="10dp" android:right="10dp"
+                     android:top="4dp" android:bottom="4dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#1B1B22" />
+            <stroke android:width="0.75dp" android:color="#26262E" />
+            <corners android:radius="8dp" />
+            <padding android:left="10dp" android:right="10dp"
+                     android:top="4dp" android:bottom="4dp" />
+        </shape>
+    </item>
+</selector>

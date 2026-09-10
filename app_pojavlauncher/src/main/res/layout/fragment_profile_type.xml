@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ════════════════════════════════════════════════════════════════
+     CREATE PROFILE (v3 portrait) — editorial header + horizontal rails
+     Vanilla Like • Mod Loaders • Modpacks & More
+═════════════════════════════════════════════════════════════════ -->
+<com.kdt.DefocusableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0B0B0E"
+    android:fillViewport="true"
+    android:overScrollMode="never">
+
+    <LinearLayout
+        android:id="@+id/setup_hub_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="26dp"
+        android:paddingBottom="38dp">
+
+        <!-- ── Editorial header ── -->
+        <LinearLayout
+            android:id="@+id/setup_hub_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="22dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.22"
+                android:text="@string/pt_eyebrow"
+                android:textColor="#7C7C88"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/setup_hub_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/pt_title"
+                android:textColor="#F2F2F5"
+                android:textSize="27sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:lineSpacingExtra="2dp"
+                android:text="@string/pt_subtitle"
+                android:textColor="#9C9CA8"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- ── Vanilla Like rail ── -->
+        <LinearLayout
+            android:id="@+id/section_vanilla"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:letterSpacing="0.12"
+                android:text="@string/pt_section_vanilla"
+                android:textColor="#7C7C88"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingStart="22dp"
+                android:paddingEnd="22dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:id="@+id/modded_profile_bta"
+                        android:layout_width="154dp"
+                        android:layout_height="134dp"
+                        android:background="@drawable/bg_cs_client_promo_card"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:stateListAnimator="@animator/card_press_anim">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="13dp">
+
+                            <FrameLayout
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_deck_icon_tile">
+
+                                <ImageView
+                                    android:layout_width="23dp"
+                                    android:layout_height="23dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/cs_logo" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="@string/pt_bta_name"
+                                android:textColor="#F0F0F3"
+                                android:textSize="13.5sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:maxLines="2"
+                                android:ellipsize="end"
+                                android:text="@string/pt_bta_desc"
+                                android:textColor="#7C7C88"
+                                android:textSize="9.5sp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="top|end"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_chevron_right"
+                            android:tint="#565661" />
+                    </FrameLayout>
+
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+
+        <!-- ── Mod Loaders rail ── -->
+        <LinearLayout
+            android:id="@+id/section_loaders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:letterSpacing="0.12"
+                android:text="@string/pt_section_loaders"
+                android:textColor="#7C7C88"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingStart="22dp"
+                android:paddingEnd="22dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:id="@+id/modded_profile_fabric"
+                        android:layout_width="148dp"
+                        android:layout_height="134dp"
+                        android:background="@drawable/bg_profile_type_card"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:stateListAnimator="@animator/card_press_anim">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="13dp">
+
+                            <FrameLayout
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_deck_icon_tile">
+
+                                <ImageView
+                                    android:layout_width="23dp"
+                                    android:layout_height="23dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_fabric" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="@string/pt_fabric_name"
+                                android:textColor="#F0F0F3"
+                                android:textSize="13.5sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:maxLines="2"
+                                android:ellipsize="end"
+                                android:text="@string/pt_fabric_desc"
+                                android:textColor="#7C7C88"
+                                android:textSize="9.5sp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="top|end"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_chevron_right"
+                            android:tint="#565661" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/modded_profile_quilt"
+                        android:layout_width="148dp"
+                        android:layout_height="134dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/bg_profile_type_card"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:stateListAnimator="@animator/card_press_anim">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="13dp">
+
+                            <FrameLayout
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_deck_icon_tile">
+
+                                <ImageView
+                                    android:layout_width="23dp"
+                                    android:layout_height="23dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_quilt" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="@string/pt_quilt_name"
+                                android:textColor="#F0F0F3"
+                                android:textSize="13.5sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:maxLines="2"
+                                android:ellipsize="end"
+                                android:text="@string/pt_quilt_desc"
+                                android:textColor="#7C7C88"
+                                android:textSize="9.5sp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="top|end"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_chevron_right"
+                            android:tint="#565661" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/modded_profile_forge"
+                        android:layout_width="148dp"
+                        android:layout_height="134dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/bg_profile_type_card"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:stateListAnimator="@animator/card_press_anim">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="13dp">
+
+                            <FrameLayout
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_deck_icon_tile">
+
+                                <ImageView
+                                    android:layout_width="23dp"
+                                    android:layout_height="23dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_forge" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="@string/pt_forge_name"
+                                android:textColor="#F0F0F3"
+                                android:textSize="13.5sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:maxLines="2"
+                                android:ellipsize="end"
+                                android:text="@string/pt_forge_desc"
+                                android:textColor="#7C7C88"
+                                android:textSize="9.5sp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="top|end"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_chevron_right"
+                            android:tint="#565661" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/modded_profile_neoforge"
+                        android:layout_width="148dp"
+                        android:layout_height="134dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/bg_profile_type_card"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:stateListAnimator="@animator/card_press_anim">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="13dp">
+
+                            <FrameLayout
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_deck_icon_tile">
+
+                                <ImageView
+                                    android:layout_width="23dp"
+                                    android:layout_height="23dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_neoforge_profile" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="@string/pt_neoforge_name"
+                                android:textColor="#F0F0F3"
+                                android:textSize="13.5sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:maxLines="2"
+                                android:ellipsize="end"
+                                android:text="@string/pt_neoforge_desc"
+                                android:textColor="#7C7C88"
+                                android:textSize="9.5sp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="top|end"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_chevron_right"
+                            android:tint="#565661" />
+                    </FrameLayout>
+                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+
+        <!-- ── Modpacks & More rail ── -->
+        <LinearLayout
+            android:id="@+id/section_more"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:letterSpacing="0.12"
+                android:text="@string/pt_section_more"
+                android:textColor="#7C7C88"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingStart="22dp"
+                android:paddingEnd="22dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Featured white CTA card -->
+                    <FrameLayout
+                        android:id="@+id/modded_profile_modpack"
+                        android:layout_width="168dp"
+                        android:layout_height="134dp"
+                        android:background="@drawable/bg_profile_card_cta"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:stateListAnimator="@animator/card_press_anim">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="13dp">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:src="@drawable/ic_modpack_profile"
+                                android:tint="#0E0E11" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:text="@string/pt_modpack_name"
+                                android:textColor="#0E0E11"
+                                android:textSize="13.5sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:maxLines="2"
+                                android:ellipsize="end"
+                                android:text="@string/pt_modpack_desc"
+                                android:textColor="#3C3C46"
+                                android:textSize="9.5sp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="top|end"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_chevron_right"
+                            android:tint="#6A6A76" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/vanilla_profile"
+                        android:layout_width="154dp"
+                        android:layout_height="134dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/bg_cs_client_promo_card"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:stateListAnimator="@animator/card_press_anim">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="13dp">
+
+                            <FrameLayout
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_deck_icon_tile">
+
+                                <ImageView
+                                    android:layout_width="23dp"
+                                    android:layout_height="23dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_vanilla_profile" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:maxLines="2"
+                                android:ellipsize="end"
+                                android:text="@string/pt_vanilla_name"
+                                android:textColor="#F0F0F3"
+                                android:textSize="12.5sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:maxLines="2"
+                                android:ellipsize="end"
+                                android:text="@string/pt_vanilla_desc"
+                                android:textColor="#7C7C88"
+                                android:textSize="9.5sp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="top|end"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_chevron_right"
+                            android:tint="#565661" />
+                    </FrameLayout>
+
+
+                    <!-- Install a local .jar (external installers, mod jars). -->
+                    <FrameLayout
+                        android:id="@+id/jar_import_profile"
+                        android:layout_width="154dp"
+                        android:layout_height="134dp"
+                        android:layout_marginStart="10dp"
+                        android:background="@drawable/bg_profile_type_card"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:stateListAnimator="@animator/card_press_anim">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:padding="13dp">
+
+                            <FrameLayout
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/bg_deck_icon_tile">
+
+                                <ImageView
+                                    android:layout_width="23dp"
+                                    android:layout_height="23dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/ic_jar_import" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:maxLines="2"
+                                android:ellipsize="end"
+                                android:text="@string/pt_jar_import_name"
+                                android:textColor="#F0F0F3"
+                                android:textSize="12.5sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:maxLines="2"
+                                android:ellipsize="end"
+                                android:text="@string/pt_jar_import_desc"
+                                android:textColor="#7C7C88"
+                                android:textSize="9.5sp" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="top|end"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginEnd="12dp"
+                            android:src="@drawable/ic_chevron_right"
+                            android:tint="#565661" />
+                    </FrameLayout>                </LinearLayout>
+            </HorizontalScrollView>
+        </LinearLayout>
+
+    </LinearLayout>
+</com.kdt.DefocusableScrollView>

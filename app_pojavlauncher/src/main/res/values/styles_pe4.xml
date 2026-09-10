@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     PROFILE EDITOR v4 — "Emerald Console" styles
+     One panel at a time (zero scroll-jank), emerald accent, huge touch
+     targets, plain-language guidance on every card.
+     ═══════════════════════════════════════════════════════════════════ -->
+<resources>
+
+    <!-- ── Portrait underline tab ── -->
+    <style name="Pe4Tab">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingHorizontal">13dp</item>
+        <item name="android:background">@drawable/pe4_tab</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="Pe4TabIcon">
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="android:layout_marginEnd">7dp</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:tint">@color/pe4_nav_icon</item>
+    </style>
+
+    <style name="Pe4TabLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:textColor">@color/pe4_nav_text</item>
+        <item name="android:textSize">12.5sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <!-- ── Landscape side-menu row ── -->
+    <style name="Pe4MenuItem">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:background">@drawable/pe4_menu_item</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="Pe4MenuIcon">
+        <item name="android:layout_width">17dp</item>
+        <item name="android:layout_height">17dp</item>
+        <item name="android:layout_marginEnd">11dp</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:tint">@color/pe4_nav_icon</item>
+    </style>
+
+    <style name="Pe4MenuLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:textColor">@color/pe4_nav_text</item>
+        <item name="android:textSize">12.5sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <!-- ── Section panel ── -->
+    <style name="Pe4Panel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/pe4_panel</item>
+        <item name="android:padding">18dp</item>
+    </style>
+
+    <style name="Pe4Head">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginBottom">6dp</item>
+    </style>
+
+    <style name="Pe4HeadIcon">
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">36dp</item>
+        <item name="android:padding">9dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+        <item name="android:background">@drawable/pe4_icon_well</item>
+        <item name="android:tint">#E6E8EE</item>
+    </style>
+
+    <style name="Pe4Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">15.5sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Pe4Desc">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#8D93A1</item>
+        <item name="android:textSize">11.5sp</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="Pe4Label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">#A8ADBB</item>
+        <item name="android:textSize">10.5sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.08</item>
+    </style>
+
+    <style name="Pe4Input">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:background">@drawable/pe4_input</item>
+        <item name="android:paddingHorizontal">14dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textColorHint">#5C6070</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="Pe4Mini">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:paddingHorizontal">18dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">#F0F1F5</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="android:background">@drawable/pe4_btn_ghost</item>
+    </style>
+
+    <style name="Pe4Wide">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">#F0F1F5</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:background">@drawable/pe4_btn_ghost</item>
+    </style>
+
+    <style name="Pe4IconAction">
+        <item name="android:layout_width">40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/pe4_icon_action</item>
+    </style>
+
+    <!-- ═══ v5 "Clean Console" — flat, mobile-first ═══ -->
+
+    <!-- Portrait: text-only nav pill -->
+    <style name="Pe5Pill">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">34dp</item>
+        <item name="android:layout_marginEnd">7dp</item>
+        <item name="android:paddingHorizontal">16dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/pe5_pill</item>
+        <item name="android:textColor">@color/pe5_pill_text</item>
+        <item name="android:textSize">11.5sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <!-- Landscape: text-only side-nav row -->
+    <style name="Pe5NavRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:layout_marginBottom">3dp</item>
+        <item name="android:paddingHorizontal">14dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@drawable/pe4_menu_item</item>
+        <item name="android:textColor">@color/pe4_nav_text</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <!-- Aurora section (glass card) -->
+    <style name="Pe5Section">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:clipToPadding">false</item>
+        <item name="android:padding">18dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:background">@drawable/aur_card</item>
+    </style>
+
+    <style name="Pe5Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">16.5sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Pe5Desc">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:textColor">#7C828E</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+    </style>
+
+    <style name="Pe5Label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">#8D93A1</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.1</item>
+    </style>
+
+    <!-- Meta info text (version • loader • …) -->
+    <style name="Pe5Meta">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">14dp</item>
+        <item name="android:textColor">#7C828E</item>
+        <item name="android:textSize">10.5sp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+</resources>

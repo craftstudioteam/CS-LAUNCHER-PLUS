@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora — LIVE status badge (teal glass) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="14dp" />
+    <solid android:color="#1A62D99B" />
+    <stroke android:width="1dp" android:color="#3F62D99B" />
+</shape>

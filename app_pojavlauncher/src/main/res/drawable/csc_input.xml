@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Graphite text input field -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#1B1D23" />
+            <corners android:radius="16dp" />
+            <stroke android:width="2dp" android:color="#C9CED8" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#141519" />
+            <corners android:radius="16dp" />
+            <stroke android:width="1.5dp" android:color="#292C34" />
+        </shape>
+    </item>
+</selector>

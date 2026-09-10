@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Amber-tinted notice used when the home screen refuses pinned shortcuts. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#1AFFB74D" />
+    <stroke
+        android:width="1dp"
+        android:color="#4DFFB74D" />
+    <corners android:radius="12dp" />
+</shape>

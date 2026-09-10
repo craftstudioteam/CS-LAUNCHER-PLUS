@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Fallback server mark: a leaf on a dark tile, used until the live favicon arrives. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path
+        android:pathData="M0,0h48v48h-48z"
+        android:fillColor="#16301F" />
+    <path
+        android:fillColor="#7BE04B"
+        android:pathData="M34,11c0,0 -12.5,-2.2 -19,4.3c-5.2,5.2 -4.3,13.3 -0.6,17c0.4,0.4 0.9,0.8 1.4,1.1l-2.6,4.4c-0.4,0.7 -0.2,1.6 0.5,2c0.7,0.4 1.6,0.2 2,-0.5l2.6,-4.4c4.1,1.7 9.6,1.1 13.5,-2.8C38.4,25.5 34,11 34,11zM29.2,29.9c-2.6,2.6 -6,3.2 -8.8,2.4l9.9,-13.4c0.5,-0.7 0.4,-1.6 -0.3,-2.1c-0.7,-0.5 -1.6,-0.4 -2.1,0.3l-9.9,13.4c-1.5,-2.5 -1.6,-6.3 1.1,-9c3.9,-3.9 11,-4.1 13.8,-4C33.1,20.2 32.4,26.7 29.2,29.9z" />
+</vector>

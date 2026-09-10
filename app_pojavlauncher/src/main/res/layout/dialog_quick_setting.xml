@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     QUICK SETTINGS (Phase 9 redesign) — sectioned spec-sheet rows inside
+     the redesigned side sheet. Every id + widget type from the previous
+     ConstraintLayout version is preserved (QuickSettingSideDialog binds
+     them by id); only the structure changed: root is now a vertical
+     LinearLayout of section headers + bordered rows.
+     ═══════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:paddingTop="4dp"
+    android:paddingBottom="8dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="2dp"
+            android:paddingHorizontal="2dp"
+            android:text="Changes apply instantly and are saved for the launcher too."
+            android:textColor="#5C6068"
+            android:textSize="10.5sp" />
+
+        <!-- ── DISPLAY ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/qs_section_glyph"
+                android:fontFamily="monospace"
+                android:gravity="center"
+                android:text="R"
+                android:textColor="#C9CED8"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.16"
+                android:text="DISPLAY"
+                android:textColor="#8A909C"
+                android:textSize="9.5sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="#2B2F38" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/qs_row"
+            android:orientation="vertical"
+            android:paddingStart="14dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/editResolution_textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/mcl_setting_title_resolution_scaler"
+                    android:textColor="#EEF0F4"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/editResolution_textView_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:background="@drawable/qs_value_pill"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:minWidth="52dp"
+                    android:paddingHorizontal="8dp"
+                    android:textColor="#F4F6F9"
+                    android:textSize="10.5sp"
+                    tools:text="100%" />
+            </LinearLayout>
+
+            <com.kdt.CustomSeekbar
+                android:id="@+id/editResolution_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:layout_marginTop="2dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:progressDrawable="@drawable/qs_seek_progress"
+                android:splitTrack="false"
+                android:thumb="@drawable/qs_seek_thumb"
+                android:min="@integer/resolution_seekbar_min"
+                app:seekBarIncrement="@integer/resolution_seekbar_increment" />
+        </LinearLayout>
+
+        <!-- ── MOTION ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/qs_section_glyph"
+                android:fontFamily="monospace"
+                android:gravity="center"
+                android:text="G"
+                android:textColor="#C9CED8"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.16"
+                android:text="MOTION"
+                android:textColor="#8A909C"
+                android:textSize="9.5sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="#2B2F38" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/checkboxGyro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/qs_row"
+            android:fontFamily="sans-serif-medium"
+            android:minHeight="48dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/preference_enable_gyro_title"
+            android:textColor="#EEF0F4"
+            android:textSize="13sp"
+            android:thumb="@drawable/qs_switch_thumb"
+            android:track="@drawable/qs_switch_track" />
+
+        <Switch
+            android:id="@+id/checkboxGyroX"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/qs_row"
+            android:fontFamily="sans-serif-medium"
+            android:minHeight="48dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/preference_gyro_invert_x_axis"
+            android:textColor="#EEF0F4"
+            android:textSize="13sp"
+            android:thumb="@drawable/qs_switch_thumb"
+            android:track="@drawable/qs_switch_track"
+            android:layout_marginTop="6dp" />
+
+        <Switch
+            android:id="@+id/checkboxGyroY"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/qs_row"
+            android:fontFamily="sans-serif-medium"
+            android:minHeight="48dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/preference_gyro_invert_y_axis"
+            android:textColor="#EEF0F4"
+            android:textSize="13sp"
+            android:thumb="@drawable/qs_switch_thumb"
+            android:track="@drawable/qs_switch_track"
+            android:layout_marginTop="6dp" />
+        <View android:layout_width="match_parent" android:layout_height="6dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/qs_row"
+            android:orientation="vertical"
+            android:paddingStart="14dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/editGyro_textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/preference_gyro_sensitivity_title"
+                    android:textColor="#EEF0F4"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/editGyro_textView_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:background="@drawable/qs_value_pill"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:minWidth="52dp"
+                    android:paddingHorizontal="8dp"
+                    android:textColor="#F4F6F9"
+                    android:textSize="10.5sp"
+                    tools:text="100%" />
+            </LinearLayout>
+
+            <com.kdt.CustomSeekbar
+                android:id="@+id/editGyro_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:layout_marginTop="2dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:progressDrawable="@drawable/qs_seek_progress"
+                android:splitTrack="false"
+                android:thumb="@drawable/qs_seek_thumb"
+                android:min="@integer/gyro_speed_seekbar_min"
+                android:max="@integer/gyro_speed_seekbar_max"
+                app:seekBarIncrement="@integer/gyro_speed_seekbar_increment" />
+        </LinearLayout>
+
+        <!-- ── POINTER ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/qs_section_glyph"
+                android:fontFamily="monospace"
+                android:gravity="center"
+                android:text="M"
+                android:textColor="#C9CED8"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.16"
+                android:text="POINTER"
+                android:textColor="#8A909C"
+                android:textSize="9.5sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="#2B2F38" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/qs_row"
+            android:orientation="vertical"
+            android:paddingStart="14dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/editMouseSpeed_textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/mcl_setting_title_mousespeed"
+                    android:textColor="#EEF0F4"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/editMouseSpeed_textView_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:background="@drawable/qs_value_pill"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:minWidth="52dp"
+                    android:paddingHorizontal="8dp"
+                    android:textColor="#F4F6F9"
+                    android:textSize="10.5sp"
+                    tools:text="100%" />
+            </LinearLayout>
+
+            <com.kdt.CustomSeekbar
+                android:id="@+id/editMouseSpeed_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:layout_marginTop="2dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:progressDrawable="@drawable/qs_seek_progress"
+                android:splitTrack="false"
+                android:thumb="@drawable/qs_seek_thumb"
+                android:min="@integer/mouse_speed_seekbar_min"
+                android:max="@integer/mouse_speed_seekbar_max"
+                app:seekBarIncrement="@integer/mouse_speed_seekbar_increment" />
+        </LinearLayout>
+        <View android:layout_width="match_parent" android:layout_height="6dp" />
+
+        <Switch
+            android:id="@+id/always_grab_mouse_side_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/qs_row"
+            android:fontFamily="sans-serif-medium"
+            android:minHeight="48dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/mcl_setting_title_grab_mouse"
+            android:textColor="#EEF0F4"
+            android:textSize="13sp"
+            android:thumb="@drawable/qs_switch_thumb"
+            android:track="@drawable/qs_switch_track" />
+
+        <!-- ── TOUCH ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/qs_section_glyph"
+                android:fontFamily="monospace"
+                android:gravity="center"
+                android:text="T"
+                android:textColor="#C9CED8"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.16"
+                android:text="TOUCH"
+                android:textColor="#8A909C"
+                android:textSize="9.5sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="#2B2F38" />
+        </LinearLayout>
+
+        <Switch
+            android:id="@+id/checkboxGesture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/qs_row"
+            android:fontFamily="sans-serif-medium"
+            android:minHeight="48dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/mcl_disable_gestures"
+            android:textColor="#EEF0F4"
+            android:textSize="13sp"
+            android:thumb="@drawable/qs_switch_thumb"
+            android:track="@drawable/qs_switch_track" />
+        <View android:layout_width="match_parent" android:layout_height="6dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/qs_row"
+            android:orientation="vertical"
+            android:paddingStart="14dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="6dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/editGestureDelay_textView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/mcl_setting_title_longpresstrigger"
+                    android:textColor="#EEF0F4"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/editGestureDelay_textView_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:background="@drawable/qs_value_pill"
+                    android:fontFamily="monospace"
+                    android:gravity="center"
+                    android:minWidth="52dp"
+                    android:paddingHorizontal="8dp"
+                    android:textColor="#F4F6F9"
+                    android:textSize="10.5sp"
+                    tools:text="270 ms" />
+            </LinearLayout>
+
+            <com.kdt.CustomSeekbar
+                android:id="@+id/editGestureDelay_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:layout_marginTop="2dp"
+                android:paddingStart="2dp"
+                android:paddingEnd="2dp"
+                android:progressDrawable="@drawable/qs_seek_progress"
+                android:splitTrack="false"
+                android:thumb="@drawable/qs_seek_thumb"
+                android:min="@integer/gesture_delay_seekbar_min"
+                android:max="@integer/gesture_delay_seekbar_max"
+                app:seekBarIncrement="@integer/gesture_delay_seekbar_increment" />
+        </LinearLayout>
+
+        <!-- ── OVERLAY ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="6dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="@drawable/qs_section_glyph"
+                android:fontFamily="monospace"
+                android:gravity="center"
+                android:text="O"
+                android:textColor="#C9CED8"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.16"
+                android:text="OVERLAY"
+                android:textColor="#8A909C"
+                android:textSize="9.5sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="#2B2F38" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/osd_caption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="2dp"
+            android:paddingBottom="6dp"
+            android:text="@string/cs_osd_caption"
+            android:textColor="#9AA0AC"
+            android:textSize="11sp" />
+
+        <Switch
+            android:id="@+id/osd_show_memory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/qs_row"
+            android:fontFamily="sans-serif-medium"
+            android:minHeight="48dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/cs_osd_show_memory"
+            android:textColor="#EEF0F4"
+            android:textSize="13sp"
+            android:thumb="@drawable/qs_switch_thumb"
+            android:track="@drawable/qs_switch_track" />
+
+        <TextView
+            android:id="@+id/osd_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:paddingHorizontal="2dp"
+            android:text="@string/cs_osd_hint"
+            android:textColor="#5C6068"
+            android:textSize="10sp" />
+</LinearLayout>

@@ -1,0 +1,55 @@
+package net.kdt.pojavlaunch.modloaders.modpacks.models;
+
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
+
+public class ModItem extends ModSource implements Serializable {
+
+    public String id;
+    public String title;
+    public String author;
+    public String downloads;
+    public String followers;
+    public String description;
+    public String imageUrl;
+    public String[] categories;
+    public String[] galleryUrls;
+    public String galleryUrl; // kept for compatibility
+    /** True if the mod author blocked third-party distribution (CF allowModDistribution=false) */
+    public boolean isRestricted;
+    /** Direct website URL for the mod page (used for CF restricted mods) */
+    public String websiteUrl;
+
+    public ModItem(int apiSource, boolean isModpack, String id, String title, String description, String imageUrl) {
+        this.apiSource = apiSource;
+        this.isModpack = isModpack;
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.imageUrl = imageUrl;
+    }
+
+    public ModItem(int apiSource, boolean isModpack, String id, String title, String author, String downloads, String description, String imageUrl) {
+        this(apiSource, isModpack, id, title, description, imageUrl);
+        this.author = author;
+        this.downloads = downloads;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "ModItem{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", apiSource=" + apiSource +
+                ", isModpack=" + isModpack +
+                '}';
+    }
+
+    public String getIconCacheTag() {
+        return apiSource+"_"+id;
+    }
+}

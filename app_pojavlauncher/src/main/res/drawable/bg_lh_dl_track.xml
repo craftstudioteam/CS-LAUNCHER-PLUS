@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Premium determinate progress bar for the home download card.
+     Track: soft inset well. Progress: multi-stop lavender→platinum glow with
+     a bright leading edge; a secondaryProgress layer carries the animated
+     shimmer sweep (driven from code by animating secondaryProgress). -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <corners android:radius="5dp" />
+            <solid android:color="#241F38" />
+            <stroke android:width="0.7dp" android:color="#3A3358" />
+        </shape>
+    </item>
+
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape android:shape="rectangle">
+                <corners android:radius="5dp" />
+                <solid android:color="#33B7ADE0" />
+            </shape>
+        </clip>
+    </item>
+
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <corners android:radius="5dp" />
+                <gradient
+                    android:type="linear"
+                    android:angle="0"
+                    android:startColor="#6C5FB8"
+                    android:centerColor="#A99BE8"
+                    android:endColor="#F3F0FF" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

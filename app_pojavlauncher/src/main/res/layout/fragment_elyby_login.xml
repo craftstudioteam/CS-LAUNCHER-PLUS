@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     ELY.BY SIGN-IN (Phase 9) — left brand column (what ely.by gives you,
+     "create free account" link) · right credential sheet with labelled
+     fields, key-cap hints and the LOGIN action.
+     Ids kept: card_elyby_login, login_edit_email, login_edit_password,
+     login_button (TextView), btn_open_elyby_browser.
+     ═══════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/au9_page"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
+
+    <!-- LEFT column -->
+    <LinearLayout
+        android:layout_width="230dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/au9_brand_col"
+        android:orientation="vertical"
+        android:paddingHorizontal="18dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="14dp">
+
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/au9_icon_well">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_auth_elyby" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.18"
+            android:text="FREE  ·  ELY.BY"
+            android:textColor="#8A909C"
+            android:textSize="9sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Sign in"
+            android:textColor="#F4F6F9"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:lineSpacingMultiplier="1.2"
+            android:text="A free account with your own skin and cape, accepted on ely-enabled servers."
+            android:textColor="#8A909C"
+            android:textSize="11sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:orientation="vertical">
+
+            <TextView style="@style/Au9Ledger" android:text="●  custom skin + cape" />
+            <TextView style="@style/Au9Ledger" android:text="●  works with mods" />
+            <TextView style="@style/Au9Ledger" android:text="○  not for Mojang servers" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:text="NO ACCOUNT YET?"
+            android:textColor="#5C6068"
+            android:textSize="9sp" />
+
+        <TextView
+            android:id="@+id/btn_open_elyby_browser"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/au9_btn_ghost"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:letterSpacing="0.06"
+            android:text="CREATE FREE ACCOUNT  ↗"
+            android:textColor="#E6E9EF"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <!-- RIGHT: credential sheet -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="300dp"
+            android:padding="18dp">
+
+            <LinearLayout
+                android:id="@+id/card_elyby_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/au9_terminal"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.16"
+                        android:text="CREDENTIALS"
+                        android:textColor="#8A909C"
+                        android:textSize="9.5sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:background="#2B2F38" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="12dp"
+                        android:background="@drawable/au9_keycap"
+                        android:fontFamily="monospace"
+                        android:gravity="center"
+                        android:paddingHorizontal="7dp"
+                        android:text="TLS"
+                        android:textColor="#8A909C"
+                        android:textSize="8.5sp" />
+                </LinearLayout>
+
+                <!-- field: login -->
+                <TextView style="@style/Au9FieldLabel" android:text="USERNAME  /  E-MAIL" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/au9_input"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:text="@"
+                        android:textColor="#5C6068"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/login_edit_email"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="your ely.by login"
+                        android:imeOptions="actionNext"
+                        android:importantForAutofill="no"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:textColor="#F4F6F9"
+                        android:textColorHint="#4F5460"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- field: password -->
+                <TextView style="@style/Au9FieldLabel" android:text="PASSWORD" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/au9_input"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:text="*"
+                        android:textColor="#5C6068"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/login_edit_password"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="••••••••"
+                        android:imeOptions="actionDone"
+                        android:importantForAutofill="no"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:textColor="#F4F6F9"
+                        android:textColorHint="#4F5460"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="monospace"
+                    android:text="// 2FA enabled? append :code to your password (e.g. secret:123456)"
+                    android:textColor="#5C6068"
+                    android:textSize="9.5sp" />
+
+                <TextView
+                    android:id="@+id/login_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/au9_btn_primary"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:letterSpacing="0.1"
+                    android:text="LOGIN"
+                    android:textColor="#141519"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </FrameLayout>
+    </ScrollView>
+</LinearLayout>

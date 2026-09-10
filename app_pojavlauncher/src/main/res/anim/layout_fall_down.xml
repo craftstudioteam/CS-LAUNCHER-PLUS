@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CSL v3 rebuilt animation — mobile-friendly, snappy, 60fps. -->
+<layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
+    android:animation="@anim/item_fall_down"
+    android:animationOrder="normal"
+    android:delay="8%" />

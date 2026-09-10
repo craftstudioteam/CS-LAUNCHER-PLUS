@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "(Default)": {
+      "name": "Minecraft 1.21.11",
+      "lastVersionId": "1.21.11",
+      "icon": "Grass"
+    }
+  },
+  "selectedProfile": "(Default)"
+}

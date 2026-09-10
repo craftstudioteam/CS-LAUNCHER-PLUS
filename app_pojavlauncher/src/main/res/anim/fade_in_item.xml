@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CSL v3 rebuilt animation — mobile-friendly, snappy, 60fps. -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillAfter="true">
+    <alpha android:duration="220" android:fromAlpha="0.0" android:toAlpha="1.0"
+        android:interpolator="@android:interpolator/decelerate_quad" />
+    <translate android:duration="220" android:fromYDelta="8" android:toYDelta="0"
+        android:interpolator="@android:interpolator/decelerate_quad" />
+</set>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ════════════════════════════════════════════════════════════════
+     CS GLASS DIALOG — premium popup surface (item-4).
+     Controller-page master recipe: obsidian graphite gradient @135°,
+     unified 20dp radius, hairline #2D2D35 stroke. Alpha kept at 95%
+     so the dimmed launcher faintly reads through (glass feel) while
+     legibility stays perfect on any content behind.
+     ════════════════════════════════════════════════════════════════ -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="20dp" />
+    <gradient
+        android:angle="135"
+        android:startColor="#F21B1B22"
+        android:endColor="#F2131318" />
+    <stroke android:width="0.75dp" android:color="#2D2D35" />
+</shape>

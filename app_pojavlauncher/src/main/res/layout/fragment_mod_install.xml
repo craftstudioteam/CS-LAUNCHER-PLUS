@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     MOD / MODPACK — PAGE 3 · DOSSIER  (Phase 10 rebuild)
+
+     Was: one long vertical scroll (hero card → stats → tabs → sections)
+     with a floating top bar and a bottom CTA deck.
+     Now (landscape-first): a TWO-COLUMN DOSSIER.
+       LEFT  (38%) — POSTER column, never scrolls: gallery slideshow fills
+                     the poster (backdrop A/B cross-fade), icon + title +
+                     author + selected-build pill on the poster, a 3-cell
+                     STAT STRIP, and the big INSTALL button anchored under it.
+       RIGHT (62%) — READER column: segmented TAB STRIP pinned at the top,
+                     NestedScrollView with the section cards below.
+     Back button rides on the poster's top-left.
+
+     Every install_* id from the old layout is kept (same view types:
+     containers are ViewGroups, backdrops are ImageViews, CTA is a
+     TextView, sections are LinearLayouts) so ModInstallFragment binds
+     unchanged. Cosmetic-only ids added: install_poster, install_stat_strip.
+     ═══════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/vp_stage_bg"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
+
+    <!-- ═════════════════ LEFT · POSTER COLUMN ═════════════════ -->
+    <LinearLayout
+        android:id="@+id/install_poster"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.38"
+        android:orientation="vertical"
+        android:paddingStart="12dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="6dp"
+        android:paddingBottom="12dp">
+
+        <!-- poster / hero -->
+        <FrameLayout
+            android:id="@+id/install_hero_card"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@drawable/md_poster_frame"
+            android:clipChildren="true"
+            android:clipToOutline="true">
+
+            <ImageView
+                android:id="@+id/install_hero_backdrop_a"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/install_hero_backdrop_b"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop" />
+
+            <!-- scrim: dark at the bottom so the title always reads -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/md_poster_scrim" />
+
+            <!-- top bar on the poster: back + source kicker -->
+            <LinearLayout
+                android:id="@+id/install_top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/install_back_button"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:background="@drawable/vp_round_btn"
+                    android:contentDescription="@string/global_back"
+                    android:src="@drawable/ic_arrow_back_white" />
+
+                <TextView
+                    android:id="@+id/install_topbar_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.14"
+                    android:maxLines="1"
+                    android:textColor="#C9CED8"
+                    android:textSize="9.5sp"
+                    android:textStyle="bold"
+                    tools:text="SODIUM" />
+            </LinearLayout>
+
+            <!-- identity block pinned to the poster's bottom -->
+            <LinearLayout
+                android:id="@+id/install_title_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="12dp">
+
+                <FrameLayout
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@drawable/vp_icon_well">
+
+                    <ImageView
+                        android:id="@+id/install_mod_icon"
+                        android:layout_width="46dp"
+                        android:layout_height="46dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/install_mod_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif-medium"
+                        android:includeFontPadding="false"
+                        android:maxLines="2"
+                        android:shadowColor="#CC000000"
+                        android:shadowDy="1"
+                        android:shadowRadius="6"
+                        android:textColor="#F4F6F9"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        tools:text="Sodium" />
+
+                    <TextView
+                        android:id="@+id/install_mod_author"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:ellipsize="end"
+                        android:includeFontPadding="false"
+                        android:maxLines="1"
+                        android:shadowColor="#CC000000"
+                        android:shadowDy="1"
+                        android:shadowRadius="4"
+                        android:textColor="#C9CED8"
+                        android:textSize="11sp"
+                        android:visibility="gone"
+                        tools:text="by jellysquid3"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/install_selected_version_badge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/vp_tag_mc"
+                        android:ellipsize="middle"
+                        android:fontFamily="@font/minecraftia"
+                        android:includeFontPadding="false"
+                        android:maxLines="1"
+                        android:paddingStart="8dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="8dp"
+                        android:paddingBottom="3dp"
+                        android:textColor="#E6E9EF"
+                        android:textSize="9sp"
+                        tools:text="mc1.21-0.6.0" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- stat strip -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/install_stats_row"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/install_stat_downloads"
+                    style="@style/MdStatCell">
+
+                    <TextView
+                        android:id="@+id/install_stat_downloads_value"
+                        style="@style/MdStatValue"
+                        tools:text="48.2M" />
+
+                    <TextView
+                        style="@style/MdStatLabel"
+                        android:text="DOWNLOADS"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/install_stat_followers"
+                    style="@style/MdStatCell">
+
+                    <TextView
+                        android:id="@+id/install_stat_followers_value"
+                        style="@style/MdStatValue"
+                        tools:text="12.1K" />
+
+                    <TextView
+                        style="@style/MdStatLabel"
+                        android:text="FOLLOWERS"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/install_stat_license"
+                    style="@style/MdStatCell"
+                    android:layout_marginEnd="0dp">
+
+                    <TextView
+                        android:id="@+id/install_stat_license_value"
+                        style="@style/MdStatValue"
+                        tools:text="LGPL-3.0" />
+
+                    <TextView
+                        style="@style/MdStatLabel"
+                        android:text="LICENSE"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- CTA deck -->
+        <FrameLayout
+            android:id="@+id/install_bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/install_button"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/md_cta"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:letterSpacing="0.06"
+                android:textColor="#141519"
+                android:textSize="13.5sp"
+                android:textStyle="bold"
+                tools:text="INSTALL MOD" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- ═════════════════ RIGHT · READER COLUMN ═════════════════ -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.62"
+        android:orientation="vertical"
+        android:paddingStart="6dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="0dp">
+
+        <!-- segmented tab strip -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/md_tab_strip"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+                <TextView android:id="@+id/install_tab_overview" style="@style/MdTab" android:text="Overview" tools:ignore="HardcodedText" />
+                <TextView android:id="@+id/install_tab_details" style="@style/MdTab" android:text="Details" tools:ignore="HardcodedText" />
+                <TextView android:id="@+id/install_tab_gallery" style="@style/MdTab" android:text="Gallery" tools:ignore="HardcodedText" />
+                <TextView android:id="@+id/install_tab_deps" style="@style/MdTab" android:text="Dependencies" tools:ignore="HardcodedText" />
+                <TextView android:id="@+id/install_tab_changelog" style="@style/MdTab" android:text="Changelog" tools:ignore="HardcodedText" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/install_scroll_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:fadingEdgeLength="22dp"
+            android:paddingBottom="14dp"
+            android:requiresFadingEdge="vertical"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- ══ OVERVIEW ══ -->
+                <LinearLayout
+                    android:id="@+id/install_about_section"
+                    style="@style/MdSection">
+
+                    <TextView style="@style/MdSectionTitle" android:text="OVERVIEW" tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/install_full_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="4dp"
+                        android:textColor="#C9CED8"
+                        android:textSize="13sp"
+                        tools:text="Sodium is a modern rendering engine for Minecraft which greatly improves frame rates and reduces stuttering." />
+                </LinearLayout>
+
+                <!-- ══ DETAILS ══ -->
+                <LinearLayout
+                    android:id="@+id/install_details_section"
+                    style="@style/MdSection">
+
+                    <TextView style="@style/MdSectionTitle" android:text="DETAILS" tools:ignore="HardcodedText" />
+
+                    <LinearLayout style="@style/MdKvRow">
+                        <TextView style="@style/MdKvKey" android:text="Build" tools:ignore="HardcodedText" />
+                        <TextView
+                            android:id="@+id/install_detail_version"
+                            style="@style/MdKvValue"
+                            tools:text="mc1.21-0.6.0" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/install_detail_updated_row"
+                        style="@style/MdKvRow">
+                        <TextView style="@style/MdKvKey" android:text="Updated" tools:ignore="HardcodedText" />
+                        <TextView
+                            android:id="@+id/install_detail_updated"
+                            style="@style/MdKvValue"
+                            tools:text="3 days ago" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/MdKvRow" android:background="@null">
+                        <TextView style="@style/MdKvKey" android:text="Source" tools:ignore="HardcodedText" />
+                        <TextView
+                            android:id="@+id/install_detail_source"
+                            style="@style/MdKvValue"
+                            tools:text="Modrinth" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/install_loaders_label"
+                        style="@style/MdSubLabel"
+                        android:text="LOADERS"
+                        tools:ignore="HardcodedText" />
+
+                    <LinearLayout
+                        android:id="@+id/install_loaders_container"
+                        style="@style/MdChipRow" />
+
+                    <TextView
+                        android:id="@+id/install_mcversions_label"
+                        style="@style/MdSubLabel"
+                        android:text="MINECRAFT"
+                        tools:ignore="HardcodedText" />
+
+                    <LinearLayout
+                        android:id="@+id/install_mcversions_container"
+                        style="@style/MdChipRow" />
+
+                    <TextView
+                        android:id="@+id/install_categories_label"
+                        style="@style/MdSubLabel"
+                        android:text="CATEGORIES"
+                        tools:ignore="HardcodedText" />
+
+                    <LinearLayout
+                        android:id="@+id/install_categories_container"
+                        style="@style/MdChipRow" />
+
+                    <!-- links -->
+                    <LinearLayout
+                        android:id="@+id/install_links_section"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <TextView style="@style/MdSubLabel" android:text="LINKS" tools:ignore="HardcodedText" />
+
+                        <TextView android:id="@+id/install_link_website" style="@style/MdLink" android:text="Website" tools:ignore="HardcodedText" />
+                        <TextView android:id="@+id/install_link_source" style="@style/MdLink" android:text="Source code" tools:ignore="HardcodedText" />
+                        <TextView android:id="@+id/install_link_issues" style="@style/MdLink" android:text="Issue tracker" tools:ignore="HardcodedText" />
+                        <TextView android:id="@+id/install_link_wiki" style="@style/MdLink" android:text="Wiki" tools:ignore="HardcodedText" />
+                        <TextView android:id="@+id/install_link_discord" style="@style/MdLink" android:text="Discord" tools:ignore="HardcodedText" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ══ GALLERY ══ -->
+                <LinearLayout
+                    android:id="@+id/install_gallery_section"
+                    style="@style/MdSection"
+                    android:visibility="gone">
+
+                    <TextView style="@style/MdSectionTitle" android:text="GALLERY" tools:ignore="HardcodedText" />
+
+                    <HorizontalScrollView
+                        android:id="@+id/install_gallery_scroll"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:clipToPadding="false"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:id="@+id/install_gallery_container"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal" />
+                    </HorizontalScrollView>
+                </LinearLayout>
+
+                <!-- ══ DEPENDENCIES ══ -->
+                <LinearLayout
+                    android:id="@+id/install_deps_section"
+                    style="@style/MdSection"
+                    android:visibility="gone">
+
+                    <TextView style="@style/MdSectionTitle" android:text="DEPENDENCIES" tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/install_deps_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="3dp"
+                        android:textColor="#C9CED8"
+                        android:textSize="12.5sp"
+                        tools:text="Requires 1 mod · 1 optional" />
+                </LinearLayout>
+
+                <!-- ══ CHANGELOG ══ -->
+                <LinearLayout
+                    android:id="@+id/install_changelog_section"
+                    style="@style/MdSection"
+                    android:visibility="gone">
+
+                    <TextView style="@style/MdSectionTitle" android:text="CHANGELOG" tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/install_changelog"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:lineSpacingExtra="3dp"
+                        android:textColor="#9AA0AC"
+                        android:textSize="11.5sp"
+                        tools:text="- fixed things" />
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</LinearLayout>

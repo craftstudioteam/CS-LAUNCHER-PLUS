@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 1-Click Quick Device Optimizer / Preset panel. ids: setting_icon, preset_state, preset_{low,mid,high}_{card,points,apply} -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/st_icon_well">
+
+            <ImageView
+                android:id="@+id/setting_icon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_settings_performance"
+                app:tint="#C9CED8" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Quick Device Optimizer"
+                android:textColor="#F4F6F9"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1-Click auto-tuning for RAM, resolution, renderer, VSync &amp; FSR"
+                android:textColor="#7F8593"
+                android:textSize="10.5sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/preset_state"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:background="@drawable/st_key_cap"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:paddingHorizontal="6dp"
+            android:textColor="#C9CED8"
+            android:textSize="8.5sp" />
+    </LinearLayout>
+
+    <!-- 4GB RAM Phone Preset -->
+    <LinearLayout
+        android:id="@+id/preset_low_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/st_tile"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp">
+
+        <TextView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/st_icon_well"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="4G"
+            android:textColor="#E6E9EF"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="4GB RAM Phone (Budget / Low-End)"
+                android:textColor="#F4F6F9"
+                android:textSize="12.5sp" />
+
+            <TextView
+                android:id="@+id/preset_low_points"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="1536 MB RAM • 70% Resolution • GL4ES • 50% FSR • Perf Mode"
+                android:textColor="#7F8593"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/preset_low_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:background="@drawable/st_btn_ghost"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:letterSpacing="0.08"
+            android:paddingHorizontal="16dp"
+            android:text="APPLY"
+            android:textColor="#E6E9EF"
+            android:textSize="9.5sp" />
+    </LinearLayout>
+
+    <!-- 6GB RAM Phone Preset -->
+    <LinearLayout
+        android:id="@+id/preset_mid_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/st_tile"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp">
+
+        <TextView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/st_icon_well"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="6G"
+            android:textColor="#E6E9EF"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="6GB RAM Phone (Balanced / Mid-Range)"
+                android:textColor="#F4F6F9"
+                android:textSize="12.5sp" />
+
+            <TextView
+                android:id="@+id/preset_mid_points"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="3072 MB RAM • 85% Resolution • MobileGlues • 25% FSR • Balanced"
+                android:textColor="#7F8593"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/preset_mid_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:background="@drawable/st_btn_ghost"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:letterSpacing="0.08"
+            android:paddingHorizontal="16dp"
+            android:text="APPLY"
+            android:textColor="#E6E9EF"
+            android:textSize="9.5sp" />
+    </LinearLayout>
+
+    <!-- 8GB+ RAM Phone Preset -->
+    <LinearLayout
+        android:id="@+id/preset_high_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/st_tile"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="10dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp">
+
+        <TextView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/st_icon_well"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="8G+"
+            android:textColor="#E6E9EF"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="8GB+ RAM Phone (Flagship / Ultra)"
+                android:textColor="#F4F6F9"
+                android:textSize="12.5sp" />
+
+            <TextView
+                android:id="@+id/preset_high_points"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="4096+ MB RAM • 100% Native Res • Zink/MobileGlues • Maximum Mode"
+                android:textColor="#7F8593"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/preset_high_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:background="@drawable/st_btn_ghost"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:letterSpacing="0.08"
+            android:paddingHorizontal="16dp"
+            android:text="APPLY"
+            android:textColor="#E6E9EF"
+            android:textSize="9.5sp" />
+    </LinearLayout>
+</LinearLayout>

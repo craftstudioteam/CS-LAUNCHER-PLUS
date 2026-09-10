@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CSL v3 HIGH-END Preset Apply Button — violet neon glass -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#178E90" />
+            <stroke android:width="1dp" android:color="#E1BEE7" />
+            <corners android:radius="14dp" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#126D70" />
+            <stroke android:width="1dp" android:color="#D0D0D0" />
+            <corners android:radius="14dp" />
+        </shape>
+    </item>
+</selector>

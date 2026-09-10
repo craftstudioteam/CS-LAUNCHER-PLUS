@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     MOBILE-FIRST CS CLIENT: CLIENT / MOD VERSION ITEM
+     All IDs and View types strictly preserved.
+     ═══════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="2dp"
+    android:layout_marginVertical="4dp"
+    android:background="@drawable/bg_neo_row"
+    android:padding="14dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Client Logo -->
+        <FrameLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_neo_icon_well"
+            android:layout_marginEnd="12dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_optix_logo"
+                android:scaleType="fitCenter"
+                android:contentDescription="Client Logo" />
+        </FrameLayout>
+
+        <!-- Version Info -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_version_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.01" />
+
+            <!-- Badges Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_badge_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:textColor="#00C8E0"
+                    android:textSize="9sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:background="@drawable/bg_neo_badge_accent"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginEnd="6dp" />
+
+                <TextView
+                    android:id="@+id/tv_badge_mc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:textColor="#8E9EB5"
+                    android:textSize="9sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:background="@drawable/bg_neo_badge"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginEnd="6dp" />
+
+                <TextView
+                    android:id="@+id/tv_badge_loader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:textColor="#8E9EB5"
+                    android:textSize="9sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:background="@drawable/bg_neo_badge"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginEnd="6dp" />
+
+                <TextView
+                    android:id="@+id/tv_badge_stable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:textColor="#10B981"
+                    android:textSize="9sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:background="@drawable/bg_neo_badge"
+                    android:paddingHorizontal="8dp"
+                    android:layout_marginEnd="6dp" />
+
+                <TextView
+                    android:id="@+id/tv_badge_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:textColor="#627289"
+                    android:textSize="9sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:background="@drawable/bg_neo_badge"
+                    android:paddingHorizontal="8dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Install Button -->
+        <Button
+            android:id="@+id/btn_card_install"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:minWidth="80dp"
+            android:background="@drawable/bg_neo_btn_primary"
+            android:textColor="#090B10"
+            android:text="INSTALL"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.04"
+            android:layout_marginStart="10dp"
+            android:paddingHorizontal="14dp"
+            android:stateListAnimator="@null" />
+
+    </LinearLayout>
+
+</LinearLayout>

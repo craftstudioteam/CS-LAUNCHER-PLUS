@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Compatible with the selected profile: muted success pill -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#1F7FA98C" />
+    <corners android:radius="6dp" />
+    <stroke android:width="0.75dp" android:color="#407FA98C" />
+    <padding android:left="7dp" android:right="7dp"
+             android:top="2dp" android:bottom="2dp" />
+</shape>

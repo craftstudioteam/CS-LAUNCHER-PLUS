@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Skin Studio — active status chip (platinum / graphite, no colour accents) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#C9CDD8" />
+    <corners android:radius="50dp" />
+</shape>

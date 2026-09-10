@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     MICROSOFT SIGN-IN (Phase 9) — left brand/steps column, right framed
+     web sheet. Id kept: microsoft_login_webview. New ids ms_step_* /
+     ms_status are optional (fragment checks for null).
+     ═══════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/au9_page"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
+
+    <!-- LEFT column -->
+    <LinearLayout
+        android:id="@+id/ms_brand_column"
+        android:layout_width="220dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/au9_brand_col"
+        android:orientation="vertical"
+        android:paddingHorizontal="18dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="14dp">
+
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/au9_icon_well">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_auth_microsoft" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.18"
+            android:text="PREMIUM  ·  MICROSOFT"
+            android:textColor="#8A909C"
+            android:textSize="9sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Sign in"
+            android:textColor="#F4F6F9"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:lineSpacingMultiplier="1.2"
+            android:text="Use the Microsoft page on the right. The launcher only receives the final token."
+            android:textColor="#8A909C"
+            android:textSize="11sp" />
+
+        <!-- step tracker -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/Au9Step">
+                <View android:id="@+id/ms_step_1_dot" style="@style/Au9StepDot" android:background="@drawable/mvs_state_ok" />
+                <TextView android:id="@+id/ms_step_1" style="@style/Au9StepText" android:text="Microsoft login" android:textColor="#F4F6F9" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/Au9Step">
+                <View android:id="@+id/ms_step_2_dot" style="@style/Au9StepDot" android:background="@drawable/pk_check_dot" />
+                <TextView android:id="@+id/ms_step_2" style="@style/Au9StepText" android:text="Xbox Live handshake" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/Au9Step">
+                <View android:id="@+id/ms_step_3_dot" style="@style/Au9StepDot" android:background="@drawable/pk_check_dot" />
+                <TextView android:id="@+id/ms_step_3" style="@style/Au9StepText" android:text="Minecraft profile + skin" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/ms_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/au9_keycap"
+            android:ellipsize="end"
+            android:fontFamily="monospace"
+            android:maxLines="2"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="8dp"
+            android:text="// waiting for login.live.com"
+            android:textColor="#6B7180"
+            android:textSize="9.5sp" />
+    </LinearLayout>
+
+    <!-- RIGHT: framed web sheet -->
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:padding="14dp">
+
+        <FrameLayout
+            android:id="@+id/ms_web_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/au9_webframe"
+            android:clipToOutline="true"
+            android:padding="1dp">
+
+            <WebView
+                android:id="@+id/microsoft_login_webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <ProgressBar
+                android:id="@+id/ms_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_gravity="top"
+                android:indeterminate="true"
+                android:indeterminateTint="#5C6068"
+                android:progressBackgroundTint="#00000000" />
+        </FrameLayout>
+    </FrameLayout>
+</LinearLayout>

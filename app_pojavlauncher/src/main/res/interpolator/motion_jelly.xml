@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  XML approximation of the damped-elastic "jelly" landing used for view animations that cannot
+  take a Java interpolator (fragment transitions). Programmatic animations use the real
+  JellyBounceInterpolator, which oscillates; a cubic curve can only overshoot once, so this
+  reproduces the first — and most visible — overshoot.
+-->
+<pathInterpolator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:controlX1="0.2"
+    android:controlY1="1.35"
+    android:controlX2="0.35"
+    android:controlY2="1.0" />

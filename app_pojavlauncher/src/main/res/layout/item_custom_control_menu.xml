@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="12dp">
+
+    <TextView
+        android:id="@+id/menu_item_section"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="6dp"
+        android:letterSpacing="0.14"
+        android:text="CREATE"
+        android:textColor="#9AA0AE"
+        android:textSize="9sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/menu_item_card"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginBottom="7dp"
+        android:background="@drawable/bg_cursorx_style"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="14dp"
+        android:stateListAnimator="@animator/card_press_anim">
+
+        <FrameLayout
+            android:id="@+id/menu_item_icon_well"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@drawable/pe4_icon_well">
+            <ImageView
+                android:id="@+id/menu_item_icon"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:scaleType="fitCenter" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/menu_item_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:textColor="#F2F2F2"
+            android:textSize="12.5sp" />
+
+        <ImageView
+            android:id="@+id/menu_item_arrow"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:src="@drawable/ic_chevron_right"
+            android:tint="#7C828E" />
+    </LinearLayout>
+</LinearLayout>

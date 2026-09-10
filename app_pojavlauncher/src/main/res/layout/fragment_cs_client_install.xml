@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     CS CLIENT • GRAPHITE v2 — INSTALLATION ENGINE (complete redesign)
+     IDs + types preserved: csc_full_install_visual (CsClientInstallView),
+                            csc_install_exit (View)
+     ═══════════════════════════════════════════════════════════════════ -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/csc_page"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Ambient neutral top glow -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:background="@drawable/csc_bloom"
+        android:alpha="0.75" />
+
+    <net.kdt.pojavlaunch.csclient.CsClientInstallView
+        android:id="@+id/csc_full_install_visual"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/csc_install_exit"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="34dp"
+        android:background="@drawable/csc_btn_ghost"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:letterSpacing="0.06"
+        android:text="RETURN TO BUILDER"
+        android:textColor="#D2D6DE"
+        android:textSize="12sp"
+        android:visibility="gone" />
+</FrameLayout>

@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     CONTROL EDITOR SHELL — AURA pass
+     Canvas is untouched (same ControlLayout + movable wrench handle).
+     The right-hand drawer is fully recomposed: a short header, one
+     2×2 grid for the four "add" actions, a Changes pair, a compact
+     list for the layout-file actions and two rows for the wrench
+     button. Everything the old ListView adapter used to build is now
+     declared here with the SAME action ids the Activity already
+     dispatches (performEditorAction), so no behaviour changed.
+     EDIT / PREVIEW are deliberately absent from this drawer, and so
+     are JOYSTICK STYLE and LAYOUTS & PRESETS (removed for good).
+     ═══════════════════════════════════════════════════════════════════ -->
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/customctrl_drawerlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/control_editor_canvas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/au_page">
+
+        <net.kdt.pojavlaunch.customcontrols.ControlLayout
+            android:id="@+id/customctrl_controllayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Depth at the bottom edge: the canvas is a working surface, and a
+             plain flat rectangle reads as unfinished on a phone screen. It is a
+             View, so it never eats a touch meant for a control. -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:background="@drawable/bg_au_shade_bottom"
+            android:elevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <!-- Static caption - true for every state of the editor, and it does not
+             move or overlap the controls, which are laid out above it. -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_au_chip_neutral"
+            android:elevation="6dp"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.02"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="Tap a control to edit it  ·  drag the wrench to move it"
+            android:textColor="@color/au_text_mid"
+            android:textSize="11.5sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <net.kdt.pojavlaunch.customcontrols.handleview.DrawerPullButton
+            android:id="@+id/drawer_button"
+            android:layout_width="62dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="52dp"
+            android:elevation="12dp"
+            android:padding="7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/control_editor_drawer"
+        android:layout_width="292dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@drawable/bg_au_sheet"
+        android:elevation="24dp"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="18dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="14dp">
+
+        <!-- ── Header: what this sheet is, and a way out ── -->
+        <LinearLayout
+            android:id="@+id/editor_drawer_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:background="@drawable/bg_au_well">
+
+                <ImageView
+                    android:layout_width="19dp"
+                    android:layout_height="19dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_menu_custom_controls"
+                    app:tint="@color/au_text" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="-0.01"
+                    android:text="Editor menu"
+                    android:textColor="@color/au_text"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:letterSpacing="0.01"
+                    android:lineSpacingExtra="2dp"
+                    android:text="Add a control, then tap it on the canvas to style it"
+                    android:textColor="@color/au_text_mid"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/editor_drawer_close"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginEnd="-8dp"
+                android:background="@drawable/bg_au_row"
+                android:clickable="true"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="Close menu"
+                    android:src="@drawable/ic_rb_close"
+                    app:tint="@color/au_text_mid" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="14dp"
+            android:background="@color/au_line" />
+
+        <!-- Live canvas state — read straight off the ControlLayout's children. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_au_group"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingTop="9dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="9dp">
+
+            <View
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginEnd="9dp"
+                android:background="@drawable/bg_au_dot" />
+
+            <TextView
+                android:id="@+id/editor_drawer_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.08"
+                android:text="EMPTY CANVAS"
+                android:textColor="@color/au_text"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/editor_drawer_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingTop="10dp"
+            android:paddingBottom="8dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/editor_drawer_sections"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- ══ 1. ADD ══ -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_au_section"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="11dp"
+                    android:paddingBottom="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/AuSectionLabel"
+                        android:text="ADD TO CANVAS" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/editor_tile_add_button"
+                            style="@style/AuEditorTile">
+
+                            <ImageView
+                                style="@style/AuEditorTileIcon"
+                                android:src="@drawable/ic_ctrl_add_button" />
+
+                            <TextView
+                                style="@style/AuEditorTileTitle"
+                                android:text="Button" />
+
+                            <TextView
+                                style="@style/AuEditorTileSub"
+                                android:text="One key, or a combo" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/editor_tile_add_joystick"
+                            style="@style/AuEditorTile">
+
+                            <ImageView
+                                style="@style/AuEditorTileIcon"
+                                android:src="@drawable/ic_ctrl_add_joystick" />
+
+                            <TextView
+                                style="@style/AuEditorTileTitle"
+                                android:text="Joystick" />
+
+                            <TextView
+                                style="@style/AuEditorTileSub"
+                                android:text="Analog movement" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/editor_tile_add_command"
+                            style="@style/AuEditorTile">
+
+                            <ImageView
+                                style="@style/AuEditorTileIcon"
+                                android:src="@drawable/ic_ctrl_add_command" />
+
+                            <TextView
+                                style="@style/AuEditorTileTitle"
+                                android:text="Command" />
+
+                            <TextView
+                                style="@style/AuEditorTileSub"
+                                android:text="Run a chat macro" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/editor_tile_add_drawer"
+                            style="@style/AuEditorTile">
+
+                            <ImageView
+                                style="@style/AuEditorTileIcon"
+                                android:src="@drawable/ic_ctrl_add_drawer" />
+
+                            <TextView
+                                style="@style/AuEditorTileTitle"
+                                android:text="Group" />
+
+                            <TextView
+                                style="@style/AuEditorTileSub"
+                                android:text="Slide-out sub buttons" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- FPS read-out: a real control. Wide row under the 2x2 grid
+                         so the grid stays balanced and the tile stays readable
+                         in portrait. -->
+                    <LinearLayout
+                        android:id="@+id/editor_tile_add_fps"
+                        style="@style/AuEditorTile"
+                        android:layout_width="match_parent"
+                        android:layout_height="58dp"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            style="@style/AuEditorTileIcon"
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:layout_marginBottom="0dp"
+                            android:src="@drawable/ic_ctrl_add_fps" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="11dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                style="@style/AuEditorTileTitle"
+                                android:text="FPS Counter" />
+
+                            <TextView
+                                style="@style/AuEditorTileSub"
+                                android:text="Live frames read-out, also inside the game" />
+                        </LinearLayout>
+
+                        <TextView
+                            style="@style/AuChip"
+                            android:text="ADD" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ══ 2. CHANGES ══ -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:background="@drawable/bg_au_section"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="11dp"
+                    android:paddingBottom="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/AuSectionLabel"
+                        android:text="CHANGES" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/editor_btn_undo"
+                            style="@style/AuEditorTile"
+                            android:layout_height="54dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
+                                android:layout_marginEnd="7dp"
+                                android:contentDescription="@null"
+                                android:src="@drawable/ic_undo"
+                                app:tint="@color/au_text_mid" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Undo"
+                                android:textColor="@color/au_text"
+                                android:textSize="11.5sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/editor_btn_redo"
+                            style="@style/AuEditorTile"
+                            android:layout_height="54dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
+                                android:layout_marginEnd="7dp"
+                                android:contentDescription="@null"
+                                android:src="@drawable/ic_redo"
+                                app:tint="@color/au_text_mid" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Redo"
+                                android:textColor="@color/au_text"
+                                android:textSize="11.5sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ══ 3. LAYOUT FILE ══ -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:background="@drawable/bg_au_section"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="11dp"
+                    android:paddingBottom="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/AuSectionLabel"
+                        android:text="LAYOUT FILE" />
+
+                    <LinearLayout
+                        android:id="@+id/editor_row_import"
+                        style="@style/AuEditorRow">
+
+                        <ImageView
+                            style="@style/AuEditorRowIcon"
+                            android:src="@drawable/ic_ctrl_load" />
+
+                        <TextView
+                            style="@style/AuEditorRowTitle"
+                            android:text="Import from JSON" />
+
+                        <ImageView
+                            style="@style/AuEditorRowChevron"
+                            android:src="@drawable/ic_chevron_right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/editor_row_save"
+                        style="@style/AuEditorRow">
+
+                        <ImageView
+                            style="@style/AuEditorRowIcon"
+                            android:src="@drawable/ic_ctrl_save" />
+
+                        <TextView
+                            style="@style/AuEditorRowTitle"
+                            android:text="Save layout" />
+
+                        <ImageView
+                            style="@style/AuEditorRowChevron"
+                            android:src="@drawable/ic_chevron_right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/editor_row_default"
+                        style="@style/AuEditorRow">
+
+                        <ImageView
+                            style="@style/AuEditorRowIcon"
+                            android:src="@drawable/ic_ctrl_default" />
+
+                        <TextView
+                            style="@style/AuEditorRowTitle"
+                            android:text="Default layout at launch" />
+
+                        <ImageView
+                            style="@style/AuEditorRowChevron"
+                            android:src="@drawable/ic_chevron_right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/editor_row_export"
+                        style="@style/AuEditorRow">
+
+                        <ImageView
+                            style="@style/AuEditorRowIcon"
+                            android:src="@drawable/ic_ctrl_export" />
+
+                        <TextView
+                            style="@style/AuEditorRowTitle"
+                            android:text="Share layout" />
+
+                        <ImageView
+                            style="@style/AuEditorRowChevron"
+                            android:src="@drawable/ic_chevron_right" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- ══ 4. SETTINGS BUTTON ══ -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:background="@drawable/bg_au_section"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="11dp"
+                    android:paddingBottom="12dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/AuSectionLabel"
+                        android:text="SETTINGS BUTTON" />
+
+                    <LinearLayout
+                        android:id="@+id/editor_row_wrench_image"
+                        style="@style/AuEditorRow">
+
+                        <ImageView
+                            style="@style/AuEditorRowIcon"
+                            android:src="@drawable/ic_upload" />
+
+                        <TextView
+                            style="@style/AuEditorRowTitle"
+                            android:text="Button image" />
+
+                        <ImageView
+                            style="@style/AuEditorRowChevron"
+                            android:src="@drawable/ic_chevron_right" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/editor_row_wrench_size"
+                        style="@style/AuEditorRow">
+
+                        <ImageView
+                            style="@style/AuEditorRowIcon"
+                            android:src="@drawable/ic_setting_buttonscale" />
+
+                        <TextView
+                            style="@style/AuEditorRowTitle"
+                            android:text="Button size" />
+
+                        <ImageView
+                            style="@style/AuEditorRowChevron"
+                            android:src="@drawable/ic_chevron_right" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_au_group"
+                        android:lineSpacingExtra="2dp"
+                        android:padding="12dp"
+                        android:text="Press and hold the wrench on the canvas to move it anywhere. A short tap opens this menu."
+                        android:textColor="@color/au_text_dim"
+                        android:textSize="11.5sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

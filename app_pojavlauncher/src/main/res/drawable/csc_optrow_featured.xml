@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Featured option row: same geometry, silver-lit ring + subtle gradient. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#3DC9CED8">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="18dp" />
+            <gradient android:angle="0" android:startColor="#22252D" android:endColor="#191B21" />
+            <stroke android:width="1.2dp" android:color="#4A4F5A" />
+        </shape>
+    </item>
+</ripple>

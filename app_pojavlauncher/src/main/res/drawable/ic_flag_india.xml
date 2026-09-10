@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Phase 10: Indian tricolour (saffron / white / green) with the navy Ashoka
+     Chakra — 3:2 flag, rounded corners. The ONLY place green is allowed. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="18dp"
+    android:height="12dp"
+    android:viewportWidth="30"
+    android:viewportHeight="20">
+    <!-- clip to a rounded rectangle -->
+    <clip-path android:pathData="M2,0 H28 A2,2 0 0 1 30,2 V18 A2,2 0 0 1 28,20 H2 A2,2 0 0 1 0,18 V2 A2,2 0 0 1 2,0 Z" />
+    <!-- saffron -->
+    <path android:fillColor="#FF9933" android:pathData="M0,0 H30 V6.67 H0 Z" />
+    <!-- white -->
+    <path android:fillColor="#FFFFFF" android:pathData="M0,6.67 H30 V13.33 H0 Z" />
+    <!-- India green -->
+    <path android:fillColor="#138808" android:pathData="M0,13.33 H30 V20 H0 Z" />
+    <!-- Ashoka Chakra ring -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#000080"
+        android:strokeWidth="0.7"
+        android:pathData="M15,10 m-2.6,0 a2.6,2.6 0 1 0 5.2,0 a2.6,2.6 0 1 0 -5.2,0" />
+    <!-- hub -->
+    <path android:fillColor="#000080" android:pathData="M15,10 m-0.6,0 a0.6,0.6 0 1 0 1.2,0 a0.6,0.6 0 1 0 -1.2,0" />
+    <!-- 8 spokes (stylised 24 at this size) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#000080"
+        android:strokeWidth="0.35"
+        android:pathData="M15,7.6 V12.4 M12.6,10 H17.4 M13.3,8.3 L16.7,11.7 M16.7,8.3 L13.3,11.7" />
+</vector>

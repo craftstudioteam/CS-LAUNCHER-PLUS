@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CS LAUNCHER PLUS — first-launch welcome popup copy (Phase 10: split into
+     readable rows; the old single 700-character paragraph is gone). -->
+<resources>
+    <string name="plus_welcome_title">CS LAUNCHER PLUS</string>
+    <string name="plus_welcome_subtitle">MADE IN INDIA  ·  FOR MOBILE</string>
+    <string name="plus_welcome_hero">Thank you for choosing\nCS Launcher Plus!</string>
+    <string name="plus_welcome_intro">Your launcher is ready. Here is everything you need to know before you play.</string>
+    <string name="plus_welcome_kicker">BEFORE YOU PLAY</string>
+    <string name="plus_welcome_cancel">Cancel</string>
+    <string name="plus_welcome_cancel_symbol">✕</string>
+    <string name="plus_welcome_continue">START THE QUICK TOUR</string>
+    <string name="plus_welcome_note">You can reopen this from Settings → About at any time.</string>
+
+    <!-- kept for older callers -->
+    <string name="plus_welcome_body">Your launcher is ready. Here is everything you need to know before you play:\n\n• ACCOUNTS — sign in with Microsoft, Ely.by, or play offline.\n• PROFILES — every Minecraft version from 1.8 to 1.21+, plus Forge, Fabric, Quilt, OptiFine and full modpacks.\n• PERFORMANCE — Normal, Performance or Maximum from Settings.\n• CONTROLS — fully customizable on-screen buttons and joystick.\n• UPDATES — the launcher updates itself in-app.</string>
+
+    <!-- feature rows -->
+    <string name="plus_welcome_g_accounts">A</string>
+    <string name="plus_welcome_t_accounts">Accounts</string>
+    <string name="plus_welcome_d_accounts">Sign in with Microsoft or Ely.by, or play offline. Switch accounts from the chip at the top of Home.</string>
+
+    <string name="plus_welcome_g_profiles">P</string>
+    <string name="plus_welcome_t_profiles">Profiles &amp; instances</string>
+    <string name="plus_welcome_d_profiles">Every Minecraft version from 1.8 to 1.21+, plus Forge, Fabric, Quilt, OptiFine and full modpacks. Default: 1.21.11 Vanilla.</string>
+
+    <string name="plus_welcome_g_perf">F</string>
+    <string name="plus_welcome_t_perf">Performance</string>
+    <string name="plus_welcome_d_perf">Pick Normal, Performance or Maximum in Settings. Maximum unlocks the highest FPS your phone can safely hold.</string>
+
+    <string name="plus_welcome_g_controls">C</string>
+    <string name="plus_welcome_t_controls">Controls</string>
+    <string name="plus_welcome_d_controls">Fully customizable on-screen buttons, joystick and custom commands — open Control Customization from the left dock.</string>
+
+    <string name="plus_welcome_g_updates">U</string>
+    <string name="plus_welcome_t_updates">Updates</string>
+    <string name="plus_welcome_d_updates">The launcher updates itself in-app; you will be told the moment a new release lands.</string>
+
+    <!-- Highlight chips -->
+    <string name="plus_welcome_chip_versions">1.8 → 1.21.11  ·  every version</string>
+    <string name="plus_welcome_chip_mods">Forge · Fabric · Quilt · OptiFine</string>
+    <string name="plus_welcome_chip_control">Custom controls &amp; FPS HUD</string>
+</resources>

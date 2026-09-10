@@ -1,0 +1,746 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BUTTON EDIT — plain original column (Phase 11).
+
+     The redesigned "AURA" sheet (header card, grouped tiles, hint text under
+     every row) is retired: the user wants the default, simplest possible
+     dialog back. This is the classic PojavLauncher shape again — label above
+     field, seekbar with a % readout at its end, one switch per line — with
+     the app's dark palette and nothing decorative.
+
+        Name → Size → [Orientation]
+        Mapping (4 keys) → [Command]
+        Switches (toggle, pass-thru, swipeable, forward lock, absolute)
+        Background colour › · Stroke width · Stroke colour › · Corner radius · Opacity
+        [FPS element rows]  [Icon]  Visibility
+
+     Every id / widget type EditControlSideDialog binds is present. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/edit_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/padding_moderate"
+    android:paddingVertical="@dimen/padding_moderate">
+
+    <!-- title row: what is being edited + a close cross -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btnedit_title"
+            style="@style/TextAppearance.AppCompat.Large"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingVertical="@dimen/padding_small"
+            tools:text="Button" />
+
+        <!-- kept for the code, no longer shown -->
+        <TextView
+            android:id="@+id/btnedit_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/btnedit_close"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@android:string/cancel"
+            android:padding="6dp"
+            android:src="@drawable/ic_rb_close"
+            app:tint="#C9CED8" />
+    </LinearLayout>
+
+    <View
+        style="@style/ThickDivider"
+        android:layout_marginBottom="@dimen/padding_moderate" />
+
+    <!-- ── NAME ── -->
+    <LinearLayout
+        android:id="@+id/btnedit_row_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/editName_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="5dp"
+            android:text="@string/global_name" />
+
+        <EditText
+            android:id="@+id/editName_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="Button Name"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="text"
+            android:maxLines="1" />
+    </LinearLayout>
+
+    <!-- ── SIZE ── -->
+    <LinearLayout
+        android:id="@+id/btnedit_row_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/editSize_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="5dp"
+            android:text="@string/customctrl_size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editSize_editTextX"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="numberDecimal"
+                android:maxLength="5" />
+
+            <TextView
+                android:id="@+id/editSize_x_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingHorizontal="6dp"
+                android:text="x" />
+
+            <EditText
+                android:id="@+id/editSize_editTextY"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="numberDecimal"
+                android:maxLength="5" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ── ORIENTATION (drawers only) ── -->
+    <LinearLayout
+        android:id="@+id/btnedit_row_orientation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/editOrientation_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="5dp"
+            android:text="@string/customctrl_orientation" />
+
+        <Spinner
+            android:id="@+id/editOrientation_spinner"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_weight="1"
+            android:background="@android:color/transparent" />
+    </LinearLayout>
+
+    <!-- ── MAPPING ── -->
+    <TextView
+        android:id="@+id/editMapping_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:paddingEnd="5dp"
+        android:text="@string/customctrl_mapping" />
+
+    <!-- Spinners sit invisibly under their key text: the text opens them. -->
+    <LinearLayout
+        android:id="@+id/btnedit_slot_row_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/mapping_1_textview"
+                style="?android:attr/spinnerItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textAlignment="inherit"
+                tools:text="A" />
+
+            <Spinner
+                android:id="@+id/editMapping_spinner_1"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:dropDownVerticalOffset="30dp"
+                android:dropDownWidth="match_parent"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/editMapping_plus_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="+" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/mapping_2_textview"
+                style="?android:attr/spinnerItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textAlignment="inherit"
+                tools:text="S" />
+
+            <Spinner
+                android:id="@+id/editMapping_spinner_2"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:dropDownVerticalOffset="30dp"
+                android:dropDownWidth="match_parent"
+                android:visibility="invisible" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnedit_slot_row_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/mapping_3_textview"
+                style="?android:attr/spinnerItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textAlignment="inherit"
+                tools:text="Space" />
+
+            <Spinner
+                android:id="@+id/editMapping_spinner_3"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:dropDownVerticalOffset="30dp"
+                android:dropDownWidth="match_parent"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/editMapping_plus_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="+" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/mapping_4_textview"
+                style="?android:attr/spinnerItemStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ellipsize="marquee"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textAlignment="inherit"
+                tools:text="Shift" />
+
+            <Spinner
+                android:id="@+id/editMapping_spinner_4"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:dropDownVerticalOffset="30dp"
+                android:dropDownWidth="match_parent"
+                android:visibility="invisible" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- ── COMMAND (only for the "Command" special key) ── -->
+    <LinearLayout
+        android:id="@+id/btnedit_command_block"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/editCommand_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="5dp"
+            android:text="@string/customctrl_command" />
+
+        <EditText
+            android:id="@+id/editCommand_editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|start"
+            android:hint="@string/customctrl_command_hint"
+            android:imeOptions="flagNoExtractUi"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:maxLines="8"
+            android:minLines="2" />
+
+        <LinearLayout
+            android:id="@+id/editCommand_actions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/editCommand_templates"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minWidth="0dp"
+                android:text="@string/customctrl_command_templates" />
+
+            <Button
+                android:id="@+id/editCommand_history"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minWidth="0dp"
+                android:text="@string/customctrl_command_history" />
+
+            <Button
+                android:id="@+id/editCommand_validate"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minWidth="0dp"
+                android:text="@string/customctrl_command_validate" />
+
+            <Button
+                android:id="@+id/editCommand_import_export"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minWidth="0dp"
+                android:text="I/O" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/editCommand_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/customctrl_command_empty"
+            android:textSize="@dimen/_9ssp" />
+    </LinearLayout>
+
+    <!-- ── SWITCHES ── -->
+    <LinearLayout
+        android:id="@+id/btnedit_row_toggle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Switch
+            android:id="@+id/checkboxToggle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_36sdp"
+            android:text="@string/customctrl_toggle" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnedit_row_passthru"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Switch
+            android:id="@+id/checkboxPassThrough"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_36sdp"
+            android:text="@string/customctrl_passthru" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnedit_row_swipeable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Switch
+            android:id="@+id/checkboxSwipeable"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_36sdp"
+            android:text="@string/customctrl_swipeable" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnedit_row_forwardlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Switch
+            android:id="@+id/checkboxForwardLock"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_36sdp"
+            android:text="@string/customctrl_forward_lock" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnedit_row_abstrack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Switch
+            android:id="@+id/checkboxAbsoluteFingerTracking"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_36sdp"
+            android:text="@string/customctrl_absolute_tracking" />
+    </LinearLayout>
+
+    <!-- ── BACKGROUND COLOUR › ── -->
+    <fr.spse.extended_view.ExtendedTextView
+        android:id="@+id/editBackgroundColor_textView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableEnd="@drawable/spinner_arrow_right"
+        android:gravity="center_vertical"
+        android:paddingEnd="5dp"
+        android:text="@string/customctrl_background_color"
+        app:drawableEndIntegerScaling="true"
+        app:drawableEndSize="20dp" />
+
+    <!-- ── STROKE WIDTH ── -->
+    <LinearLayout
+        android:id="@+id/btnedit_group_stroke"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/editStrokeWidth_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:paddingEnd="5dp"
+            android:text="@string/customctrl_stroke_width" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <SeekBar
+                android:id="@+id/editStrokeWidth_seekbar"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_36sdp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/editStrokeWidth_textView_percent"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="100%" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ── STROKE COLOUR › ── -->
+    <fr.spse.extended_view.ExtendedTextView
+        android:id="@+id/editStrokeColor_textView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:background="?attr/selectableItemBackground"
+        android:drawableEnd="@drawable/spinner_arrow_right"
+        android:gravity="center_vertical"
+        android:paddingEnd="5dp"
+        android:text="@string/customctrl_stroke_color"
+        app:drawableEndIntegerScaling="true"
+        app:drawableEndSize="20dp" />
+
+    <!-- ── CORNER RADIUS ── -->
+    <LinearLayout
+        android:id="@+id/btnedit_group_corner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/editCornerRadius_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="5dp"
+            android:text="@string/customctrl_corner_radius" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <SeekBar
+                android:id="@+id/editCornerRadius_seekbar"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_36sdp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/editCornerRadius_textView_percent"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="100%" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ── OPACITY ── -->
+    <LinearLayout
+        android:id="@+id/btnedit_group_opacity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/editButtonOpacity_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="5dp"
+            android:text="@string/customctrl_button_opacity" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <SeekBar
+                android:id="@+id/editButtonOpacity_seekbar"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_36sdp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/editButtonOpacity_textView_percent"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                tools:text="100%" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ── FPS ELEMENT (only shown for the FPS read-out) ── -->
+    <LinearLayout
+        android:id="@+id/btnedit_group_fps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/btnedit_row_fps_transparent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Switch
+                android:id="@+id/checkboxFpsTransparent"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_36sdp"
+                android:text="Transparent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnedit_row_fps_unit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Switch
+                android:id="@+id/checkboxFpsUnit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_36sdp"
+                android:text="Show FPS unit" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="5dp"
+            android:text="Text size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <SeekBar
+                android:id="@+id/editFpsTextSize_seekbar"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_36sdp"
+                android:layout_weight="1"
+                android:max="28" />
+
+            <TextView
+                android:id="@+id/editFpsTextSize_textView_percent"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Auto" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ── ICON (launcher editor only) ── -->
+    <LinearLayout
+        android:id="@+id/launcher_control_import_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:paddingEnd="5dp"
+            android:text="Icon" />
+
+        <Button
+            android:id="@+id/control_import_image"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Upload PNG / SVG / GIF" />
+
+        <Button
+            android:id="@+id/control_pick_atlas"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick from Minecraft sprites" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/control_icon_tint_input"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:hint="Tint #FF5555"
+                android:imeOptions="flagNoExtractUi"
+                android:inputType="textNoSuggestions|textCapCharacters"
+                android:maxLength="9"
+                android:maxLines="1" />
+
+            <Button
+                android:id="@+id/control_icon_tint_apply"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/control_icon_clear"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Remove icon" />
+    </LinearLayout>
+
+    <!-- ── VISIBILITY ── -->
+    <TextView
+        android:id="@+id/visibility_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="@string/customctrl_visibility_title" />
+
+    <LinearLayout
+        android:id="@+id/btnedit_row_ingame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/visibility_game_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/customctrl_visibility_ingame" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnedit_row_inmenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/visibility_menu_checkbox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/customctrl_visibility_in_menus" />
+    </LinearLayout>
+</LinearLayout>

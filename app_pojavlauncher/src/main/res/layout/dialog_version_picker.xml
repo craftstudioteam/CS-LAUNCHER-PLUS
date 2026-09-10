@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     GRAPHITE v2 — VERSION PICKER BOTTOM SHEET (redesigned)
+     Opens as a rounded bottom sheet. IDs + View types preserved:
+       vp_card, vp_title, vp_close, vp_search_row, vp_search, vp_list,
+       vp_loading, vp_error, vp_retry, vp_empty
+     ═══════════════════════════════════════════════════════════════════ -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom">
+
+    <LinearLayout
+        android:id="@+id/vp_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@drawable/csc_sheet"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="22dp">
+
+        <!-- Grab handle -->
+        <View
+            android:layout_width="44dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/csc_step_idle"
+            android:layout_marginBottom="14dp" />
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/vp_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.01"
+                    android:text="Minecraft Versions"
+                    android:textColor="#F4F6F9"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Select a version build"
+                    android:textColor="#9AA0AC"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/vp_close"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/csc_btn_back"
+                android:contentDescription="@string/global_back"
+                android:padding="9dp"
+                android:src="@drawable/ic_vp_close"
+                app:tint="#D2D6DE" />
+        </LinearLayout>
+
+        <!-- Search pill -->
+        <LinearLayout
+            android:id="@+id/vp_search_row"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/csc_search"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="14dp">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:contentDescription="Search"
+                android:src="@drawable/ic_search"
+                app:tint="#C9CED8" />
+
+            <EditText
+                android:id="@+id/vp_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:background="@null"
+                android:fontFamily="sans-serif"
+                android:hint="Search versions..."
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="#F1F5F9"
+                android:textColorHint="#7A808C"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- List -->
+        <ListView
+            android:id="@+id/vp_list"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_marginTop="14dp"
+            android:clipToPadding="false"
+            android:divider="@null"
+            android:overScrollMode="never"
+            android:paddingBottom="6dp"
+            android:scrollbars="none" />
+
+        <!-- Loading -->
+        <LinearLayout
+            android:id="@+id/vp_loading"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:indeterminateTint="#C9CED8" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.04"
+                android:text="Loading versions…"
+                android:textColor="#9AA0AC"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- Error -->
+        <LinearLayout
+            android:id="@+id/vp_error"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Unable to load versions"
+                android:textColor="#F4F6F9"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:fontFamily="sans-serif"
+                android:text="Check your connection and try again."
+                android:textColor="#9AA0AC"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/vp_retry"
+                android:layout_width="wrap_content"
+                android:layout_height="42dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/csc_btn_ghost"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:letterSpacing="0.06"
+                android:paddingHorizontal="28dp"
+                android:text="RETRY"
+                android:textColor="#D2D6DE"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Empty -->
+        <TextView
+            android:id="@+id/vp_empty"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="No versions available"
+            android:textColor="#9AA0AC"
+            android:textSize="12sp"
+            android:visibility="gone" />
+    </LinearLayout>
+</FrameLayout>

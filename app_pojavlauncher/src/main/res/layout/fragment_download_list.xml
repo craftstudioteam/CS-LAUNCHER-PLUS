@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    Download / browse grid.
+
+    Loading was previously indicated three times at once (a skeleton grid, a
+    floating "Finding the best results…" capsule and a spinner row inside the
+    list itself). The in-list row was also the source of the RecyclerView
+    "Inconsistency detected" crash, so the whole footer row is gone:
+
+      • first page / re-query  → the skeleton grid (it already looks like the
+        cards that are about to arrive, which is the honest loading state)
+      • next page in flight    → the 2dp progress line at the top edge of the
+        page (ModsSearchFragment owns it) and the list simply does not move
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/download_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="20dp"
+        android:scrollbars="none" />
+
+    <!-- SKELETON GRID — placeholder cards with the exact anatomy of a real card -->
+    <LinearLayout
+        android:id="@+id/download_skeleton_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="5dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="5dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <include
+                layout="@layout/item_browse_skeleton"
+                android:layout_width="0dp"
+                android:layout_height="246dp"
+                android:layout_weight="1" />
+
+            <include
+                layout="@layout/item_browse_skeleton"
+                android:layout_width="0dp"
+                android:layout_height="246dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <include
+                layout="@layout/item_browse_skeleton"
+                android:layout_width="0dp"
+                android:layout_height="246dp"
+                android:layout_weight="1" />
+
+            <include
+                layout="@layout/item_browse_skeleton"
+                android:layout_width="0dp"
+                android:layout_height="246dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- SEARCHING CAPSULE — three staggered dots + label, floats over the skeleton -->
+    <LinearLayout
+        android:id="@+id/download_loading_capsule"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/rd_glass_pill"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="14dp"
+        android:visibility="gone">
+
+        <net.kdt.pojavlaunch.ui.LoadingDots
+            android:id="@+id/download_loading_dots"
+            android:layout_width="34dp"
+            android:layout_height="18dp" />
+
+        <TextView
+            android:id="@+id/download_loading_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.06"
+            android:text="SEARCHING"
+            android:textColor="#E6E9EF"
+            android:textSize="9sp"
+            tools:ignore="HardcodedText,SmallSp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/download_list_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_mp_skeleton"
+        android:paddingStart="18dp"
+        android:paddingTop="13dp"
+        android:paddingEnd="18dp"
+        android:paddingBottom="13dp"
+        android:text="@string/browse_no_results"
+        android:textColor="#9C9CA8"
+        android:textSize="12.5sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <!-- ═══ notification opt-in strip (shown only while the permission is denied) ═══ -->
+    <LinearLayout
+        android:id="@+id/download_notif_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/bg_notif_banner"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="14dp"
+        android:paddingTop="11dp"
+        android:paddingEnd="11dp"
+        android:paddingBottom="11dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:contentDescription="@null"
+            android:src="@drawable/notif_icon"
+            app:tint="#82F3F4" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="@string/cs_notif_banner_title"
+                android:textColor="#F2F3F7"
+                android:textSize="11.5sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="@string/cs_notif_banner_text"
+                android:textColor="#9DA0AA"
+                android:textSize="9sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/download_notif_banner_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/bg_notif_banner_btn"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:letterSpacing="0.08"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="@string/cs_notif_banner_action"
+            android:textColor="#0B1512"
+            android:textSize="9.5sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</FrameLayout>

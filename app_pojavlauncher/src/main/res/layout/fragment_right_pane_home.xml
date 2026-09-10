@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_launcher_dark">
+
+    <!-- Custom wallpaper — invisible by default, loaded dynamically -->
+    <ImageView
+        android:id="@+id/right_pane_wallpaper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        android:contentDescription="@null" />
+
+    <!-- (Req: the big "Profiles" heading bar was removed — the activity header
+         bar already brands the screen, and cards deserve the full viewport.) -->
+
+    <!-- Profile Cards -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home_profiles"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:paddingTop="10dp"
+        android:paddingBottom="96dp"
+        android:overScrollMode="never"
+        android:paddingHorizontal="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- Floating "+" Create Profile button (bottom-center, hardware-accelerated) -->
+    <FrameLayout
+        android:id="@+id/fab_create_profile"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bg_fab_create_profile"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_add"
+            android:tint="@color/bg_primary"
+            android:contentDescription="Create Profile" />
+    </FrameLayout>
+
+    <!-- Refresh Profiles button -->
+    <FrameLayout
+        android:id="@+id/btn_refresh_profiles"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="24dp"
+        android:background="@drawable/background_image_rounded"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_redo"
+            android:tint="@color/accent_primary"
+            android:contentDescription="Refresh Profiles" />
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

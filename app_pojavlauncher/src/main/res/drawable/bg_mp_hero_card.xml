@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MP HERO CARD — install screen hero panel, aurora sheen + double rim -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#22FFFFFF">
+    <item android:id="@android:id/background">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="26dp" />
+                    <gradient android:angle="135" android:startColor="#22242E" android:endColor="#0F1014" />
+                    <stroke android:width="1dp" android:color="#33FFFFFF" />
+                </shape>
+            </item>
+            <item android:top="1.5dp">
+                <shape android:shape="rectangle">
+                    <corners android:radius="25dp" />
+                    <gradient android:angle="315" android:startColor="#14D0D0D0" android:centerColor="#06FFFFFF" android:endColor="#00FFFFFF" />
+                </shape>
+            </item>
+            <item android:left="1.5dp" android:top="1.5dp" android:right="1.5dp" android:bottom="1.5dp">
+                <shape android:shape="rectangle">
+                    <corners android:radius="25dp" />
+                    <solid android:color="#00000000" />
+                    <stroke android:width="1dp" android:color="#0DFFFFFF" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</ripple>

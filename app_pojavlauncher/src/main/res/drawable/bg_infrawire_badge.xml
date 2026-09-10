@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Neon-blue pill badge: "OFFICIAL HOSTING PARTNER" / "Powered by" -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="#1AD0D0D0" />
+    <corners android:radius="100dp" />
+    <stroke android:width="1dp" android:color="#55D0D0D0" />
+</shape>

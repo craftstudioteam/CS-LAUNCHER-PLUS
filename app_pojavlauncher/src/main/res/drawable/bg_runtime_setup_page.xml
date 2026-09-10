@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Full-screen runtime setup page: deep charcoal with a faint warm amber
+     aura bleeding from the top — the "system install" design language. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="#0D0D11"
+                android:centerColor="#0B0B0E"
+                android:endColor="#0B0B0E"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item android:top="-160dp" android:height="380dp" android:gravity="top">
+        <shape android:shape="oval">
+            <gradient
+                android:gradientRadius="260dp"
+                android:startColor="#14D8C79A"
+                android:centerColor="#08D8C79A"
+                android:endColor="#00000000"
+                android:type="radial" />
+        </shape>
+    </item>
+</layer-list>

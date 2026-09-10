@@ -1,0 +1,952 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ═══════════════════════════════════════════════════════════════════════════
+  RESOURCE DETAIL — Graphite v3 (the page a Browse Resources card opens)
+
+  A landscape launcher gets a landscape layout: two columns instead of one
+  long scroll.
+
+      ┌──────────────────────────────────────────────────────────────────┐
+      │ ‹  Sodium                                    (command bar)      │
+      ├─────────────────────┬────────────────────────────────────────────┤
+      │ IDENTITY COLUMN     │ CONTENT COLUMN (scrolls)                   │
+      │ artwork stage       │  install console  (version · CHANGE · warn)│
+      │ icon + title + by   │  about                                     │
+      │ stat tiles          │  gallery                                   │
+      │ compat chips        │  available versions                        │
+      │                     │  dependencies · links                      │
+      │ ▓▓▓▓ INSTALL ▓▓▓▓   │                                            │
+      └─────────────────────┴────────────────────────────────────────────┘
+
+  The identity + the one action you came for never scroll away; everything
+  you read scrolls on the right.
+
+  IDS READ BY ModDetailFragment — all preserved, same view types:
+    detail_top_bar, detail_back_button (clickable FrameLayout),
+    detail_title_textview, detail_backdrop_a/b (ImageView),
+    detail_mod_icon, detail_source_badge (ImageView), detail_mod_title,
+    detail_mod_subtitle, detail_stat_downloads/versions/updated (TextView),
+    detail_compat_row (LinearLayout), detail_install_console,
+    detail_mc_current, detail_version_chip, detail_btn_change_version,
+    detail_compat_warning (TextView), detail_full_description,
+    detail_gallery_card, detail_screenshot_label, detail_screenshot_scroll,
+    detail_screenshot_container (LinearLayout), detail_versions_card,
+    detail_versions_container (LinearLayout), detail_deps_card,
+    detail_dependencies_container (LinearLayout), detail_links_card,
+    detail_links_container (LinearLayout), detail_bottom_bar,
+    detail_download_button (TextView), detail_scroll_content (NestedScrollView)
+  NEW (Java findViewById, optional): detail_side_panel, detail_stage,
+    detail_identity_block, detail_stats_row, detail_about_card
+  ═══════════════════════════════════════════════════════════════════════════
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/csc_page">
+
+    <!-- Ambient bloom, top-left -->
+    <View
+        android:layout_width="360dp"
+        android:layout_height="360dp"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="-120dp"
+        android:layout_marginTop="-140dp"
+        android:alpha="0.55"
+        android:background="@drawable/csc_bloom" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- ══════════════ COMMAND BAR ══════════════ -->
+        <LinearLayout
+            android:id="@+id/detail_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/csc_topbar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="10dp"
+            android:paddingEnd="14dp">
+
+            <FrameLayout
+                android:id="@+id/detail_back_button"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/csc_btn_back"
+                android:clickable="true"
+                android:contentDescription="@string/global_back"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_chevron_left"
+                    android:tint="#D2D6DE"
+                    tools:ignore="UseAppTint" />
+            </FrameLayout>
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/csc_accent_bar" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.14"
+                    android:text="RESOURCE DETAIL"
+                    android:textColor="#7A808C"
+                    android:textSize="8sp"
+                    tools:ignore="HardcodedText,SmallSp" />
+
+                <TextView
+                    android:id="@+id/detail_title_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-medium"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textColor="#F4F6F9"
+                    android:textSize="14sp"
+                    tools:text="Sodium" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/detail_type_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:background="@drawable/csc_badge_accent"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.08"
+                android:paddingHorizontal="10dp"
+                android:text="MOD"
+                android:textColor="#C9CED8"
+                android:textSize="8sp"
+                tools:ignore="HardcodedText,SmallSp" />
+        </LinearLayout>
+
+        <!-- ══════════════ TWO COLUMNS ══════════════ -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="10dp">
+
+            <!-- ────────── LEFT: IDENTITY COLUMN (fixed) ────────── -->
+            <LinearLayout
+                android:id="@+id/detail_side_panel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.42"
+                android:background="@drawable/rd_side_panel"
+                android:clipToOutline="true"
+                android:orientation="vertical">
+
+                <!-- The identity block scrolls only if it truly has to (tiny phones) -->
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:overScrollMode="never"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- artwork stage: the only place screenshots ever go -->
+                        <FrameLayout
+                            android:id="@+id/detail_stage"
+                            android:layout_width="match_parent"
+                            android:layout_height="124dp"
+                            android:clickable="true"
+                            android:focusable="true">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/rd_stage_idle" />
+
+                            <ImageView
+                                android:id="@+id/detail_backdrop_a"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:alpha="0"
+                                android:contentDescription="@null"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
+                                android:id="@+id/detail_backdrop_b"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:alpha="0"
+                                android:contentDescription="@null"
+                                android:scaleType="centerCrop" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/rd_stage_scrim" />
+
+                            <!-- slide indicator dots + counter (built in code) -->
+                            <LinearLayout
+                                android:id="@+id/detail_stage_dots"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top|end"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="12dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal" />
+
+                            <TextView
+                                android:id="@+id/detail_stage_counter"
+                                android:layout_width="wrap_content"
+                                android:layout_height="20dp"
+                                android:layout_gravity="top|start"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/rd_glass_pill"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"
+                                android:includeFontPadding="false"
+                                android:letterSpacing="0.06"
+                                android:paddingHorizontal="8dp"
+                                android:text="1 / 1"
+                                android:textColor="#E6E9EF"
+                                android:textSize="8sp"
+                                android:visibility="gone"
+                                tools:ignore="HardcodedText,SmallSp" />
+                        </FrameLayout>
+
+                        <!-- identity: icon overlapping the stage's bottom edge -->
+                        <LinearLayout
+                            android:id="@+id/detail_identity_block"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="-34dp"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="14dp">
+
+                            <FrameLayout
+                                android:layout_width="76dp"
+                                android:layout_height="76dp">
+
+                                <View
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/rd_icon_halo" />
+
+                                <ImageView
+                                    android:id="@+id/detail_mod_icon"
+                                    android:layout_width="64dp"
+                                    android:layout_height="64dp"
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/rd_icon_ring"
+                                    android:contentDescription="@null"
+                                    android:padding="2dp"
+                                    android:scaleType="centerCrop" />
+
+                                <ImageView
+                                    android:id="@+id/detail_source_badge"
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    android:layout_gravity="bottom|end"
+                                    android:background="@drawable/rd_source_badge"
+                                    android:contentDescription="@null"
+                                    android:padding="4dp" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/detail_mod_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:ellipsize="end"
+                                android:fontFamily="sans-serif-medium"
+                                android:includeFontPadding="false"
+                                android:letterSpacing="-0.01"
+                                android:maxLines="2"
+                                android:textColor="#F4F6F9"
+                                android:textSize="17sp"
+                                tools:text="Sodium" />
+
+                            <TextView
+                                android:id="@+id/detail_mod_subtitle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:ellipsize="end"
+                                android:fontFamily="sans-serif"
+                                android:includeFontPadding="false"
+                                android:maxLines="1"
+                                android:textColor="#8A909C"
+                                android:textSize="10.5sp"
+                                tools:text="by jellysquid3" />
+
+                            <!-- stat tiles -->
+                            <LinearLayout
+                                android:id="@+id/detail_stats_row"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:baselineAligned="false"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/rd_stat_tile"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:paddingVertical="8dp">
+
+                                    <TextView
+                                        android:id="@+id/detail_stat_downloads"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="sans-serif-medium"
+                                        android:includeFontPadding="false"
+                                        android:text="—"
+                                        android:textColor="#F4F6F9"
+                                        android:textSize="13.5sp"
+                                        tools:ignore="HardcodedText" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="2dp"
+                                        android:fontFamily="sans-serif-medium"
+                                        android:includeFontPadding="false"
+                                        android:letterSpacing="0.1"
+                                        android:text="DOWNLOADS"
+                                        android:textColor="#6B717D"
+                                        android:textSize="6.5sp"
+                                        tools:ignore="HardcodedText,SmallSp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="6dp"
+                                    android:layout_weight="1"
+                                    android:background="@drawable/rd_stat_tile"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:paddingVertical="8dp">
+
+                                    <TextView
+                                        android:id="@+id/detail_stat_versions"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="sans-serif-medium"
+                                        android:includeFontPadding="false"
+                                        android:text="—"
+                                        android:textColor="#F4F6F9"
+                                        android:textSize="13.5sp"
+                                        tools:ignore="HardcodedText" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="2dp"
+                                        android:fontFamily="sans-serif-medium"
+                                        android:includeFontPadding="false"
+                                        android:letterSpacing="0.1"
+                                        android:text="FILES"
+                                        android:textColor="#6B717D"
+                                        android:textSize="6.5sp"
+                                        tools:ignore="HardcodedText,SmallSp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="6dp"
+                                    android:layout_weight="1.15"
+                                    android:background="@drawable/rd_stat_tile"
+                                    android:gravity="center"
+                                    android:orientation="vertical"
+                                    android:paddingVertical="8dp">
+
+                                    <TextView
+                                        android:id="@+id/detail_stat_updated"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="sans-serif-medium"
+                                        android:includeFontPadding="false"
+                                        android:maxLines="1"
+                                        android:text="—"
+                                        android:textColor="#F4F6F9"
+                                        android:textSize="11.5sp"
+                                        tools:ignore="HardcodedText" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="2dp"
+                                        android:fontFamily="sans-serif-medium"
+                                        android:includeFontPadding="false"
+                                        android:letterSpacing="0.1"
+                                        android:text="UPDATED"
+                                        android:textColor="#6B717D"
+                                        android:textSize="6.5sp"
+                                        tools:ignore="HardcodedText,SmallSp" />
+                                </LinearLayout>
+                            </LinearLayout>
+
+                            <!-- compat chips (built in code) -->
+                            <HorizontalScrollView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="12dp"
+                                android:overScrollMode="never"
+                                android:scrollbars="none">
+
+                                <LinearLayout
+                                    android:id="@+id/detail_compat_row"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:orientation="horizontal" />
+                            </HorizontalScrollView>
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
+
+                <!-- ── ACTION DOCK (pinned to the column's bottom) ── -->
+                <LinearLayout
+                    android:id="@+id/detail_bottom_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/detail_download_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="46dp"
+                        android:background="@drawable/rd_btn_primary"
+                        android:clickable="true"
+                        android:ellipsize="end"
+                        android:focusable="true"
+                        android:fontFamily="sans-serif-medium"
+                        android:gravity="center"
+                        android:letterSpacing="0.12"
+                        android:maxLines="1"
+                        android:paddingHorizontal="12dp"
+                        android:text="INSTALL"
+                        android:textColor="#141519"
+                        android:textSize="12sp"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ────────── RIGHT: CONTENT COLUMN (scrolls) ────────── -->
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/detail_scroll_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_weight="0.58"
+                android:clipToPadding="false"
+                android:overScrollMode="never"
+                android:paddingBottom="6dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <!-- ── FILE SELECTOR (the one decision on this page) ── -->
+                    <LinearLayout
+                        android:id="@+id/detail_install_console"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rd_console"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="14dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="12dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="6dp"
+                                android:layout_height="6dp"
+                                android:background="@drawable/rd_dot" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
+                                android:includeFontPadding="false"
+                                android:letterSpacing="0.14"
+                                android:text="CHOOSE A FILE"
+                                android:textColor="#8A909C"
+                                android:textSize="8sp"
+                                tools:ignore="HardcodedText,SmallSp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="6dp"
+                                android:fontFamily="sans-serif"
+                                android:includeFontPadding="false"
+                                android:text="for"
+                                android:textColor="#5C6068"
+                                android:textSize="9sp"
+                                tools:ignore="HardcodedText" />
+
+                            <TextView
+                                android:id="@+id/detail_mc_current"
+                                android:layout_width="wrap_content"
+                                android:layout_height="22dp"
+                                android:background="@drawable/rd_pill"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"
+                                android:includeFontPadding="false"
+                                android:letterSpacing="0.04"
+                                android:paddingHorizontal="10dp"
+                                android:text="Detecting…"
+                                android:textColor="#C9CED8"
+                                android:textSize="9sp"
+                                tools:ignore="HardcodedText" />
+                        </LinearLayout>
+
+                        <!-- the big selected-file row: tap anywhere → picker sheet -->
+                        <LinearLayout
+                            android:id="@+id/detail_selected_row"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/rd_selected_row"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingStart="12dp"
+                            android:paddingTop="10dp"
+                            android:paddingEnd="8dp"
+                            android:paddingBottom="10dp">
+
+                            <TextView
+                                android:id="@+id/detail_selected_check"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:background="@drawable/rd_pill_silver"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"
+                                android:includeFontPadding="false"
+                                android:text="✓"
+                                android:textColor="#141519"
+                                android:textSize="13sp"
+                                tools:ignore="HardcodedText" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="11dp"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/detail_version_chip"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="middle"
+                                    android:fontFamily="sans-serif-medium"
+                                    android:includeFontPadding="false"
+                                    android:maxLines="1"
+                                    android:text="Loading versions…"
+                                    android:textColor="#F4F6F9"
+                                    android:textSize="12.5sp"
+                                    tools:ignore="HardcodedText" />
+
+                                <TextView
+                                    android:id="@+id/detail_selected_meta"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="3dp"
+                                    android:ellipsize="end"
+                                    android:fontFamily="sans-serif"
+                                    android:includeFontPadding="false"
+                                    android:maxLines="1"
+                                    android:text="Finding the best match for your profile"
+                                    android:textColor="#8A909C"
+                                    android:textSize="9.5sp"
+                                    tools:ignore="HardcodedText" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/detail_selected_state"
+                                android:layout_width="wrap_content"
+                                android:layout_height="20dp"
+                                android:layout_marginStart="8dp"
+                                android:background="@drawable/rd_pill"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"
+                                android:includeFontPadding="false"
+                                android:letterSpacing="0.08"
+                                android:paddingHorizontal="8dp"
+                                android:text="…"
+                                android:textColor="#D2D6DE"
+                                android:textSize="7sp"
+                                tools:ignore="HardcodedText,SmallSp" />
+
+                            <TextView
+                                android:id="@+id/detail_btn_change_version"
+                                android:layout_width="wrap_content"
+                                android:layout_height="32dp"
+                                android:layout_marginStart="8dp"
+                                android:background="@drawable/rd_btn_ghost"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"
+                                android:includeFontPadding="false"
+                                android:letterSpacing="0.08"
+                                android:paddingHorizontal="12dp"
+                                android:text="CHANGE  ›"
+                                android:textColor="#D2D6DE"
+                                android:textSize="9sp"
+                                tools:ignore="HardcodedText" />
+                        </LinearLayout>
+
+                        <!-- quick-pick strip: newest compatible files as chips -->
+                        <TextView
+                            android:id="@+id/detail_quick_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="sans-serif"
+                            android:includeFontPadding="false"
+                            android:text="Quick pick"
+                            android:textColor="#5C6068"
+                            android:textSize="9sp"
+                            android:visibility="gone"
+                            tools:ignore="HardcodedText" />
+
+                        <HorizontalScrollView
+                            android:id="@+id/detail_quick_scroll"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:overScrollMode="never"
+                            android:scrollbars="none"
+                            android:visibility="gone">
+
+                            <LinearLayout
+                                android:id="@+id/detail_quick_versions"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal" />
+                        </HorizontalScrollView>
+
+                        <TextView
+                            android:id="@+id/detail_compat_warning"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/rd_warn"
+                            android:fontFamily="sans-serif"
+                            android:paddingHorizontal="11dp"
+                            android:paddingVertical="8dp"
+                            android:textColor="#E8C989"
+                            android:textSize="9.5sp"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <!-- ── ABOUT ── -->
+                    <LinearLayout
+                        android:id="@+id/detail_about_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/rd_section"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="14dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="13dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="6dp"
+                                android:layout_height="6dp"
+                                android:background="@drawable/rd_dot" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:includeFontPadding="false"
+                                android:letterSpacing="0.14"
+                                android:text="ABOUT"
+                                android:textColor="#8A909C"
+                                android:textSize="8sp"
+                                tools:ignore="HardcodedText,SmallSp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/detail_full_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="sans-serif"
+                            android:lineSpacingExtra="3dp"
+                            android:textColor="#C9CED8"
+                            android:textSize="11sp"
+                            tools:text="A Minecraft mod designed to improve frame rates." />
+                    </LinearLayout>
+
+                    <!-- ── GALLERY ── -->
+                    <LinearLayout
+                        android:id="@+id/detail_gallery_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/rd_section"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="14dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="13dp"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="6dp"
+                                android:layout_height="6dp"
+                                android:background="@drawable/rd_dot" />
+
+                            <TextView
+                                android:id="@+id/detail_screenshot_label"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:includeFontPadding="false"
+                                android:letterSpacing="0.14"
+                                android:text="GALLERY"
+                                android:textColor="#8A909C"
+                                android:textSize="8sp"
+                                tools:ignore="HardcodedText,SmallSp" />
+                        </LinearLayout>
+
+                        <HorizontalScrollView
+                            android:id="@+id/detail_screenshot_scroll"
+                            android:layout_width="match_parent"
+                            android:layout_height="120dp"
+                            android:layout_marginTop="9dp"
+                            android:overScrollMode="never"
+                            android:scrollbars="none">
+
+                            <LinearLayout
+                                android:id="@+id/detail_screenshot_container"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal" />
+                        </HorizontalScrollView>
+                    </LinearLayout>
+
+                    <!-- ── VERSIONS ── -->
+                    <LinearLayout
+                        android:id="@+id/detail_versions_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/rd_section"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="14dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="8dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="6dp"
+                                android:layout_height="6dp"
+                                android:background="@drawable/rd_dot" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_weight="1"
+                                android:fontFamily="sans-serif-medium"
+                                android:includeFontPadding="false"
+                                android:letterSpacing="0.14"
+                                android:text="AVAILABLE FILES"
+                                android:textColor="#8A909C"
+                                android:textSize="8sp"
+                                tools:ignore="HardcodedText,SmallSp" />
+
+                            <TextView
+                                android:id="@+id/detail_versions_count"
+                                android:layout_width="wrap_content"
+                                android:layout_height="18dp"
+                                android:background="@drawable/rd_pill"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"
+                                android:includeFontPadding="false"
+                                android:paddingHorizontal="8dp"
+                                android:text="—"
+                                android:textColor="#C9CED8"
+                                android:textSize="8sp"
+                                tools:ignore="HardcodedText,SmallSp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/detail_versions_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="9dp"
+                            android:orientation="vertical" />
+                    </LinearLayout>
+
+                    <!-- ── DEPENDENCIES ── -->
+                    <LinearLayout
+                        android:id="@+id/detail_deps_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/rd_section"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="14dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="13dp"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="6dp"
+                                android:layout_height="6dp"
+                                android:background="@drawable/rd_dot" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:includeFontPadding="false"
+                                android:letterSpacing="0.14"
+                                android:text="DEPENDENCIES"
+                                android:textColor="#8A909C"
+                                android:textSize="8sp"
+                                tools:ignore="HardcodedText,SmallSp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/detail_dependencies_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="9dp"
+                            android:orientation="vertical" />
+                    </LinearLayout>
+
+                    <!-- ── LINKS ── -->
+                    <LinearLayout
+                        android:id="@+id/detail_links_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@drawable/rd_section"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="14dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="13dp"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="6dp"
+                                android:layout_height="6dp"
+                                android:background="@drawable/rd_dot" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="sans-serif-medium"
+                                android:includeFontPadding="false"
+                                android:letterSpacing="0.14"
+                                android:text="LINKS"
+                                android:textColor="#8A909C"
+                                android:textSize="8sp"
+                                tools:ignore="HardcodedText,SmallSp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/detail_links_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="9dp"
+                            android:orientation="vertical" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="bottom_bar" type="id" />
+    <item name="home_button" type="id" />
+    <item name="mod_store_button" type="id" />
+    <item name="play_button" type="id" />
+    <item name="_background_display_view" type="id" />
+    <item name="menu_profile_edit" type="id" />
+    <item name="menu_profile_shortcuts" type="id" />
+    <!-- Marks a view that already carries the shared press feedback. -->
+    <item name="motion_press_tag" type="id" />
+    <!-- Marks a TextView that already runs the shine sweep. -->
+    <item name="motion_shine_tag" type="id" />
+
+    <!-- Legacy header ids. The old top bar (logo / title / nav icons /
+         indicators) was removed from every layout; the leftover Java paths
+         that mention these ids are null-guarded (findViewById returns null).
+         Nothing inflates these views anymore. -->
+    <item type="id" name="header_bar" />
+    <item type="id" name="btn_home_logo" />
+    <item type="id" name="tv_launcher_title" />
+    <item type="id" name="btn_about" />
+    <item type="id" name="nav_home" />
+    <item type="id" name="nav_mod_store" />
+    <item type="id" name="nav_custom_controls" />
+    <item type="id" name="nav_cursor" />
+    <item type="id" name="nav_skin" />
+    <item type="id" name="nav_skin_icon" />
+    <item type="id" name="nav_home_indicator" />
+    <item type="id" name="nav_mod_store_indicator" />
+    <item type="id" name="nav_controls_indicator" />
+    <item type="id" name="nav_cursor_indicator" />
+    <item type="id" name="nav_skin_indicator" />
+</resources>

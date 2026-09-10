@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CSP SEEKBAR — silver beam on smoked glass track -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <corners android:radius="5dp" />
+            <solid android:color="#17FFFFFF" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <corners android:radius="5dp" />
+                <gradient android:angle="0" android:startColor="#8E929E" android:centerColor="#D0D0D0" android:endColor="#F4F4F8" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

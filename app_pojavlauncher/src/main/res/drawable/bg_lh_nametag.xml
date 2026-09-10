@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Vanilla Minecraft name plate: ~40% flat black, barely-rounded corners.
+     Lives in the UI layer above the GL surface so it never clips the character. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#66000000" />
+    <corners android:radius="3dp" />
+</shape>

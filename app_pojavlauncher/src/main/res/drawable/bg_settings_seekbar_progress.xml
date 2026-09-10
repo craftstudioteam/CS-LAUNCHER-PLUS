@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     CONTROL EDITOR SLIDER — track (CS Launcher Plus platinum)
+     Deep inset rail + platinum beam fill with a bright leading edge.
+     ═══════════════════════════════════════════════════════════════════ -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Inset rail -->
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <corners android:radius="999dp" />
+            <solid android:color="#191B21" />
+            <stroke android:width="1dp" android:color="#2A2D36" />
+            <size android:height="8dp" />
+        </shape>
+    </item>
+
+    <!-- Buffer / secondary -->
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape android:shape="rectangle">
+                <corners android:radius="999dp" />
+                <solid android:color="#26FFFFFF" />
+                <size android:height="8dp" />
+            </shape>
+        </clip>
+    </item>
+
+    <!-- Platinum beam fill -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape android:shape="rectangle">
+                <corners android:radius="999dp" />
+                <gradient
+                    android:angle="0"
+                    android:startColor="#B9BEC9"
+                    android:centerColor="#D7D9E0"
+                    android:endColor="#F6F7FA"
+                    android:type="linear" />
+                <size android:height="8dp" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

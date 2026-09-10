@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Skin Studio — hero preview panel -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="22dp" />
+    <gradient android:angle="270" android:startColor="#1A1D25" android:endColor="#0B0C10" />
+    <stroke android:width="1dp" android:color="#272B35" />
+</shape>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bounce: closing page fades out. -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="@integer/motion_duration_medium"
+    android:interpolator="@interpolator/motion_emphasized"
+    android:shareInterpolator="true">
+    <alpha android:fromAlpha="1" android:toAlpha="0"
+        android:duration="@integer/motion_duration_short" android:interpolator="@interpolator/motion_standard_accelerate" />
+</set>

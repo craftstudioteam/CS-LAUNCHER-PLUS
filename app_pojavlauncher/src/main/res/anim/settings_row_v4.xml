@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings row entrance: a spring-rise — rows lift in with a soft overshoot so
+     the page feels composed, not just faded. Compositor-only (alpha/translate/scale). -->
+<set xmlns:android="http://schemas.android.com/apk/res/android" android:fillAfter="true">
+    <alpha
+        android:duration="200"
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:interpolator="@interpolator/motion_standard" />
+    <translate
+        android:duration="340"
+        android:fromYDelta="22dp"
+        android:toYDelta="0dp"
+        android:interpolator="@interpolator/motion_emphasized_decelerate" />
+    <scale
+        android:duration="360"
+        android:fromXScale="0.965"
+        android:toXScale="1.0"
+        android:fromYScale="0.965"
+        android:toYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:interpolator="@interpolator/motion_spring" />
+</set>

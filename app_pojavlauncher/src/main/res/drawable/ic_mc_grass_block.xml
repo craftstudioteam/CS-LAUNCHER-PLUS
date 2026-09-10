@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══ Normal Version = the Minecraft block (grass block), white monochrome —
+     crisp at any size, matches the dark card it sits on. Isometric cube:
+     grass top with notched blades overhanging the rim, dirt sides. ═══ -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="#FFFFFFFF">
+
+    <!-- left dirt face -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M3.4,8.2 L12,12.9 L12,21 L3.4,16.3 Z" />
+    <!-- right dirt face (slightly brighter for light direction) -->
+    <path
+        android:fillColor="#F2F2F2FF"
+        android:pathData="M20.6,8.2 L12,12.9 L12,21 L20.6,16.3 Z" />
+    <!-- grass top -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M12,2.6 L21.2,7.6 L12,12.6 L2.8,7.6 Z" />
+
+    <!-- face separation edges -->
+    <path
+        android:strokeColor="#0E0B16"
+        android:strokeWidth="0.9"
+        android:pathData="M12,12.9 L12,21 M12,12.9 L3.4,8.2 M12,12.9 L20.6,8.2" />
+    <!-- top rim edge -->
+    <path
+        android:strokeColor="#0E0B16"
+        android:strokeWidth="0.8"
+        android:pathData="M4.1,7.6 L12,11.9 L19.9,7.6 L12,3.5 Z" />
+
+    <!-- grass blade notches hanging over the rim (left face) -->
+    <path
+        android:fillColor="#0E0B16"
+        android:pathData="M5.2,8.4 l1.1,0.6 l0,0.9 l-1.1,-0.6 Z M8.1,9.9 l1.1,0.6 l0,0.9 l-1.1,-0.6 Z M6.6,9.1 l0.8,0.45 l0,0.7 l-0.8,-0.45 Z" />
+    <!-- grass blade notches hanging over the rim (right face) -->
+    <path
+        android:fillColor="#0E0B16"
+        android:pathData="M17.7,9.0 l-1.1,0.6 l0,0.9 l1.1,-0.6 Z M14.8,10.4 l-1.1,0.6 l0,0.9 l1.1,-0.6 Z M16.3,9.6 l-0.8,0.45 l0,0.7 l0.8,-0.45 Z" />
+    <!-- dirt speckles -->
+    <path
+        android:fillColor="#0E0B16"
+        android:pathData="M6.2,13.2 m0.7,0 a0.7,0.7 0 1,0 -1.4,0 a0.7,0.7 0 1,0 1.4,0 M9.4,15.4 m0.6,0 a0.6,0.6 0 1,0 -1.2,0 a0.6,0.6 0 1,0 1.2,0 M15.1,13.6 m0.7,0 a0.7,0.7 0 1,0 -1.4,0 a0.7,0.7 0 1,0 1.4,0 M17.3,15.8 m0.55,0 a0.55,0.55 0 1,0 -1.1,0 a0.55,0.55 0 1,0 1.1,0 M7.6,16.9 m0.5,0 a0.5,0.5 0 1,0 -1.0,0 a0.5,0.5 0 1,0 1.0,0" />
+</vector>

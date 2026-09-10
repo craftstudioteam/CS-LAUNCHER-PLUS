@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CS Client graphite row: list rows / manifest entries. Silver ripple on press. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#2EC9CED8">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="18dp" />
+            <gradient android:angle="270" android:startColor="#1C1E24" android:endColor="#15171C" />
+            <stroke android:width="1dp" android:color="#2A2D36" />
+        </shape>
+    </item>
+</ripple>

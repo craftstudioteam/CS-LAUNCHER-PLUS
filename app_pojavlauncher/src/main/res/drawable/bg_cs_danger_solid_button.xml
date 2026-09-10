@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DANGER BUTTON — ARMED state (delete confirmation): solid danger gradient. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#40FFFFFF">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <gradient
+                android:angle="135"
+                android:startColor="#D63A52"
+                android:endColor="#FF5A6E" />
+        </shape>
+    </item>
+</ripple>

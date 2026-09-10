@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════════
+     SKIN STUDIO — completely re-imagined (portrait / mobile-first)
+
+     Old page was a cramped left|right split squeezed into a phone. The new
+     page is a single vertical rhythm that also reads perfectly in landscape
+     (see layout-land):
+
+       1. Command bar        — back, title + live slot subtitle, sync chip
+       2. Hero preview       — big GL stage with name / model / hint overlay
+       3. Skin wardrobe      — three large, recognisable skin cards with a
+                               clear selected + active state
+       4. Tools              — import, cape, fetch-by-name
+       5. Action bar         — one obvious primary action
+
+     Every id the fragment looks up is preserved so no behaviour is lost.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_skinv2_page">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="13dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
+
+        <!-- ══════════ COMMAND BAR ══════════ -->
+        <LinearLayout
+            android:id="@+id/skin_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:background="@drawable/pe5_topbar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="13dp">
+
+            <FrameLayout
+                android:id="@+id/skin_back_button"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/pe4_back_btn"
+                android:contentDescription="Back">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_arrow_back" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="11dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/skin_page_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Skin Studio"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14.5sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/skin_page_subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:ellipsize="end"
+                    android:letterSpacing="0.05"
+                    android:maxLines="1"
+                    android:text="Slot 1"
+                    android:textColor="#7C828E"
+                    android:textSize="8.5sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_server_status_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/bg_skinv2_pill"
+                android:gravity="center"
+                android:letterSpacing="0.08"
+                android:paddingHorizontal="9dp"
+                android:text="LOCAL SKIN SERVER"
+                android:textColor="#9AA0AE"
+                android:textSize="7sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/skin_header_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:background="#1AFFFFFF" />
+
+        <!-- ══════════ BODY: preview on the left, tools on the right (landscape) ══════════ -->
+        <LinearLayout
+            android:id="@+id/skin_studio_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <!-- ── HERO PREVIEW ── -->
+            <FrameLayout
+                android:id="@+id/skin_preview_card"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.46"
+                android:background="@drawable/bg_skinv2_preview">
+
+                <FrameLayout
+                    android:id="@+id/skin_preview_inline_host"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <android.opengl.GLSurfaceView
+                        android:id="@+id/skin_preview_surface"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+                </FrameLayout>
+
+                <!-- bottom scrim so the overlay text always reads -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_skinv2_scrim" />
+
+                <!-- top-left status -->
+                <TextView
+                    android:id="@+id/tv_skin_status_chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="11dp"
+                    android:layout_marginTop="11dp"
+                    android:background="@drawable/bg_skinv2_pill"
+                    android:gravity="center"
+                    android:letterSpacing="0.08"
+                    android:paddingHorizontal="9dp"
+                    android:text="EMPTY SLOT"
+                    android:textColor="#9AA0AE"
+                    android:textSize="7sp"
+                    android:textStyle="bold" />
+
+                <!-- top-right controls -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginEnd="9dp"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:id="@+id/skin_preview_expand"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_skinv2_well"
+                        android:contentDescription="Expand preview">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="⤢"
+                            android:textColor="#C9CDD8"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/skin_preview_close_inline"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:background="@drawable/bg_skinv2_well"
+                        android:contentDescription="Close fullscreen preview"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="✕"
+                            android:textColor="#C9CDD8"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </FrameLayout>
+                </LinearLayout>
+
+                <!-- bottom caption -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="13dp"
+                    android:paddingBottom="11dp">
+
+                    <TextView
+                        android:id="@+id/tv_skin_path"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="No skin in selected slot"
+                        android:textColor="#F0F1F5"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_preview_hint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Drag to rotate  •  Pinch to zoom  •  Double-tap to reset"
+                        android:textColor="#7C828E"
+                        android:textSize="8.5sp" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- ── TOOLS ── -->
+            <ScrollView
+                android:id="@+id/skin_tools_scroll"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="11dp"
+                android:layout_weight="0.54"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="4dp">
+
+                    <!-- ══ SKIN WARDROBE (the three-slot selector) ══ -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:letterSpacing="0.16"
+                            android:text="YOUR SKINS"
+                            android:textColor="#7C828E"
+                            android:textSize="7.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_cape_status_chip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="18dp"
+                            android:background="@drawable/bg_skinv2_pill"
+                            android:gravity="center"
+                            android:letterSpacing="0.08"
+                            android:paddingHorizontal="8dp"
+                            android:text="3 SLOTS"
+                            android:textColor="#9AA0AE"
+                            android:textSize="6.8sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/skin_slot_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal" />
+
+                    <!-- ══ IMPORT / REMOVE ══ -->
+                    <LinearLayout
+                        android:id="@+id/skin_skin_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:background="@drawable/bg_skinv2_card"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="13dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="13dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:letterSpacing="0.16"
+                            android:text="SKIN FILE"
+                            android:textColor="#7C828E"
+                            android:textSize="7.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:lineSpacingExtra="2dp"
+                            android:text="Import a Minecraft skin PNG into the selected slot, or clear it."
+                            android:textColor="#8D93A1"
+                            android:textSize="9.5sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="11dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/btn_change_skin"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@drawable/pe4_btn_save"
+                                android:gravity="center"
+                                android:letterSpacing="0.1"
+                                android:text="IMPORT SKIN"
+                                android:textColor="#14151A"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/btn_remove_skin"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="8dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_skinv2_danger"
+                                android:gravity="center"
+                                android:letterSpacing="0.1"
+                                android:text="CLEAR SLOT"
+                                android:textColor="#E5A0A6"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- ══ CAPE ══ -->
+                    <LinearLayout
+                        android:id="@+id/skin_cape_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="9dp"
+                        android:background="@drawable/bg_skinv2_card"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="13dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="13dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:letterSpacing="0.16"
+                                android:text="CAPE"
+                                android:textColor="#7C828E"
+                                android:textSize="7.5sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:letterSpacing="0.05"
+                                android:text="optional"
+                                android:textColor="#5F6572"
+                                android:textSize="7.5sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_cape_path"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="No custom cape selected"
+                            android:textColor="#C9CDD8"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/btn_browse_capes"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1.2"
+                                android:background="@drawable/bg_skinv2_action"
+                                android:gravity="center"
+                                android:letterSpacing="0.08"
+                                android:text="BROWSE CAPES"
+                                android:textColor="#14151A"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/btn_change_cape"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="8dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/bg_skinv2_action_ghost"
+                                android:gravity="center"
+                                android:letterSpacing="0.08"
+                                android:text="IMPORT PNG"
+                                android:textColor="#C9CDD8"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/btn_remove_cape"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="8dp"
+                                android:layout_weight="0.8"
+                                android:background="@drawable/bg_skinv2_action_ghost"
+                                android:gravity="center"
+                                android:letterSpacing="0.08"
+                                android:text="CLEAR"
+                                android:textColor="#9AA0AE"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- ══ FETCH BY USERNAME ══ -->
+                    <LinearLayout
+                        android:id="@+id/skin_fetch_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="9dp"
+                        android:background="@drawable/bg_skinv2_card"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="13dp"
+                        android:paddingTop="12dp"
+                        android:paddingBottom="13dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:letterSpacing="0.16"
+                            android:text="GRAB A PLAYER SKIN"
+                            android:textColor="#7C828E"
+                            android:textSize="7.5sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="9dp"
+                            android:orientation="horizontal">
+
+                            <EditText
+                                android:id="@+id/et_skin_username"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:autofillHints="username"
+                                android:background="@drawable/bg_skinv2_input"
+                                android:hint="Minecraft username"
+                                android:imeOptions="actionSearch"
+                                android:inputType="text"
+                                android:paddingHorizontal="12dp"
+                                android:singleLine="true"
+                                android:textColor="#F0F1F5"
+                                android:textColorHint="#5F6572"
+                                android:textSize="11sp" />
+
+                            <TextView
+                                android:id="@+id/btn_fetch_skin"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="8dp"
+                                android:background="@drawable/pe4_btn_save"
+                                android:gravity="center"
+                                android:letterSpacing="0.1"
+                                android:paddingHorizontal="16dp"
+                                android:text="FETCH"
+                                android:textColor="#14151A"
+                                android:textSize="10sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- ══ ACTIONS ══ -->
+                    <LinearLayout
+                        android:id="@+id/skin_action_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/btn_save_skin_changes"
+                            android:layout_width="match_parent"
+                            android:layout_height="44dp"
+                            android:background="@drawable/pe4_btn_save"
+                            android:gravity="center"
+                            android:letterSpacing="0.12"
+                            android:text="SET AS ACTIVE SKIN"
+                            android:textColor="#14151A"
+                            android:textSize="11.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/btn_reset_default"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/bg_skinv2_action_ghost"
+                            android:gravity="center"
+                            android:letterSpacing="0.1"
+                            android:text="RESET ALL SLOTS"
+                            android:textColor="#9AA0AE"
+                            android:textSize="10sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Compatibility host kept so the fragment's fullscreen hooks stay valid.
+         The GL surface itself is never re-parented — see SkinManagerFragment. -->
+    <FrameLayout
+        android:id="@+id/skin_fullscreen_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <FrameLayout
+            android:id="@+id/skin_fullscreen_preview_host"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+</FrameLayout>

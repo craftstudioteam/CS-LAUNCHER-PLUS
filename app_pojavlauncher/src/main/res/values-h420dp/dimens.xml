@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Roomier Launcher Home "Stage" metrics for tall landscape screens / tablets. -->
+<resources>
+    <dimen name="lh_dock_icon">46dp</dimen>
+    <dimen name="lh_dock_icon_inner">24dp</dimen>
+    <dimen name="lh_dock_gap">10dp</dimen>
+    <dimen name="lh_dock_pad_v">10dp</dimen>
+    <dimen name="lh_dock_width">58dp</dimen>
+    <dimen name="lh_player_w">142dp</dimen>
+    <dimen name="lh_player_h">206dp</dimen>
+    <dimen name="lh_card_width">192dp</dimen>
+    <dimen name="lh_card_height">118dp</dimen>
+    <dimen name="lh_carousel_height">128dp</dimen>
+    <dimen name="lh_launch_button_h">60dp</dimen>
+</resources>

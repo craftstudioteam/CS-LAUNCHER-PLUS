@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Account picker row (popup only). Ids are the contract mcAccountSpinner.bindAccount()
+  reads: account_row, account_head, account_name, account_badge, account_subtitle,
+  account_check, delete_account_button — keep them.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/account_row"
+    android:layout_width="match_parent"
+    android:layout_height="68dp"
+    android:layout_marginBottom="7dp"
+    android:background="@drawable/acc_row"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="10dp"
+    android:paddingEnd="6dp">
+
+    <FrameLayout
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/acc_head_ring">
+
+        <ImageView
+            android:id="@+id/account_head"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:scaleType="fitCenter" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/account_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="#F4F6F9"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/account_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:background="@drawable/acc_badge"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.10"
+                android:paddingHorizontal="7dp"
+                android:textColor="#C9CED8"
+                android:textSize="7sp"
+                tools:ignore="SmallSp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/account_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.04"
+            android:maxLines="1"
+            android:textColor="#8A909C"
+            android:textSize="8.5sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/account_check"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="6dp"
+        android:background="@drawable/acc_check"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="✓"
+        android:textColor="#141519"
+        android:textSize="12sp"
+        android:visibility="gone"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/delete_account_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="2dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@null"
+        android:padding="10dp"
+        android:src="@drawable/ic_menu_delete_forever"
+        android:tint="#6B717D" />
+</LinearLayout>

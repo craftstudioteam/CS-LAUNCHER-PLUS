@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ═══════════════════════════════════════════════════════════════════
+  CS LAUNCHER PLUS — RUNTIME INSTALLER (V4 REDESIGN)
+  Brand new dark graphite + obsidian landscape console.
+  Left pane: Title + live installation telemetry deck with ring view.
+  Right pane: Scrollable list of selectable Java runtimes.
+  ═══════════════════════════════════════════════════════════════════
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rs_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rt_page">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="24dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="24dp"
+        android:paddingBottom="14dp">
+
+        <!-- Main Body: Two Panes -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <!-- LEFT PANE: Header info + Live Progress Telemetry -->
+            <LinearLayout
+                android:id="@+id/rs_left_pane"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.95"
+                android:orientation="vertical"
+                android:paddingEnd="20dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/rs_eyebrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/rt_chip"
+                        android:fontFamily="sans-serif-medium"
+                        android:letterSpacing="0.12"
+                        android:paddingStart="10dp"
+                        android:paddingTop="3dp"
+                        android:paddingEnd="10dp"
+                        android:paddingBottom="3dp"
+                        android:text="JAVA RUNTIME ENGINE"
+                        android:textColor="#94A3B8"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/rs_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Java for Minecraft"
+                    android:textColor="#F8FAFC"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/rs_summary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:lineSpacingExtra="3dp"
+                    android:text="Minecraft requires Java to run on your device. Choose which versions to install — Java 17 and 21 are recommended for modern Minecraft."
+                    android:textColor="#94A3B8"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/rs_offline_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rt_chip_warn"
+                    android:paddingStart="12dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="6dp"
+                    android:text="@string/rs_offline_note"
+                    android:textColor="#FFB4B8"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
+
+                <!-- Legacy stat labels kept for ID binding -->
+                <TextView
+                    android:id="@+id/rs_stat_installed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/rs_stat_available"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- PROGRESS TELEMETRY PANEL (Appears dynamically while installing) -->
+                <LinearLayout
+                    android:id="@+id/rs_install_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rt_panel"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <FrameLayout
+                            android:layout_width="68dp"
+                            android:layout_height="68dp">
+
+                            <net.kdt.pojavlaunch.multirt.RuntimeRingView
+                                android:id="@+id/rs_ring"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                            <TextView
+                                android:id="@+id/rs_overall_percent"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="sans-serif-medium"
+                                android:gravity="center"
+                                android:text="0%"
+                                android:textColor="#F8FAFC"
+                                android:textSize="15sp" />
+                        </FrameLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="14dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/rs_overall_step"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="sans-serif-medium"
+                                android:maxLines="1"
+                                android:ellipsize="end"
+                                android:text="@string/rs_step_starting"
+                                android:textColor="#F8FAFC"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:id="@+id/rs_status_line"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
+                                android:maxLines="2"
+                                android:ellipsize="end"
+                                android:text="@string/rs_stats_starting"
+                                android:textColor="#94A3B8"
+                                android:textSize="12sp" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/rs_stat_size"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/rt_chip"
+                                    android:paddingStart="10dp"
+                                    android:paddingTop="3dp"
+                                    android:paddingEnd="10dp"
+                                    android:paddingBottom="3dp"
+                                    android:text="0 MB"
+                                    android:textColor="#E2E8F0"
+                                    android:textSize="11sp" />
+
+                                <TextView
+                                    android:id="@+id/rs_stat_speed"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="6dp"
+                                    android:background="@drawable/rt_chip"
+                                    android:paddingStart="10dp"
+                                    android:paddingTop="3dp"
+                                    android:paddingEnd="10dp"
+                                    android:paddingBottom="3dp"
+                                    android:text="— MB/s"
+                                    android:textColor="#E2E8F0"
+                                    android:textSize="11sp" />
+
+                                <TextView
+                                    android:id="@+id/rs_stat_eta"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="6dp"
+                                    android:background="@drawable/rt_chip"
+                                    android:paddingStart="10dp"
+                                    android:paddingTop="3dp"
+                                    android:paddingEnd="10dp"
+                                    android:paddingBottom="3dp"
+                                    android:text="—"
+                                    android:textColor="#E2E8F0"
+                                    android:textSize="11sp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/rs_install_rows"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone" />
+
+                    <!-- Completion Buttons Row -->
+                    <LinearLayout
+                        android:id="@+id/rs_finish_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:gravity="end"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/rs_btn_done"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:background="@drawable/rt_btn_ghost"
+                            android:gravity="center"
+                            android:paddingStart="18dp"
+                            android:paddingEnd="18dp"
+                            android:text="@string/rw_finish_anyway"
+                            android:textColor="#E2E8F0"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/rs_btn_start"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/rt_btn_primary"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:paddingStart="22dp"
+                            android:paddingEnd="22dp"
+                            android:text="@string/rs_done_cta"
+                            android:textColor="#090A0E"
+                            android:textSize="13.5sp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- RIGHT PANE: Scrollable List of Runtimes -->
+            <ScrollView
+                android:id="@+id/rs_scroll"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.05"
+                android:fadeScrollbars="true"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/rs_select_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp">
+
+                    <LinearLayout
+                        android:id="@+id/rs_card_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+
+        <!-- BOTTOM ACTION DOCK -->
+        <LinearLayout
+            android:id="@+id/rs_action_dock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="end|center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/rs_btn_skip"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:background="@drawable/rt_btn_ghost"
+                android:gravity="center"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="@string/rs_skip"
+                android:textColor="#C9CED8"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/rs_btn_install"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/rt_btn_primary"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:minWidth="175dp"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:text="Install Selected"
+                android:textColor="#090A0E"
+                android:textSize="14.5sp" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

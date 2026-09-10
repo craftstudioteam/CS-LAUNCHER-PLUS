@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cursor Studio v4 — preview stage: deep well with a soft center spotlight -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <gradient android:angle="270" android:startColor="#101216" android:endColor="#0A0B0E" />
+            <stroke android:width="1dp" android:color="#262A33" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <gradient
+                android:type="radial"
+                android:gradientRadius="150dp"
+                android:centerX="0.5"
+                android:centerY="0.42"
+                android:startColor="#12FFFFFF"
+                android:endColor="#00000000" />
+        </shape>
+    </item>
+</layer-list>

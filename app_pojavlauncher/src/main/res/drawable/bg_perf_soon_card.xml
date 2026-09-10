@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora perf soon mini-card — teal-washed glass -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:angle="135"
+        android:startColor="#121E2A"
+        android:endColor="#0E141C" />
+    <corners android:radius="20dp" />
+    <stroke android:width="0.75dp" android:color="#2A3D55" />
+</shape>

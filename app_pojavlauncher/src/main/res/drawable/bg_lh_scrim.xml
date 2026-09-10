@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Full-screen legibility treatment over the instance artwork:
+     1. vertical depth (light top → heavy bottom) for the library band,
+     2. left anchor so the 3D player separates cleanly from the scene,
+     3. soft right veil so the launch cluster stays readable.
+     Atmosphere without competing with the UI. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="270"
+                android:startColor="#660B0713"
+                android:centerColor="#5C0B0713"
+                android:endColor="#F20B0713" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="0"
+                android:startColor="#B00B0713"
+                android:centerColor="#4D0B0713"
+                android:endColor="#140B0713" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="180"
+                android:startColor="#660B0713"
+                android:centerColor="#260B0713"
+                android:endColor="#000B0713" />
+        </shape>
+    </item>
+</layer-list>

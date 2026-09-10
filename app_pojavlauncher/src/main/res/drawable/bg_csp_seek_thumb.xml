@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CSP SEEK THUMB — polished silver knob with obsidian core -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <size android:width="22dp" android:height="22dp" />
+            <gradient android:angle="135" android:startColor="#FFFFFF" android:endColor="#B9BBC4" />
+        </shape>
+    </item>
+    <item android:width="8dp" android:height="8dp" android:gravity="center">
+        <shape android:shape="oval">
+            <solid android:color="#0B0B0E" />
+        </shape>
+    </item>
+</layer-list>

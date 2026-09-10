@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Graphite selected loader chip — light silver -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#33000000">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="135" android:startColor="#E6E9EF" android:endColor="#B9BEC8" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+</ripple>

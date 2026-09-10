@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#050608">
+
+    <LinearLayout
+        android:id="@+id/profile_log_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="58dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <FrameLayout android:id="@+id/profile_log_back" android:layout_width="38dp" android:layout_height="38dp" android:background="@drawable/bg_skin_slot_action" android:clickable="true" android:focusable="true">
+            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:layout_gravity="center" android:contentDescription="Back" android:src="@drawable/ic_arrow_back" app:tint="#F0F0F2" />
+        </FrameLayout>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_weight="1" android:orientation="vertical">
+            <TextView android:id="@+id/profile_log_title" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:text="LATEST PROFILE LOG" android:textColor="#FAFAFA" android:textSize="15sp" android:textStyle="bold" />
+            <TextView android:id="@+id/profile_log_meta" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:ellipsize="end" android:maxLines="1" android:textColor="#88898E" android:textSize="8.5sp" />
+        </LinearLayout>
+        <TextView android:id="@+id/profile_log_copy" android:layout_width="72dp" android:layout_height="36dp" android:background="@drawable/bg_skin_slot_action" android:clickable="true" android:focusable="true" android:gravity="center" android:minHeight="0dp" android:stateListAnimator="@null" android:text="COPY" android:textColor="#F0F0F2" android:textSize="8sp" android:textStyle="bold" />
+        <TextView android:id="@+id/profile_log_share" android:layout_width="80dp" android:layout_height="36dp" android:layout_marginStart="6dp" android:background="@drawable/bg_skin_slot_action" android:clickable="true" android:focusable="true" android:gravity="center" android:minHeight="0dp" android:stateListAnimator="@null" android:text="SHARE" android:textColor="#F0F0F2" android:textSize="8sp" android:textStyle="bold" />
+        <TextView android:id="@+id/profile_log_upload" android:layout_width="104dp" android:layout_height="36dp" android:layout_marginStart="6dp" android:background="@drawable/bg_skin_slot_active" android:clickable="true" android:focusable="true" android:gravity="center" android:minHeight="0dp" android:stateListAnimator="@null" android:text="MCLO.GS" android:textColor="#FAFAFA" android:textSize="8sp" android:textStyle="bold" />
+    </LinearLayout>
+
+    <View android:id="@+id/profile_log_divider" android:layout_width="0dp" android:layout_height="1dp" android:background="#292A31" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@id/profile_log_toolbar" />
+
+    <FrameLayout
+        android:id="@+id/profile_log_console"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/bg_profile_log_console"
+        app:layout_constraintBottom_toTopOf="@id/profile_log_zoom_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile_log_divider">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="ifContentScrolls">
+            <HorizontalScrollView android:layout_width="wrap_content" android:layout_height="wrap_content" android:fillViewport="true" android:overScrollMode="ifContentScrolls">
+                <TextView
+                    android:id="@+id/profile_log_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:includeFontPadding="false"
+                    android:lineSpacingExtra="3dp"
+                    android:padding="14dp"
+                    android:textColor="#F2F2F2"
+                    android:textIsSelectable="true"
+                    android:textSize="11sp" />
+            </HorizontalScrollView>
+        </androidx.core.widget.NestedScrollView>
+        <ProgressBar android:id="@+id/profile_log_loading" android:layout_width="32dp" android:layout_height="32dp" android:layout_gravity="center" android:indeterminateTint="#22C9CB" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/profile_log_zoom_bar"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Pinch to zoom • drag to scroll • one latest session" android:textColor="#76777C" android:textSize="8sp" />
+        <TextView android:id="@+id/profile_log_zoom_out" android:layout_width="38dp" android:layout_height="30dp" android:background="@drawable/bg_skin_slot_action" android:clickable="true" android:focusable="true" android:gravity="center" android:minHeight="0dp" android:stateListAnimator="@null" android:text="−" android:textColor="#F0F0F2" android:textSize="14sp" />
+        <TextView android:id="@+id/profile_log_zoom_value" android:layout_width="54dp" android:layout_height="30dp" android:gravity="center" android:text="11sp" android:textColor="#B4B5B9" android:textSize="8sp" android:textStyle="bold" />
+        <TextView android:id="@+id/profile_log_zoom_in" android:layout_width="38dp" android:layout_height="30dp" android:background="@drawable/bg_skin_slot_action" android:clickable="true" android:focusable="true" android:gravity="center" android:minHeight="0dp" android:stateListAnimator="@null" android:text="+" android:textColor="#F0F0F2" android:textSize="13sp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

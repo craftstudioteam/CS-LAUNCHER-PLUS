@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?><!-- ═══════════════════════════════════════════════════════════════════
+  ADD / EDIT SERVER — landscape.
+
+  Same fields, laid out across the wide axis instead of down it: a phone on
+  its side has ~380dp of height and the soft keyboard eats half of it, so the
+  portrait column would push Save under the keyboard. Here address and name
+  share a row and the footer sits beside them — nothing to scroll for.
+═══════════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/mvs_card"
+    android:baselineAligned="false"
+    android:orientation="vertical"
+    android:paddingStart="18dp"
+    android:paddingTop="14dp"
+    android:paddingEnd="18dp"
+    android:paddingBottom="14dp">
+
+    <TextView
+        android:id="@+id/hub_add_title"
+        style="@style/AuHeroTitle"
+        android:text="@string/hub_add_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.35"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/AuFieldLabel"
+                android:layout_marginTop="0dp"
+                android:text="@string/hub_field_address" />
+
+            <EditText
+                android:id="@+id/hub_add_address"
+                style="@style/AuInput"
+                android:autofillHints="@null"
+                android:hint="@string/hub_hint_address"
+                android:imeOptions="actionNext"
+                android:inputType="textUri"
+                android:maxLines="1"
+                android:nextFocusDown="@id/hub_add_name" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/AuFieldLabel"
+                android:layout_marginTop="0dp"
+                android:text="@string/hub_field_name" />
+
+            <EditText
+                android:id="@+id/hub_add_name"
+                style="@style/AuInput"
+                android:autofillHints="@null"
+                android:hint="@string/hub_hint_name"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLines="1" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/hub_add_error"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="1dp"
+            android:maxLines="2"
+            android:text="@string/hub_helper_address"
+            android:textColor="@color/au_text_mid"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/hub_add_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_au_ghost"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.08"
+            android:minWidth="84dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="@string/hub_cancel"
+            android:textColor="@color/au_text"
+            android:textSize="11.5sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/hub_add_save"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:background="@drawable/bg_au_primary"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.08"
+            android:minWidth="92dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="@string/hub_save"
+            android:textColor="@color/au_on_accent"
+            android:textSize="11.5sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

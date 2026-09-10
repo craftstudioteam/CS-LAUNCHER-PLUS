@@ -1,0 +1,150 @@
+package net.kdt.pojavlaunch.value.launcherprofiles;
+
+import androidx.annotation.Keep;
+
+@Keep
+public class MinecraftProfile {
+
+	public static String LATEST_RELEASE = "latest-release";
+	public static String LATEST_SNAPSHOT= "latest-snapshot";
+	/**
+	 * Phase 10: the launcher's pinned default game version. Every "no version
+	 * chosen" path (first profile, new profile template, account default,
+	 * "latest-release" resolution) lands on THIS vanilla build instead of
+	 * whatever Mojang currently calls latest (26.x drifted the old fallbacks).
+	 */
+	public static final String DEFAULT_VERSION = "1.21.11";
+
+	public String name;
+	public String type;
+	public String created;
+	public String lastUsed;
+	public String icon;
+	/**
+	 * Profile background banner image (separate from the profile icon).
+	 * May be a data URI (PNG/WEBP/GIF) or an http(s) URL. New profiles default
+	 * to the official animated CS Launcher GIF — it animates on the home cards.
+	 */
+	public String background = net.kdt.pojavlaunch.profiles.ProfileGifSupport.DEFAULT_PROFILE_BG_URL;
+	public String lastVersionId;
+	public String gameDir;
+	public String javaDir;
+	public String javaArgs;
+	public String logConfig;
+	public boolean logConfigIsXML;
+	public String pojavRendererName;
+	public String controlFile;
+	public MinecraftResolution[] resolution;
+
+    /** User organization metadata. Orders are independent so un-starring restores normal placement. */
+    public boolean favorite = false;
+    public long favoriteOrder = Long.MAX_VALUE;
+    public long normalOrder = Long.MAX_VALUE;
+
+
+	public static MinecraftProfile createTemplate(){
+		MinecraftProfile TEMPLATE = new MinecraftProfile();
+		TEMPLATE.name = "";
+		TEMPLATE.lastVersionId = DEFAULT_VERSION;
+		TEMPLATE.icon = "default";
+		TEMPLATE.type = "custom";
+		return TEMPLATE;
+	}
+
+	public static MinecraftProfile getDefaultProfile(){
+		MinecraftProfile defaultProfile = new MinecraftProfile();
+		defaultProfile.name = "Minecraft " + DEFAULT_VERSION;
+		defaultProfile.lastVersionId = DEFAULT_VERSION;
+		defaultProfile.icon = "default";
+		defaultProfile.type = "custom";
+		return defaultProfile;
+	}
+
+	public MinecraftProfile(){}
+
+	public MinecraftProfile(MinecraftProfile profile){
+		name = profile.name;
+		type = profile.type;
+		created = profile.created;
+		lastUsed = profile.lastUsed;
+		icon = profile.icon;
+		background = profile.background;
+		lastVersionId = profile.lastVersionId;
+		gameDir = profile.gameDir;
+		javaDir = profile.javaDir;
+		javaArgs = profile.javaArgs;
+		logConfig = profile.logConfig;
+		logConfigIsXML = profile.logConfigIsXML;
+		pojavRendererName = profile.pojavRendererName;
+		controlFile = profile.controlFile;
+		resolution = profile.resolution;
+        favorite = profile.favorite;
+        favoriteOrder = profile.favoriteOrder;
+        normalOrder = profile.normalOrder;
+	}
+
+	/**
+	 * True when this profile uses OptiFine as its renderer.
+	 * Heuristic: the selected version id contains "OptiFine" / "optifine"
+	 * (OptiFine install names the version accordingly).
+	 */
+	public boolean isOptiFine() {
+		if (lastVersionId == null) return false;
+		String v = lastVersionId.toLowerCase();
+		return v.contains("optifine");
+	}
+
+	/**
+	 * True when this profile's instance gameDir shows no mod-loader footprint
+	 * (no mods/ folder, or it is empty) and the profile is not OptiFine.
+	 * Also checks the version ID for loader names (fabric, forge, etc.)
+	 * so that e.g. a fresh Fabric install with zero mods is NOT marked vanilla.
+	 */
+	public boolean isVanilla() {
+		if (isOptiFine()) return false;
+		// Check the lastVersionId for known loader names
+		if (lastVersionId != null) {
+			String lower = lastVersionId.toLowerCase();
+			if (lower.contains("fabric") || lower.contains("forge") || lower.contains("neoforge") ||
+				lower.contains("quilt") || lower.contains("liteloader") || lower.contains("optifine")) {
+				return false;
+			}
+		}
+		try {
+			java.io.File gamedir = net.kdt.pojavlaunch.Tools.getGameDirPath(this);
+			if (gamedir == null) return true;
+			java.io.File modsDir = new java.io.File(gamedir, "mods");
+			if (!modsDir.exists()) return true;
+			String[] children = modsDir.list();
+			return children == null || children.length == 0;
+		} catch (Throwable t) {
+			return true;
+		}
+	}
+
+	/**
+	 * @return the resolved game directory for this profile, or null on failure.
+	 * Caller-side convenience so fragments don't have to catch tools exceptions.
+	 */
+	public java.io.File resolveGameDir() {
+		try {
+			return net.kdt.pojavlaunch.Tools.getGameDirPath(this);
+		} catch (Throwable t) {
+			return null;
+		}
+	}
+
+	public int getInstalledModsCount() {
+		try {
+			java.io.File gameDir = resolveGameDir();
+			if (gameDir == null) return 0;
+			java.io.File modsDir = new java.io.File(gameDir, "mods");
+			if (!modsDir.exists() || !modsDir.isDirectory()) return 0;
+			java.io.File[] files = modsDir.listFiles(f -> f.isFile() &&
+					(f.getName().toLowerCase().endsWith(".jar") || f.getName().toLowerCase().endsWith(".jar.disabled")));
+			return files != null ? files.length : 0;
+		} catch (Throwable t) {
+			return 0;
+		}
+	}
+}

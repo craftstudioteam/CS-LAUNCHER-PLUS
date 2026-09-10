@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Side sheet frame — hosts Quick Settings, the control editor and the colour
+     picker. Phase 11: back to the plain original shape (title · divider · body ·
+     two borderless buttons). Contract ids for SideDialogView:
+       side_dialog_title_textview · side_dialog_title_divider ·
+       side_dialog_scrollview · side_dialog_start_button · side_dialog_end_button -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/_280sdp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:layout_marginVertical="@dimen/padding_heavy"
+    android:background="@drawable/background_control_editor"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/side_dialog_title_textview"
+        style="@style/TextAppearance.AppCompat.Large"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/padding_moderate"
+        android:visibility="gone"
+        tools:text="Quick settings"
+        tools:visibility="visible" />
+
+    <View
+        android:id="@+id/side_dialog_title_divider"
+        style="@style/ThickDivider"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <com.kdt.DefocusableScrollView
+        android:id="@+id/side_dialog_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <!-- The content is inflated here -->
+    </com.kdt.DefocusableScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/side_dialog_start_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:visibility="gone"
+            tools:text="Cancel"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/side_dialog_end_button"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:visibility="gone"
+            tools:ignore="RelativeOverlap"
+            tools:text="Confirm"
+            tools:visibility="visible" />
+    </RelativeLayout>
+</LinearLayout>

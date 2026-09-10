@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cursor Studio v4 — staggered cascade for the tuning column -->
+<layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
+    android:animation="@anim/cz_item_in"
+    android:animationOrder="normal"
+    android:delay="9%" />

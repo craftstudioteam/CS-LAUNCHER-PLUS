@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     WORLD MANAGER v6 — rebuilt on the "Clean Console" inner-page shell
+     (52dp command bar, graphite cards, platinum actions), never
+     full-screen. Storage meter, search + sort rail, cascading list.
+     All WorldManagerFragment IDs preserved.
+     ═══════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pe4_page_bg"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp">
+
+    <!-- ── COMMAND BAR ── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="@drawable/pe5_topbar"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp">
+
+        <FrameLayout
+            android:id="@+id/world_back_button"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/pe4_back_btn"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/global_back"
+                android:src="@drawable/ic_chevron_left"
+                app:tint="#EAECEF" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/world_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:letterSpacing="0.2"
+                android:maxLines="1"
+                android:text="SINGLEPLAYER"
+                android:textColor="#7C828E"
+                android:textSize="7.5sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="World Manager"
+                android:textColor="#FFFFFF"
+                android:textSize="14.5sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/_header_right_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/world_count_chip"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:background="@drawable/bg_cursorx_chip"
+                android:gravity="center"
+                android:letterSpacing="0.06"
+                android:paddingHorizontal="10dp"
+                android:text="0 WORLDS"
+                android:textColor="#C6CAD3"
+                android:textSize="8sp"
+                android:textStyle="bold" />
+
+            <FrameLayout
+                android:id="@+id/world_datapack_hint_button"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/pe4_icon_well"
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="DP"
+                    android:textColor="#E6E8EE"
+                    android:textSize="9sp"
+                    android:textStyle="bold" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/world_refresh_button"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/pe4_icon_well"
+                android:clickable="true"
+                android:focusable="true">
+                <ImageView
+                    android:id="@+id/world_refresh_icon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_cs_refresh"
+                    app:tint="#E6E8EE" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/world_import_button"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/pe4_btn_save"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:letterSpacing="0.08"
+                android:paddingHorizontal="14dp"
+                android:text="IMPORT"
+                android:textColor="#14151A"
+                android:textSize="9.5sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ── STORAGE + SEARCH RAIL ── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <!-- Storage meter card -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.42"
+            android:background="@drawable/bg_cursorx_card"
+            android:orientation="vertical"
+            android:paddingHorizontal="13dp"
+            android:paddingVertical="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:letterSpacing="0.14"
+                    android:text="STORAGE"
+                    android:textColor="#7C828E"
+                    android:textSize="7.5sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/world_storage_used"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#F0F1F5"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:text="—" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/world_storage_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_marginTop="7dp"
+                android:max="100"
+                android:progressDrawable="@drawable/bg_rs_stage_track" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/world_storage_summary"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#7C828E"
+                    android:textSize="8.5sp"
+                    android:text="Worlds on this profile" />
+                <TextView
+                    android:id="@+id/world_storage_free"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#9AA0AE"
+                    android:textSize="8.5sp"
+                    android:text="" />
+                <TextView
+                    android:id="@+id/world_storage_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:textColor="#5C6070"
+                    android:textSize="8.5sp"
+                    android:text="" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Search + sort card -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_weight="0.58"
+            android:background="@drawable/bg_cursorx_card"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="9dp">
+
+            <EditText
+                android:id="@+id/world_search_input"
+                android:layout_width="match_parent"
+                android:layout_height="34dp"
+                android:background="@drawable/bg_input_premium"
+                android:hint="Search worlds…"
+                android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingHorizontal="12dp"
+                android:textColor="#F0F1F5"
+                android:textColorHint="#5C6070"
+                android:textSize="10.5sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/world_sort_last_played"
+                    android:layout_width="0dp"
+                    android:layout_height="22dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_cursorx_chip"
+                    android:gravity="center"
+                    android:letterSpacing="0.05"
+                    android:text="RECENT"
+                    android:textColor="#C6CAD3"
+                    android:textSize="7.5sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/world_sort_name"
+                    android:layout_width="0dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_cursorx_chip"
+                    android:gravity="center"
+                    android:letterSpacing="0.05"
+                    android:text="NAME"
+                    android:textColor="#C6CAD3"
+                    android:textSize="7.5sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/world_sort_size"
+                    android:layout_width="0dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_cursorx_chip"
+                    android:gravity="center"
+                    android:letterSpacing="0.05"
+                    android:text="SIZE"
+                    android:textColor="#C6CAD3"
+                    android:textSize="7.5sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/world_sort_version"
+                    android:layout_width="0dp"
+                    android:layout_height="22dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_cursorx_chip"
+                    android:gravity="center"
+                    android:letterSpacing="0.05"
+                    android:text="VERSION"
+                    android:textColor="#C6CAD3"
+                    android:textSize="7.5sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ── LIST ── -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/world_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:layoutAnimation="@anim/cz_cascade"
+            android:overScrollMode="never"
+            android:paddingBottom="4dp"
+            android:scrollbars="none" />
+
+        <!-- Loading -->
+        <LinearLayout
+            android:id="@+id/world_loading_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <ProgressBar
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="22dp"
+                android:layout_height="22dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Scanning worlds…"
+                android:textColor="#7C828E"
+                android:textSize="9.5sp" />
+        </LinearLayout>
+
+        <!-- Empty -->
+        <LinearLayout
+            android:id="@+id/world_empty_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <FrameLayout
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:background="@drawable/pe4_icon_ring">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="✦"
+                    android:textColor="#9AA0AE"
+                    android:textSize="20sp" />
+            </FrameLayout>
+            <TextView
+                android:id="@+id/world_empty_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:lineSpacingExtra="3dp"
+                android:text="No worlds here yet.\nPlay this profile once or import a .zip / .mcworld above."
+                android:textColor="#7C828E"
+                android:textSize="10sp" />
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora primary CTA: light pearl button with soft sheen, 14dp radius. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#44000000">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="14dp" />
+            <gradient
+                android:angle="0"
+                android:startColor="#F4F5F7"
+                android:endColor="#C9CDD6" />
+        </shape>
+    </item>
+</ripple>

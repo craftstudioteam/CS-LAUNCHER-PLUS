@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Premium dialog exit: quick fade + sink -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:anim/accelerate_interpolator">
+    <alpha android:duration="150" android:fromAlpha="1" android:toAlpha="0" />
+    <scale android:duration="150"
+        android:fromXScale="1" android:toXScale="0.95"
+        android:fromYScale="1" android:toYScale="0.95"
+        android:pivotX="50%" android:pivotY="55%" />
+</set>

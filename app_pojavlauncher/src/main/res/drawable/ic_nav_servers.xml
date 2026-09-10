@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Server rack icon: two stacked units with status LEDs. Reads clearly at 19dp. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M4,3h16c1.1,0 2,0.9 2,2v4c0,1.1 -0.9,2 -2,2H4c-1.1,0 -2,-0.9 -2,-2V5C2,3.9 2.9,3 4,3zM4,5v4h16V5H4z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M4,13h16c1.1,0 2,0.9 2,2v4c0,1.1 -0.9,2 -2,2H4c-1.1,0 -2,-0.9 -2,-2v-4C2,13.9 2.9,13 4,13zM4,15v4h16v-4H4z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M6.5,8.25m-1.25,0a1.25,1.25 0,1 1,2.5 0a1.25,1.25 0,1 1,-2.5 0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M6.5,18.25m-1.25,0a1.25,1.25 0,1 1,2.5 0a1.25,1.25 0,1 1,-2.5 0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M10,6.5h8v1.5h-8z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M10,16.5h8v1.5h-8z" />
+</vector>

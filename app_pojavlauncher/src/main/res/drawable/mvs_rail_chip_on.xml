@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Filter chip (on): silver fill, dark label. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#33000000">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="11dp" />
+            <gradient android:angle="0" android:startColor="#E6E9EF" android:endColor="#C9CED8" />
+        </shape>
+    </item>
+</ripple>

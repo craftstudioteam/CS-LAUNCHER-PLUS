@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     MOD / MODPACK — PAGE 2 · VERSION TIMELINE  (Phase 10 rebuild)
+
+     Was: flat title bar + "Select a version:" label + plain card list.
+     Now: a glass HERO BAND (project icon, name, author, source, live
+     "N builds" counter) over a dark stage, a CHANNEL RAIL of filter
+     chips (All · Release · Beta · Alpha), and a vertical TIMELINE —
+     each build is a card hanging off a luminous rail with a node dot,
+     newest at the top. Footer pager is a floating pill.
+
+     Contract kept for ModVersionPickerFragment: version_picker_back /
+     _title / _loading / _error, version_list, pagination_footer/_text/
+     _prev/_next. New optional ids: vp_hero_icon, vp_hero_author,
+     vp_hero_source, vp_hero_count, vp_filter_all/_release/_beta/_alpha,
+     vp_filter_rail.
+     ═══════════════════════════════════════════════════════════════════ -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/vp_stage_bg">
+
+    <!-- soft top glow behind the hero -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/vp_hero_glow" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- ═══ HERO BAND ═══ -->
+        <LinearLayout
+            android:id="@+id/vp_hero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="14dp"
+            android:background="@drawable/vp_hero_card"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="6dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="8dp">
+
+            <ImageButton
+                android:id="@+id/version_picker_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/vp_round_btn"
+                android:contentDescription="@string/global_back"
+                android:src="@drawable/ic_arrow_back_white"
+                app:tint="#E6E9EF" />
+
+            <FrameLayout
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/vp_icon_well">
+
+                <ImageView
+                    android:id="@+id/vp_hero_icon"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_pojav_full" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/version_picker_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-medium"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textColor="#F4F6F9"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    tools:text="Sodium" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/vp_hero_author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:includeFontPadding="false"
+                        android:maxLines="1"
+                        android:maxWidth="160dp"
+                        android:textColor="#9AA0AC"
+                        android:textSize="11sp"
+                        tools:text="by jellysquid3" />
+
+                    <TextView
+                        android:id="@+id/vp_hero_source"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/vp_source_pill"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="0.10"
+                        android:paddingStart="7dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="7dp"
+                        android:paddingBottom="2dp"
+                        android:textColor="#C9CED8"
+                        android:textSize="8.5sp"
+                        android:textStyle="bold"
+                        tools:text="MODRINTH" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- build counter / spinner stack -->
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:id="@+id/vp_hero_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/vp_count_pill"
+                    android:fontFamily="@font/minecraftia"
+                    android:includeFontPadding="false"
+                    android:paddingStart="10dp"
+                    android:paddingTop="6dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="4dp"
+                    android:textColor="#E6E9EF"
+                    android:textSize="10sp"
+                    android:visibility="gone"
+                    tools:text="42 BUILDS"
+                    tools:visibility="visible" />
+
+                <ProgressBar
+                    android:id="@+id/version_picker_loading"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:indeterminate="true"
+                    android:indeterminateTint="#C9CED8"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- ═══ CHANNEL RAIL ═══ -->
+        <HorizontalScrollView
+            android:id="@+id/vp_filter_rail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:clipToPadding="false"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.16"
+                    android:text="CHANNEL"
+                    android:textColor="#5C6068"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/vp_filter_all"
+                    style="@style/VpFilterChip"
+                    android:background="@drawable/vp_chip_on"
+                    android:text="All"
+                    android:textColor="#141519"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/vp_filter_release"
+                    style="@style/VpFilterChip"
+                    android:text="Release"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/vp_filter_beta"
+                    style="@style/VpFilterChip"
+                    android:text="Beta"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/vp_filter_alpha"
+                    style="@style/VpFilterChip"
+                    android:text="Alpha"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/vp_filter_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:includeFontPadding="false"
+                    android:text="newest first  ·  tap a build to open it"
+                    android:textColor="#5C6068"
+                    android:textSize="10sp"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <!-- ═══ TIMELINE ═══ -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <!-- the luminous rail the cards hang from -->
+            <View
+                android:id="@+id/vp_rail_line"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/vp_rail_line" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/version_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:fadingEdgeLength="26dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="70dp"
+                android:requiresFadingEdge="vertical"
+                android:scrollbars="none" />
+
+            <!-- error state, centred on the stage -->
+            <TextView
+                android:id="@+id/version_picker_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/vp_error_card"
+                android:gravity="center"
+                android:padding="18dp"
+                android:textColor="#E8A0A6"
+                android:textSize="13sp"
+                android:visibility="gone" />
+
+            <!-- ═══ FLOATING PAGER PILL ═══ -->
+            <LinearLayout
+                android:id="@+id/pagination_footer"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/vp_pager_pill"
+                android:elevation="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:visibility="gone">
+
+                <ImageButton
+                    android:id="@+id/pagination_prev"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/vp_round_btn"
+                    android:contentDescription="Previous page"
+                    android:src="@drawable/ic_chevron_left"
+                    app:tint="#E6E9EF"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/pagination_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/minecraftia"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:minWidth="80dp"
+                    android:textColor="#E6E9EF"
+                    android:textSize="10sp"
+                    tools:text="PAGE 1 / 4" />
+
+                <ImageButton
+                    android:id="@+id/pagination_next"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:background="@drawable/vp_round_btn"
+                    android:contentDescription="Next page"
+                    android:src="@drawable/ic_chevron_right"
+                    app:tint="#E6E9EF"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</FrameLayout>

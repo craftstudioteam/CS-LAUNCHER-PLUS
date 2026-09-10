@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     STOREFRONT (Phase 9) — modpack / mod browse.
+     Structure: hero strip (back · kicker + title · source badges) ·
+                search capsule with filter key-cap · thin progress line ·
+                card grid · empty-state.
+     Ids preserved: mod_store_header, mod_store_back, mod_store_title,
+     search_mod_edittext, search_mod_filter, search_mod_progressbar,
+     search_mod_list, search_mod_status_text.
+     ═══════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/sf_page"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/mod_store_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sf_hero"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="12dp">
+
+        <!-- row 1: back · kicker/title · sources -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/mod_store_back"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/st_back_btn"
+                android:contentDescription="@string/global_back"
+                android:padding="9dp"
+                android:src="@drawable/ic_chevron_left"
+                app:tint="#D2D6DE" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/mod_store_kicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.18"
+                    android:text="STOREFRONT"
+                    android:textColor="#8A909C"
+                    android:textSize="9sp" />
+
+                <TextView
+                    android:id="@+id/mod_store_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="Download Mods"
+                    android:textColor="#F4F6F9"
+                    android:textSize="19sp" />
+            </LinearLayout>
+
+            <!-- source badges -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:background="@drawable/sf_source_strip"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_modrinth" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="14dp"
+                    android:layout_marginHorizontal="7dp"
+                    android:background="#363A44" />
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_curseforge" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- row 2: search capsule -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/sf_search"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingEnd="6dp">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_cs_search"
+                app:tint="#8A909C" />
+
+            <EditText
+                android:id="@+id/search_mod_edittext"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="Search mods..."
+                android:imeOptions="actionSearch"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="#F4F6F9"
+                android:textColorHint="#4F5460"
+                android:textSize="13.5sp" />
+
+            <ImageButton
+                android:id="@+id/search_mod_filter"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:background="@drawable/sf_filter_key"
+                android:contentDescription="@null"
+                android:padding="8dp"
+                android:src="@drawable/ic_mr_sort"
+                app:tint="#E6E9EF" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/search_mod_progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:indeterminate="true"
+        android:indeterminateTint="#C9CED8"
+        android:progressBackgroundTint="#1C1F26"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_mod_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingStart="11dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="11dp"
+        android:paddingBottom="24dp"
+        android:scrollbars="none" />
+
+    <TextView
+        android:id="@+id/search_mod_status_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:paddingHorizontal="24dp"
+        android:paddingVertical="18dp"
+        android:text="No results found."
+        android:textColor="#6B7180"
+        android:textSize="12sp"
+        android:visibility="gone" />
+</LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CS LAUNCHER PLUS — "graphite" design tokens, shared by the Control
+     Customisation drawer, the Button inspector sheet, the Skin Wardrobe and
+     the Runtime page.
+
+     One language: dark graphite + grey, contrast carried by elevation and
+     hairlines rather than colour. A single neutral light accent is reserved
+     for the state the user is actually acting on (selected / progress /
+     primary action); errors get one muted red and nothing else is saturated.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<resources>
+    <!-- accent: near-white neutral, NOT a hue -->
+    <color name="au_accent">#E6E9ED</color>
+    <color name="au_accent_deep">#AEB6C0</color>
+    <color name="au_accent_fill">#14E6E9ED</color>
+    <color name="au_accent_line">#59E6E9ED</color>
+
+    <!-- ground -->
+    <color name="au_page">#FF0A0B0D</color>
+    <color name="au_page_glow">#10FFFFFF</color>
+    <color name="au_surface">#F5121417</color>
+
+    <!-- elevations (translucent white over the page = grey, never tinted) -->
+    <color name="au_tile">#14FFFFFF</color>
+    <color name="au_tile_press">#24FFFFFF</color>
+    <color name="au_inset">#0AFFFFFF</color>
+    <color name="au_line">#1EFFFFFF</color>
+    <color name="au_line_strong">#3DFFFFFF</color>
+
+    <!-- type -->
+    <color name="au_text">#FFF2F3F5</color>
+    <color name="au_text_mid">#FFBAC0C8</color>
+    <color name="au_text_dim">#FF868D97</color>
+    <color name="au_text_faint">#FF5F666F</color>
+    <color name="au_on_accent">#FF101318</color>
+
+    <!-- the only saturated colour on any of these screens, used once per state -->
+    <color name="au_danger">#FFE09A96</color>
+</resources>

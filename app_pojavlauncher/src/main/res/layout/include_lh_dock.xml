@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══ SHARED LEFT NAVIGATION DOCK — included by the launcher activity so it
+     stays persistent (and correctly highlighted) across every page. ═══ -->
+    <!-- ═══ LEFT DOCK (edge-aligned, vertically centered) ═══ -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lh_dock"
+        android:layout_width="@dimen/lh_dock_width"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="@drawable/bg_lh_glass"
+        android:paddingVertical="@dimen/lh_dock_pad_v"
+        android:layout_marginStart="10dp">
+
+        <FrameLayout
+        android:id="@+id/lh_nav_home"
+        android:layout_width="@dimen/lh_dock_icon"
+        android:layout_height="@dimen/lh_dock_icon"
+        android:background="@drawable/bg_hd_sidebar_item"
+        android:clickable="true"
+        android:focusable="true">
+        <ImageView
+            android:layout_width="@dimen/lh_dock_icon_inner"
+            android:layout_height="@dimen/lh_dock_icon_inner"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_menu_home"
+            app:tint="#FFFFFF"
+            android:contentDescription="Home" />
+        </FrameLayout>
+
+        <FrameLayout
+        android:id="@+id/lh_nav_cursor"
+        android:layout_width="@dimen/lh_dock_icon"
+        android:layout_height="@dimen/lh_dock_icon"
+        android:layout_marginTop="@dimen/lh_dock_gap"
+        android:background="@drawable/bg_hd_sidebar_item"
+        android:clickable="true"
+        android:focusable="true">
+        <ImageView
+            android:layout_width="@dimen/lh_dock_icon_inner"
+            android:layout_height="@dimen/lh_dock_icon_inner"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_mouse_pointer"
+            app:tint="#C7C1DA"
+            android:contentDescription="Cursor" />
+        </FrameLayout>
+
+        <FrameLayout
+        android:id="@+id/lh_nav_controls"
+        android:layout_width="@dimen/lh_dock_icon"
+        android:layout_height="@dimen/lh_dock_icon"
+        android:layout_marginTop="@dimen/lh_dock_gap"
+        android:background="@drawable/bg_hd_sidebar_item"
+        android:clickable="true"
+        android:focusable="true">
+        <ImageView
+            android:layout_width="@dimen/lh_dock_icon_inner"
+            android:layout_height="@dimen/lh_dock_icon_inner"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_menu_custom_controls"
+            app:tint="#C7C1DA"
+            android:contentDescription="Controls" />
+        </FrameLayout>
+
+        <FrameLayout
+        android:id="@+id/lh_nav_about"
+        android:layout_width="@dimen/lh_dock_icon"
+        android:layout_height="@dimen/lh_dock_icon"
+        android:layout_marginTop="@dimen/lh_dock_gap"
+        android:background="@drawable/bg_hd_sidebar_item"
+        android:clickable="true"
+        android:focusable="true">
+        <ImageView
+            android:layout_width="@dimen/lh_dock_icon_inner"
+            android:layout_height="@dimen/lh_dock_icon_inner"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_info"
+            app:tint="#C7C1DA"
+            android:contentDescription="About" />
+        </FrameLayout>
+
+        <FrameLayout
+        android:id="@+id/lh_nav_settings"
+        android:layout_width="@dimen/lh_dock_icon"
+        android:layout_height="@dimen/lh_dock_icon"
+        android:layout_marginTop="@dimen/lh_dock_gap"
+        android:background="@drawable/bg_hd_sidebar_item"
+        android:clickable="true"
+        android:focusable="true">
+        <ImageView
+            android:layout_width="@dimen/lh_dock_icon_inner"
+            android:layout_height="@dimen/lh_dock_icon_inner"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_menu_settings"
+            app:tint="#C7C1DA"
+            android:contentDescription="Settings" />
+        </FrameLayout>
+    </LinearLayout>
+

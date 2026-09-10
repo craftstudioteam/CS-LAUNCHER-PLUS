@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cursor Lab v4 — deep space page with aurora corner glows -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:startColor="#0B0E1B" android:centerColor="#121430" android:endColor="#090B14"/>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <gradient android:type="radial" android:centerX="0.12" android:centerY="0.02"
+                android:gradientRadius="330dp" android:startColor="#1F3DC2FF" android:endColor="#003DC2FF"/>
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="oval">
+            <gradient android:type="radial" android:centerX="0.92" android:centerY="0.88"
+                android:gradientRadius="390dp" android:startColor="#1F7C5CFF" android:endColor="#007C5CFF"/>
+        </shape>
+    </item>
+</layer-list>

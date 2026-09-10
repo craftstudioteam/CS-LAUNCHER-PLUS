@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- New download deck surface (v2): deep graphite slab, 1px steel border,
+     soft top highlight — visually a different generation from the old card. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#F2110E16" />
+    <stroke android:width="1dp" android:color="#2E2A38" />
+    <corners android:radius="20dp" />
+</shape>

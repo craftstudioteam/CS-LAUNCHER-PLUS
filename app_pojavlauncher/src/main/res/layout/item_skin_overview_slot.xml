@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     WARDROBE SLOT CARD — AURA pass
+     Plate on the left (that is where the eye goes), identity on the right,
+     one unambiguous 44dp action. Status + name + "saved 3d ago" are kept
+     from the old card; the touch targets are not 30dp anymore.
+
+     Portrait: horizontal split. Wide/landscape: SkinLibraryOverviewFragment
+     flips the body to a vertical stack and grows the plate — one layout,
+     two shapes, so the two cannot drift apart.
+     ═══════════════════════════════════════════════════════════════════ -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/overview_slot_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/overview_slot_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_au_card"
+        android:baselineAligned="false"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:minHeight="104dp"
+        android:orientation="horizontal"
+        android:paddingStart="11dp"
+        android:paddingTop="11dp"
+        android:paddingEnd="11dp"
+        android:paddingBottom="11dp">
+
+        <!-- ── plate ── -->
+        <FrameLayout
+            android:id="@+id/overview_slot_stage"
+            android:layout_width="88dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_au_plate"
+            android:clipToOutline="true"
+            android:minHeight="82dp">
+
+            <net.kdt.pojavlaunch.skins.SkinSlotPreviewView
+                android:id="@+id/overview_slot_preview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:id="@+id/overview_slot_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:background="@drawable/bg_au_check_off"
+                    android:gravity="center"
+                    android:text="+"
+                    android:textColor="@color/au_accent"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/overview_slot_model"
+                style="@style/AuChip"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/bg_au_chip_neutral"
+                android:text="CLASSIC"
+                android:textColor="@color/au_text_mid"
+                android:visibility="gone" />
+        </FrameLayout>
+
+        <!-- ── identity + actions ── -->
+        <LinearLayout
+            android:id="@+id/overview_slot_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:id="@+id/overview_slot_dot"
+                    android:layout_width="6dp"
+                    android:layout_height="6dp"
+                    android:layout_marginEnd="7dp"
+                    android:background="@drawable/bg_au_dot" />
+
+                <TextView
+                    android:id="@+id/overview_slot_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/minecraftia"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.06"
+                    android:maxLines="1"
+                    android:text="SKIN SLOT 1"
+                    android:textColor="@color/au_text_dim"
+                    android:textSize="8sp" />
+
+                <TextView
+                    android:id="@+id/overview_slot_status"
+                    style="@style/AuChip"
+                    android:layout_height="20dp"
+                    android:background="@drawable/bg_au_chip_neutral"
+                    android:text="EMPTY"
+                    android:textColor="@color/au_text_faint" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/overview_slot_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:text="Empty Slot"
+                android:textColor="@color/au_text"
+                android:textSize="13.5sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/overview_slot_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="2"
+                android:text="Tap to open Skin Studio"
+                android:textColor="@color/au_text_faint"
+                android:textSize="9sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:baselineAligned="false"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="Skin Studio"
+                    android:textColor="@color/au_text_faint"
+                    android:textSize="8.5sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:background="@color/au_line" />
+
+                <FrameLayout
+                    android:id="@+id/overview_slot_action"
+                    android:layout_width="44dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_au_ghost"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <ImageView
+                        android:id="@+id/overview_slot_chevron"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="Open this slot in Skin Studio"
+                        android:src="@drawable/ic_chevron_right"
+                        app:tint="@color/au_accent" />
+                </FrameLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

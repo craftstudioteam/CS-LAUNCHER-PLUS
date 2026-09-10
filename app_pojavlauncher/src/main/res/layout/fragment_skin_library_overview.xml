@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     SKIN WARDROBE — AURA pass
+
+     Composition, not a repaint:
+       · a hero stage on top that shows the skin you are actually looking at
+         (big preview + name + model + equipped state + the two real actions),
+       · the three slots underneath as a vertical stack of readable cards,
+       · three explicit page states — loading, nothing-saved, error — so the
+         screen never renders as an empty void while the library is read.
+
+     Every binding the old page used is still here (skin_overview_back /
+     _account / _active / _slots); the hero + state ids are additive and all
+     of them drive REAL code: SkinSlotStore for state, activate() to equip,
+     SkinManagerFragment for the studio.
+     ═══════════════════════════════════════════════════════════════════ -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/skin_overview_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_au_page">
+
+    <!-- ── header ── -->
+    <LinearLayout
+        android:id="@+id/skin_overview_header"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="14dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/skin_overview_back"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="-4dp"
+            android:background="@drawable/bg_au_row"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:contentDescription="Back"
+                android:src="@drawable/ic_chevron_left"
+                app:tint="@color/au_text" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/minecraftia"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.05"
+                android:text="SKIN WARDROBE"
+                android:textColor="@color/au_text"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/skin_overview_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/au_text_dim"
+                android:textSize="9.5sp"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/skin_overview_active"
+            style="@style/AuChip"
+            android:text="NO ACTIVE SKIN" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/skin_overview_scroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:paddingBottom="18dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/skin_overview_header">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <!-- ════════ HERO STAGE ════════ -->
+            <LinearLayout
+                android:id="@+id/skin_overview_hero"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_au_card"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:id="@+id/skin_overview_hero_stage"
+                        android:layout_width="124dp"
+                        android:layout_height="164dp"
+                        android:background="@drawable/bg_au_plate"
+                        android:clipToOutline="true">
+
+                        <net.kdt.pojavlaunch.skins.SkinSlotPreviewView
+                            android:id="@+id/skin_overview_hero_preview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <TextView
+                            android:id="@+id/skin_overview_hero_badge"
+                            style="@style/AuChip"
+                            android:layout_gravity="top|start"
+                            android:layout_margin="7dp"
+                            android:background="@drawable/bg_au_chip_neutral"
+                            android:text="PREVIEW"
+                            android:textColor="@color/au_text_mid" />
+
+                        <TextView
+                            android:id="@+id/skin_overview_hero_model"
+                            style="@style/AuChip"
+                            android:layout_gravity="top|end"
+                            android:layout_margin="7dp"
+                            android:background="@drawable/bg_au_chip_neutral"
+                            android:text="CLASSIC"
+                            android:textColor="@color/au_text_mid"
+                            android:visibility="gone" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="14dp"
+                        android:layout_weight="1"
+                        android:gravity="bottom"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/skin_overview_hero_name"
+                            style="@style/AuHeroTitle"
+                            android:layout_width="match_parent"
+                            android:text="Empty Slot" />
+
+                        <TextView
+                            android:id="@+id/skin_overview_hero_hint"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:includeFontPadding="false"
+                            android:lineSpacingExtra="2dp"
+                            android:maxLines="3"
+                            android:text="Pick a slot below to see it here."
+                            android:textColor="@color/au_text_dim"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/skin_overview_hero_slot"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/bg_au_chip_ok"
+                            android:includeFontPadding="false"
+                            android:paddingStart="10dp"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="5dp"
+                            android:text="SLOT 1"
+                            android:textColor="@color/au_accent"
+                            android:textSize="8.5sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/skin_overview_apply"
+                        style="@style/AuBtnPrimary"
+                        android:text="EQUIP THIS SKIN" />
+
+                    <TextView
+                        android:id="@+id/skin_overview_open_studio"
+                        style="@style/AuBtnGhost"
+                        android:layout_marginStart="9dp"
+                        android:text="EDIT" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ════════ SLOTS ════════ -->
+            <LinearLayout
+                android:id="@+id/skin_overview_slots_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="2dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/AuSectionLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:text="YOUR 3 SLOTS" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:includeFontPadding="false"
+                    android:text="tap to preview"
+                    android:textColor="@color/au_text_faint"
+                    android:textSize="8.5sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/skin_overview_slots"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:baselineAligned="false"
+                android:orientation="vertical" />
+
+            <!-- ════════ PAGE STATES ════════ -->
+            <LinearLayout
+                android:id="@+id/skin_overview_loading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical">
+
+                <View
+                    android:id="@+id/skin_overview_loading_a"
+                    android:layout_width="match_parent"
+                    android:layout_height="82dp"
+                    android:background="@drawable/bg_au_card_muted" />
+
+                <View
+                    android:id="@+id/skin_overview_loading_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="82dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_au_card_muted" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:text="Reading your skin library…"
+                    android:textColor="@color/au_text_faint"
+                    android:textSize="9.5sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/skin_overview_empty"
+                style="@style/AuCard"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:padding="26dp"
+                android:visibility="gone">
+
+                <FrameLayout
+                    android:layout_width="62dp"
+                    android:layout_height="62dp"
+                    android:background="@drawable/bg_au_well">
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_nav_skin"
+                        app:tint="@color/au_accent" />
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:gravity="center"
+                    android:text="No skins saved yet"
+                    android:textColor="@color/au_text"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center"
+                    android:lineSpacingExtra="2dp"
+                    android:text="Import a PNG in Skin Studio and it lands in slot 1 — the game picks it up straight away."
+                    android:textColor="@color/au_text_dim"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/skin_overview_empty_cta"
+                    style="@style/AuBtnPrimary"
+                    android:layout_width="match_parent"
+                    android:layout_weight="0"
+                    android:layout_marginTop="16dp"
+                    android:text="IMPORT A SKIN" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/skin_overview_error"
+                style="@style/AuCard"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_au_card_fail"
+                android:gravity="center"
+                android:padding="22dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Skin library unavailable"
+                    android:textColor="@color/au_text"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/skin_overview_error_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:gravity="center"
+                    android:lineSpacingExtra="2dp"
+                    android:text="Sign in with an account that supports skins, then try again."
+                    android:textColor="@color/au_text_dim"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/skin_overview_retry"
+                    style="@style/AuBtnGhost"
+                    android:layout_marginTop="14dp"
+                    android:text="TRY AGAIN" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

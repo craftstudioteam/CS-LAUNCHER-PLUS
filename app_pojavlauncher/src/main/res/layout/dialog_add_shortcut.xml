@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     CS LAUNCHER PLUS • HOME SHORTCUT CREATOR — NEXT-GEN REDESIGN
+     IDs and widget contracts 100% preserved.
+     ═══════════════════════════════════════════════════════════════════ -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A0B10"
+    android:fillViewport="true"
+    android:overScrollMode="never">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="36dp">
+
+        <!-- ── Top Header Navigation Bar ──────────────────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/shortcut_back"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/st_btn_ghost"
+                android:contentDescription="@string/global_back"
+                android:src="@drawable/ic_arrow_back_white"
+                app:tint="#C5C8D4" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="1-Tap Shortcut Creator"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/shortcut_subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Pin instant launch shortcut to Home Screen"
+                    android:textColor="#7C8494"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/shortcut_manage"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:background="@drawable/st_btn_ghost"
+                android:contentDescription="@string/shortcut_manage_title"
+                android:src="@drawable/ic_shortcut_manage"
+                app:tint="#5BD097" />
+        </LinearLayout>
+
+        <!-- ── Unsupported Launcher Warning Banner ────────────────── -->
+        <TextView
+            android:id="@+id/shortcut_unsupported_warning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_shortcut_warning"
+            android:fontFamily="sans-serif-medium"
+            android:padding="12dp"
+            android:text="@string/shortcut_pin_unsupported"
+            android:textColor="#D8C79A"
+            android:textSize="11.5sp"
+            android:visibility="gone" />
+
+        <!-- ── Live Home Screen Mockup & Visual Card ──────────────── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_skinv2_card"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="18dp">
+
+            <!-- Elevated Floating Shortcut Tile Mock -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/st_key_cap"
+                android:elevation="6dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/shortcut_icon_preview"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:contentDescription="@string/shortcut_icon_label"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:id="@+id/shortcut_label_preview"
+                    android:layout_width="72dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="Vanilla 1.21"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10.5sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:text="HOME SCREEN PREVIEW"
+                    android:textColor="#5BD097"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/shortcut_preview_hint"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:lineSpacingExtra="2dp"
+                    android:text="Your launcher or home screen will render this exact icon with high-DPI scaling and dynamic badge."
+                    android:textColor="#8890A0"
+                    android:textSize="11.5sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ── Section: Shortcut Action Destination ───────────────── -->
+        <TextView
+            style="@style/ShortcutSectionHeader"
+            android:layout_marginTop="18dp"
+            android:text="1. CHOOSE ACTION DESTINATION" />
+
+        <TextView
+            style="@style/ShortcutSectionCaption"
+            android:text="Tap to choose what happens when you launch this home screen tile" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/shortcut_action_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false" />
+
+        <!-- ── Section: Shortcut Display Label ────────────────────── -->
+        <TextView
+            style="@style/ShortcutSectionHeader"
+            android:layout_marginTop="16dp"
+            android:text="2. SHORTCUT DISPLAY NAME" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/shortcut_name_layout"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:boxBackgroundColor="#10131B"
+            app:boxStrokeColor="#5BD097"
+            app:counterEnabled="true"
+            app:counterMaxLength="25"
+            app:counterTextColor="#7C8494"
+            app:hintTextColor="#5BD097"
+            android:hint="Home Tile Label">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/shortcut_name_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- ── Section: Icon Source Artwork ───────────────────────── -->
+        <TextView
+            style="@style/ShortcutSectionHeader"
+            android:layout_marginTop="16dp"
+            android:text="3. ICON ARTWORK SOURCE" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_icon_profile"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="1"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="Profile"
+                android:textColor="#FFFFFF"
+                android:textSize="10.5sp"
+                app:backgroundTint="#181B26"
+                app:cornerRadius="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_icon_skin_head"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="3dp"
+                android:layout_weight="1"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="Skin Face"
+                android:textColor="#FFFFFF"
+                android:textSize="10.5sp"
+                app:backgroundTint="#181B26"
+                app:cornerRadius="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_icon_loader"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginHorizontal="3dp"
+                android:layout_weight="1"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="Loader"
+                android:textColor="#FFFFFF"
+                android:textSize="10.5sp"
+                app:backgroundTint="#181B26"
+                app:cornerRadius="8dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_icon_custom"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="3dp"
+                android:layout_weight="1"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="Custom"
+                android:textColor="#FFFFFF"
+                android:textSize="10.5sp"
+                app:backgroundTint="#181B26"
+                app:cornerRadius="8dp" />
+        </LinearLayout>
+
+        <!-- ── Section: Geometric Icon Shape ──────────────────────── -->
+        <TextView
+            style="@style/ShortcutSectionHeader"
+            android:layout_marginTop="16dp"
+            android:text="4. ICON SILHOUETTE SHAPE" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/shortcut_shape_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/shape_squircle"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Squircle"
+                android:textColor="#C5C8D4"
+                android:textSize="10sp"
+                app:strokeColor="#222736" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/shape_circle"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Circle"
+                android:textColor="#C5C8D4"
+                android:textSize="10sp"
+                app:strokeColor="#222736" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/shape_rounded"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Rounded"
+                android:textColor="#C5C8D4"
+                android:textSize="10sp"
+                app:strokeColor="#222736" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/shape_square"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Square"
+                android:textColor="#C5C8D4"
+                android:textSize="10sp"
+                app:strokeColor="#222736" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <!-- ── Section: Advanced Settings & Badging ───────────────── -->
+        <TextView
+            style="@style/ShortcutSectionHeader"
+            android:layout_marginTop="16dp"
+            android:text="5. BEHAVIOR &amp; BADGES" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_skinv2_card"
+            android:orientation="vertical"
+            android:padding="14dp">
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/shortcut_switch_adaptive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/shortcut_option_adaptive"
+                android:textColor="#FFFFFF"
+                android:textSize="12.5sp" />
+
+            <TextView
+                style="@style/ShortcutSectionCaption"
+                android:layout_marginTop="2dp"
+                android:text="@string/shortcut_option_adaptive_desc" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="10dp"
+                android:background="#161924" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/shortcut_switch_badge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/shortcut_option_badge"
+                android:textColor="#FFFFFF"
+                android:textSize="12.5sp" />
+
+            <TextView
+                style="@style/ShortcutSectionCaption"
+                android:layout_marginTop="2dp"
+                android:text="@string/shortcut_option_badge_desc" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginVertical="10dp"
+                android:background="#161924" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/shortcut_switch_dynamic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:fontFamily="sans-serif-medium"
+                android:text="@string/shortcut_option_dynamic"
+                android:textColor="#FFFFFF"
+                android:textSize="12.5sp" />
+
+            <TextView
+                style="@style/ShortcutSectionCaption"
+                android:layout_marginTop="2dp"
+                android:text="@string/shortcut_option_dynamic_desc" />
+        </LinearLayout>
+
+        <!-- ── Primary Action Button ──────────────────────────────── -->
+        <Button
+            android:id="@+id/btn_create_shortcut"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/st_btn_primary"
+            android:letterSpacing="0.06"
+            android:text="+ PIN SHORTCUT TO HOME SCREEN"
+            android:textColor="#0B0B0E"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CSL v3 True Neutral Dark Grey Category Card -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#333333" />
+                    <corners android:radius="16dp" />
+                    <stroke
+                        android:width="1dp"
+                        android:color="#666666" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#1AFFFFFF" />
+                    <corners android:radius="16dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item>
+        <layer-list>
+            <item android:top="2dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#1A000000" />
+                    <corners android:radius="16dp" />
+                </shape>
+            </item>
+            <item android:bottom="2dp">
+                <shape android:shape="rectangle">
+                    <gradient
+                        android:angle="135"
+                        android:endColor="#1E1E1E"
+                        android:startColor="#2A2A2A"
+                        android:type="linear" />
+                    <corners android:radius="16dp" />
+                    <stroke
+                        android:width="1dp"
+                        android:color="#444444" />
+                </shape>
+            </item>
+            <item
+                android:bottom="2dp"
+                android:gravity="top"
+                android:height="1dp">
+                <shape android:shape="rectangle">
+                    <solid android:color="#14FFFFFF" />
+                    <corners
+                        android:topLeftRadius="16dp"
+                        android:topRightRadius="16dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</selector>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora ghost button — glass, teal hover -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#33D4D8E0">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="18dp" />
+            <solid android:color="#151B24" />
+            <stroke android:width="1dp" android:color="#2A3544" />
+        </shape>
+    </item>
+</ripple>

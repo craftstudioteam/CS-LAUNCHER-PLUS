@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     VERSION SELECTOR (Phase 10) — the profile "Select version" popup,
+     now a real XML sheet instead of an AlertDialog-wrapped list.
+
+       header   Minecraft pixel font ("SELECT VERSION"), live count, ✕
+       tabs     INSTALLED · RELEASE · SNAPSHOT · BETA · ALPHA (segmented)
+       search   filter box (type "1.21" → only those)
+       list     RecyclerView of version rows (pixel-font id + type tag),
+                latest release pinned first with a "LATEST" chip
+       foot     hint line
+
+     Inflated by VersionSelectorDialog (root ids vs_*).
+     ═══════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vs_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/vs_sheet"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingTop="14dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="12dp">
+
+    <!-- header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/vs_glyph"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/pw_glyph_well"
+            android:fontFamily="@font/minecraftia"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="MC"
+            android:textColor="#E6E9EF"
+            android:textSize="11sp"
+            tools:ignore="HardcodedText" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/vs_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/minecraftia"
+                android:includeFontPadding="false"
+                android:text="SELECT VERSION"
+                android:textColor="#F4F6F9"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:id="@+id/vs_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.12"
+                android:text="MOJANG MANIFEST  ·  LOADING"
+                android:textColor="#6B7180"
+                android:textSize="9sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/vs_close"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@drawable/vp_round_btn"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:text="✕"
+            android:textColor="#C9CED8"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <!-- channel tabs -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/vs_tabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/md_tab_strip"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <TextView android:id="@+id/vs_tab_installed" style="@style/VsTab" android:text="INSTALLED" tools:ignore="HardcodedText" />
+            <TextView android:id="@+id/vs_tab_release" style="@style/VsTab" android:text="RELEASE" tools:ignore="HardcodedText" />
+            <TextView android:id="@+id/vs_tab_snapshot" style="@style/VsTab" android:text="SNAPSHOT" tools:ignore="HardcodedText" />
+            <TextView android:id="@+id/vs_tab_beta" style="@style/VsTab" android:text="BETA" tools:ignore="HardcodedText" />
+            <TextView android:id="@+id/vs_tab_alpha" style="@style/VsTab" android:text="ALPHA" tools:ignore="HardcodedText" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- search -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/vs_search"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/minecraftia"
+            android:includeFontPadding="false"
+            android:text=">"
+            android:textColor="#8A909C"
+            android:textSize="11sp"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/vs_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="type a version, e.g. 1.21"
+            android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="#F4F6F9"
+            android:textColorHint="#5C6068"
+            android:textSize="13sp"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/vs_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/minecraftia"
+            android:includeFontPadding="false"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:textColor="#8A909C"
+            android:textSize="9sp"
+            tools:text="128" />
+    </LinearLayout>
+
+    <!-- list -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/vs_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:fadingEdgeLength="20dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="6dp"
+            android:requiresFadingEdge="vertical"
+            android:scrollbars="none" />
+
+        <TextView
+            android:id="@+id/vs_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/minecraftia"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="6dp"
+            android:text="NOTHING HERE"
+            android:textColor="#5C6068"
+            android:textSize="11sp"
+            android:visibility="gone"
+            tools:ignore="HardcodedText" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/vs_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="Tap a version to use it  ·  the latest release is pinned on top"
+        android:textColor="#5C6068"
+        android:textSize="10sp"
+        tools:ignore="HardcodedText" />
+</LinearLayout>

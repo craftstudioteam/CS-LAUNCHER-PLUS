@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings (Aurora) — deep-space backdrop with a soft teal beam at the top -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:startColor="#141821"
+                android:centerColor="#0D1016"
+                android:endColor="#090B10"
+                android:centerY="0.3" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="520dp"
+                android:centerX="0.5"
+                android:centerY="0.0"
+                android:startColor="#142B3D55"
+                android:endColor="#00000000" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     In-game drawer action card (Phase 9). Inflated by InGameMenuAdapter.
+     icon well · title + subtitle · index key-cap. Row 0 (Force close) gets
+     the danger variant applied in code.
+     ═══════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/igm_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/igm_card"
+    android:gravity="center_vertical"
+    android:minHeight="62dp"
+    android:orientation="horizontal"
+    android:paddingStart="10dp"
+    android:paddingEnd="10dp"
+    android:paddingTop="9dp"
+    android:paddingBottom="9dp">
+
+    <FrameLayout
+        android:id="@+id/igm_icon_well"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/igm_icon_well">
+
+        <ImageView
+            android:id="@+id/igm_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:contentDescription="@null" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/igm_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:textColor="#F4F6F9"
+            android:textSize="13.5sp" />
+
+        <TextView
+            android:id="@+id/igm_subtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#8A909C"
+            android:textSize="10.5sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/igm_key"
+        android:layout_width="22dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="6dp"
+        android:background="@drawable/igm_key_pill"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:textColor="#8A909C"
+        android:textSize="9.5sp" />
+</LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora: hero pop — overshoot scale for badges and checkmarks. -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="300"
+    android:fillAfter="true"
+    android:interpolator="@android:anim/overshoot_interpolator">
+    <scale
+        android:fromXScale="0.7"
+        android:fromYScale="0.7"
+        android:toXScale="1"
+        android:toYScale="1"
+        android:pivotX="50%"
+        android:pivotY="50%" />
+    <alpha
+        android:fromAlpha="0"
+        android:toAlpha="1" />
+</set>

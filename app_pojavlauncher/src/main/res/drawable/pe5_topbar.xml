@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora command bar: glass with teal hairline. Shared with settings. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:startColor="#1B212B" android:endColor="#13161E" />
+        </shape>
+    </item>
+    <item android:top="55dp">
+        <shape android:shape="rectangle">
+            <gradient android:angle="0" android:startColor="#40D4D8E0" android:endColor="#1B1D23" />
+        </shape>
+    </item>
+</layer-list>

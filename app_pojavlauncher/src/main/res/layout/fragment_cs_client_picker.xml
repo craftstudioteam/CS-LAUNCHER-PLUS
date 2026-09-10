@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     CS CLIENT • GRAPHITE v2 — CONTENT / MOD PICKER (brand-new pattern)
+     Catalog list + a FLOATING BOTTOM SELECTION DOCK (live count).
+     Root MUST stay a vertical LinearLayout: Java casts it to LinearLayout
+     and animates getChildAt(0) (command bar) + getChildAt(1) (search bar).
+     IDs + View types preserved.
+     ═══════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/csc_page"
+    android:animateLayoutChanges="true"
+    android:orientation="vertical">
+
+    <!-- ── Command bar (root child 0) ── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/csc_topbar"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="16dp">
+
+        <TextView
+            android:id="@+id/csc_picker_back"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:background="@drawable/csc_btn_back"
+            android:clickable="true"
+            android:contentDescription="Back"
+            android:focusable="true"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:text="‹"
+            android:textColor="#D2D6DE"
+            android:textSize="26sp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/csc_picker_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="#F4F6F9"
+                android:textSize="16sp"
+                tools:text="Choose mods" />
+
+            <TextView
+                android:id="@+id/csc_picker_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.04"
+                android:textColor="#9AA0AC"
+                android:textSize="10sp"
+                tools:text="Minecraft 1.21 • Fabric compatible" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/csc_picker_count"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@drawable/csc_badge_accent"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:minWidth="34dp"
+            android:paddingHorizontal="12dp"
+            android:text="0"
+            android:textColor="#C9CED8"
+            android:textSize="12sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <!-- ── Search bar (root child 1) ── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        android:alpha="0"
+        android:background="@drawable/csc_search"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="14dp"
+        android:paddingEnd="8dp">
+
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:contentDescription="Search"
+            android:src="@drawable/ic_search"
+            app:tint="#C9CED8" />
+
+        <EditText
+            android:id="@+id/csc_picker_search"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:fontFamily="sans-serif"
+            android:hint="Search Modrinth • verified modules"
+            android:imeOptions="actionSearch"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="#F1F5F9"
+            android:textColorHint="#7A808C"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/csc_picker_search_go"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:background="@drawable/csc_btn_ghost"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:letterSpacing="0.05"
+            android:paddingHorizontal="18dp"
+            android:text="GO"
+            android:textColor="#D2D6DE"
+            android:textSize="11sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <!-- ── Section label ── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="18dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="16dp"
+            android:background="@drawable/csc_accent_bar" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.05"
+            android:text="CS MODULE CATALOG"
+            android:textColor="#F4F6F9"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="26dp"
+            android:background="@drawable/csc_badge"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:letterSpacing="0.05"
+            android:paddingHorizontal="12dp"
+            android:text="VERIFIED"
+            android:textColor="#9AA0AC"
+            android:textSize="9sp"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <!-- ── List + floating dock overlay ── -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="104dp"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:id="@+id/csc_picker_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
+        <ProgressBar
+            android:id="@+id/csc_picker_loading"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTint="#C9CED8" />
+
+        <!-- Floating bottom selection dock -->
+        <LinearLayout
+            android:id="@+id/csc_picker_dock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:alpha="0"
+            android:background="@drawable/csc_sheet"
+            android:elevation="14dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="18dp"
+            android:paddingVertical="12dp"
+            android:translationY="40dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/csc_picker_dock_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="0 selected"
+                    android:textColor="#F4F6F9"
+                    android:textSize="14sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Tap rows to add modules"
+                    android:textColor="#8A909C"
+                    android:textSize="10sp"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/csc_picker_done"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:background="@drawable/csc_btn_primary"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:letterSpacing="0.04"
+                android:minWidth="112dp"
+                android:paddingHorizontal="20dp"
+                android:text="DONE"
+                android:textColor="#141519"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

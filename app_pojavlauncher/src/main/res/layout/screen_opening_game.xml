@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ════════════════════════════════════════════════════════════════
+     OPENING GAME — premium boot interstitial (shared)
+     Used as ShortcutActivity's visible content AND as the launch
+     overlay inside LauncherActivity, so the hand-off is seamless.
+═════════════════════════════════════════════════════════════════ -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sg_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0B0B0E"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Ambient silver aura from the top edge -->
+    <View
+        android:id="@+id/sg_aura"
+        android:layout_width="0dp"
+        android:layout_height="360dp"
+        android:background="@drawable/bg_opening_game_aura"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Center stack: mark → eyebrow → title → profile → chip -->
+    <LinearLayout
+        android:id="@+id/sg_column"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.42">
+
+        <FrameLayout
+            android:id="@+id/sg_mark_tile"
+            android:layout_width="78dp"
+            android:layout_height="78dp"
+            android:background="@drawable/bg_deck_icon_tile">
+
+            <ImageView
+                android:id="@+id/sg_mark_icon"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_launcher" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/sg_eyebrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:letterSpacing="0.24"
+            android:text="@string/sg_boot_eyebrow"
+            android:textColor="#7C7C88"
+            android:textSize="10.5sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/sg_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="sans-serif-light"
+            android:text="@string/sg_opening_game"
+            android:textColor="#F2F2F5"
+            android:textSize="27sp" />
+
+        <TextView
+            android:id="@+id/sg_profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="1"
+            android:maxWidth="280dp"
+            android:textColor="#F0F0F3"
+            android:textSize="15sp"
+            tools:text="Survival World" />
+
+        <TextView
+            android:id="@+id/sg_version_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/bg_settings_chip"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="5dp"
+            android:textColor="#9C9CA8"
+            android:textSize="10.5sp"
+            android:visibility="gone"
+            tools:text="1.21.1 • Fabric"
+            tools:visibility="visible" />
+    </LinearLayout>
+
+    <!-- Indeterminate shimmer while the launch is being prepared -->
+    <ProgressBar
+        android:id="@+id/sg_indeterminate"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:indeterminate="true"
+        android:indeterminateTint="#B9BBC4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sg_column" />
+
+    <!-- Determinate progress block (swapped in once tasks report) -->
+    <LinearLayout
+        android:id="@+id/sg_progress_block"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sg_column"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/sg_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:textColor="#F2F2F5"
+            android:textSize="26sp"
+            tools:text="42%" />
+
+        <ProgressBar
+            android:id="@+id/sg_beam"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="230dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="9dp"
+            android:max="100"
+            android:progressDrawable="@drawable/bg_progress_beam"
+            tools:progress="42" />
+
+        <TextView
+            android:id="@+id/sg_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:textColor="#9C9CA8"
+            android:textSize="11.5sp"
+            tools:text="Verifying game files…" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

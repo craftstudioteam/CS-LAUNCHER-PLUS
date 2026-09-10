@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Soft violet halo sitting behind the aggregate runtime ring -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <gradient android:type="radial"
+        android:gradientRadius="56dp"
+        android:centerColor="#3AD0D0D0"
+        android:centerY="0.5" android:centerX="0.5"
+        android:endColor="#00D0D0D0" />
+</shape>

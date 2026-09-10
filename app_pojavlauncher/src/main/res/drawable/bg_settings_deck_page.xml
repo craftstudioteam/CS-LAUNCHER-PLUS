@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora settings backdrop — deep space with teal aurora bloom top-left. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="315" android:startColor="#0B0E14" android:endColor="#0E131B" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="640dp"
+                android:centerX="0.16"
+                android:centerY="0.0"
+                android:startColor="#0C62D99B"
+                android:endColor="#00000000" />
+        </shape>
+    </item>
+</layer-list>

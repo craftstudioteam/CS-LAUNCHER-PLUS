@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Translucent round action over artwork. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#2FFFFFFF">
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="#990F1014" />
+        </shape>
+    </item>
+</ripple>

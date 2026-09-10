@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ICON RING — platinum glow ring for hero icons / avatars. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="18dp" />
+    <gradient
+        android:angle="135"
+        android:startColor="#5CFFFFFF"
+        android:endColor="#5CD0D0D0" />
+</shape>

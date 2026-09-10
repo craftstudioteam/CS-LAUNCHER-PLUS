@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cape item card in Cape Browser RecyclerView grid -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_skinv2_card"
+    android:padding="10dp"
+    android:layout_margin="5dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Top Tag row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="6dp">
+
+        <TextView
+            android:id="@+id/cape_card_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:background="@drawable/st_key_cap"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:paddingHorizontal="6dp"
+            android:text="OFFICIAL"
+            android:textColor="#C5C8D4"
+            android:textSize="8sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/cape_card_status"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:background="@drawable/bg_skinv2_pill_on"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:paddingHorizontal="6dp"
+            android:text="EQUIPPED"
+            android:textColor="#0E1017"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <!-- 2D Cape Texture Preview -->
+    <net.kdt.pojavlaunch.capes.Cape2DPreviewView
+        android:id="@+id/cape_card_preview"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_gravity="center_horizontal" />
+
+    <!-- Name & Details -->
+    <TextView
+        android:id="@+id/cape_card_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
+        android:text="Minecon 2011"
+        android:textColor="#F4F6F9"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/cape_card_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Official • Mojang"
+        android:textColor="#7F8593"
+        android:textSize="9.5sp" />
+
+    <!-- Quick Action Row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/cape_card_btn_equip"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/st_btn_primary"
+            android:gravity="center"
+            android:letterSpacing="0.06"
+            android:text="EQUIP"
+            android:textColor="#0B0B0E"
+            android:textSize="9sp"
+            android:textStyle="bold" />
+
+        <FrameLayout
+            android:id="@+id/cape_card_btn_save"
+            android:layout_width="28dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/st_btn_ghost"
+            android:contentDescription="Save to collection">
+
+            <ImageView
+                android:id="@+id/cape_card_save_icon"
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_download"
+                app:tint="#C5C8D4" />
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>

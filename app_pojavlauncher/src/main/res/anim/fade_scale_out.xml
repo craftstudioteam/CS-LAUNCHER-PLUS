@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CSL v3 dialog motion: fast, quiet exit — deliberately quicker than the pop
+     so dismissing a dialog never feels laggy. -->
+<set xmlns:android="http://schemas.android.com/apk/res/android" android:fillAfter="true">
+    <alpha
+        android:duration="160"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:interpolator="@android:interpolator/accelerate_quad" />
+    <scale
+        android:duration="180"
+        android:fromXScale="1.0"
+        android:toXScale="0.94"
+        android:fromYScale="1.0"
+        android:toYScale="0.94"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:interpolator="@interpolator/motion_standard_accelerate" />
+</set>

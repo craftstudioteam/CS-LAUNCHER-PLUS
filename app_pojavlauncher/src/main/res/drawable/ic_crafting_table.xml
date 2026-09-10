@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Crafting table — WHITE monochrome silhouette (tintable) for the
+     "Normal Version" creation option: tabletop + 3×3 grid + legs. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Table top (viewed front-on) -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M4,4.5 h16 a1.2,1.2 0 0 1 1.2,1.2 v2.6 a1.2,1.2 0 0 1 -1.2,1.2 h-16 a1.2,1.2 0 0 1 -1.2,-1.2 v-2.6 a1.2,1.2 0 0 1 1.2,-1.2 Z" />
+    <!-- Body -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M5.6,10.6 h12.8 v6.2 a1.6,1.6 0 0 1 -1.6,1.6 h-9.6 a1.6,1.6 0 0 1 -1.6,-1.6 Z" />
+    <!-- 3x3 grid knocked out of the body -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF0E0B16"
+        android:strokeWidth="1.1"
+        android:pathData="M9.1,12.1 v4.6 M14.9,12.1 v4.6 M7.1,13.6 h9.8 M7.1,16.1 h9.8" />
+    <!-- Grid dots -->
+    <path
+        android:fillColor="#FF0E0B16"
+        android:pathData="M8.2,12.4 h1.2 v1.2 h-1.2 Z M11.4,12.4 h1.2 v1.2 h-1.2 Z M14.6,12.4 h1.2 v1.2 h-1.2 Z
+                          M8.2,15.4 h1.2 v1.2 h-1.2 Z M11.4,15.4 h1.2 v1.2 h-1.2 Z M14.6,15.4 h1.2 v1.2 h-1.2 Z" />
+</vector>

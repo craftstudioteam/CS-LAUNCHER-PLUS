@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     INSTALLED MOD CARD v4 — state-aware outline:
+     GREEN outline + dot = enabled • RED outline + dot = disabled.
+     Background is swapped at runtime by InstalledModAdapter.
+     ═══════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="5dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="12dp"
+    android:minHeight="68dp"
+    android:background="@drawable/pe4_mod_on"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Mod icon -->
+    <FrameLayout
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:background="@drawable/pe4_icon_well"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/installed_mod_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:contentDescription="@null"
+            tools:src="@mipmap/ic_launcher_foreground" />
+    </FrameLayout>
+
+    <!-- Name / version / status -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/installed_mod_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="13.5sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="EntityCulling" />
+
+        <TextView
+            android:id="@+id/installed_mod_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:textColor="#8D93A1"
+            android:textSize="11sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="1.8.0 (2.4 MB)" />
+
+        <TextView
+            android:id="@+id/installed_mod_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:drawablePadding="6dp"
+            android:gravity="center_vertical"
+            android:textSize="10.5sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.06"
+            android:textAllCaps="true"
+            android:textColor="#D2D6DE"
+            app:drawableStartCompat="@drawable/pe4_dot_on"
+            tools:text="Enabled" />
+    </LinearLayout>
+
+    <!-- Enable / disable -->
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/installed_mod_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:layout_marginEnd="2dp"
+        app:thumbTint="@color/pe4_switch_thumb"
+        app:trackTint="@color/pe4_switch_track" />
+
+    <!-- Check for a newer release -->
+    <ImageButton
+        android:id="@+id/installed_mod_update"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="2dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_cs_refresh"
+        android:padding="6dp"
+        app:tint="#9DB4FF"
+        android:contentDescription="@string/mod_action_check_update"
+        tools:visibility="visible" />
+
+    <!-- Copy into another profile (no re-download) -->
+    <ImageButton
+        android:id="@+id/installed_mod_copy"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="2dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_copy"
+        android:padding="6dp"
+        app:tint="#B9C0CC"
+        android:contentDescription="@string/mod_action_copy_to_profile"
+        tools:visibility="visible" />
+
+    <!-- Delete -->
+    <ImageButton
+        android:id="@+id/installed_mod_delete"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="6dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_menu_delete_forever"
+        android:padding="9dp"
+        app:tint="#FF8A8A"
+        android:contentDescription="@string/delete" />
+</LinearLayout>

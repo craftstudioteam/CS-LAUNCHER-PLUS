@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cursor Studio v4 — PNG upload drop-zone (dashed) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="14dp" />
+    <solid android:color="#0D0F13" />
+    <stroke
+        android:width="1.4dp"
+        android:color="#3A3F4C"
+        android:dashWidth="7dp"
+        android:dashGap="5dp" />
+</shape>

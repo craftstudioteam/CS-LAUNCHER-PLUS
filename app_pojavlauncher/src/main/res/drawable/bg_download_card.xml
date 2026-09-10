@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Premium glass download card: charcoal + hairline -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="135"
+        android:startColor="#F016171C"
+        android:endColor="#F0101014" />
+    <corners android:radius="18dp" />
+    <stroke android:width="1dp" android:color="#26FFFFFF" />
+</shape>

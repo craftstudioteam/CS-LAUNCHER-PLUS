@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora icon well — teal halo circle. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <gradient android:type="radial" android:gradientRadius="28dp"
+        android:startColor="#2E62D99B" android:centerColor="#1262D99B" android:endColor="#060E1620" />
+    <stroke android:width="1dp" android:color="#3F62D99B" />
+    <size android:width="44dp" android:height="44dp" />
+</shape>

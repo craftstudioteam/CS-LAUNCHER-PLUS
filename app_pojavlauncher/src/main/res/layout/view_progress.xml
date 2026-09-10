@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ════════════════════════════════════════════════════════════════
+     DOWNLOAD CONSOLE (v3 redo — bottom-anchored floating command deck)
+     Big tabular % • luminous beam • size / speed / ETA stats
+     PAUSE-RESUME • STOP • HIDE controls • collapses into a mini pill
+═════════════════════════════════════════════════════════════════ -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:clickable="false"
+    android:focusable="false">
+
+    <!-- ═══════════ Expanded console ═══════════ -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/download_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="14dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_dl_deck"
+        android:elevation="14dp"
+        android:paddingHorizontal="14dp"
+        android:paddingTop="13dp"
+        android:paddingBottom="12dp"
+        app:layout_constraintWidth_max="700dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Content icon tile (mod icon swaps in during mod downloads) -->
+        <ImageView
+            android:id="@+id/progress_icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_deck_icon_tile"
+            android:clipToOutline="true"
+            android:padding="11dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_download"
+            android:tint="#FFFFFF"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="UseAppTint" />
+
+        <!-- Task title -->
+        <TextView
+            android:id="@+id/progress_status_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.01"
+            android:maxLines="1"
+            android:textColor="#F0F0F3"
+            android:textSize="13.5sp"
+            app:layout_constraintStart_toEndOf="@id/progress_icon"
+            app:layout_constraintEnd_toStartOf="@id/progress_percentage_text"
+            app:layout_constraintTop_toTopOf="@id/progress_icon"
+            tools:text="Downloading Sodium" />
+
+        <!-- Paused badge (amber, visible only while paused) -->
+        <TextView
+            android:id="@+id/progress_paused_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/bg_runtime_chip_recommended"
+            android:text="@string/download_console_paused"
+            android:textColor="#D8C79A"
+            android:textSize="8.5sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/progress_status_text"
+            app:layout_constraintTop_toBottomOf="@id/progress_status_text"
+            tools:visibility="visible" />
+
+        <!-- Big tabular percentage — the design signature -->
+        <TextView
+            android:id="@+id/progress_percentage_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:letterSpacing="-0.02"
+            android:textColor="#F2F2F5"
+            android:textSize="30sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="42%" />
+
+        <!-- Sub metric: downloaded / total -->
+        <TextView
+            android:id="@+id/progress_detail_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="#9C9CA8"
+            android:textSize="10.5sp"
+            app:layout_constraintStart_toStartOf="@id/progress_status_text"
+            app:layout_constraintEnd_toStartOf="@id/progress_percentage_text"
+            app:layout_constraintTop_toBottomOf="@id/progress_status_text"
+            tools:text="141.2 MB / 513 MB" />
+
+        <!-- Stats strip: speed • eta -->
+        <LinearLayout
+            android:id="@+id/progress_meta_row"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@id/progress_status_text"
+            app:layout_constraintEnd_toStartOf="@id/progress_percentage_text"
+            app:layout_constraintTop_toBottomOf="@id/progress_detail_text">
+
+            <TextView
+                android:id="@+id/progress_speed_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:letterSpacing="0.02"
+                android:textColor="#DADDE5"
+                android:textSize="10sp"
+                android:visibility="gone"
+                tools:text="2.5 MB/s"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/progress_eta_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:letterSpacing="0.02"
+                android:textColor="#7C7C88"
+                android:textSize="10sp"
+                android:visibility="gone"
+                tools:text="• 1m 20s remaining"
+                tools:visibility="visible" />
+        </LinearLayout>
+
+        <!-- Luminous full-width beam (thicker than the old one) -->
+        <com.kdt.mcgui.DownloadAssemblyBar
+            android:id="@+id/progress_horizontal_bar"
+            android:layout_width="0dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="11dp"
+            android:max="100"
+            android:progress="0"
+            android:progressDrawable="@drawable/dl_beam_progress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progress_meta_row" />
+
+        <!-- Control row: PAUSE/RESUME • STOP • HIDE -->
+        <LinearLayout
+            android:id="@+id/progress_controls_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progress_horizontal_bar"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <LinearLayout
+                android:id="@+id/progress_btn_pause"
+                android:layout_width="0dp"
+                android:layout_height="34dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_console_btn"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/progress_btn_pause_icon"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/ic_pause"
+                    android:tint="#DADDE5" />
+
+                <TextView
+                    android:id="@+id/progress_btn_pause_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="@string/download_console_pause"
+                    android:textColor="#DADDE5"
+                    android:textSize="10.5sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/progress_btn_stop"
+                android:layout_width="0dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_console_btn"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:src="@drawable/ic_stop"
+                    android:tint="#DADDE5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="@string/download_console_stop"
+                    android:textColor="#DADDE5"
+                    android:textSize="10.5sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/progress_btn_hide"
+                android:layout_width="0dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_console_btn"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/ic_chevron_down"
+                    android:tint="#DADDE5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/download_console_hide"
+                    android:textColor="#DADDE5"
+                    android:textSize="10.5sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- ═══════════ Collapsed mini pill (tap to expand) ═══════════ -->
+    <LinearLayout
+        android:id="@+id/console_pill"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/bg_console_pill"
+        android:elevation="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="13dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_download_trend"
+            android:tint="#FFFFFF" />
+
+        <TextView
+            android:id="@+id/console_pill_percent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#F0F0F3"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            tools:text="42%" />
+
+        <ImageView
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:layout_marginStart="7dp"
+            android:src="@drawable/ic_chevron_up"
+            android:tint="#7C7C88" />
+    </LinearLayout>
+
+    <!-- ═══════════════════════════════════════ -->
+    <!-- ✦ LEGACY COMPATIBILITY VIEWS (HIDDEN)  -->
+    <!-- ═══════════════════════════════════════ -->
+    <FrameLayout
+        android:id="@+id/progress_indicator_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.kdt.mcgui.PulseOrbitView
+            android:id="@+id/pulse_orbit"
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
+    </FrameLayout>
+
+    <com.kdt.mcgui.KineticProgressView
+        android:id="@+id/kinetic_progress_legacy"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/progress_textview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:id="@+id/progress_flip_arrow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <LinearLayout
+        android:id="@+id/progress_linear_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical">
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

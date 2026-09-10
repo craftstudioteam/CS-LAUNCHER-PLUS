@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shared-axis X forward (cinematic): the old page recedes — drifts left, sinks to 0.9
+     depth and dims, so the incoming page clearly stacks on top of it. -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shareInterpolator="false">
+    <translate
+        android:fromXDelta="0"
+        android:toXDelta="-14%p"
+        android:duration="420"
+        android:interpolator="@interpolator/motion_emphasized" />
+    <scale
+        android:fromXScale="1.0"
+        android:toXScale="0.90"
+        android:fromYScale="1.0"
+        android:toYScale="0.90"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration="420"
+        android:interpolator="@interpolator/motion_emphasized" />
+    <alpha
+        android:fromAlpha="1"
+        android:toAlpha="0"
+        android:duration="260"
+        android:interpolator="@interpolator/motion_in_quart" />
+</set>

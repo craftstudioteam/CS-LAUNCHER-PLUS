@@ -1,0 +1,430 @@
+package net.kdt.pojavlaunch.value.launcherprofiles;
+
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import net.kdt.pojavlaunch.Tools;
+import net.kdt.pojavlaunch.prefs.LauncherPreferences;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+public class LauncherProfiles {
+    public static MinecraftLauncherProfiles mainProfileJson;
+    private static final File launcherProfilesFile = new File(Tools.DIR_GAME_NEW, "launcher_profiles.json");
+
+    public static final java.util.List<Runnable> sProfileUpdateListeners = new java.util.ArrayList<>();
+
+    public static void addUpdateListener(Runnable listener) {
+        if (!sProfileUpdateListeners.contains(listener)) {
+            sProfileUpdateListeners.add(listener);
+        }
+    }
+
+    public static void removeUpdateListener(Runnable listener) {
+        sProfileUpdateListeners.remove(listener);
+    }
+
+    /** Reload the profile from the file, creating a default one if necessary.
+     *  Does NOT auto-scan version directories — that only happens on explicit
+     *  {@link #rescanProfiles()} calls, to prevent deleted profiles from
+     *  being recreated behind the user's back. */
+    /** Set when a lenient parse rescued a corrupted profiles file; consumed after the model is normalized. */
+    private static boolean sRecoveredLenient;
+
+    public static synchronized void load(){
+        if (launcherProfilesFile.exists()) {
+            try {
+                String json = Tools.read(launcherProfilesFile.getAbsolutePath());
+                try {
+                    mainProfileJson = Tools.GLOBAL_GSON.fromJson(json, MinecraftLauncherProfiles.class);
+                } catch (Throwable strictFail) {
+                    // Interrupted/corrupted writes leave trailing garbage behind (the strict
+                    // parser dies on it). Retry with a lenient reader before giving up.
+                    Log.w(LauncherProfiles.class.toString(), "Strict profiles parse failed, retrying lenient", strictFail);
+                    try {
+                        com.google.gson.stream.JsonReader reader =
+                                new com.google.gson.stream.JsonReader(new java.io.StringReader(json));
+                        reader.setLenient(true);
+                        mainProfileJson = Tools.GLOBAL_GSON.fromJson(reader, MinecraftLauncherProfiles.class);
+                        sRecoveredLenient = true;
+                        Log.i(LauncherProfiles.class.toString(), "launcher_profiles.json recovered via lenient parse");
+                    } catch (Throwable lenientFail) {
+                        Log.e(LauncherProfiles.class.toString(), "Unrecoverable launcher_profiles.json — backing it up and starting clean", lenientFail);
+                        try {
+                            File backup = new File(launcherProfilesFile.getParentFile(),
+                                    "launcher_profiles.json.corrupt-" + System.currentTimeMillis() + ".bak");
+                            Tools.write(backup.getAbsolutePath(), json);
+                            //noinspection ResultOfMethodCallIgnored
+                            launcherProfilesFile.delete();
+                        } catch (Throwable backupFail) {
+                            Log.e(LauncherProfiles.class.toString(), "Failed to back up the corrupt profiles file", backupFail);
+                        }
+                        mainProfileJson = null;
+                    }
+                }
+            } catch (IOException e) {
+                Log.e(LauncherProfiles.class.toString(), "Failed to load file: ", e);
+                throw new RuntimeException(e);
+            }
+        }
+
+        // Fill with default
+        if (mainProfileJson == null) mainProfileJson = new MinecraftLauncherProfiles();
+        if (mainProfileJson.profiles == null) mainProfileJson.profiles = new HashMap<>();
+
+        // Re-normalize the file we just rescued so the strict parser works next launch
+        if (sRecoveredLenient) {
+            sRecoveredLenient = false;
+            write();
+        }
+
+        // Strip invalid/corrupted profiles and persist the cleanup immediately
+        boolean purged = purgeInvalidProfiles();
+        if (purged) {
+            write();
+            // Re-read to get clean state — avoids stale entries in listeners
+            load();
+            return;
+        }
+
+        if (mainProfileJson.profiles.size() == 0)
+            mainProfileJson.profiles.put(UUID.randomUUID().toString(), MinecraftProfile.getDefaultProfile());
+
+        // Normalize profile names from mod installers
+        if(normalizeProfileIds(mainProfileJson)){
+            write();
+            load();
+        } else if (ProfileOrderManager.ensure(mainProfileJson)) {
+            // One-time migration plus append-order initialization for new profiles.
+            write();
+        } else {
+            // Notify listeners when profiles are reloaded
+            for (Runnable listener : new java.util.ArrayList<>(sProfileUpdateListeners)) {
+                if (listener != null) Tools.runOnUiThread(listener);
+            }
+        }
+    }
+
+    /**
+     * Remove profiles with null keys, null/empty names, or otherwise corrupted data.
+     * This prevents ghost entries from showing up in the UI.
+     * @return true if any profiles were removed
+     */
+    private static boolean purgeInvalidProfiles() {
+        if (mainProfileJson == null || mainProfileJson.profiles == null) return false;
+        java.util.ArrayList<String> invalidKeys = new java.util.ArrayList<>();
+        for (java.util.Map.Entry<String, MinecraftProfile> entry : mainProfileJson.profiles.entrySet()) {
+            String key = entry.getKey();
+            MinecraftProfile profile = entry.getValue();
+            if (key == null || key.isEmpty()) {
+                invalidKeys.add(key);
+                continue;
+            }
+            if (profile == null) {
+                invalidKeys.add(key);
+                continue;
+            }
+            if (profile.name == null || profile.name.trim().isEmpty()) {
+                invalidKeys.add(key);
+                continue;
+            }
+        }
+        for (String k : invalidKeys) {
+            mainProfileJson.profiles.remove(k);
+        }
+        if (!invalidKeys.isEmpty()) {
+            Log.w("LauncherProfiles", "Purged " + invalidKeys.size() + " invalid profiles");
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Explicitly re-scan version directories and custom instances, creating
+     * profiles for any that don't have a matching entry yet.
+     * Safe to call when the user explicitly asks to discover new versions.
+     */
+    public static void rescanProfiles() {
+        if (mainProfileJson == null) {
+            load();
+            return;
+        }
+        autoScanProfiles();
+        write();
+    }
+
+    /**
+     * Load profiles on a background thread, then run the callback on the UI thread.
+     * Use this instead of {@link #load()} when called from the UI thread to avoid
+     * blocking on file I/O and version directory scanning.
+     * @param onComplete Runnable to execute on the UI thread after loading completes. May be null.
+     */
+    public static void loadAsync(@androidx.annotation.Nullable Runnable onComplete) {
+        net.kdt.pojavlaunch.PojavApplication.sExecutorService.execute(() -> {
+            load();
+            if (onComplete != null) {
+                net.kdt.pojavlaunch.Tools.runOnUiThread(onComplete);
+            }
+        });
+    }
+
+    public static void autoScanProfiles() {
+        if (mainProfileJson == null || mainProfileJson.profiles == null) return;
+        boolean changed = false;
+
+        // Helper: check if a version ID looks like a loader version (not a raw MC version)
+        java.util.regex.Pattern loaderPattern = java.util.regex.Pattern.compile(
+                "(?i)(fabric|forge|neoforge|quilt|optifine|liteloader)");
+
+        // 1. Scan versions directory
+        File versionsDir = new File(Tools.DIR_GAME_NEW, "versions");
+        if (versionsDir.exists() && versionsDir.isDirectory()) {
+            File[] files = versionsDir.listFiles(File::isDirectory);
+            if (files != null) {
+                for (File dir : files) {
+                    String versionId = dir.getName();
+                    String lower = versionId.toLowerCase();
+
+                    // FABRIC/LOADER REWORK: Skip auto-creating profiles for loader versions.
+                    // Fabric, Forge, NeoForge, Quilt, OptiFine etc. are loaders, not standalone
+                    // game versions. They should already be handled by the installer which updates
+                    // an existing profile. If there's no corresponding profile, check if any
+                    // existing profile's resolved MC version matches.
+                    boolean isLoaderVersion = loaderPattern.matcher(lower).find();
+
+                    // Check if any profile already uses this lastVersionId
+                    boolean exists = false;
+                    for (MinecraftProfile p : mainProfileJson.profiles.values()) {
+                        if (versionId.equals(p.lastVersionId)) {
+                            exists = true;
+                            break;
+                        }
+                    }
+
+                    if (isLoaderVersion) {
+                        // For loader versions, check if the underlying MC version already has a profile
+                        String mcVersion = net.kdt.pojavlaunch.utils.ProfileDetection.extractMcFromVersionId(versionId);
+                        boolean hasMcProfile = false;
+                        if (mcVersion != null && !mcVersion.isEmpty()) {
+                            for (MinecraftProfile p : mainProfileJson.profiles.values()) {
+                                String resolved = net.kdt.pojavlaunch.utils.ProfileDetection.getMcVersion(p);
+                                if (mcVersion.equals(resolved) || mcVersion.equals(p.lastVersionId)) {
+                                    hasMcProfile = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (hasMcProfile && !exists) {
+                            // There's already a profile for this MC version, skip auto-creation
+                            continue;
+                        }
+                    }
+
+                    if (!exists) {
+                        // Create a profile for this version
+                        MinecraftProfile profile = new MinecraftProfile();
+                        profile.lastVersionId = versionId;
+
+                        // BRANDING: Show clean "Minecraft X.Y.Z" names, never expose internal
+                        // loader version strings like "fabric-loader-0.19.3-1.21.10" to users.
+                        // Extract the MC version for a clean display name.
+                        String mcVer = net.kdt.pojavlaunch.utils.ProfileDetection.extractMcFromVersionId(versionId);
+                        if (mcVer == null || mcVer.isEmpty()) mcVer = versionId;
+
+                        if (lower.contains("neoforge")) {
+                            profile.name = "Minecraft " + mcVer + " (NeoForge)";
+                            profile.icon = "Forge";
+                            profile.type = "custom";
+                        } else if (lower.contains("forge")) {
+                            profile.name = "Minecraft " + mcVer + " (Forge)";
+                            profile.icon = "Forge";
+                            profile.type = "custom";
+                        } else if (lower.contains("fabric")) {
+                            profile.name = "Minecraft " + mcVer;
+                            profile.icon = "Fabric";
+                            profile.type = "custom";
+                        } else if (lower.contains("optifine")) {
+                            profile.name = "Minecraft " + mcVer + " (OptiFine)";
+                            profile.icon = "OptiFine";
+                            profile.type = "custom";
+                        } else if (lower.contains("quilt")) {
+                            profile.name = "Minecraft " + mcVer + " (Quilt)";
+                            profile.icon = "Fabric";
+                            profile.type = "custom";
+                        } else if (lower.contains("liteloader")) {
+                            profile.name = "Minecraft " + mcVer + " (LiteLoader)";
+                            profile.icon = "Grass";
+                            profile.type = "custom";
+                        } else {
+                            profile.name = "Minecraft " + mcVer;
+                            profile.icon = "Grass";
+                            profile.type = "custom";
+                        }
+
+                        mainProfileJson.profiles.put(UUID.randomUUID().toString(), profile);
+                        changed = true;
+                    }
+                }
+            }
+        }
+
+        // 2. Scan custom_instances directory
+        File instancesDir = new File(Tools.DIR_GAME_NEW, "custom_instances");
+        if (instancesDir.exists() && instancesDir.isDirectory()) {
+            File[] files = instancesDir.listFiles(File::isDirectory);
+            if (files != null) {
+                for (File dir : files) {
+                    String instName = dir.getName();
+                    String relativePath = "./custom_instances/" + instName;
+                    // Check if any profile uses this gameDir
+                    boolean exists = false;
+                    for (MinecraftProfile p : mainProfileJson.profiles.values()) {
+                        if (p.gameDir != null && (p.gameDir.equals(relativePath) || p.gameDir.toLowerCase().contains(instName.toLowerCase()))) {
+                            exists = true;
+                            break;
+                        }
+                    }
+                    if (!exists) {
+                        // Create profile for this custom instance
+                        MinecraftProfile profile = new MinecraftProfile();
+                        profile.gameDir = relativePath;
+                        profile.type = "modpack";
+
+                        profile.name = "Modpack " + instName;
+                        profile.icon = "Grass";
+                        profile.lastVersionId = findBestVersionForInstance(null);
+
+                        mainProfileJson.profiles.put(UUID.randomUUID().toString(), profile);
+                        changed = true;
+                    }
+                }
+            }
+        }
+
+        if (changed) {
+            write();
+        }
+    }
+
+    private static String findBestVersionForInstance(String keyword) {
+        File versionsDir = new File(Tools.DIR_GAME_NEW, "versions");
+        if (versionsDir.exists() && versionsDir.isDirectory()) {
+            File[] files = versionsDir.listFiles(File::isDirectory);
+            if (files != null && files.length > 0) {
+                if (keyword != null) {
+                    for (File dir : files) {
+                        if (dir.getName().toLowerCase().contains(keyword)) {
+                            return dir.getName();
+                        }
+                    }
+                }
+                // Phase 11: the launcher default wins over whatever directory the
+                // filesystem happens to list first (that used to pick e.g. 1.7.10).
+                for (File dir : files) {
+                    if (MinecraftProfile.DEFAULT_VERSION.equals(dir.getName())) return dir.getName();
+                }
+                return files[0].getName();
+            }
+        }
+        return MinecraftProfile.DEFAULT_VERSION;
+    }
+
+    /** Apply the current configuration into a file */
+    public static synchronized void write() {
+        try {
+            ProfileOrderManager.ensure(mainProfileJson);
+            Tools.write(launcherProfilesFile.getAbsolutePath(), mainProfileJson.toJson());
+            for (Runnable listener : new java.util.ArrayList<>(sProfileUpdateListeners)) {
+                if (listener != null) Tools.runOnUiThread(listener);
+            }
+        } catch (IOException e) {
+            Log.e(LauncherProfiles.class.toString(), "Failed to write profile file", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    /** Stable favorite-first order shared by every profile selector. */
+    public static synchronized @NonNull List<Map.Entry<String, MinecraftProfile>> getOrderedEntries() {
+        if (mainProfileJson == null) load();
+        return ProfileOrderManager.orderedEntries(mainProfileJson);
+    }
+
+    public static synchronized boolean setFavorite(@NonNull String profileKey, boolean favorite) {
+        if (mainProfileJson == null) load();
+        boolean changed = ProfileOrderManager.setFavorite(mainProfileJson, profileKey, favorite);
+        if (changed) write();
+        return changed;
+    }
+
+    public static synchronized boolean applyProfileOrder(@NonNull List<String> orderedKeys) {
+        if (mainProfileJson == null) load();
+        boolean changed = ProfileOrderManager.applyVisibleOrder(mainProfileJson, orderedKeys);
+        if (changed) write();
+        return changed;
+    }
+
+    public static @NonNull MinecraftProfile getCurrentProfile() {
+        if(mainProfileJson == null) LauncherProfiles.load();
+        String defaultProfileName = LauncherPreferences.DEFAULT_PREF.getString(LauncherPreferences.PREF_KEY_CURRENT_PROFILE, "");
+        MinecraftProfile profile = mainProfileJson.profiles.get(defaultProfileName);
+        if(profile == null) throw new RuntimeException("The current profile stopped existing :(");
+        return profile;
+    }
+
+    /**
+     * Insert a new profile into the profile map
+     * @param minecraftProfile the profile to insert
+     */
+    public static void insertMinecraftProfile(MinecraftProfile minecraftProfile) {
+        mainProfileJson.profiles.put(getFreeProfileKey(), minecraftProfile);
+        ProfileOrderManager.ensure(mainProfileJson);
+    }
+
+    /**
+     * Pick an unused normalized key to store a new profile with
+     * @return an unused key
+     */
+    public static String getFreeProfileKey() {
+        Map<String, MinecraftProfile> profileMap = mainProfileJson.profiles;
+        String freeKey = UUID.randomUUID().toString();
+        while(profileMap.get(freeKey) != null) freeKey = UUID.randomUUID().toString();
+        return freeKey;
+    }
+
+    /**
+     * For all keys to be UUIDs, effectively isolating profile created by installers
+     * This avoids certain profiles to be erased by the installer
+     * @return Whether some profiles have been normalized
+     */
+    private static boolean normalizeProfileIds(MinecraftLauncherProfiles launcherProfiles){
+        boolean hasNormalized = false;
+        ArrayList<String> keys = new ArrayList<>();
+
+        // Detect denormalized keys
+        for(String profileKey : launcherProfiles.profiles.keySet()){
+            try{
+                if(!UUID.fromString(profileKey).toString().equals(profileKey)) keys.add(profileKey);
+            }catch (IllegalArgumentException exception){
+                keys.add(profileKey);
+                Log.w(LauncherProfiles.class.toString(), "Illegal profile uuid: " + profileKey);
+            }
+        }
+
+        // Swap the new keys
+        for(String profileKey : keys){
+            MinecraftProfile currentProfile = launcherProfiles.profiles.get(profileKey);
+            insertMinecraftProfile(currentProfile);
+            launcherProfiles.profiles.remove(profileKey);
+            hasNormalized = true;
+        }
+
+        return hasNormalized;
+    }
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora input: teal stroke on focus -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <solid android:color="#0D1016" />
+            <stroke android:width="1.4dp" android:color="#D4D8E0" />
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <solid android:color="#12161E" />
+            <stroke android:width="1dp" android:color="#3AD4D8E0" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <solid android:color="#0D1016" />
+            <stroke android:width="1dp" android:color="#242A33" />
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- anime.js easeInQuart: outgoing pages gather speed as they leave. -->
+<pathInterpolator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:controlX1="0.5"
+    android:controlY1="0.0"
+    android:controlX2="0.75"
+    android:controlY2="0.0" />

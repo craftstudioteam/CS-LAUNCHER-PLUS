@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MP VERSION ROW — pressable list row with left accent line -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#22FFFFFF">
+    <item android:id="@android:id/background">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="20dp" />
+                    <gradient android:angle="0" android:startColor="#181A21" android:endColor="#101116" />
+                    <stroke android:width="1dp" android:color="#22FFFFFF" />
+                </shape>
+            </item>
+            <item android:width="3dp">
+                <shape android:shape="rectangle">
+                    <corners android:topLeftRadius="16dp" android:bottomLeftRadius="16dp" />
+                    <gradient android:angle="90" android:startColor="#D0D0D0" android:endColor="#33D0D0D0" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+</ripple>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Jelly: the page overshoots slightly and settles, like a damped spring. -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="@integer/motion_duration_long"
+    android:interpolator="@interpolator/motion_emphasized"
+    android:shareInterpolator="true">
+    <translate
+        android:fromYDelta="10%p"
+        android:toYDelta="0"
+        android:duration="@integer/motion_duration_long"
+        android:interpolator="@interpolator/motion_jelly"
+        />
+    <scale android:fromXScale="0.94" android:toXScale="1.0"
+        android:fromYScale="0.94" android:toYScale="1.0"
+        android:pivotX="50%" android:pivotY="50%"
+        android:duration="@integer/motion_duration_long" android:interpolator="@interpolator/motion_jelly" />
+    <alpha android:fromAlpha="0" android:toAlpha="1"
+        android:duration="@integer/motion_duration_short" android:interpolator="@interpolator/motion_standard" />
+</set>

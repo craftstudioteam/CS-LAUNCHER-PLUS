@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Primary Save button — bright platinum-lavender. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#55FFFFFF">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="14dp" />
+            <gradient android:angle="135" android:startColor="#EDEAF7" android:endColor="#C4BEDA" />
+        </shape>
+    </item>
+</ripple>

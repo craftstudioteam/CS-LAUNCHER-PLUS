@@ -1,0 +1,605 @@
+package net.kdt.pojavlaunch.modloaders;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import net.kdt.pojavlaunch.PojavApplication;
+import net.kdt.pojavlaunch.R;
+
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
+public class InstalledModAdapter extends RecyclerView.Adapter<InstalledModAdapter.ModViewHolder> {
+
+    private static final String TAG = "ModAdapter";
+
+    public interface EmptyStateListener {
+        void onEmptyStateChanged(boolean isEmpty);
+    }
+
+    /** Per-mod actions offered on the Mod Management page. */
+    public interface ModActionListener {
+        /** Copy this jar into another profile without downloading it again. */
+        void onCopyMod(File modFile);
+        /** Ask Modrinth whether a newer file exists for the current profile. */
+        void onCheckUpdate(File modFile);
+        /**
+         * Long-press on COPY: the row hands the gesture over so the file can be
+         * dragged onto a profile card. Default: no drag (host may still open the
+         * picker on release).
+         */
+        default void onCopyModDragStarted(File modFile) {}
+
+        /**
+         * Whether the carried mod has somewhere to land. Only two-pane layouts
+         * show the home list beside the mods list, so only there does a hold mean
+         * "drop it on that card"; everywhere else the picker already is the
+         * answer, and starting a drag with no target would only confuse.
+         */
+        default boolean canCarryMod() { return true; }
+    }
+
+    private final List<ModEntry> mMods = new ArrayList<>();
+    private final EmptyStateListener mEmptyListener;
+    private final ModActionListener mActions;
+    private final Handler mMainHandler = new Handler(Looper.getMainLooper());
+
+    public InstalledModAdapter(File modsDir, EmptyStateListener listener) {
+        this(modsDir, listener, null);
+    }
+
+    public InstalledModAdapter(File modsDir, EmptyStateListener listener,
+                               ModActionListener actions) {
+        mEmptyListener = listener;
+        mActions = actions;
+        if (modsDir != null && modsDir.isDirectory()) {
+            File[] files = modsDir.listFiles(f -> f.isFile() &&
+                    (f.getName().toLowerCase().endsWith(".jar") || f.getName().toLowerCase().endsWith(".jar.disabled")));
+            if (files != null) {
+                Arrays.sort(files, (a, b) -> a.getName().compareToIgnoreCase(b.getName()));
+                for (File f : files) mMods.add(new ModEntry(f));
+            }
+        }
+        notifyEmptyState();
+    }
+
+    @NonNull
+    @Override
+    public ModViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_installed_mod, parent, false);
+        return new ModViewHolder(v);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ModViewHolder holder, int position) {
+        holder.bind(mMods.get(position));
+    }
+
+    @Override
+    public void onViewRecycled(@NonNull ModViewHolder holder) {
+        // Clear the tag so any in-flight load doesn't update this recycled view
+        holder.icon.setTag(null);
+        holder.icon.setImageResource(R.drawable.ic_add_modded);
+        super.onViewRecycled(holder);
+    }
+
+    @Override
+    public int getItemCount() { return mMods.size(); }
+
+    private void notifyEmptyState() {
+        if (mEmptyListener != null) mEmptyListener.onEmptyStateChanged(mMods.isEmpty());
+    }
+
+    // ── ViewHolder ────────────────────────────────────────────────────────
+
+    class ModViewHolder extends RecyclerView.ViewHolder {
+        final ImageView icon;
+        final TextView name, version, status;
+        final SwitchCompat toggle;
+        final ImageButton delete;
+        final ImageButton copy;
+        final ImageButton update;
+
+        ModViewHolder(@NonNull View itemView) {
+            super(itemView);
+            icon    = itemView.findViewById(R.id.installed_mod_icon);
+            name    = itemView.findViewById(R.id.installed_mod_name);
+            version = itemView.findViewById(R.id.installed_mod_version);
+            status  = itemView.findViewById(R.id.installed_mod_status);
+            toggle  = itemView.findViewById(R.id.installed_mod_toggle);
+            delete  = itemView.findViewById(R.id.installed_mod_delete);
+            copy    = itemView.findViewById(R.id.installed_mod_copy);
+            update  = itemView.findViewById(R.id.installed_mod_update);
+            // Modern touch feedback — subtle press-scale on the card + actions.
+            net.kdt.pojavlaunch.UiMotion.pressFeedback(itemView, delete, copy, update);
+        }
+
+        /** Wire the switch so it renames the file AND repaints the card state. */
+        void bindToggle(ModEntry entry) {
+            toggle.setOnCheckedChangeListener(null);
+            toggle.setChecked(entry.enabled);
+            toggle.setOnCheckedChangeListener((btn, checked) -> {
+                entry.setEnabled(checked);
+                if (entry.enabled != checked) bindToggle(entry); // rename failed → snap the switch back
+                applyState(entry);
+                // Selection-state animation: the card breathes once as it flips.
+                itemView.animate().cancel();
+                itemView.setScaleX(0.985f); itemView.setScaleY(0.985f);
+                itemView.animate().scaleX(1f).scaleY(1f).setDuration(220)
+                        .setInterpolator(new android.view.animation.OvershootInterpolator(1.6f))
+                        .start();
+            });
+        }
+
+        /** GREEN outline + dot when enabled, RED outline + dot when disabled. */
+        void applyState(ModEntry entry) {
+            itemView.setBackgroundResource(entry.enabled
+                    ? R.drawable.pe4_mod_on : R.drawable.pe4_mod_off);
+            itemView.animate().alpha(entry.enabled ? 1f : 0.8f).setDuration(180).start();
+            if (status != null) {
+                status.setText(entry.enabled ? "Enabled" : "Disabled");
+                status.setTextColor(entry.enabled ? 0xFFD2D6DE : 0xFFFF6B6B);
+                status.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        entry.enabled ? R.drawable.pe4_dot_on : R.drawable.pe4_dot_off, 0, 0, 0);
+            }
+        }
+
+        void bind(ModEntry entry) {
+            // COPY IS GONE FROM THIS BUILD (user's call: "the current copy
+        // implementation is not working correctly and I do NOT want the broken copy
+        // workflow left in the launcher"). The badge is removed rather than
+        // disabled-and-greyed, because a visible control that does nothing is worse
+        // than no control: it teaches the user that this launcher lies. The copy
+        // engine behind it (InstalledModCopy/ModCopyTargetFragment) stays unlinked
+        // and unused, so nothing else here can half-start a copy.
+        if (copy != null) {
+            copy.setVisibility(View.GONE);
+            copy.setOnClickListener(null);
+            copy.setOnLongClickListener(null);
+            copy.setClickable(false);
+            copy.setLongClickable(false);
+        }
+            if (update != null) {
+                update.setOnClickListener(v -> {
+                    if (mActions != null) mActions.onCheckUpdate(entry.file);
+                });
+            }
+            name.setText(entry.displayName());
+            version.setText("Loading...");
+
+            // Tag the ImageView with the file path so we can verify it hasn't been recycled
+            icon.setTag(entry.file.getAbsolutePath());
+            icon.setImageResource(R.drawable.ic_add_modded);
+
+            final String expectedTag = entry.file.getAbsolutePath();
+            final WeakReference<ModViewHolder> holderRef = new WeakReference<>(this);
+
+            if (entry.metadataLoaded) {
+                name.setText(entry.parsedName);
+                String verText = entry.parsedVersion.isEmpty() ? "Unknown version" : entry.parsedVersion;
+                version.setText(verText + " (" + entry.getFileSizeString() + ")");
+                if (entry.cachedIcon != null) {
+                    icon.setImageBitmap(entry.cachedIcon);
+                }
+            } else {
+                PojavApplication.sExecutorService.execute(() -> {
+                    ModMetadata meta = parseModMetadata(entry.file);
+                    Bitmap bmp = null;
+                    if (meta.iconPath != null) {
+                        try (ZipFile zip = new ZipFile(entry.file)) {
+                            bmp = loadEntryAsBitmap(zip, meta.iconPath);
+                        } catch (Exception ignored) {}
+                    }
+                    if (bmp == null) {
+                        // Fallback scan
+                        try (ZipFile zip = new ZipFile(entry.file)) {
+                            for (String fallback : new String[]{"pack.png", "icon.png", "logo.png"}) {
+                                bmp = loadEntryAsBitmap(zip, fallback);
+                                if (bmp != null) break;
+                            }
+                        } catch (Exception ignored) {}
+                    }
+
+                    final Bitmap finalBmp = bmp;
+                    entry.parsedName = meta.name;
+                    entry.parsedVersion = meta.version;
+                    entry.cachedIcon = bmp;
+                    entry.metadataLoaded = true;
+
+                    mMainHandler.post(() -> {
+                        ModViewHolder holder = holderRef.get();
+                        if (holder != null && expectedTag.equals(holder.icon.getTag())) {
+                            holder.name.setText(entry.parsedName);
+                            String verText = entry.parsedVersion.isEmpty() ? "Unknown version" : entry.parsedVersion;
+                            holder.version.setText(verText + " (" + entry.getFileSizeString() + ")");
+                            holder.version.setAlpha(0f);
+                            holder.version.animate().alpha(1f).setDuration(220).start();
+                            if (finalBmp != null) {
+                                holder.icon.setImageBitmap(finalBmp);
+                                holder.icon.setAlpha(0f);
+                                holder.icon.setScaleX(0.85f); holder.icon.setScaleY(0.85f);
+                                holder.icon.animate().alpha(1f).scaleX(1f).scaleY(1f)
+                                        .setDuration(260)
+                                        .setInterpolator(new android.view.animation.DecelerateInterpolator(1.4f))
+                                        .start();
+                            }
+                        }
+                    });
+                });
+            }
+
+            bindToggle(entry);
+            applyState(entry);
+
+            delete.setOnClickListener(v -> {
+                Context ctx = v.getContext();
+                new AlertDialog.Builder(ctx)
+                        .setTitle(ctx.getString(R.string.manage_mods_delete_confirm, entry.displayName()))
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .setPositiveButton(android.R.string.ok, (d, i) -> {
+                            entry.file.delete();
+                            int p = getBindingAdapterPosition();
+                            if (p != RecyclerView.NO_POSITION) {
+                                mMods.remove(p);
+                                notifyItemRemoved(p);
+                                notifyEmptyState();
+                            }
+                        })
+                        .show();
+            });
+        }
+    }
+
+    // ── ModEntry ──────────────────────────────────────────────────────────
+
+    static class ModEntry {
+        File file;
+        boolean enabled;
+        String parsedName;
+        String parsedVersion;
+        Bitmap cachedIcon;
+        boolean metadataLoaded = false;
+
+        ModEntry(File f) {
+            this.file = f;
+            this.enabled = !f.getName().endsWith(".disabled");
+        }
+
+        String displayName() {
+            if (metadataLoaded && parsedName != null) return parsedName;
+            String n = file.getName();
+            if (n.endsWith(".jar.disabled")) n = n.substring(0, n.length() - 13);
+            else if (n.endsWith(".jar"))      n = n.substring(0, n.length() - 4);
+            return n;
+        }
+
+        String getFileSizeString() {
+            long bytes = file.length();
+            if (bytes < 1024) return bytes + " B";
+            else if (bytes < 1024 * 1024) return String.format("%.1f KB", bytes / 1024.0);
+            else return String.format("%.1f MB", bytes / (1024.0 * 1024.0));
+        }
+
+        void setEnabled(boolean enable) {
+            if (enable == this.enabled) return;
+            File target = enable
+                    ? new File(file.getParent(), file.getName().replace(".jar.disabled", ".jar"))
+                    : new File(file.getParent(), file.getName() + ".disabled");
+            if (file.renameTo(target)) {
+                file = target;
+                this.enabled = enable;
+            }
+        }
+    }
+
+    static class ModMetadata {
+        String name;
+        String version;
+        String iconPath;
+    }
+
+    @NonNull
+    private static ModMetadata parseModMetadata(File jarFile) {
+        ModMetadata meta = new ModMetadata();
+        meta.name = jarFile.getName();
+        if (meta.name.endsWith(".jar.disabled")) meta.name = meta.name.substring(0, meta.name.length() - 13);
+        else if (meta.name.endsWith(".jar"))      meta.name = meta.name.substring(0, meta.name.length() - 4);
+        meta.version = "";
+
+        try (ZipFile zip = new ZipFile(jarFile)) {
+            // 1. Fabric
+            String content = readEntry(zip, "fabric.mod.json");
+            if (content != null) {
+                try {
+                    JsonObject obj = JsonParser.parseString(content).getAsJsonObject();
+                    if (obj.has("name")) {
+                        meta.name = obj.get("name").getAsString();
+                    }
+                    if (obj.has("version")) {
+                        meta.version = obj.get("version").getAsString();
+                    }
+                    if (obj.has("icon")) {
+                        meta.iconPath = resolveIconPathFromJson(obj.get("icon"));
+                    }
+                    return meta;
+                } catch (Exception ignored) {}
+            }
+
+            // 2. Quilt
+            content = readEntry(zip, "quilt.mod.json");
+            if (content != null) {
+                try {
+                    JsonObject root = JsonParser.parseString(content).getAsJsonObject();
+                    JsonObject ql = root.has("quilt_loader") ? root.getAsJsonObject("quilt_loader") : null;
+                    if (ql != null) {
+                        if (ql.has("version")) {
+                            meta.version = ql.get("version").getAsString();
+                        }
+                        if (ql.has("metadata")) {
+                            JsonObject m = ql.getAsJsonObject("metadata");
+                            if (m.has("name")) meta.name = m.get("name").getAsString();
+                            if (m.has("icon")) meta.iconPath = resolveIconPathFromJson(m.get("icon"));
+                        }
+                    }
+                    return meta;
+                } catch (Exception ignored) {}
+            }
+
+            // 3. Forge legacy (mcmod.info)
+            content = readEntry(zip, "mcmod.info");
+            if (content != null) {
+                try {
+                    JsonElement el = JsonParser.parseString(content);
+                    JsonObject modObj = null;
+                    if (el.isJsonArray()) {
+                        JsonArray arr = el.getAsJsonArray();
+                        if (arr.size() > 0 && arr.get(0).isJsonObject()) {
+                            modObj = arr.get(0).getAsJsonObject();
+                        }
+                    } else if (el.isJsonObject()) {
+                        JsonObject root = el.getAsJsonObject();
+                        if (root.has("modList") && root.get("modList").isJsonArray()) {
+                            JsonArray arr = root.getAsJsonArray("modList");
+                            if (arr.size() > 0 && arr.get(0).isJsonObject()) {
+                                modObj = arr.get(0).getAsJsonObject();
+                            }
+                        } else {
+                            modObj = root;
+                        }
+                    }
+                    if (modObj != null) {
+                        if (modObj.has("name")) meta.name = modObj.get("name").getAsString();
+                        if (modObj.has("version")) meta.version = modObj.get("version").getAsString();
+                        if (modObj.has("logoFile")) meta.iconPath = modObj.get("logoFile").getAsString();
+                    }
+                    return meta;
+                } catch (Exception ignored) {}
+            }
+
+            // 4. Forge/NeoForge (TOML)
+            for (String tomlPath : new String[]{"META-INF/neoforge.mods.toml", "META-INF/mods.toml"}) {
+                content = readEntry(zip, tomlPath);
+                if (content != null) {
+                    String dName = tomlStringField(content, "displayName");
+                    if (dName != null) meta.name = dName;
+                    String ver = tomlStringField(content, "version");
+                    if (ver != null) meta.version = ver;
+                    String logo = tomlStringField(content, "logoFile");
+                    if (logo != null) meta.iconPath = logo;
+                    return meta;
+                }
+            }
+        } catch (Exception ignored) {}
+
+        return meta;
+    }
+
+    @Nullable
+    private static String resolveIconPathFromJson(JsonElement iconEl) {
+        if (iconEl.isJsonPrimitive()) {
+            return iconEl.getAsString();
+        } else if (iconEl.isJsonObject()) {
+            JsonObject sizeMap = iconEl.getAsJsonObject();
+            String best = null;
+            int bestSize = 0;
+            for (String key : sizeMap.keySet()) {
+                try {
+                    int sz = Integer.parseInt(key);
+                    if (sz > bestSize) {
+                        bestSize = sz;
+                        best = sizeMap.get(key).getAsString();
+                    }
+                } catch (NumberFormatException ignored) {
+                    best = sizeMap.get(key).getAsString();
+                }
+            }
+            return best;
+        }
+        return null;
+    }
+
+    @Nullable
+    private static String resolveIconPath(ZipFile zip) {
+        // 1. Fabric — fabric.mod.json → "icon" (string OR {"64":"path"} object)
+        String content = readEntry(zip, "fabric.mod.json");
+        if (content != null) {
+            try {
+                JsonObject obj = JsonParser.parseString(content).getAsJsonObject();
+                if (obj.has("icon")) {
+                    JsonElement iconEl = obj.get("icon");
+                    if (iconEl.isJsonPrimitive()) {
+                        return iconEl.getAsString();
+                    } else if (iconEl.isJsonObject()) {
+                        // Size map e.g. {"64": "path64.png", "128": "path128.png"}
+                        // Pick the largest available
+                        JsonObject sizeMap = iconEl.getAsJsonObject();
+                        String best = null;
+                        int bestSize = 0;
+                        for (String key : sizeMap.keySet()) {
+                            try {
+                                int sz = Integer.parseInt(key);
+                                if (sz > bestSize) {
+                                    bestSize = sz;
+                                    best = sizeMap.get(key).getAsString();
+                                }
+                            } catch (NumberFormatException ignored) {
+                                best = sizeMap.get(key).getAsString();
+                            }
+                        }
+                        if (best != null) return best;
+                    }
+                }
+            } catch (Exception e) {
+                Log.w(TAG, "fabric.mod.json parse error: " + e.getMessage());
+            }
+        }
+
+        // 2. Quilt — quilt.mod.json → quilt_loader.metadata.icon
+        content = readEntry(zip, "quilt.mod.json");
+        if (content != null) {
+            try {
+                JsonObject root = JsonParser.parseString(content).getAsJsonObject();
+                JsonObject ql = root.has("quilt_loader") ?
+                        root.getAsJsonObject("quilt_loader") : null;
+                if (ql != null && ql.has("metadata")) {
+                    JsonObject meta = ql.getAsJsonObject("metadata");
+                    if (meta.has("icon") && meta.get("icon").isJsonPrimitive())
+                        return meta.get("icon").getAsString();
+                }
+            } catch (Exception e) {
+                Log.w(TAG, "quilt.mod.json parse error: " + e.getMessage());
+            }
+        }
+
+        // 3. Forge legacy — mcmod.info → logoFile
+        content = readEntry(zip, "mcmod.info");
+        if (content != null) {
+            try {
+                // mcmod.info is a JSON array
+                JsonArray arr = JsonParser.parseString(content).getAsJsonArray();
+                if (arr.size() > 0 && arr.get(0).isJsonObject()) {
+                    JsonObject mod = arr.get(0).getAsJsonObject();
+                    if (mod.has("logoFile")) {
+                        String logo = mod.get("logoFile").getAsString();
+                        if (!logo.isEmpty()) return logo;
+                    }
+                }
+            } catch (Exception e) {
+                Log.w(TAG, "mcmod.info parse error: " + e.getMessage());
+            }
+        }
+
+        // 4. Forge/NeoForge — TOML — logoFile = "path"
+        for (String toml : new String[]{"META-INF/neoforge.mods.toml", "META-INF/mods.toml"}) {
+            content = readEntry(zip, toml);
+            if (content != null) {
+                String logo = tomlStringField(content, "logoFile");
+                if (logo != null && !logo.isEmpty()) return logo;
+            }
+        }
+
+        return null;
+    }
+
+    // ── Low-level helpers ─────────────────────────────────────────────────
+
+    /**
+     * Load a ZipEntry as a Bitmap.
+     * IMPORTANT: BitmapFactory.decodeStream needs mark/reset support.
+     * ZipInputStream doesn't support it, so we buffer all bytes first.
+     */
+    @Nullable
+    private static Bitmap loadEntryAsBitmap(ZipFile zip, String entryPath) {
+        // ZipFile.getEntry is case-sensitive — try exact then case-insensitive scan
+        ZipEntry entry = zip.getEntry(entryPath);
+        if (entry == null) {
+            // Case-insensitive fallback
+            String lower = entryPath.toLowerCase();
+            Enumeration<? extends ZipEntry> entries = zip.entries();
+            while (entries.hasMoreElements()) {
+                ZipEntry e = entries.nextElement();
+                if (e.getName().toLowerCase().equals(lower)) {
+                    entry = e;
+                    break;
+                }
+            }
+        }
+        if (entry == null) return null;
+
+        try (InputStream is = zip.getInputStream(entry)) {
+            // Buffer into byte array — BitmapFactory needs mark/reset
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buf = new byte[8192];
+            int read;
+            while ((read = is.read(buf)) != -1) baos.write(buf, 0, read);
+            byte[] bytes = baos.toByteArray();
+            return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        } catch (Exception e) {
+            Log.w(TAG, "loadEntryAsBitmap failed for " + entryPath + ": " + e.getMessage());
+            return null;
+        }
+    }
+
+    @Nullable
+    private static String readEntry(ZipFile zip, String entryPath) {
+        ZipEntry entry = zip.getEntry(entryPath);
+        if (entry == null) return null;
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(zip.getInputStream(entry), "UTF-8"))) {
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) sb.append(line).append('\n');
+            return sb.toString();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Nullable
+    private static String tomlStringField(String toml, String field) {
+        for (String line : toml.split("\n")) {
+            line = line.trim();
+            if (line.startsWith(field + " ") || line.startsWith(field + "=")) {
+                int eq = line.indexOf('=');
+                if (eq < 0) continue;
+                String val = line.substring(eq + 1).trim();
+                if (val.startsWith("\"") && val.endsWith("\""))
+                    val = val.substring(1, val.length() - 1);
+                if (!val.isEmpty()) return val;
+            }
+        }
+        return null;
+    }
+}

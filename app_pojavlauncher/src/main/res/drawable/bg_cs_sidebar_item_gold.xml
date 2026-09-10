@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Highlighted nav-rail entry: permanent gold outline so it is easy to spot. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="12dp" />
+            <gradient android:angle="0" android:startColor="#3DE9B84C" android:endColor="#14E9B84C" />
+            <stroke android:width="1.4dp" android:color="#CCE9B84C" />
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="12dp" />
+            <solid android:color="#2EE9B84C" />
+            <stroke android:width="1.2dp" android:color="#B3E9B84C" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="12dp" />
+            <gradient android:angle="0" android:startColor="#1FE9B84C" android:endColor="#08E9B84C" />
+            <stroke android:width="1.2dp" android:color="#8CE9B84C" />
+        </shape>
+    </item>
+</selector>

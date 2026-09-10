@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     DATAPACK BROWSER (Phase 2) — Modrinth datapacks for ONE world.
+     Header • Search • Sort chips • Version filter • List • Install path
+     ═══════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_cs_page_bg"
+    android:orientation="vertical">
+
+    <!-- ── HEADER ─────────────────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_cs_header_bar"
+        android:paddingHorizontal="14dp">
+
+        <LinearLayout
+            android:id="@+id/dpb_back"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/bg_cs_settings_row"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:src="@drawable/ic_arrow_back"
+                android:contentDescription="@string/cs_back"
+                app:tint="#FFFFFF" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cs_datapacks_title"
+                android:textColor="#FFFFFF"
+                android:textSize="16.5sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/dpb_subtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="#6B7280"
+                android:textSize="10.5sp"
+                tools:text="My Survival Base" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dpb_installed_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:background="@drawable/bg_cs_chip"
+            android:textColor="#9CA3AF"
+            android:textSize="10.5sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:text="3 installed" />
+    </LinearLayout>
+
+    <!-- ── SEARCH ─────────────────────────────────────────────────── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginHorizontal="14dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_cs_input_field"
+        android:paddingHorizontal="13dp">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_cs_search"
+            app:tint="#6B7280" />
+
+        <EditText
+            android:id="@+id/dpb_search_input"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="10dp"
+            android:background="@null"
+            android:hint="@string/cs_datapacks_search_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#6B7280"
+            android:textSize="13.5sp" />
+    </LinearLayout>
+
+    <!-- ── SORT + VERSION FILTER ──────────────────────────────────── -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:paddingHorizontal="14dp"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView android:id="@+id/dpb_sort_relevance" style="@style/CsSortChip" android:text="@string/cs_dp_sort_relevance" />
+            <TextView android:id="@+id/dpb_sort_popular" style="@style/CsSortChip" android:text="@string/cs_dp_sort_popular" />
+            <TextView android:id="@+id/dpb_sort_new" style="@style/CsSortChip" android:text="@string/cs_dp_sort_new" />
+            <TextView android:id="@+id/dpb_sort_updated" style="@style/CsSortChip" android:text="@string/cs_dp_sort_updated" />
+
+            <TextView
+                android:id="@+id/dpb_version_chip"
+                style="@style/CsSortChip"
+                android:drawablePadding="6dp"
+                android:drawableStart="@drawable/ic_nav_general"
+                android:drawableTint="#9CA3AF"
+                android:text="@string/cs_dp_version_all" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- ── LIST ───────────────────────────────────────────────────── -->
+    <FrameLayout
+        android:id="@+id/dpb_list_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp" />
+
+    <!-- ── FOOTER: explicit install destination ───────────────────── -->
+    <TextView
+        android:id="@+id/dpb_footer_path"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F20D0D10"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingVertical="8dp"
+        android:paddingHorizontal="14dp"
+        android:textColor="#6B7280"
+        android:textSize="9.5sp"
+        tools:text="Installs into: saves/My Survival Base/datapacks" />
+</LinearLayout>

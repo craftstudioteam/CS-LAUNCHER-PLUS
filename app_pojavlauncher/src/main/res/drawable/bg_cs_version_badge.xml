@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- CS premium MC-version pill (top-right of profile cards):
+     violet-tinted obsidian capsule + violet rim + soft top sheen -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="90"
+                android:startColor="#33281C2E"
+                android:endColor="#661C1526" />
+            <corners android:radius="999dp" />
+            <stroke android:width="1dp" android:color="#7322C9CB" />
+        </shape>
+    </item>
+    <!-- inner top-light hairline -->
+    <item android:top="1dp" android:left="1dp" android:right="1dp" android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" />
+            <corners android:radius="999dp" />
+            <stroke android:width="0.7dp" android:color="#22FFFFFF" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- LOG ICON BUTTON — ghost glass with pressed state -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="#26FFFFFF">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <corners android:radius="9dp" />
+            <solid android:color="#1AFFFFFF" />
+            <stroke android:width="1dp" android:color="#1AFFFFFF" />
+        </shape>
+    </item>
+</ripple>

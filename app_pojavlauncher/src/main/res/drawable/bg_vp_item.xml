@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Graphite version row: idle subtle surface, selected silver ring. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#1FC9CED8" />
+            <corners android:radius="14dp" />
+            <stroke android:width="1.4dp" android:color="#C9CED8" />
+        </shape>
+    </item>
+    <item>
+        <ripple android:color="#22C9CED8">
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="#17191F" />
+                    <corners android:radius="14dp" />
+                    <stroke android:width="1dp" android:color="#272A32" />
+                </shape>
+            </item>
+        </ripple>
+    </item>
+</selector>

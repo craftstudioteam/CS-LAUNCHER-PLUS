@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ic_mc_block.xml
+    ───────────────
+    Small Minecraft grass block used as the version icon in the bottom bar.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="34dp"
+    android:height="34dp"
+    android:viewportWidth="34"
+    android:viewportHeight="34">
+
+    <!-- Body stone face (front) -->
+    <path
+        android:fillColor="#7D6B56"
+        android:pathData="M4,12h20v18h-20z" />
+
+    <!-- Green grass top (Refined green) -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M4,6h20v7h-20z" />
+
+    <!-- Right side face (lighter) -->
+    <path
+        android:fillColor="#9E865E"
+        android:pathData="M24,6 L30,10 L30,28 L24,24 Z" />
+
+    <!-- Top right face -->
+    <path android:fillColor="#66BB6A"
+        android:pathData="M4,6 L10,2 L30,2 L24,6 Z" />
+
+</vector>

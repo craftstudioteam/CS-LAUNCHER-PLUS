@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_height="match_parent"
+	android:layout_width="match_parent"
+	android:layout_alignParentRight="true"
+	android:id="@+id/main_drawer_options"
+	android:background="@drawable/no_focus_shown"
+	android:keepScreenOn="true">
+
+	<FrameLayout
+		android:id="@+id/content_frame"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<!-- ══ Launch stage (Phase 5 Req-3/4 + Remote Config feature) ══
+		     Shows the existing static "Opening game window…" stage, or — when
+		     the remote config enables it AND the user picked Video Loading
+		     Screen — a streamed MP4 behind the game surface. -->
+		<net.kdt.pojavlaunch.launch.LaunchStageView
+			android:id="@+id/launch_stage_backdrop"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="@drawable/bg_runtime_setup_page">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:gravity="center"
+				android:orientation="vertical"
+				android:clickable="false"
+				android:focusable="false">
+
+				<ImageView
+					android:layout_width="64dp"
+					android:layout_height="64dp"
+					android:src="@mipmap/ic_launcher_round"
+					android:contentDescription="@null" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="16dp"
+					android:letterSpacing="0.22"
+					android:text="CS LAUNCHER PLUS"
+					android:textColor="#B9BBC4"
+					android:textSize="10sp"
+					android:textStyle="bold" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="6dp"
+					android:text="@string/cs_stage_title"
+					android:textColor="#F2F2F6"
+					android:textSize="17sp"
+					android:textStyle="bold" />
+
+				<ProgressBar
+					android:layout_width="28dp"
+					android:layout_height="28dp"
+					android:layout_marginTop="14dp"
+					android:indeterminate="true"
+					android:indeterminateTint="#B9BBC4" />
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="12dp"
+					android:text="@string/cs_stage_sub"
+					android:textColor="#8E8E9A"
+					android:textSize="11.5sp" />
+			</LinearLayout>
+		</net.kdt.pojavlaunch.launch.LaunchStageView>
+
+		<net.kdt.pojavlaunch.customcontrols.ControlLayout
+			android:id="@+id/main_control_layout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<View style="@style/DimensionTracker"/>
+
+			<net.kdt.pojavlaunch.MinecraftGLSurface
+				android:id="@+id/main_game_render_view"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:defaultFocusHighlightEnabled="false"
+                tools:ignore="UnusedAttribute" />
+
+			<net.kdt.pojavlaunch.customcontrols.mouse.Touchpad
+				android:layout_height="match_parent"
+				android:layout_width="match_parent"
+				android:orientation="vertical"
+				android:id="@+id/main_touchpad"
+				android:focusable="false"
+				android:translationZ="1dp"
+				android:visibility="gone"/>
+
+
+			<net.kdt.pojavlaunch.customcontrols.keyboard.TouchCharInput
+				android:id="@+id/mainTouchCharInput"
+				android:layout_width="1dp"
+				android:layout_height="1dp"
+				android:background="@android:color/darker_gray"
+				android:ems="10"
+				android:imeOptions="flagNoFullscreen|flagNoExtractUi|flagNoPersonalizedLearning|actionDone"
+				android:inputType="textFilter|textImeMultiLine|textAutoComplete|textAutoCorrect"
+				tools:ignore="TouchTargetSizeCheck" />
+
+			<net.kdt.pojavlaunch.customcontrols.handleview.DrawerPullButton
+				android:id="@+id/drawer_button"
+				android:layout_width="60dp"
+				android:layout_height="30dp"
+				android:padding="6dp"
+				android:elevation="10dp"
+				android:layout_gravity="center_horizontal"/>
+			<net.kdt.pojavlaunch.customcontrols.mouse.HotbarView
+				android:id="@+id/hotbar_view"
+				android:layout_width="0px"
+				android:layout_height="0px"/>
+
+		</net.kdt.pojavlaunch.customcontrols.ControlLayout>
+
+		<!-- CS Loading video host (item-5/v3): ABOVE the game surface so the
+		     bundled video is actually visible (this was the real reason the
+		     video never showed — it used to sit BELOW the opaque SurfaceView/
+		     TextureView). Removed exactly on the first presented frame.
+		     Not clickable: touches fall through to the controls below. -->
+		<FrameLayout
+			android:id="@+id/video_stage_host"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:clickable="false"
+			android:focusable="false" />
+
+		<!-- Phase 8: mini transparent boot log on the LEFT (errors red, warnings
+		     amber). Starts with the game surface, auto-hides on the first
+		     presented frame; EXPAND opens the full LoggerView below/above it. -->
+		<net.kdt.pojavlaunch.launch.BootLogOverlay
+			android:id="@+id/boot_log_overlay"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:clickable="false"
+			android:focusable="false"
+			android:visibility="gone" />
+
+		<com.kdt.LoggerView
+			android:id="@+id/mainLoggerView"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:visibility="gone"
+		/>
+
+		<!-- CS Perf: live FPS overlay chip (topmost; pref-gated, zero-cost when off) -->
+		<TextView
+			android:id="@+id/fps_counter_chip"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="top|start"
+			android:layout_marginStart="10dp"
+			android:layout_marginTop="8dp"
+			android:background="@drawable/bg_fps_chip"
+			android:fontFamily="sans-serif-medium"
+			android:paddingStart="10dp"
+			android:paddingEnd="10dp"
+			android:paddingTop="4dp"
+			android:paddingBottom="4dp"
+			android:text="-- FPS"
+			android:textColor="#F0F0F3"
+			android:textSize="11sp"
+			android:textStyle="bold"
+			android:visibility="gone" />
+
+		<!-- CS HUD: live Memory chip (same translucent recipe as the FPS chip;
+		     pref-gated showMemoryChip, draggable anywhere, position persists) -->
+		<TextView
+			android:id="@+id/mem_counter_chip"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="top|start"
+			android:layout_marginStart="10dp"
+			android:layout_marginTop="34dp"
+			android:background="@drawable/bg_fps_chip"
+			android:fontFamily="sans-serif-medium"
+			android:paddingStart="10dp"
+			android:paddingEnd="10dp"
+			android:paddingTop="4dp"
+			android:paddingBottom="4dp"
+			android:text="RAM —"
+			android:textColor="#F0F0F3"
+			android:textSize="11sp"
+			android:textStyle="bold"
+			android:visibility="gone" />
+
+	</FrameLayout>
+
+	<!-- Req-4: obsidian glass control panel hosting Keyboard/Mouse/Logs/ForceClose -->
+	<ListView
+		android:layout_width="268dp"
+		android:layout_height="match_parent"
+		android:layout_gravity="right"
+		android:background="@drawable/igm_drawer_bg"
+		android:fitsSystemWindows="false"
+		android:clipToPadding="false"
+		android:paddingStart="12dp"
+		android:paddingEnd="12dp"
+		android:paddingTop="14dp"
+		android:paddingBottom="18dp"
+		android:divider="@android:color/transparent"
+		android:dividerHeight="7dp"
+		android:overScrollMode="never"
+		android:id="@+id/main_navigation_view"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>
+

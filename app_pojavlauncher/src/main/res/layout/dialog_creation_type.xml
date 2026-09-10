@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     GRAPHITE v4 — PROFILE ARCHITECT, centred card, "just right" size.
+
+     Height budget (landscape phone ≈ 360dp tall, minus system bars):
+         header row                 48dp
+         3 option rows × 64dp      192dp
+         gaps 2 × 8dp               16dp
+         footer hint                18dp
+         paddings                   30dp
+         ─────────────────────────────
+                                  ≈304dp  → every option always visible.
+     Width: 460dp max (set in code), full-bleed rows.
+     Root ScrollView is only a safety net for huge font scales.
+
+     IDs preserved: creation_opt_normal, creation_opt_client,
+                    creation_opt_modpack (clickable LinearLayouts)
+     Extra ids (Java, optional): creation_sheet, creation_close,
+                    creation_featured_badge, creation_ring, creation_footer,
+                    creation_icon_normal/client/modpack
+     ═══════════════════════════════════════════════════════════════════ -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="false"
+    android:overScrollMode="never"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:id="@+id/creation_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/csc_popup_compact"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp">
+
+        <!-- ── header ── -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/csc_medallion">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_add"
+                    android:tint="#E6E9EF"
+                    tools:ignore="UseAppTint" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.14"
+                    android:text="PROFILE ARCHITECT"
+                    android:textColor="#8A909C"
+                    android:textSize="9sp"
+                    tools:ignore="HardcodedText,SmallSp" />
+
+                <TextView
+                    android:id="@+id/creation_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:fontFamily="sans-serif-medium"
+                    android:includeFontPadding="false"
+                    android:text="What do you want to create?"
+                    android:textColor="#F4F6F9"
+                    android:textSize="16sp"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/creation_close"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/csc_chev_pill"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="×"
+                android:textColor="#B9BEC7"
+                android:textSize="17sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <!-- ── Option 1 — Normal Version ── -->
+        <LinearLayout
+            android:id="@+id/creation_opt_normal"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/csc_optrow"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <FrameLayout
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/csc_medallion">
+
+                <ImageView
+                    android:id="@+id/creation_icon_normal"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/img_crafting_table" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:includeFontPadding="false"
+                    android:text="Normal Version"
+                    android:textColor="#F4F6F9"
+                    android:textSize="13.5sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="Vanilla · Fabric · Forge · NeoForge · Quilt · OptiFine"
+                    android:textColor="#8A909C"
+                    android:textSize="10sp"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/csc_chev_pill"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="›"
+                android:textColor="#D2D6DE"
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <!-- ── Option 2 — CS Client (featured) — wrapped so the breathing ring
+             is a sibling, not the clickable view itself ── -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="8dp">
+
+            <View
+                android:id="@+id/creation_ring"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.6"
+                android:background="@drawable/csc_optrow_ring" />
+
+            <LinearLayout
+                android:id="@+id/creation_opt_client"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/csc_optrow_featured"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp">
+
+                <FrameLayout
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:background="@drawable/csc_medallion">
+
+                    <ImageView
+                        android:id="@+id/creation_icon_client"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_gravity="center"
+                        android:contentDescription="@null"
+                        android:src="@drawable/cs_logo" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-medium"
+                            android:includeFontPadding="false"
+                            android:text="CS Client"
+                            android:textColor="#F4F6F9"
+                            android:textSize="13.5sp"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/creation_featured_badge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="18dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/csc_badge_accent"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:letterSpacing="0.06"
+                            android:paddingHorizontal="8dp"
+                            android:text="FEATURED"
+                            android:textColor="#C9CED8"
+                            android:textSize="7.5sp"
+                            tools:ignore="HardcodedText,SmallSp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:ellipsize="end"
+                        android:fontFamily="sans-serif"
+                        android:includeFontPadding="false"
+                        android:maxLines="1"
+                        android:text="Optimised atomic builds + custom mod builder"
+                        android:textColor="#8A909C"
+                        android:textSize="10sp"
+                        tools:ignore="HardcodedText" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/csc_chev_pill"
+                    android:gravity="center"
+                    android:includeFontPadding="false"
+                    android:text="›"
+                    android:textColor="#D2D6DE"
+                    android:textSize="18sp"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- ── Option 3 — Modpack ── -->
+        <LinearLayout
+            android:id="@+id/creation_opt_modpack"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/csc_optrow"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <FrameLayout
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/csc_medallion">
+
+                <ImageView
+                    android:id="@+id/creation_icon_modpack"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_modrinth" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:includeFontPadding="false"
+                    android:text="Modpack"
+                    android:textColor="#F4F6F9"
+                    android:textSize="13.5sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="CurseForge · Modrinth · import a .zip / .mrpack"
+                    android:textColor="#8A909C"
+                    android:textSize="10sp"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/csc_chev_pill"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="›"
+                android:textColor="#D2D6DE"
+                android:textSize="18sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <!-- ── footer hint ── -->
+        <TextView
+            android:id="@+id/creation_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="You can pick the loader and game version on the next screen"
+            android:textColor="#5C6068"
+            android:textSize="9sp"
+            tools:ignore="HardcodedText,SmallSp" />
+    </LinearLayout>
+</ScrollView>

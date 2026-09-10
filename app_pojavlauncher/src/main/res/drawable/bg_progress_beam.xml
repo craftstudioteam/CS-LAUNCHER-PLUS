@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BEAM progress bar (ground-up redo): near-invisible track, luminous
+     white fill with a soft halo — reads as a light beam, not a widget bar. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Quiet track -->
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <corners android:radius="4dp" />
+            <solid android:color="#1E1E25" />
+        </shape>
+    </item>
+
+    <!-- Secondary progress -->
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape android:shape="rectangle">
+                <corners android:radius="4dp" />
+                <solid android:color="#30303A" />
+            </shape>
+        </clip>
+    </item>
+
+    <!-- Primary fill: halo + hot core -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <layer-list>
+                <!-- halo lifting above/below the core -->
+                <item android:left="0dp" android:right="0dp"
+                      android:top="-1.5dp" android:bottom="-1.5dp">
+                    <shape android:shape="rectangle">
+                        <corners android:radius="4dp" />
+                        <gradient
+                            android:angle="0"
+                            android:startColor="#14FFFFFF"
+                            android:centerColor="#40F0F0F4"
+                            android:endColor="#66FFFFFF" />
+                    </shape>
+                </item>
+                <!-- hot core -->
+                <item android:top="1dp" android:bottom="1dp" android:right="1dp">
+                    <shape android:shape="rectangle">
+                        <corners android:radius="3dp" />
+                        <gradient
+                            android:angle="0"
+                            android:startColor="#B9BBC4"
+                            android:centerColor="#E9EAEE"
+                            android:endColor="#FFFFFF" />
+                    </shape>
+                </item>
+            </layer-list>
+        </clip>
+    </item>
+</layer-list>

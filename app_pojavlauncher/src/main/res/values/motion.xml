@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  One place for the motion timings. Every animation resource references these, and the Java
+  layer scales them further with the user's "Animation Speed" setting, so the whole launcher can
+  be re-timed from a single spot.
+-->
+<resources>
+    <integer name="motion_duration_short">180</integer>
+    <integer name="motion_duration_medium">300</integer>
+    <integer name="motion_duration_long">450</integer>
+    <integer name="motion_duration_extra_long">600</integer>
+
+    <!-- Travel distances used by the programmatic motion helpers (dp). -->
+    <dimen name="motion_travel_small">10dp</dimen>
+    <dimen name="motion_travel_medium">22dp</dimen>
+    <dimen name="motion_travel_large">40dp</dimen>
+
+    <!-- Press feedback -->
+    <item name="motion_press_scale" format="float" type="dimen">0.965</item>
+</resources>

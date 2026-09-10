@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Settings v5 — category chip slides in from the left with a fade -->
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <alpha
+        android:duration="200"
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:interpolator="@android:interpolator/decelerate_cubic" />
+    <translate
+        android:duration="300"
+        android:fromXDelta="28dp"
+        android:toXDelta="0dp"
+        android:interpolator="@android:interpolator/decelerate_quint" />
+</set>

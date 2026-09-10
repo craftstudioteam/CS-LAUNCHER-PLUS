@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     LauncherActivity — LANDSCAPE, FULL-SCREEN (old top header fully removed).
+
+     History: this land variant used to carry the legacy header bar
+     (logo + "CS Launcher Plus" title + nav_mod_store / nav_custom_controls /
+     nav_cursor / btn_about / nav_skin / nav_home icons + account spinner +
+     settings). The Home screen now owns navigation, accounts and settings —
+     the header structure is deleted, and the fragment container spans the
+     entire display.
+
+     The two 0-size ghosts below exist ONLY so legacy Java references
+     (account dialog host, settings icon swap) keep working. They never
+     render, reserve no space and cannot be interacted with.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:background="@color/bg_launcher_dark">
+
+    <!-- Ghost: hosts the account dialog logic (opened from the Home account
+         chip). Zero size, permanently gone, purely a logic host. -->
+    <com.kdt.mcgui.mcAccountSpinner
+        android:id="@+id/account_spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:dropDownWidth="280dp"
+        android:popupBackground="@drawable/bg_account_popup"
+        android:popupElevation="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Ghost: legacy settings icon swap target (see mFragmentCallbackListener).
+         Settings lives in the Home dock now. -->
+    <ImageButton
+        android:id="@+id/setting_button"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_menu_settings"
+        android:contentDescription="Settings"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Full-screen content -->
+        <!-- Persistent left navigation (shared across every launcher page) -->
+    <include
+        android:id="@+id/lh_dock"
+        layout="@layout/include_lh_dock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_spinner" />
+
+<androidx.fragment.app.FragmentContainerView
+        android:id="@+id/container_fragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lh_dock"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Old on-screen download progress bar REMOVED (developer req 8). Download
+         status is now surfaced only by the notification system. The download
+         engine (ProgressKeeper/DownloadControl) is untouched (req 9). -->
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Stage backdrop before the first image lands: soft diagonal graphite sheen. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient android:angle="315" android:startColor="#262932" android:centerColor="#1A1C22" android:endColor="#14161B" />
+    <corners android:topLeftRadius="24dp" android:topRightRadius="24dp"
+             android:bottomLeftRadius="0dp" android:bottomRightRadius="0dp" />
+</shape>

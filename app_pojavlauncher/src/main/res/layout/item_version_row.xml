@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     VERSION TIMELINE ROW (Phase 10). A node dot on the rail + a card:
+       line 1  build name (bold)          → recommended / channel tag
+       line 2  loader chip · compat chip · Minecraft version tag (mono)
+     Same five TextView ids as before (version_name, version_mc_badge,
+     version_compat_badge, version_recommended_badge, version_loader_badge)
+     so the adapter binds unchanged; extra: vp_node (the rail dot).
+     ═══════════════════════════════════════════════════════════════════ -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="16dp"
+    android:paddingTop="4dp"
+    android:paddingEnd="14dp"
+    android:paddingBottom="4dp">
+
+    <!-- rail node -->
+    <View
+        android:id="@+id/vp_node"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_gravity="start|center_vertical"
+        android:layout_marginStart="6dp"
+        android:background="@drawable/vp_node" />
+
+    <!-- card -->
+    <LinearLayout
+        android:id="@+id/vp_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:background="@drawable/vp_row_card"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:orientation="vertical"
+        android:paddingStart="14dp"
+        android:paddingTop="11dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="11dp"
+        android:stateListAnimator="@animator/card_press_anim">
+
+        <!-- line 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/version_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="middle"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="#F4F6F9"
+                android:textSize="13.5sp"
+                android:textStyle="bold"
+                tools:text="sodium-fabric-0.6.0-beta.1" />
+
+            <TextView
+                android:id="@+id/version_recommended_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/vp_tag_recommended"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.08"
+                android:paddingStart="8dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="3dp"
+                android:text="★ RECOMMENDED"
+                android:textColor="#141519"
+                android:textSize="8.5sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:ignore="HardcodedText"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="6dp"
+                android:alpha="0.7"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_chevron_right" />
+        </LinearLayout>
+
+        <!-- line 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/version_loader_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/vp_tag_neutral"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.06"
+                android:paddingStart="7dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="7dp"
+                android:paddingBottom="3dp"
+                android:text="Fabric"
+                android:textColor="#D2D6DE"
+                android:textSize="9sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:ignore="HardcodedText"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/version_compat_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/vp_tag_neutral"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.05"
+                android:paddingStart="7dp"
+                android:paddingTop="3dp"
+                android:paddingEnd="7dp"
+                android:paddingBottom="3dp"
+                android:text="✓ Compatible"
+                android:textColor="#D2D6DE"
+                android:textSize="9sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/version_mc_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/vp_tag_mc"
+                android:fontFamily="@font/minecraftia"
+                android:includeFontPadding="false"
+                android:paddingStart="8dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="3dp"
+                android:textColor="#E6E9EF"
+                android:textSize="9sp"
+                tools:text="1.21.1" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aurora: layoutAnimation — list children cascade up with stagger. -->
+<layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
+    android:animation="@anim/aur_item_in"
+    android:animationOrder="normal"
+    android:delay="14%" />

@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     AURA type + component styles.
+     One vocabulary shared by the Control Customisation drawers, the
+     Skin Wardrobe and the Runtime page, so the three surfaces read as
+     one product: same 8.5sp tracked section labels, same 11.5-13sp
+     body, same 20-24dp card radii, same 52-56dp primary touch targets.
+     minSdk 21 — no API-23-only attributes here.
+     ═══════════════════════════════════════════════════════════════════ -->
+<resources>
+
+    <!-- ── shared micro-typography ── -->
+    <style name="AuSectionLabel" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">11dp</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">0.14</item>
+        <item name="android:textColor">@color/au_text_mid</item>
+        <item name="android:textSize">10.5sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuFieldLabel" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">7dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">0.12</item>
+        <item name="android:textColor">@color/au_text_mid</item>
+        <item name="android:textSize">12.5sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuHint" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">@drawable/bg_au_group</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:textColor">@color/au_text_mid</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AuValueReadout" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">54dp</item>
+        <item name="android:gravity">end|center_vertical</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/au_accent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuChip" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:background">@drawable/bg_au_chip_neutral</item>
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:textColor">@color/au_text_mid</item>
+        <item name="android:textSize">8.5sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuBtnPrimary" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/bg_au_primary</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingStart">18dp</item>
+        <item name="android:paddingEnd">18dp</item>
+        <item name="android:textColor">@color/au_on_accent</item>
+        <item name="android:textSize">12.5sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuBtnGhost" parent="@style/AuBtnPrimary">
+        <item name="android:background">@drawable/bg_au_ghost</item>
+        <item name="android:textColor">@color/au_text</item>
+    </style>
+
+    <style name="AuInput" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_au_field</item>
+        <item name="android:minHeight">54dp</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:paddingEnd">14dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:textColor">@color/au_text</item>
+        <item name="android:textColorHint">@color/au_text_mid</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="AuSeek" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">46dp</item>
+        <item name="android:progressDrawable">@drawable/bg_au_track</item>
+        <item name="android:splitTrack">false</item>
+        <item name="android:thumb">@drawable/bg_au_thumb</item>
+    </style>
+
+    <style name="AuPressRow" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">7dp</item>
+        <item name="android:background">@drawable/bg_au_row</item>
+        <item name="android:baselineAligned">false</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">54dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingTop">9dp</item>
+        <item name="android:paddingBottom">9dp</item>
+    </style>
+
+    <!-- ── editor drawer: add tiles + list rows ── -->
+    <style name="AuEditorTile" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:background">@drawable/bg_au_tile</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:minHeight">88dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">13dp</item>
+    </style>
+
+    <style name="AuEditorTileIcon" parent="">
+        <item name="android:layout_width">26dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:layout_marginBottom">11dp</item>
+        <item name="android:contentDescription">@null</item>
+        <item name="android:tint">@color/au_text_mid</item>
+    </style>
+
+    <style name="AuEditorTileTitle" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textColor">@color/au_text</item>
+        <item name="android:textSize">13.5sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuEditorTileSub" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textColor">@color/au_text_dim</item>
+        <item name="android:textSize">11sp</item>
+    </style>
+
+    <style name="AuEditorRow" parent="@style/AuPressRow" />
+
+    <style name="AuEditorRowIcon" parent="">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+        <item name="android:contentDescription">@null</item>
+        <item name="android:tint">@color/au_accent</item>
+    </style>
+
+    <style name="AuEditorRowTitle" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textColor">@color/au_text</item>
+        <item name="android:textSize">13.5sp</item>
+    </style>
+
+    <style name="AuEditorRowChevron" parent="">
+        <item name="android:layout_width">13dp</item>
+        <item name="android:layout_height">13dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:contentDescription">@null</item>
+        <item name="android:tint">@color/au_text_faint</item>
+    </style>
+
+    <!-- ── button inspector: tabs, panels, switches ── -->
+
+    <style name="AuBoolText" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/au_text</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AuBoolSub" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/au_text_mid</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AuSwitch" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:clickable">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:thumbTint">@color/switch_thumb_selector</item>
+        <item name="android:trackTint">@color/switch_track_selector</item>
+    </style>
+
+    <!-- ── skin wardrobe ── -->
+    <style name="AuHeroTitle" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/au_text</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuCard" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_au_card</item>
+        <item name="android:baselineAligned">false</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">15dp</item>
+    </style>
+
+    <!-- ── runtime page ── -->
+    <style name="AuRuntimeTitle" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/au_text</item>
+        <item name="android:textSize">13.5sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuRuntimeRole" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textColor">@color/au_text_dim</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <style name="AuStatValue" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/au_text</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuStatLabel" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">0.14</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/au_text_faint</item>
+        <item name="android:textSize">8.5sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- ── runtime install chrome ── -->
+    <style name="AuStepColumn" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="AuStepDot" parent="">
+        <item name="android:layout_width">9dp</item>
+        <item name="android:layout_height">9dp</item>
+        <item name="android:background">@drawable/bg_au_dot_line</item>
+    </style>
+
+    <style name="AuStepLabel" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textColor">@color/au_text_faint</item>
+        <item name="android:textSize">6.5sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuStepLine" parent="">
+        <item name="android:layout_width">12dp</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_gravity">top</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:background">@color/au_line_strong</item>
+    </style>
+
+    <style name="AuTelemetryTile" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_au_group</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="AuTelemetryValue" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/au_text</item>
+        <item name="android:textSize">11.5sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuTelemetryLabel" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:letterSpacing">0.14</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/au_text_faint</item>
+        <item name="android:textSize">6.5sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AuRuntimeMeta" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">7dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textColor">@color/au_text_faint</item>
+        <item name="android:textSize">8.5sp</item>
+    </style>
+
+    <!-- ═════════ BUTTON INSPECTOR — grouped-list redesign (round 4) ═════════
+       The old sheet stacked 9.5sp micro-labels over bare controls: readable on a
+       monitor, illegible on a phone in daylight. Every row is now a 66dp plate
+       line with a 14sp title, a 12sp explanation and the control at the right. -->
+    <style name="AuSheetRowText" parent="">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="AuSheetRowTitle" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/au_text</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+    <style name="AuSheetRowHint" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">4dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+        <item name="android:textColor">@color/au_text_dim</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="AuSheetValue" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="android:gravity">end|center_vertical</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:minWidth">58dp</item>
+        <item name="android:textColor">@color/au_accent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="AuSheetFieldLabel" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/au_text_mid</item>
+        <item name="android:textSize">12.5sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="AuSheetFooter" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">14dp</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+        <item name="android:textColor">@color/au_text_dim</item>
+        <item name="android:textSize">11.5sp</item>
+    </style>
+    <!-- A pressable line in the button-edit sheet: plate, hairline, a 20dp radius
+         and a chevron where it opens something further. Plain text rows used to
+         double as buttons here, which is why they read as labels, not targets. -->
+    <style name="AuSheetButton" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/bg_au_button</item>
+        <item name="android:clickable">true</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:paddingEnd">13dp</item>
+        <item name="android:textColor">@color/au_text</item>
+        <item name="android:textSize">13.5sp</item>
+    </style>
+</resources>

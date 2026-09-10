@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Compact centred popup surface: graphite panel, 22dp radius, hairline ring,
+     with a faint top-light so it reads as a raised card over the dim. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="22dp" />
+            <gradient android:angle="270" android:startColor="#1D1F26" android:endColor="#121318" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="22dp" />
+            <stroke android:width="1.2dp" android:color="#3A3E48" />
+        </shape>
+    </item>
+    <item android:bottom="1dp" android:left="18dp" android:right="18dp" android:top="1dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="22dp" />
+            <gradient android:angle="270" android:startColor="#00FFFFFF" android:centerColor="#00FFFFFF" android:endColor="#14FFFFFF" />
+        </shape>
+    </item>
+</layer-list>

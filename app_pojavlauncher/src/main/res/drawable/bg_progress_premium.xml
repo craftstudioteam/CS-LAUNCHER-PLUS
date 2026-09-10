@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- PHASE-5 PREMIUM PROGRESS BAR SYSTEM (Req-2)
+     Separate from the PulseOrbit download animation: this is the dedicated
+     ultra-slim fill bar — rounded caps, muted track, polished silver gradient
+     fill with a soft leading-edge sheen (subtle, never flashy). -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Muted round track -->
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <corners android:radius="3dp" />
+            <solid android:color="#232329" />
+            <stroke android:width="0.5dp" android:color="#1F2C2C33" />
+        </shape>
+    </item>
+
+    <!-- Secondary progress: slightly lifted graphite -->
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape android:shape="rectangle">
+                <corners android:radius="3dp" />
+                <solid android:color="#35353D" />
+            </shape>
+        </clip>
+    </item>
+
+    <!-- Primary fill: silver gradient + trailing under-glow -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <layer-list>
+                <!-- soft under-glow behind the fill -->
+                <item android:left="-1dp" android:right="-1dp"
+                      android:top="-1dp" android:bottom="-1dp">
+                    <shape android:shape="rectangle">
+                        <corners android:radius="3dp" />
+                        <gradient
+                            android:angle="0"
+                            android:startColor="#33D0D0D0"
+                            android:centerColor="#59FFFFFF"
+                            android:endColor="#80F2F2F5" />
+                    </shape>
+                </item>
+                <!-- crisp fill core -->
+                <item android:left="0dp" android:right="0.5dp"
+                      android:top="0.5dp" android:bottom="0.5dp">
+                    <shape android:shape="rectangle">
+                        <corners android:radius="2.5dp" />
+                        <gradient
+                            android:angle="0"
+                            android:startColor="#A9ABB4"
+                            android:centerColor="#DBDCE1"
+                            android:endColor="#F5F5F7" />
+                    </shape>
+                </item>
+            </layer-list>
+        </clip>
+    </item>
+</layer-list>

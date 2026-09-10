@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════
+     MOBILE-FIRST CS CLIENT: CLIENT FEATURES MODAL
+     All IDs and View types strictly preserved.
+     ═══════════════════════════════════════════════════════════════════ -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="24dp"
+    app:cardBackgroundColor="#00000000"
+    app:cardElevation="0dp"
+    android:layout_margin="12dp">
+
+    <!-- Outermost Mobile Card Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:background="@drawable/bg_neo_card_hero">
+
+        <!-- Mobile Sheet Handle -->
+        <View
+            android:layout_width="38dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/bg_neo_accent_bar"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Title Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_neo_icon_well"
+                android:layout_marginEnd="12dp">
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/cs_logo"
+                    android:contentDescription="Client Features" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Client Engine &amp; Features"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.01" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text="MODRINTH ATOMIC ENGINE"
+                    android:textColor="#8E9EB5"
+                    android:textSize="9sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.04" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:background="@drawable/bg_neo_badge_accent"
+                android:gravity="center"
+                android:paddingHorizontal="10dp"
+                android:text="PLUS"
+                android:textColor="#00C8E0"
+                android:textSize="9sp"
+                android:fontFamily="sans-serif-medium" />
+        </LinearLayout>
+
+        <!-- Main Page Container with Flipper to transition to progress -->
+        <ViewFlipper
+            android:id="@+id/flipper_client_features"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- PAGE 1: Versions List and Active Status -->
+            <LinearLayout
+                android:id="@+id/layout_main_page"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Active Status Card Container -->
+                <FrameLayout
+                    android:id="@+id/container_active_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="gone">
+
+                    <!-- Glow Pulse View -->
+                    <View
+                        android:id="@+id/v_active_glow"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_neo_card" />
+
+                    <!-- Active Content Card -->
+                    <LinearLayout
+                        android:id="@+id/card_optix_active"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_neo_card"
+                        android:padding="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:layout_width="3dp"
+                                android:layout_height="12dp"
+                                android:background="@drawable/bg_neo_accent_bar" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="OPTIX CLIENT ACTIVE"
+                                android:textColor="#00C8E0"
+                                android:textSize="13sp"
+                                android:fontFamily="sans-serif-medium"
+                                android:letterSpacing="0.05" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginTop="10dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="✓ FPS Optimizations Enabled"
+                                android:textColor="#8E9EB5"
+                                android:textSize="11sp"
+                                android:layout_marginBottom="3dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="✓ Visual Enhancements Active"
+                                android:textColor="#8E9EB5"
+                                android:textSize="11sp"
+                                android:layout_marginBottom="3dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="✓ Client Features Loaded"
+                                android:textColor="#8E9EB5"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </FrameLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select a version below to install or update the feature:"
+                    android:textColor="#8E9EB5"
+                    android:textSize="11sp"
+                    android:layout_marginBottom="10dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_mod_versions"
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    android:overScrollMode="never" />
+
+            </LinearLayout>
+
+            <!-- PAGE 2: Progress & Enable Animations -->
+            <LinearLayout
+                android:id="@+id/layout_install_progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingVertical="28dp">
+
+                <!-- Logo Container with glow pulse -->
+                <FrameLayout
+                    android:id="@+id/logo_glow_container"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_marginBottom="20dp">
+
+                    <View
+                        android:id="@+id/logo_pulse_ring"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:background="@drawable/bg_neo_icon_well"
+                        android:alpha="0" />
+
+                    <ImageView
+                        android:id="@+id/iv_optix_logo"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_optix_logo"
+                        android:scaleType="fitCenter"
+                        android:contentDescription="Optix Logo" />
+
+                    <ImageView
+                        android:id="@+id/iv_success_check"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_check"
+                        android:scaleType="fitCenter"
+                        app:tint="#10B981"
+                        android:visibility="gone"
+                        android:contentDescription="Success" />
+                </FrameLayout>
+
+                <!-- Status Messages -->
+                <TextView
+                    android:id="@+id/tv_progress_stage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Installing Client Features..."
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.01"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:id="@+id/tv_progress_sub"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Preparing Profile..."
+                    android:textColor="#8E9EB5"
+                    android:textSize="12sp"
+                    android:layout_marginBottom="18dp" />
+
+                <!-- Glowing Progress Bar -->
+                <ProgressBar
+                    android:id="@+id/pb_install_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/bg_neo_seekbar_progress" />
+
+            </LinearLayout>
+
+        </ViewFlipper>
+
+        <!-- Hidden button to keep backward compatibility -->
+        <Button
+            android:id="@+id/btn_install_version"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

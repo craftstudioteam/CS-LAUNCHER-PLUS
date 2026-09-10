@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- WORLD DETAILS + ACTIONS dialog content (shown inside an AlertDialog) -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:overScrollMode="never">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="18dp">
+
+        <!-- Header: icon + name + folder -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_cs_world_icon"
+                android:padding="4dp">
+
+                <ImageView
+                    android:id="@+id/wdd_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    tools:src="@tools:sample/avatars" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="14dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/wdd_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    tools:text="My Survival Base" />
+
+                <TextView
+                    android:id="@+id/wdd_folder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="#6B7280"
+                    android:textSize="10.5sp"
+                    tools:text="New World-" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Meta grid -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            android:background="@drawable/bg_cs_glass_card_sm"
+            android:padding="14dp">
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView style="@style/CsWorldMetaLabel" android:text="@string/cs_world_info_version" />
+                    <TextView android:id="@+id/wdd_version" style="@style/CsWorldMetaValue" tools:text="1.20.1" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView style="@style/CsWorldMetaLabel" android:text="@string/cs_world_info_last_played" />
+                    <TextView android:id="@+id/wdd_last_played" style="@style/CsWorldMetaValue" tools:text="2d ago" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:orientation="horizontal">
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView style="@style/CsWorldMetaLabel" android:text="@string/cs_world_info_size" />
+                    <TextView android:id="@+id/wdd_size" style="@style/CsWorldMetaValue" tools:text="842 MB" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                    <TextView style="@style/CsWorldMetaLabel" android:text="@string/cs_world_info_datapacks" />
+                    <TextView android:id="@+id/wdd_datapacks" style="@style/CsWorldMetaValue" tools:text="3" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="14dp" android:background="#14FFFFFF" />
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:orientation="vertical">
+                <TextView style="@style/CsWorldMetaLabel" android:text="@string/cs_world_info_seed" />
+                <TextView
+                    android:id="@+id/wdd_seed"
+                    style="@style/CsWorldMetaValue"
+                    android:textIsSelectable="true"
+                    tools:text="-4823019954881132647" />
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:orientation="vertical">
+                <TextView style="@style/CsWorldMetaLabel" android:text="@string/cs_world_info_folder" />
+                <TextView
+                    android:id="@+id/wdd_path"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="#9CA3AF"
+                    android:textIsSelectable="true"
+                    android:textSize="10sp"
+                    tools:text="/storage/emulated/0/games/Amethyst/.minecraft/saves/New World-" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Actions -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="6dp"
+            android:text="@string/cs_world_actions"
+            android:textAllCaps="true"
+            android:textColor="#9CA3AF"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.12" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView android:id="@+id/wdd_change_image" style="@style/CsWorldActionRow" android:text="Change World Image" android:drawableStart="@drawable/ic_edit_profile" android:drawablePadding="12dp" android:drawableTint="#FFFFFF" />
+            <TextView android:id="@+id/wdd_play" style="@style/CsWorldActionRow" android:text="@string/cs_world_play" android:drawableStart="@drawable/ic_cs_play" android:drawablePadding="12dp" android:drawableTint="#FFFFFF" />
+            <TextView android:id="@+id/wdd_datapacks_browse" style="@style/CsWorldActionRow" android:text="@string/cs_world_browse_datapacks" android:drawableStart="@drawable/ic_cs_datapack" android:drawablePadding="12dp" android:drawableTint="#D0D0D0" />
+            <TextView android:id="@+id/wdd_rename" style="@style/CsWorldActionRow" android:text="@string/cs_world_rename" android:drawableStart="@drawable/ic_edit_profile" android:drawablePadding="12dp" android:drawableTint="#FFFFFF" />
+            <TextView android:id="@+id/wdd_duplicate" style="@style/CsWorldActionRow" android:text="@string/cs_world_duplicate" android:drawableStart="@drawable/ic_browse_resources" android:drawablePadding="12dp" android:drawableTint="#FFFFFF" />
+            <TextView android:id="@+id/wdd_backup" style="@style/CsWorldActionRow" android:text="@string/cs_world_backup" android:drawableStart="@drawable/ic_cs_backup" android:drawablePadding="12dp" android:drawableTint="#FFFFFF" />
+            <TextView android:id="@+id/wdd_restore" style="@style/CsWorldActionRow" android:text="@string/cs_world_restore" android:drawableStart="@drawable/ic_cs_import" android:drawablePadding="12dp" android:drawableTint="#FFFFFF" />
+            <TextView android:id="@+id/wdd_export" style="@style/CsWorldActionRow" android:text="@string/cs_world_export" android:drawableStart="@drawable/ic_menu_share" android:drawablePadding="12dp" android:drawableTint="#FFFFFF" />
+            <TextView android:id="@+id/wdd_compress" style="@style/CsWorldActionRow" android:text="@string/cs_world_compress" android:drawableStart="@drawable/ic_cs_storage" android:drawablePadding="12dp" android:drawableTint="#FFFFFF" />
+            <TextView android:id="@+id/wdd_open_folder" style="@style/CsWorldActionRow" android:text="@string/cs_world_open_folder" android:drawableStart="@drawable/ic_folder" android:drawablePadding="12dp" android:drawableTint="#FFFFFF" />
+            <TextView android:id="@+id/wdd_delete" style="@style/CsWorldActionRow" android:text="@string/cs_world_delete" android:textColor="#FF4444" android:drawableStart="@drawable/ic_menu_delete_forever" android:drawablePadding="12dp" android:drawableTint="#FF4444" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

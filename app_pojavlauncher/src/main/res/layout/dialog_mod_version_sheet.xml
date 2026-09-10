@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════════
+     Resource Detail — FILE PICKER v2 (Phase 8, Graphite)
+
+     A centred two-pane card instead of the old flat bottom list:
+
+       ┌──────────────────────────────────────────────────────────────┐
+       │ RAIL (filters)      │  HEADER  title · target pill · ×       │
+       │  MINECRAFT          │  ─────────────────────────────────────  │
+       │   [1.21.1] [1.21]…  │  FILES (built in code, staggered)       │
+       │  LOADER             │    ✓ sodium-0.6.0  · LATEST             │
+       │   [Fabric] [Quilt]  │    2 sodium-0.5.11 · OK                 │
+       │  ── stats ──        │    …                                    │
+       │  12 files · 4 fit   │  ─────────────────────────────────────  │
+       │                     │  FOOTER  selected file  [USE THIS FILE] │
+       └──────────────────────────────────────────────────────────────┘
+
+     Old ids kept: mvs_sheet, mvs_list, mvs_count, mvs_filter_compat,
+     mvs_filter_all, mvs_title, mvs_target, mvs_close, mvs_filters.
+     ═══════════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mvs_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mvs_card"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
+
+    <!-- ══ LEFT RAIL — filters ══ -->
+    <ScrollView
+        android:id="@+id/mvs_rail"
+        android:layout_width="150dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/mvs_rail"
+        android:fadeScrollbars="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="12dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.16"
+                android:text="FILTERS"
+                android:textColor="#5C6068"
+                android:textSize="8sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
+            <!-- Compatible / All (legacy ids, now rail toggles) -->
+            <LinearLayout
+                android:id="@+id/mvs_filters"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/mvs_filter_compat"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="@drawable/mvs_rail_chip_on"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:paddingHorizontal="11dp"
+                    android:text="✓  Fits my profile"
+                    android:textColor="#141519"
+                    android:textSize="10sp"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/mvs_filter_all"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/mvs_rail_chip"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:paddingHorizontal="11dp"
+                    android:text="All files"
+                    android:textColor="#C9CED8"
+                    android:textSize="10sp"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/mvs_mc_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.16"
+                android:text="MINECRAFT"
+                android:textColor="#5C6068"
+                android:textSize="8sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
+            <!-- MC version chips, built in code (flow: wrap in rows of 2) -->
+            <LinearLayout
+                android:id="@+id/mvs_mc_chips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:orientation="vertical" />
+
+            <TextView
+                android:id="@+id/mvs_loader_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.16"
+                android:text="LOADER"
+                android:textColor="#5C6068"
+                android:textSize="8sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
+            <LinearLayout
+                android:id="@+id/mvs_loader_chips"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:orientation="vertical" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="14dp"
+                android:background="#20FFFFFF" />
+
+            <TextView
+                android:id="@+id/mvs_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:includeFontPadding="false"
+                android:textColor="#8A909C"
+                android:textSize="9.5sp"
+                tools:text="12 files · 4 fit" />
+
+            <TextView
+                android:id="@+id/mvs_reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.06"
+                android:padding="4dp"
+                android:text="Reset filters"
+                android:textColor="#C9CED8"
+                android:textSize="9.5sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- ══ RIGHT — header · files · footer ══ -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- header -->
+        <LinearLayout
+            android:id="@+id/mvs_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="18dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="10dp">
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="28dp"
+                android:background="@drawable/csc_accent_bar" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.14"
+                    android:text="CHOOSE A FILE TO INSTALL"
+                    android:textColor="#8A909C"
+                    android:textSize="8.5sp"
+                    tools:ignore="HardcodedText,SmallSp" />
+
+                <TextView
+                    android:id="@+id/mvs_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:fontFamily="sans-serif-medium"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textColor="#F4F6F9"
+                    android:textSize="15sp"
+                    tools:text="Sodium" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/mvs_target"
+                android:layout_width="wrap_content"
+                android:layout_height="22dp"
+                android:background="@drawable/rd_pill_silver"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.04"
+                android:paddingHorizontal="10dp"
+                android:textColor="#141519"
+                android:textSize="9sp"
+                tools:text="MC 1.21.1 · Fabric" />
+
+            <TextView
+                android:id="@+id/mvs_close"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/csc_chev_pill"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="×"
+                android:textColor="#B9BEC7"
+                android:textSize="17sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#1AFFFFFF" />
+
+        <!-- file rows -->
+        <ScrollView
+            android:id="@+id/mvs_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fadeScrollbars="true"
+            android:overScrollMode="never"
+            android:scrollbarThumbVertical="@drawable/rd_grab"
+            android:scrollbars="vertical">
+
+            <LinearLayout
+                android:id="@+id/mvs_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="14dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp" />
+        </ScrollView>
+
+        <!-- footer -->
+        <LinearLayout
+            android:id="@+id/mvs_footer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/mvs_footer"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="10dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-medium"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.14"
+                    android:text="SELECTED"
+                    android:textColor="#5C6068"
+                    android:textSize="7.5sp"
+                    tools:ignore="HardcodedText,SmallSp" />
+
+                <TextView
+                    android:id="@+id/mvs_selected_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="middle"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textColor="#F4F6F9"
+                    android:textSize="11sp"
+                    tools:text="sodium-fabric-0.6.0+mc1.21.1.jar" />
+
+                <TextView
+                    android:id="@+id/mvs_selected_meta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:ellipsize="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:textColor="#8A909C"
+                    android:textSize="9sp"
+                    tools:text="1.21.1  ·  Fabric, Quilt" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/mvs_use"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/mvs_btn_primary"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.08"
+                android:paddingHorizontal="18dp"
+                android:text="USE THIS FILE"
+                android:textColor="#141519"
+                android:textSize="10.5sp"
+                tools:ignore="HardcodedText" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

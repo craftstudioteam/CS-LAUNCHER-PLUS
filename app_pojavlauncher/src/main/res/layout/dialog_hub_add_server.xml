@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?><!-- ═══════════════════════════════════════════════════════════════════
+  ADD / EDIT SERVER — same graphite field vocabulary as the button sheet:
+  tracked label above a bg_au_field input, two plate buttons in the footer.
+  Name is optional: the MOTD from the ping is a better label than anything
+  typed here, so we only ask for what we cannot guess (the address).
+═══════════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/mvs_card"
+    android:orientation="vertical"
+    android:paddingStart="20dp"
+    android:paddingTop="20dp"
+    android:paddingEnd="20dp"
+    android:paddingBottom="18dp">
+
+    <TextView
+        android:id="@+id/hub_add_title"
+        style="@style/AuHeroTitle"
+        android:text="@string/hub_add_title" />
+
+    <TextView
+        style="@style/AuFieldLabel"
+        android:layout_marginTop="18dp"
+        android:text="@string/hub_field_address" />
+
+    <EditText
+        android:id="@+id/hub_add_address"
+        style="@style/AuInput"
+        android:autofillHints="@null"
+        android:hint="@string/hub_hint_address"
+        android:imeOptions="actionNext"
+        android:inputType="textUri"
+        android:maxLines="1"
+        android:nextFocusDown="@id/hub_add_name" />
+
+    <TextView
+        android:id="@+id/hub_add_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:includeFontPadding="false"
+        android:text="@string/hub_helper_address"
+        android:textColor="@color/au_text_mid"
+        android:textSize="11sp" />
+
+    <TextView
+        style="@style/AuFieldLabel"
+        android:layout_marginTop="14dp"
+        android:text="@string/hub_field_name" />
+
+    <EditText
+        android:id="@+id/hub_add_name"
+        style="@style/AuInput"
+        android:autofillHints="@null"
+        android:hint="@string/hub_hint_name"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLines="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/hub_add_cancel"
+            style="@style/AuBtnGhost"
+            android:layout_marginEnd="10dp"
+            android:text="@string/hub_cancel" />
+
+        <TextView
+            android:id="@+id/hub_add_save"
+            style="@style/AuBtnPrimary"
+            android:text="@string/hub_save" />
+    </LinearLayout>
+</LinearLayout>

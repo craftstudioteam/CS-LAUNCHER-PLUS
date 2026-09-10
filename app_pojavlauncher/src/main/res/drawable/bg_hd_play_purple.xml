@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Circular purple play button on instance cards. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#44FFFFFF">
+    <item>
+        <shape android:shape="oval">
+            <gradient android:angle="135" android:startColor="#8B5CF6" android:endColor="#6D28D9" />
+            <stroke android:width="1.5dp" android:color="#55FFFFFF" />
+        </shape>
+    </item>
+</ripple>

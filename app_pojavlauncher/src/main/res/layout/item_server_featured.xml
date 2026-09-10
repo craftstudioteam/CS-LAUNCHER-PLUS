@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Highlighted server card.
+
+  Structure: the artwork is a bounded header strip, the body sits under it, and the server
+  logo is an OVERLAY placed after both of them inside the same FrameLayout — so it is always
+  drawn ON TOP of the artwork, sitting on the seam between artwork and body.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/fs_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:cardBackgroundColor="#111520"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="5dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- ── Artwork header ───────────────────────────────────
+                     108dp, not the 90dp a single partner used: the strip is sized to the
+                     aspect of the widest artwork in the list (~3:1), so a banner is shown
+                     whole instead of having its title and tagline rows center-cropped away.
+                     The server mark below is offset to keep sitting on the same seam. -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="108dp">
+
+                    <ImageView
+                        android:id="@+id/fs_banner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@null"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/bg_plantmc_banner" />
+
+                    <!-- keeps chips and the overlaying logo readable on any artwork -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_featured_scrim" />
+
+                    <!-- animated light sweep, driven from ServerAdapter -->
+                    <View
+                        android:id="@+id/fs_shine"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_featured_shine" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|end"
+                        android:layout_margin="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/fs_players"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:background="@drawable/bg_featured_chip"
+                            android:gravity="center"
+                            android:paddingHorizontal="9dp"
+                            android:textColor="#C9F7D6"
+                            android:textSize="8.5sp"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            tools:text="● 33 online"
+                            tools:visibility="visible" />
+
+                        <TextView
+                            android:id="@+id/fs_ping"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="6dp"
+                            android:background="@drawable/bg_featured_chip"
+                            android:gravity="center"
+                            android:paddingHorizontal="9dp"
+                            android:textColor="#EDEEF2"
+                            android:textSize="8.5sp"
+                            tools:text="83 ms" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <!-- ── Body ───────────────────────────────────────────── -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="12dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="12dp">
+
+                    <!-- title row — starts after the overlaying logo -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:minHeight="34dp"
+                        android:orientation="horizontal"
+                        android:paddingStart="62dp"
+                        android:paddingEnd="0dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/fs_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="PlantMC"
+                                android:textColor="#FFFFFF"
+                                android:textSize="16.5sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/fs_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:text="play.plantmc.fun:25627"
+                                android:textColor="#93A0AF"
+                                android:textSize="9.5sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/fs_version"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="6dp"
+                            android:background="@drawable/bg_featured_chip"
+                            android:gravity="center"
+                            android:paddingHorizontal="9dp"
+                            android:textColor="#EDEEF2"
+                            android:textSize="8.5sp"
+                            android:visibility="gone"
+                            tools:text="Paper 1.21.1"
+                            tools:visibility="visible" />
+                    </LinearLayout>
+
+                    <!-- MOTD panel — full width, nothing overlaps it -->
+                    <TextView
+                        android:id="@+id/fs_motd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_featured_motd"
+                        android:ellipsize="end"
+                        android:lineSpacingExtra="2dp"
+                        android:maxLines="2"
+                        android:minHeight="40dp"
+                        android:paddingHorizontal="11dp"
+                        android:paddingVertical="8dp"
+                        android:textColor="#E7EAF0"
+                        android:textSize="11.5sp"
+                        tools:text="⚡ PLAY.PLANTMC.FUN ⚡" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="42dp"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/fs_btn_play"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="@drawable/bg_featured_play"
+                            android:elevation="2dp"
+                            android:gravity="center"
+                            android:letterSpacing="0.05"
+                            android:text="PLAY"
+                            android:textColor="#07130B"
+                            android:textSize="12.5sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/fs_btn_discord"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/bg_featured_discord"
+                            android:elevation="2dp"
+                            android:gravity="center"
+                            android:paddingHorizontal="18dp"
+                            android:text="DISCORD"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ── Server logo overlay — drawn last, so it sits ON the artwork ── -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/fs_icon_card"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_gravity="top|start"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="86dp"
+                app:cardBackgroundColor="#0C0F16"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="8dp">
+
+                <ImageView
+                    android:id="@+id/fs_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@null"
+                    android:padding="2dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_server_leaf" />
+            </androidx.cardview.widget.CardView>
+        </FrameLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- gold rim that breathes, marking the highlighted card -->
+    <View
+        android:id="@+id/fs_glow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="2dp"
+        android:background="@drawable/bg_featured_glow" />
+</FrameLayout>

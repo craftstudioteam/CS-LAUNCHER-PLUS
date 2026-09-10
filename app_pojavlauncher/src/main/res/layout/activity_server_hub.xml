@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?><!-- ═══════════════════════════════════════════════════════════════════
+  SERVER HUB — graphite language (same tokens as the Control drawer, the
+  Skin Wardrobe and the Runtime page), portrait first.
+
+  Composition: command bar (back / title / ADD) → one status line with
+  REFRESH → the card column. Built-in servers render as the featured card
+  with their own banner artwork, everything else as the normal row card.
+  There is deliberately no empty state: the launcher ships servers, so the
+  list is never empty, and a view that can never be seen is dead weight.
+═══════════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/hub_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_au_page"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <!-- ── command bar ── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@color/au_surface"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="8dp"
+        android:paddingEnd="10dp">
+
+        <FrameLayout
+            android:id="@+id/hub_back"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/pe4_back_btn"
+            android:clickable="true"
+            android:contentDescription="@string/global_back"
+            android:focusable="true">
+
+            <ImageView
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/au_text" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/hub_title"
+                style="@style/AuHeroTitle"
+                android:letterSpacing="0.02"
+                android:text="@string/hub_title" />
+
+            <TextView
+                android:id="@+id/hub_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                tools:text="Profile default"
+                android:textColor="@color/au_text_dim"
+                android:textSize="10.5sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/hub_add"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:background="@drawable/mvs_btn_primary"
+            android:clickable="true"
+            android:drawablePadding="6dp"
+            android:focusable="true"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.08"
+            android:paddingStart="13dp"
+            android:paddingEnd="16dp"
+            android:text="@string/hub_add"
+            android:textColor="#141519"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_add_dark" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/au_line" />
+
+    <!-- ── status line ── -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="15dp"
+        android:paddingTop="11dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="7dp">
+
+        <TextView
+            android:id="@+id/hub_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.04"
+            android:maxLines="2"
+            android:text="@string/hub_status_idle"
+            android:textColor="@color/au_text_dim"
+            android:textSize="11.5sp" />
+
+        <TextView
+            android:id="@+id/hub_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="34dp"
+            android:background="@drawable/bg_au_ghost"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.1"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:text="@string/hub_refresh"
+            android:textColor="@color/au_text"
+            android:textSize="11sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- ── the card column ── -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hub_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingStart="12dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="18dp"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/hub_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/au_surface"
+        android:includeFontPadding="false"
+        android:lineSpacingExtra="2dp"
+        android:paddingStart="16dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="12dp"
+        android:text="@string/hub_note"
+        android:textColor="@color/au_text_faint"
+        android:textSize="10.5sp" />
+</LinearLayout>

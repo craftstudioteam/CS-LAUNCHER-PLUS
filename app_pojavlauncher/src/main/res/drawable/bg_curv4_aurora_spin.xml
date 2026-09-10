@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Continuously rotating aurora ring (pure drawable animation, no code needed) -->
+<animated-rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/bg_curv4_aurora_ring"
+    android:pivotX="50%" android:pivotY="50%" android:duration="4200"/>

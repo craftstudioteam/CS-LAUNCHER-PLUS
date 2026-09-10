@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cursor Studio v4 — pack card (selected): graphite fill + platinum stroke -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#26FFFFFF">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="14dp" />
+            <gradient android:angle="270" android:startColor="#23252D" android:endColor="#1A1C22" />
+            <stroke android:width="1.4dp" android:color="#C9CDD8" />
+        </shape>
+    </item>
+</ripple>

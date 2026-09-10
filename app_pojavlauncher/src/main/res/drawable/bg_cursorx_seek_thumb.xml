@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cursor Studio v4 — slider thumb -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <size android:width="17dp" android:height="17dp" />
+    <solid android:color="#F4F5F8" />
+    <stroke android:width="2dp" android:color="#0C0E11" />
+</shape>

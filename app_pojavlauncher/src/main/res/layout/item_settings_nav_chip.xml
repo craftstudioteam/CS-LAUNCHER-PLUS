@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Phase 9: vertical rail entry (root MUST stay a TextView with this id). -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/settings_nav_chip_text"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_marginBottom="2dp"
+    android:background="@drawable/st_rail_item_off"
+    android:ellipsize="end"
+    android:fontFamily="sans-serif-medium"
+    android:gravity="center_vertical"
+    android:maxLines="1"
+    android:paddingStart="14dp"
+    android:paddingEnd="8dp"
+    android:textColor="#8A909C"
+    android:textSize="12sp" />

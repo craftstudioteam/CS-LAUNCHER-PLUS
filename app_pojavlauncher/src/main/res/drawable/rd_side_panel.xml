@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Resource Detail — left identity column. Slightly lighter than the page so the
+     two-column split reads instantly; artwork sits inside its own stage above. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="270" android:startColor="#1A1C22" android:endColor="#101115" />
+            <corners android:radius="24dp" />
+            <stroke android:width="1.2dp" android:color="#2B2E37" />
+        </shape>
+    </item>
+    <item android:top="1dp" android:left="1dp" android:right="1dp" android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#0AFFFFFF" />
+            <corners android:radius="23dp" />
+        </shape>
+    </item>
+</layer-list>

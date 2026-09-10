@@ -1,0 +1,1257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+    <!-- App name part -->
+    <string name="app_name" translatable="false">CS Launcher Plus</string>
+
+    <!-- Action bar part -->
+
+    <!-- Languages list part -->
+
+    <!-- Login strings -->
+    <string name="login_online_username_hint">Username</string>
+    <string name="login_online_login_label">Login</string>
+
+    <!-- Hint -->
+    <string name="hint_control_mapping">"Touch the top center cogwheel to open the context menu ⚙\nTap a button to customize: edit, resize, remove, or change its keybinds."</string>
+
+    <!-- Warnings -->
+    <string name="warning_remove_account">This account will be removed!</string>
+
+    <!-- AlertDialog title -->
+    <string name="alerttitle_installmod">Select a mod installer</string>
+
+    <!-- Error messages -->
+    <string name="error_fatal">CS LAUNCHER PLUS has unexpectedly crashed</string>
+    <string name="error_no_version">No version!</string>
+    <string name="error_show_more">Show more</string>
+    <string name="error_show_less">Show less</string>
+
+    <!-- Toast messages -->
+    <string name="toast_permission_denied">The read/write to storage permission is required!</string>
+    <string name="toast_optifine_success">Install successful</string>
+    <!--
+    <string name="toast_3">Exit</string>
+    -->
+
+    <!-- MCLauncherActivity: Tabs -->
+    <string name="mcl_tab_wiki">Wiki</string>
+
+    <!-- MCLauncherActivity: Account status -->
+
+    <!-- MCLauncherActivity: Strings -->
+    <string name="mcl_launch_cleancache">Cleaning cache files</string>
+    <string name="mcl_launch_downloading">Downloading %s</string>
+    <string name="mcl_launch_downloading_progress">"Downloading %s (%.2f MB / %.2f MB)"</string>
+    <string name="mcl_launch_download_assets">Preparing to download resources</string>
+
+    <string name="mcl_options">Options</string>
+    <string name="mcl_option_customcontrol">Custom controls</string>
+
+
+    <string name="mcl_setting_title_use_surface_view">Use alternate surface rendering</string>
+    <string name="mcl_setting_subtitle_use_surface_view">May help performance in GPU bound scenarios.</string>
+    <string name="mcl_setting_title_ignore_notch">Ignore notch</string>
+    <string name="mcl_setting_subtitle_ignore_notch">Ignores the notch and extends the screen under it.\nGives you a more immersive experience.</string>
+    <string name="mcl_setting_title_resolution_scaler">Resolution Scaler</string>
+    <string name="mcl_setting_subtitle_resolution_scaler">Allows you to decrease the game resolution. 100% is full resolution.</string>
+    <string name="mcl_setting_title_longpresstrigger">Trigger long press delay</string>
+    <string name="mcl_setting_subtitle_longpresstrigger">Change long press trigger delay for destroying blocks and dropping items.</string>
+    <string name="mcl_setting_title_buttonscale">Control buttons scaling</string>
+    <string name="mcl_setting_subtitle_buttonscale">Upscale them if the buttons are too small.</string>
+    <string name="mcl_setting_title_mousescale">Mouse scaling</string>
+    <string name="mcl_setting_subtitle_mousescale">Change the size of the virtual mouse.</string>
+    <string name="mcl_setting_title_javaargs">JVM Launch arguments</string>
+    <string name="mcl_setting_subtitle_javaargs">Be careful, this may make game crash if modified without knowledge.</string>
+    <string name="mcl_setting_title_renderer_settings">Extra Renderer Settings</string>
+    <string name="mcl_setting_title_renderer_subtitle">Renderer specific settings</string>
+    <string name="mcl_setting_category_renderer">Renderer</string>
+    <string name="mcl_setting_renderer_gles2_4">Holy GL4ES - (1.21.4&lt; only, fast)</string>
+    <string name="mcl_setting_renderer_vulkan_zink">Zink (Vulkan) - (all versions, mid)</string>
+    <string name="mcl_setting_renderer_mobileglues">MobileGlues (OpenGL ES) - (1.17+ only, fast)</string>
+    <string name="mcl_setting_renderer_freedreno">Freedreno (Adreno) - (1.20.x, fast, experimental)</string>
+    <string name="mcl_setting_renderer_panfrost">Panfrost (Mali) - (up to 1.21.4, experimental)</string>
+    <string name="mcl_setting_renderer_ltw">LTW (OpenGL ES 3) - 1.17+ only</string>
+    <string name="mcl_setting_renderer_KW">Krypton Wrapper - (all versions, fast)</string>
+    <string name="mcl_setting_veroption_release">Release</string>
+    <string name="mcl_setting_veroption_snapshot">Snapshot</string>
+    <string name="mcl_setting_veroption_oldalpha">Old-alpha</string>
+    <string name="mcl_setting_veroption_oldbeta">Old-beta</string>
+    <string name="mcl_setting_java_sandbox">Sandbox .jar execution</string>
+    <string name="mcl_setting_java_sandbox_subtitle">Control the availability of the sandbox security manager when executing a .jar file.</string>
+    <string name="mcl_version_clone">Clone</string>
+
+    <!-- Global strings -->
+    <string name="global_edit">Edit</string>
+    <string name="global_error">Error</string>
+    <string name="global_load">Load</string>
+    <string name="global_name">Name</string>
+    <string name="global_remove">Remove</string>
+    <string name="global_clone">Clone</string>
+    <string name="global_restart">Restart</string>
+    <string name="global_save">Save</string>
+    <string name="global_unpacking">Unpacking %s</string>
+    <string name="global_error_field_empty">This field can\'t be empty</string>
+    <string name="global_waiting">Wait</string>
+    <string name="global_select">Select</string>
+    <string name="global_retry">Retry</string>
+    <string name="global_back">Back</string>
+    <string name="global_add">Add</string>
+    <string name="manage_mods_empty">No mods installed for this profile.</string>
+    <string name="manage_mods_delete_confirm">Delete %s?</string>
+    <string name="mod_install_success">%s installed to mods folder.</string>
+    <string name="hint_search_mod">Search Mods</string>
+    <string name="global_default">Default</string>
+    <string name="global_off">Off</string>
+
+    <!-- MainActivity: strings -->
+    <string name="mcn_exit_title">Application/Game exited with code %d, check latestlog.txt for more details.</string>
+    <string name="mcn_signal_title">Application/Game aborted by fatal signal %d, check latestlog.txt for more details.</string>
+    <string name="mcn_exit_confirm">Are you sure want to force close?</string>
+    <string name="mcn_check_fail_vulkan_support">Zink (Vulkan) renderer is not supported on this device!</string>
+
+    <!-- MainActivity: Control buttons -->
+    <string name="control_chat">Chat</string>
+    <string name="control_debug">Debug</string>
+    <string name="control_primary">Pri</string>
+    <string name="control_secondary">Sec</string>
+    <string name="control_shift">◇</string>
+    <string name="control_inventory">Inv</string>
+    <string name="control_up">▲</string>
+    <string name="control_left">◀</string>
+    <string name="control_right">▶</string>
+    <string name="control_down">▼</string>
+    <string name="control_jump">⬛</string>
+    <string name="control_thirdperson">3rd</string>
+    <string name="control_listplayers">Tab</string>
+    <string name="control_mouse">Mouse</string>
+    <string name="control_mouseoff">Mouse: off</string>
+    <string name="control_mouseon">Mouse: on </string>
+
+    <!-- MainActivity: Menu advanced controls -->
+    <string name="control_forceclose">Force close</string>
+    <string name="control_viewout">Log output</string>
+    <string name="control_adebug">Input Debug</string>
+    <string name="control_customkey">Send custom keycode</string>
+
+    <!-- ImportControlActivity Strings -->
+    <string name="import_control_label">Import controls</string>
+    <string name="import_control_invalid_file">Invalid or corrupted file</string>
+    <string name="import_control_import_button">import controls</string>
+    <string name="import_control_verifying_file">File is being verified, please wait and try again…</string>
+    <string name="import_control_invalid_name">Invalid name or file already exists</string>
+    <string name="import_control_done">Importation done</string>
+    <!--
+    <string name="control_more3"></string>
+    <string name="control_more4"></string>
+-->
+
+    <string name="customctrl_toggle">Toggleable</string>
+    <string name="customctrl_size">Size</string>
+
+    <string name="customctrl_mapping">Mapping</string>
+    <string name="customctrl_command">Command</string>
+    <string name="customctrl_command_hint">Type a command (e.g. /login password)</string>
+    <string name="customctrl_orientation">Orientation</string>
+    <string name="customctrl_background_color">Background color</string>
+    <string name="customctrl_corner_radius">Corner radius</string>
+    <string name="customctrl_stroke_width">Stroke width</string>
+    <string name="customctrl_stroke_color">Stroke color</string>
+
+    <string name="customctrl_button_opacity">Button Opacity</string>
+
+    <string name="customctrl_addbutton">Add button</string>
+    <string name="customctrl_addbutton_command">Add command button</string>
+    <string name="customctrl_addbutton_drawer">Add button drawer</string>
+    <string name="customctrl_addbutton_joystick">Add joystick</string>
+    <string name="customctrl_addsubbutton">Add sub-button</string>
+
+    <string name="customctrl_selectdefault">Select default controlmap</string>
+    <string name="customctrl_export">Export controlmap</string>
+
+    <string name="main_share_logs">Share log file</string>
+    <string name="main_share_crash_log">Share last crash log</string>
+    <string name="main_install_jar_file">Execute a .jar</string>
+    <string name="main_play">Play</string>
+    <string name="autoram_info_msg">Memory set to %d MB</string>
+    <string name="mcl_setting_check_libraries">Check libraries after downloading</string>
+    <string name="mcl_setting_check_libraries_subtitle">This option forces the launcher to check the library hash if it\'s available. Prevents broken downloads.</string>
+    <string name="dl_library_sha_fail">Library %s is damaged and will be redownloaded</string>
+    <string name="dl_library_sha_unknown">Library %s can\'t be checked, have to assume it\'s good</string>
+    <string name="dl_library_sha_pass">Library %s is fine and usable</string>
+    <string name="mcl_gamepad_SDL">Enable SDL controller backend</string>
+    <string name="mcl_gamepad_SDL_subtitle">Enables SDL controller backend. Has better mod support. Falls back to GLFW if not used.</string>
+    <string name="mcl_disable_gestures">Disable gestures</string>
+    <string name="mcl_disable_gestures_subtitle">Disables gestures, such as hold to break block, and tap to place a block.</string>
+    <string name="mcl_disable_swap_hand">Disable double tap to swap hands</string>
+    <string name="mcl_disable_swap_hand_subtitle">Disables double tapping on the hotbar item to swap it in the second hand.</string>
+    <string name="mcl_setting_title_mousespeed">Mouse Speed</string>
+    <string name="mcl_setting_subtitle_mousespeed">Changes the speed of the virtual mouse.</string>
+    <string name="mcl_setting_title_grab_mouse">Use virtual cursor</string>
+    <string name="mcl_setting_subtitle_grab_mouse">Ensures the cursor stays inside the game. Prevents mouse from clicking touch control layout.</string>
+    <string name="customctrl_passthru">Mouse pass-thru</string>
+    <string name="customctrl_swipeable">Swipeable</string>
+    <string name="customctrl_forward_lock">Forward lock</string>
+    <string name="customctrl_absolute_tracking">Absolute finger tracking</string>
+    <string name="memory_warning_msg">The current amount of free RAM (%d) is lower than allocated RAM (%d), which may lead to crashes. Change the allocation if the game crashes.</string>
+    <string name="address_memory_warning_msg">The current amount of free addressable RAM space (%d) is lower than the allocated RAM (%d), which will lead to crashes. Change the allocation if the game crashes.</string>
+    <string name="mcl_memory_allocation">Memory allocation</string>
+    <string name="mcl_memory_allocation_subtitle">Controls how much memory is given to Minecraft.</string>
+    <string name="multirt_runtime_corrupt">Corrupted Java Runtime</string>
+    <string name="multirt_runtime_incompatiblearch">Incompatible architecture: %s</string>
+    <string name="multirt_config_title">Java Runtimes</string>
+    <string name="multirt_config_add">Add new</string>
+    <string name="multirt_title">Runtime Manager</string>
+    <string name="multirt_subtitle">Manage installed Java Runtimes.</string>
+    <string name="multirt_progress_caching">Caching...</string>
+    <string name="multirt_config_setdefault">Set default</string>
+    <string name="multirt_config_setdefault_already">Default</string>
+    <string name="multirt_config_removeerror_last">You must have at least one Java Runtime installed.</string>
+    <string name="multirt_nocompatiblert">Can\'t find any compatible Java Runtime. This version requires Java %d or newer.</string>
+    <string name="multirt_nojava8rt">Can\'t find Java 8. In order to use this option, you need to install Java 8.</string>
+    <string name="multirt_delete_runtime">Delete runtime</string>
+    <string name="pvc_gameDirectory">Game directory</string>
+    <string name="pvc_jvmArgs">JVM arguments</string>
+
+    <string name="preference_mouse_start_title">Start with virtual mouse on</string>
+    <string name="preference_mouse_start_description">The virtual mouse appears at startup when this option is on.</string>
+    <string name="preference_video_title">Video and renderer</string>
+    <string name="preference_video_description">Resolution, renderer and performance</string>
+    <string name="preference_control_title">Control customization</string>
+    <string name="preference_control_description">Gestures, buttons and scaling</string>
+    <string name="preference_java_title">Java Tweaks</string>
+    <string name="preference_java_description">Java Runtimes, JVM Arguments, RAM amount and sandbox</string>
+    <string name="preference_misc_title">Miscellaneous settings</string>
+    <string name="preference_misc_description">Version list and libraries check</string>
+    <string name="preference_experimental_description">Use things there with consideration, no support</string>
+    <string name="preference_sustained_performance_title">Enable sustained performance mode</string>
+    <string name="preference_sustained_performance_description">Limit thermal throttling by limiting peak performance.</string>
+    <string name="preference_force_vsync_title">Force enable VSync</string>
+    <string name="preference_force_vsync_description">Locks FPS to your screen refresh rate (60/120) to reduce heat and battery drain. Keep OFF for maximum (unlimited) FPS.</string>
+    <string name="preference_force_english_title">Force language to English</string>
+    <string name="preference_force_english_description">Allows you to see original strings, as intended by developers. Requires a restart.</string>
+    <string name="preference_edit_controls_title">Edit custom controls</string>
+    <string name="preference_edit_controls_summary">Tweak the control scheme to fit your needs.</string>
+
+    <string name="preference_category_gyro_controls">Gyroscope controls</string>
+    <string name="preference_category_virtual_mouse">Virtual mouse</string>
+
+    <string name="preference_gyro_invert_x_axis">Invert X axis</string>
+    <string name="preference_gyro_invert_y_axis">Invert Y axis</string>
+    <string name="preference_gyro_invert_x_axis_description">Invert the horizontal axis.</string>
+    <string name="preference_gyro_invert_y_axis_description">Invert the vertical axis.</string>
+    <string name="preference_gyro_smoothing_title">Enable gyroscope smoothing</string>
+    <string name="preference_gyro_smoothing_description">Reduce jitter in exchange of latency.</string>
+
+    <string name="preference_back_title">Back to the last screen</string>
+    <string name="unnamed">Unnamed</string>
+    <string name="profiles_latest_snapshot">Latest snapshot</string>
+    <string name="profiles_latest_release">Latest release</string>
+    <string name="profiles_profile_name">Name</string>
+    <string name="profiles_profile_version">Version</string>
+    <string name="click_to_edit">Click to edit</string>
+    <string name="global_delete">Delete</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="home_profiles_title">Profiles</string>
+    <string name="profile_menu_shortcuts">Shortcuts</string>
+    <string name="profile_background">Profile Background</string>
+    <string name="change_background">Change Background</string>
+    <string name="allocated_ram">Allocated RAM</string>
+    <string name="pedit_java_runtime">Java Runtime</string>
+    <string name="pedit_renderer">Renderer</string>
+    <string name="arc_capes_title">Cosmetica Capes</string>
+    <string name="arc_capes_desc">Enables capes from Cosmetica (previously Arc). For more information please visit https://cosmetica.cc. Requires OptiFine.</string>
+    <string name="color_default_hex" translatable="false">FFFF0000</string>
+    <string name="notif_channel_name">General</string>
+    <string name="notif_channel_id" translatable="false">channel_id</string>
+    <string name="lazy_service_default_title">CS LAUNCHER PLUS Foreground Service</string>
+    <string name="mcl_setting_veroption_installed">Installed</string>
+    <string name="use_global_default">(Use global default)</string>
+    <string name="default_control">Default controlmap</string>
+    <string name="progresslayout_tasks_in_progress">%d tasks in progress</string>
+
+    <!-- ── Download notification actions / states (Phase 5) ── -->
+    <string name="cs_notif_pause">Pause</string>
+    <string name="cs_notif_resume">Resume</string>
+    <string name="cs_notif_stop">Stop</string>
+    <string name="cs_notif_open">Open</string>
+    <string name="cs_notif_paused">Paused</string>
+    <string name="cs_notif_complete_title">Download complete</string>
+    <string name="cs_notif_complete_text">%s finished successfully</string>
+    <string name="cs_notif_game_title">Minecraft is running</string>
+    <string name="cs_notif_game_text">Session active — tap to return</string>
+    <string name="cs_notif_game_big">Your session keeps running while the launcher is in the background.\nTap OPEN to jump straight back into the game, or TERMINATE to close it immediately.</string>
+    <string name="cs_notif_open_launcher">Open launcher</string>
+    <string name="cs_notif_downloading">Downloading</string>
+    <string name="cs_notif_elapsed">Elapsed %1$s</string>
+    <string name="cs_notif_left">%1$s left</string>
+    <string name="cs_notif_failed_title">Download failed</string>
+    <string name="cs_notif_failed_text">%1$s — %2$s</string>
+    <string name="cs_notif_cancelled_title">Download cancelled</string>
+    <string name="cs_notif_cancelled_text">%1$s was stopped</string>
+    <string name="cs_notif_summary_one">Downloading • %1$d%%</string>
+    <string name="cs_notif_summary_many">Downloading %1$d items • %2$d%%</string>
+    <string name="execute_jar_no_compatible_runtime">This .jar needs Java 17 or older for its installer UI, but no compatible runtime is installed. Install Java 17 from the Runtime manager and try again.</string>
+
+    <!-- ── Modpack version channels (Phase 5) ── -->
+    <string name="mp_channel_latest">★ Latest</string>
+    <string name="mp_channel_stable">Stable</string>
+    <string name="mp_channel_beta">Beta</string>
+    <string name="mp_channel_alpha">Alpha</string>
+    <string name="mp_channel_old">Old</string>
+
+    <!-- ── Top-toolbar floating labels (Phase 5, Req-10) ── -->
+    <string name="cs_navtip_home">Home</string>
+    <string name="cs_navtip_mods">Download Resources</string>
+    <!-- Bottom strip on the resources page: without it a big install looks stuck,
+         because the only live percentage lives in the shade. -->
+    <string name="cs_notif_banner_title">Turn on progress notifications</string>
+    <string name="cs_notif_banner_text">Downloads keep reporting percent, speed and time left while the launcher is in the background.</string>
+    <string name="cs_notif_banner_action">ALLOW</string>
+    <string name="cs_navtip_controls">Controls</string>
+    <string name="cs_navtip_cursor">Cursor</string>
+    <string name="cs_navtip_skins">Skins</string>
+    <string name="cs_navtip_settings">Settings</string>
+
+    <!-- ── Launch screen: black stage + optional user GIF (video removed) ── -->
+    <string name="cs_about_title">About CS LAUNCHER PLUS</string>
+    <string name="cs_launch_color_set">Launch color set</string>
+    <string name="cs_launch_color_reset">Launch color reset to black</string>
+    <string name="cs_about_name">CS LAUNCHER PLUS</string>
+    <string name="cs_about_tagline">YOUR MINECRAFT. REIMAGINED.</string>
+    <string name="cs_about_made_for">MADE WITH ❤ FOR MINECRAFT: JAVA EDITION ON ANDROID</string>
+    <string name="cs_about_credits_heading">Built on Legends</string>
+    <string name="cs_about_credit_badge">CREDIT</string>
+    <string name="cs_about_pojav_name">PojavLauncher</string>
+    <string name="cs_about_pojav_role">THE ENGINE THAT STARTED IT ALL</string>
+    <string name="cs_about_pojav_desc">PojavLauncher is the legendary open-source Minecraft: Java Edition launcher for Android — the very engine that proved Java Edition can run beautifully on phones. Almost every mobile launcher today stands on the shoulders of this project, and CS LAUNCHER PLUS is honoured to carry its spirit forward. Based on the original Boardwalk concept by zhuowei, PojavLauncher brought the dream of portable Java Edition to millions of players.</string>
+    <string name="cs_about_amethyst_name">Amethyst</string>
+    <string name="cs_about_amethyst_role">THE UPSTREAM WE GREW FROM</string>
+    <string name="cs_about_amethyst_desc">Amethyst is the modern, polished fork of PojavLauncher that gave CS LAUNCHER PLUS its direct DNA — its architecture, its renderer stack and its commitment to performance. From Amethyst we inherited the rock-solid launch pipeline and the multi-renderer engine (GL4ES, Zink, MobileGlues and more), and then we rebuilt the whole experience on top of it. Thank you, Amethyst team.</string>
+    <string name="cs_about_links_heading">Find Us</string>
+    <string name="cs_about_discord_title">Discord Community</string>
+    <string name="cs_about_discord_sub">Join the server — help, mods, builds &amp; friends</string>
+    <string name="cs_about_website_title">Official Website</string>
+    <string name="cs_about_website_sub">cs-launcher.netlify.app — news, guides &amp; downloads</string>
+    <string name="cs_about_github_title">GitHub</string>
+    <string name="cs_about_github_sub">craftstudioteam — open source, free forever</string>
+    <string name="cs_about_legal_heading">Legal Notice</string>
+    <string name="cs_about_legal_text">CS LAUNCHER PLUS is free, open-source software released under the GNU General Public License v3.0 (GPL v3). It is a fork of Amethyst (AngelAuraMC/Amethyst-Android), which itself builds upon PojavLauncher (PojavLauncherTeam/PojavLauncher) and the original Boardwalk by zhuowei. We are deeply grateful to all of these projects and their contributors.
+
+Minecraft is a trademark of Mojang Synergies AB / Microsoft Corporation. CS LAUNCHER PLUS is an independent community project and is NOT affiliated with, endorsed by, or sponsored by Mojang or Microsoft. All Minecraft assets and content belong to their respective owners. To play online you need a legitimate Minecraft: Java Edition account.
+
+Third-party components (GL4ES, MobileGlues, ANGLE, Zink/Mesa, LWJGL, OpenJDK, SDL, and more) remain under their own respective licenses. See the NOTICE and LICENSE files inside the repository for full details.</string>
+    <string name="cs_about_footer">CRAFT STUDIO • FREE FOREVER • MADE WITH PASSION</string>
+    <string name="cs_about_coming_soon">The full About page is coming soon. For now: %1$s</string>
+    <string name="cs_launch_gif_title">Launch Screen GIF</string>
+    <string name="cs_launch_gif_summary">Launch stays a clean black screen. Pick any GIF from storage to play on it while the game loads (up to 50 MB).</string>
+    <string name="cs_launch_gif_remove_title">Remove Launch GIF</string>
+    <string name="cs_launch_gif_remove_summary">Delete the imported GIF — the launch screen goes back to pure black.</string>
+    <string name="cs_launch_gif_set_ok">Launch GIF set ✓ It will play the next time the game loads.</string>
+    <string name="cs_launch_gif_invalid">That file is not a valid GIF — pick a .gif image.</string>
+    <string name="cs_launch_gif_too_big">That GIF is over 50 MB — pick a smaller one.</string>
+    <string name="cs_launch_gif_removed">Launch GIF removed — back to the black screen.</string>
+    <string name="cs_launch_gif_none_set">No launch GIF is set.</string>
+    <string name="cs_browse_resources">Browse Resources</string>
+    <string name="cs_osd_caption">ON-SCREEN DISPLAY</string>
+    <string name="cs_osd_show_fps">Show FPS chip</string>
+    <string name="cs_osd_show_memory">Show Memory chip</string>
+    <string name="cs_osd_hint">Chips are translucent — long-press-drag them anywhere on screen. FPS now lives in Custom Controls: ADD -> FPS Counter.</string>
+    <!-- Download Console (v3) — pause / stop / hide controls -->
+    <string name="download_console_pause">PAUSE</string>
+    <string name="download_console_resume">RESUME</string>
+    <string name="download_console_stop">STOP</string>
+    <string name="download_console_hide">HIDE</string>
+    <string name="download_console_paused">PAUSED</string>
+    <string name="download_console_stopped">Download stopped</string>
+    <string name="download_console_cancelled_clean">Stopped by user</string>
+    <!-- Shortcut boot — premium "Opening Game…" interstitial -->
+    <string name="sg_opening_game">Opening Game…</string>
+    <string name="sg_boot_eyebrow">CS LAUNCHER PLUS</string>
+    <string name="sg_resolving_profile">Resolving profile…</string>
+    <string name="sg_preparing">Preparing your game…</string>
+    <string name="sg_verifying">Verifying game files…</string>
+    <string name="sg_downloading_files">Downloading game files…</string>
+    <string name="sg_runtime">Setting up runtime…</string>
+    <string name="sg_launching">All set — launching</string>
+    <!-- Account Hub (Add Account) — v3 -->
+    <string name="auth_hub_eyebrow">ACCOUNT HUB</string>
+    <string name="auth_hub_title">Add Account</string>
+    <string name="auth_hub_subtitle">Choose how you want to sign in</string>
+    <string name="auth_ms_title">Microsoft Account</string>
+    <string name="auth_ms_desc">Xbox Live • capes • Realms access</string>
+    <string name="auth_ms_chip">RECOMMENDED</string>
+    <string name="auth_elyby_title">Ely.by Account</string>
+    <string name="auth_elyby_desc">Free skins and capes, no Microsoft needed</string>
+    <string name="auth_elyby_chip">SKINS</string>
+    <string name="auth_offline_title">Offline Account</string>
+    <string name="auth_offline_desc">Play locally — no internet required</string>
+    <string name="auth_offline_chip">LOCAL</string>
+    <string name="auth_offline_note">Offline accounts cannot join online-mode servers</string>
+    <!-- Profile Creation hub — v3 -->
+    <string name="pt_eyebrow">SETUP HUB</string>
+    <string name="pt_title">Create Profile</string>
+    <string name="pt_subtitle">Choose how you want to play — every loader gets its own profile and game folder</string>
+    <string name="pt_section_vanilla">VANILLA LIKE</string>
+    <string name="pt_section_loaders">MOD LOADERS</string>
+    <string name="pt_section_more">MODPACKS &amp; MORE</string>
+    <string name="pt_vanilla_name">Vanilla</string>
+    <string name="pt_vanilla_desc">Official Mojang releases</string>
+    <string name="pt_jar_import_name">Install from JAR</string>
+    <string name="pt_jar_import_desc">Add a local .jar to the game</string>
+    <string name="vcreate_jar_prompt">Choose a .jar file</string>
+    <string name="vcreate_jar_hint">Pick any .jar installer (OptiFine, LiteLoader, other builds). Choose the Minecraft version it belongs to, and the official installer opens to finish setup.</string>
+    <string name="pt_optifine_name">OptiFine</string>
+    <string name="pt_optifine_desc">Shaders &amp; performance</string>
+    <string name="pt_fabric_name">Fabric</string>
+    <string name="pt_fabric_desc">Lightweight, modern mods</string>
+    <string name="pt_quilt_name">Quilt</string>
+    <string name="pt_quilt_desc">Community-driven Fabric fork</string>
+    <string name="pt_forge_name">Forge</string>
+    <string name="pt_forge_desc">Classic heavy modding</string>
+    <string name="pt_neoforge_name">NeoForge</string>
+    <string name="pt_neoforge_desc">Next-generation Forge</string>
+    <string name="pt_modpack_name">Install Modpack</string>
+    <string name="pt_modpack_desc">CurseForge, Modrinth or import a zip</string>
+    <string name="pt_bta_name">CS CLIENT</string>
+    <string name="pt_bta_desc">CS Client • Fabric • Build your profile</string>
+    <string name="notification_terminate">Terminate</string>
+    <string name="notification_game_runs">The game is running!</string>
+    <string name="folder_dialog_create">Create</string>
+    <string name="folder_dialog_insert_name">Insert folder name</string>
+    <string name="folder_fragment_create">Create folder</string>
+    <string name="folder_fragment_select">Select folder</string>
+    <string name="main_login_done">Login done</string>
+    <string name="main_add_account">Add account</string>
+    <string name="tasks_ongoing">Tasks are in progress, please wait</string>
+    <string name="no_saved_accounts">No saved accounts</string>
+    <string name="mc_download_failed">Failed to download Minecraft! This could be due to bad network connection, incorrectly placed files, trying to download Minecraft from a Local account, etc..</string>
+    <string name="xerr_unknown">Unknown Xbox Live API error %d</string>
+    <string name="xerr_no_account">You don\'t seem to have an Xbox Live account. Please log in once on https://minecraft.net/ and try again.</string>
+    <string name="xerr_adult_verification">An adult needs to verify your account.</string>
+    <string name="xerr_child">Your account is a child account, and needs to be added into a Family in order to log in.</string>
+    <string name="minecraft_not_owned">It seems like this account does not have a Minecraft profile. If you have Xbox Game Pass, please log in on https://minecraft.net/ and set it up.</string>
+    <string name="xerr_not_available">Xbox Live is not available in your country</string>
+    <string name="preference_enable_gyro_title">Enable gyroscope controls</string>
+    <string name="preference_enable_gyro_description">Enabling this will allow you to turn in-game by turning your phone.</string>
+    <string name="preference_gyro_sensitivity_title">Gyroscope controls sensitivity</string>
+    <string name="preference_gyro_sensitivity_description">Adjust the sensitivity of gyroscope controls.</string>
+    <string name="toast_turn_on_gyro">Enable gyroscope controls first to use this!</string>
+    <string name="preference_gyro_sample_rate_title">Gyroscope sampling rate</string>
+    <string name="preference_gyro_sample_rate_description">If you have performance issues with gyroscope controls, increase this.</string>
+    <string name="microsoft_login_retry_later">Too many requests, please try again later.</string>
+    <string name="storage_required">CS Launcher Plus requires external storage to be attached. Please reconnect it and restart the app.</string>
+    <string name="mcl_setting_title_buttonallcaps">Only use capital letters in button labels</string>
+    <string name="mcl_setting_subtitle_buttonallcaps">Disable this if you want to use lowercase letters in your controls.</string>
+    <string name="create_profile">Create new profile</string>
+    <string name="preference_shader_dump_title">Enable shader dumping</string>
+    <string name="preference_shader_dump_description">Log converted shaders into the log file.</string>
+    <string name="percent_format" translatable="false">%d%%</string>
+    <string name="millisecond_format">%d ms</string>
+    <string name="customctrl_editor_exit_title">Leaving?</string>
+    <string name="customctrl_editor_exit_msg">Are you sure you want to exit?</string>
+    <string name="customctrl_editor_exit">Leave editor</string>
+    <string name="global_save_and_exit">Save and exit</string>
+    <string name="global_yes">Yes</string>
+    <string name="global_no">No</string>
+
+    <string name="preference_controller_map_wiped">The controller config has been wiped.</string>
+    <string name="preference_category_controller_settings">Controller settings</string>
+    <string name="preference_wipe_controller_title">Reset controller mapping</string>
+    <string name="preference_wipe_controller_description">Allows you to remap the controller buttons.</string>
+    <string name="preference_deadzone_scale_title">Joystick deadzone scale</string>
+    <string name="preference_deadzone_scale_description">Increase it if the joystick drifts.</string>
+
+
+    <string name="preference_force_big_core_title">Force the renderer to run on the big core</string>
+    <string name="preference_force_big_core_desc">Forces the Minecraft render thread to run on the core with the highest maximum frequency.</string>
+    <string name="preference_force_landscape_title">Force landscape orientation</string>
+    <string name="preference_force_landscape_summary">Retired: the launcher is always landscape. Every page (browse, skins) is drawn for a wide screen, so the orientation is no longer a user choice.</string>
+    <string name="preference_category_launcher_appearance">Launcher appearance</string>
+    <string name="preference_set_custom_bg_title">Set custom launcher background</string>
+    <string name="preference_set_custom_bg_summary">Pick an image from your gallery to use as the launcher background.</string>
+    <string name="preference_remove_custom_bg_title">Remove custom launcher background</string>
+    <string name="preference_remove_custom_bg_summary">Reset the launcher background to the default (no image).</string>
+    <string name="preference_custom_bg_set_success">Custom background applied.</string>
+    <string name="preference_custom_bg_removed">Custom background removed.</string>
+    <string name="preference_custom_bg_error">Failed to load the selected image.</string>
+    <string name="preference_colour_presets_title">Colour theme presets</string>
+    <string name="preference_colour_presets_summary">Choose a built-in colour scheme or reset to default.</string>
+    <string name="preference_colour_reset">Reset to default</string>
+    <string name="preference_colour_theme_applied">Theme applied. Restart the launcher for full effect.</string>
+    <string name="preference_bg_gradient_title">Background Color</string>
+    <string name="preference_bg_gradient_summary">Enable theme background colours.</string>
+    <string name="version_select_hint">Select a version</string>
+    <string name="forge_dl_progress">Downloading installer for %s</string>
+    <string name="forge_dl_searching">Searching for Forge version number</string>
+    <string name="neoforge_dl_searching">Searching for NeoForge version number</string>
+    <string name="modloader_dl_failed_to_load_list">Failed to load the version list!</string>
+    <string name="forge_dl_no_installer">Sorry, but this version of Forge does not have an installer, which is not yet supported.</string>
+    <string name="forge_dl_select_version">Select Forge version</string>
+    <string name="fabric_dl_progress">Downloading %s loader metadata</string>
+    <string name="fabric_dl_loader_version">%s loader version</string>
+    <string name="fabric_dl_game_version">Minecraft version</string>
+    <string name="fabric_dl_install">Install</string>
+    <string name="fabric_dl_cant_read_meta">Failed to read %s loader metadata. Please try again later.</string>
+    <string name="modloader_dl_install_fabric">Create Fabric profile</string>
+    <string name="modloader_dl_install_quilt">Create Quilt profile</string>
+    <string name="modloader_dl_install_forge">Create Forge profile</string>
+    <string name="create_profile_vanilla">Create vanilla profile</string>
+    <string name="create_profile_vanilla_like_versions">Vanilla-like versions</string>
+    <string name="create_profile_modded_versions">Modded versions</string>
+    <string name="fabric_dl_loader_title">Select versions</string>
+    <string name="of_dl_select_version">Select OptiFine version</string>
+    <string name="of_dl_failed_to_scrape">Failed to collect data for OptiFine installation</string>
+    <string name="of_dl_progress">Downloading %s</string>
+    <string name="create_profile_optifine">Create OptiFine profile</string>
+
+
+    <string name="hint_search_modpack">Search for modpacks</string>
+
+    <string name="preference_vulkan_driver_system_title">Use system Vulkan driver</string>
+    <string name="preference_vulkan_driver_system_description">Force the launcher to use the system Vulkan driver instead of Turnip on Adreno GPUs. Only affects Zink and mods that use Vulkan.</string>
+
+    <string name="generic_install">Install</string>
+    <string name="generic_apply">Apply</string>
+    <string name="generic_debug">Debug</string>
+
+    <string name="search_modpack_no_result">No modpacks found</string>
+    <string name="search_modpack_error">Failed to find modpacks</string>
+    <string name="search_mod_no_result">No mods found</string>
+    <string name="search_mod_error">Failed to find mods</string>
+    <string name="search_modpack_download_error">Failed to download modpack metadata</string>
+
+    <string name="modpack_download_downloading_metadata">Downloading modpack metadata (%.2f MB / %.2f MB)</string>
+    <string name="import_modpack_start">Importing modpack…</string>
+    <string name="import_modpack_hash">Hashing modpack file… (%s MB/ %s MB)</string>
+    <string name="import_modpack_json">Reading modpack info…</string>
+    <string name="import_modpack_copy">Copying modpack file to cache… (%s MB/ %s MB)</string>
+    <string name="modpack_download_downloading_mods">Downloading mods (%.2f MB / %.2f MB)</string>
+    <string name="modpack_download_downloading_mods_fc">Downloading mods (File %d out of %d)</string>
+    <string name="modpack_download_applying_overrides">Applying overrides (%d/%d)</string>
+    <string name="modpack_install_notification_title">Pojav Modpack Installer</string>
+    <string name="modpack_install_notification_success">Click here to finish modpack installation</string>
+    <string name="modpack_install_notification_data_not_available">Failed to download mod loader information</string>
+    <string name="modpack_install_modloader_download_failed">Failed to download the mod loader files</string>
+    <string name="modpack_install_download_failed">Failed to download modpack files</string>
+    <string name="modpack_install_button">Create modpack profile</string>
+
+    <string name="notif_error_occured">An error has occurred</string>
+    <string name="notif_error_occured_desc">Click to see more details</string>
+    <string name="fabric_dl_only_stable">Show only stable versions</string>
+    <string name="dl_tampered_manifest_title">File verification warning</string>
+    <string name="dl_tampered_manifest"><![CDATA[The game version manifest on the mirror does not match the official Mojang version manifest, which means it may have been tampered with.<br/>
+        <b>This is not safe. Your personal information may be at risk if you continue.</b><br/>
+        If you still want to use the mirror, press \"Turn off manifest checks\" and start the download again.<br/>
+        If you want to use the official download source, press \"Switch to official site\" and start the download again.<br/>]]>
+    </string>
+    <string name="dl_turn_off_manifest_checks">Turn off manifest checks</string>
+    <string name="dl_switch_to_official_site">Switch to official site</string>
+    <string name="preference_download_source_title">Game download source</string>
+    <string name="preference_download_source_description">Select a download mirror instead of using the official download server</string>
+    <string name="preference_verify_manifest_title">Verify game version manifest</string>
+    <string name="preference_verify_manifest_description">When enabled, the launcher will check the game version manifest along with the libraries.</string>
+    <string name="notif_download_finished">The game is ready to launch</string>
+    <string name="notif_download_finished_desc">Click here to start it!</string>
+    <string name="preference_category_gestures">Gestures</string>
+    <string name="preference_category_buttons">Buttons</string>
+    <string name="preference_category_experimental_settings">Experimental fuckury</string>
+    <string name="preference_category_java_tweaks">Java Tweaks</string>
+    <string name="preference_category_main_categories">Categories</string>
+    <string name="preference_category_miscellaneous">Miscellaneous settings</string>
+    <string name="preference_category_video">Video settings</string>
+    <string name="notification_permission_dialog_title">Permission request</string>
+    <string name="notification_permission_dialog_text">CS Launcher Plus requires a permission to post notifications to prevent game/modpack downloads from stopping when you leave the app. Without this permission, Android may shut down your downloads when you put CS Launcher Plus in background mode.</string>
+    <string name="notification_permission_toast">You can always change your mind later by going into Settings</string>
+    <string name="preference_ask_for_notification_title">Allow notifications</string>
+    <string name="preference_ask_for_notification_description">Click to re-request the notification permission, required for game/modpack background downloads to work properly.</string>
+    <string name="preference_vsync_in_zink_title">Allow V-Sync with Zink</string>
+    <string name="preference_vsync_in_zink_description">Allows the launcher to use internal system APIs to enable V-Sync for Zink. Turn this off if your launcher suddenly crashes with Zink after a system update.</string>
+    <string name="exception_failed_to_unpack_jre17">Failed to install JRE 17</string>
+    <string name="newdl_starting">Reading game metadata…</string>
+    <string name="newdl_downloading_jre_runtime">Downloading Java %s runtime (%.2f/%.2f MB)</string>
+    <string name="newdl_downloading_metadata">Downloading game metadata (%s)</string>
+    <string name="newdl_downloading_game_files">Downloading game… (%d/%d, %.2f MB/s)</string>
+    <string name="newdl_downloading_game_files_size">Downloading game… (%.2f/%.2f MB, %.2f MB/s)</string>
+    <string name="cropper_title">Select image region</string>
+    <string name="cropper_lock_vertical">V. lock</string>
+    <string name="cropper_lock_horizontal">H. lock</string>
+    <string name="cropper_reset">Reset</string>
+    <string name="cropper_select_cancelled">Selection cancelled</string>
+    <string name="log_view_button_scroll_off">SCROLL</string>
+    <string name="log_view_button_scroll_on">SCROLL</string>
+    <string name="log_view_button_output_off">LOG</string>
+    <string name="log_view_button_output_on">LOG</string>
+    <string name="log_view_label_log_output">CS LAUNCHER PLUS • LIVE GAME LOG</string>
+    <string name="cs_cli_ascii_logo" translatable="false">   ██████╗ ███████╗\n  ██╔════╝ ██╔════╝\n  ██║      ███████╗\n  ╚██████╗ ███████║\n   ╚═════╝ ╚══════╝</string>
+    <string name="execute_jar_failed_to_read_file">Failed to read the .jar file</string>
+    <string name="execute_jar_incompatible_runtime">Execute .jar feature is not compatible with Java %d</string>
+    <string name="controller_button_a">A</string>
+    <string name="controller_button_b">B</string>
+    <string name="controller_button_x">X</string>
+    <string name="controller_button_y">Y</string>
+    <string name="controller_button_start">Start</string>
+    <string name="controller_button_select">Select</string>
+    <string name="controller_button_trigger_left">Left Trigger</string>
+    <string name="controller_button_trigger_right">Right Trigger</string>
+    <string name="controller_button_shoulder_left">Left Shoulder</string>
+    <string name="controller_button_shoulder_right">Right Shoulder</string>
+    <string name="controller_direction_forward">Stick Up</string>
+    <string name="controller_direction_backward">Stick Down</string>
+    <string name="controller_direction_left">Stick Left</string>
+    <string name="controller_direction_right">Stick Right</string>
+    <string name="controller_stick_press_l">Left Thumbstick (click)</string>
+    <string name="controller_stick_press_r">Right Thumbstick (click)</string>
+    <string name="controller_dpad_up">D-Pad Up</string>
+    <string name="controller_dpad_down">D-Pad Down</string>
+    <string name="controller_dpad_left">D-Pad Left</string>
+    <string name="controller_dpad_right">D-Pad Right</string>
+    <string name="controller_remapper_exit_part1">Hold</string>
+    <string name="controller_remapper_exit_part2">to exit</string>
+    <string name="controller_remapper_operating_mode">Current mode</string>
+    <string name="customctrl_visibility_title">Visibility</string>
+    <string name="customctrl_visibility_ingame">In-game</string>
+    <string name="customctrl_visibility_in_menus">In menus</string>
+    <string name="controller_remapper_expand_entry">Expand to change keycodes</string>
+    <string name="preference_remap_controller_title">Change controller key bindings</string>
+    <string name="preference_remap_controller_description">Allows you to modify the keyboard keys bound to each controller button</string>
+    <string name="mcl_button_discord">Discord</string>
+    <string name="mcl_section_quick_actions">Quick Actions</string>
+    <string name="mcl_section_instance_tools">Instance Tools</string>
+    <string name="mcl_section_instances">Select Instance</string>
+    <string name="mcl_button_mod_store">Download Resources</string>
+    <string name="mcl_button_settings">Settings</string>
+    <string name="cursor_customization_title">Cursor Customization</string>
+    <string name="cursor_import">Import Cursor</string>
+    <string name="cursor_create">Create Cursor</string>
+    <string name="cursor_my_cursors">My Cursors</string>
+    <string name="cursor_preview">Cursor Preview</string>
+    <string name="cursor_settings">Settings</string>
+    <string name="cursor_designer_title">Cursor Designer Studio</string>
+    <string name="cursor_tool_pencil">Pencil</string>
+    <string name="cursor_tool_brush">Brush</string>
+    <string name="cursor_tool_eraser">Eraser</string>
+    <string name="cursor_tool_fill">Fill</string>
+    <string name="cursor_effect_glow">Glow Effect</string>
+    <string name="cursor_effect_shadow">Shadow Effect</string>
+    <string name="cursor_size">Cursor Size</string>
+    <string name="cursor_apply">Apply</string>
+    <string name="cursor_save">Save</string>
+
+    <string name="mcl_button_manage_mods">Manage Mods</string>
+    <string name="mcl_button_resource_packs">Resource Packs</string>
+    <string name="mcl_button_shader_packs">Shader Packs</string>
+    <string name="mcl_button_install_modpack">Install Modpack (.mrpack/zip)</string>
+    <string name="delete">Delete</string>
+    <string name="ltw_render_distance_warning_msg">Your GPU is not capable of rendering above 7 render distance without Sodium or other similar mods. The render distance will be automatically reduced when you click "OK".</string>
+    <string name="mcl_button_open_directory">Open game directory</string>
+    <string name="discord_invite" translatable="false">https://discord.gg/8WzF2RVAq4</string>
+    <string name="local_login_bad_username_title">Unsuitable username</string>
+    <string name="local_login_bad_username_text">The username must be between 3–16 characters long, and must only contain latin letters, numbers 0–9 and underscores.</string>
+    <string name="quick_setting_title">Quick settings</string>
+    <string name="create_bta_profile">Create \"Better than Adventure!\" profile</string>
+    <string name="select_bta_version">Select \"Better than Adventure!\" version</string>
+    <string name="bta_installer_available_versions">Supported BTA versions</string>
+    <string name="bta_installer_untested_versions">Untested BTA versions</string>
+    <string name="bta_installer_nightly_versions">Nightly BTA versions</string>
+    <string name="newdl_extracting_native_libraries">Extracting native libraries (%d/%d)</string>
+    <string name="toast_not_available_demo">This is not available in demo mode</string>
+
+    <string name="preference_renderer_mobileglues_settings">MobileGlues Renderer Settings</string>
+    <string name="mg_renderer_glsl_cache">Max GLSL cache size</string>
+    <string name="mg_renderer_angle">Use ANGLE as driver</string>
+    <string name="mg_renderer_multidraw">Multidraw emulation mode</string>
+    <string name="mg_renderer_title_errorSetting">Error Filtering</string>
+    <string name="mg_renderer_title_timerQueryExt">Disable GPU Utilization in F3 menu</string>
+    <string name="mg_renderer_summary_timerQueryExt">Fixes random crashes when F3 is open on some Mali devices</string>
+    <string name="preference_ANGLE_only">ANGLE Only Options</string>
+    <string name="mg_renderer_title_angleDepthClearFixMode">Fix hand and held items from going through blocks</string>
+    <string name="mg_renderer_summary_angleDepthClearFixMode">Only affects ANGLE, can affect performance.</string>
+    <string name="preference_experimental_title">Experimental Stuff</string>
+    <string name="mg_renderer_title_gl43exts">Advertise Experimental OpenGL 4.3 extensions</string>
+    <string name="mg_renderer_summary_gl43exts">May help with mod crashes. Disable if not needed, can cause crashes.</string>
+    <string name="mg_renderer_title_computeShaderext">Advertise Experimental Compute Shader extension</string>
+    <string name="mg_renderer_summary_computeShaderext">May help with shaderpack glitches. Disable if not needed, can cause crashes.</string>
+    <string name="mg_renderer_title_multidrawCompute">Use Compute Multidraw Emulation</string>
+    <string name="mg_renderer_summary_multidrawCompute">Uses compute shaders for multidraw emulation</string>
+    <string name="app_short_name" translatable="false">CS LAUNCHER PLUS</string>
+    <string name="demo_versions_supported">Only Vanilla 1.3.1 and above are supported on demo accounts</string>
+    <string name="demo_unsupported">Demo Profile not supported</string>
+    <string name="change_account">Please change accounts to use this function</string>
+    <string name="no_minecraft_account_found">No Minecraft Account Found</string>
+    <string name="feature_requires_java_account">This feature requires a Microsoft account that owns Minecraft Java Edition.</string>
+    <string name="delete_account_and_login">Delete account and log in</string>
+    <string name="login_again">Please log in again</string>
+    <string name="account_corrupted">Selected account is corrupted</string>
+    <string name="modloader_dl_install_neoforge">Create Neoforge profile</string>
+    <string name="neoforge_dl_select_version">Select NeoForge version</string>
+    <string name="neoforge_dl_no_installer">Sorry, but this version of NeoForge does not have an installer, which is not yet supported.</string>
+
+    <string name="preference_category_touchcontroller_settings">TouchController Settings</string>
+    <string name="preference_force_enable_touchcontroller_title">Force enable TouchController</string>
+    <string name="preference_force_enable_touchcontroller_description">Force enable TouchController integration, even if mod file is not found.</string>
+    <string name="preference_touchcontroller_vibrate_length_title">TouchController vibrate length</string>
+    <string name="preference_touchcontroller_vibrate_length_description">Set the length of the vibration when using TouchController.</string>
+    <string name="error_vanilla_json_corrupt">Vanilla json seems to be corrupt. Please send a bug report on github or discord.</string>
+    <string name="preference_ask_for_microphone_title">Allow microphone</string>
+    <string name="preference_ask_for_microphone_description">Click to re-request the notification permission, required for voice chat mods like Simple Voice Chat.</string>
+    <string name="mcl_gamepad_forcedSDL_subtitle">Can allow old versions of Legacy4J to use SDL backend</string>
+    <string name="mcl_gamepad_forcedSDL">Forcibly start SDL controller handling</string>
+    <string name="preference_category_SDL_settings">SDL Settings</string>
+    <string name="oldL4JFound">You are using a version of Legacy4J without the android fixes! You will need to manually enable SDL in the controller settings to get the best experience!</string>
+    <string name="global_warning">Warning!</string>
+    <string name="controllableFound">Controllable currently has a random chance of crashing on launch. Either keep trying again and hope it launches or use another mod like Controlify.</string>
+    <string name="mg_renderer_title_dsaExt">Advertise Experimental Direct State Access extension</string>
+    <string name="mg_renderer_summary_dsaExt">May help with Iris shaderpacks, required for AcceleratedRendering mod</string>
+    <string name="mg_renderer_title_fsr">AMD FSR 1 Upscaling</string>
+    <string name="autorendererselectfailed">Auto-renderer select failed, defaulting to HolyGL4ES</string>
+    <string name="sodium_warning_title">Sodium detected!</string>
+    <string name="sodium_warning_message">It appears you are using sodium, this is unsupported and may lead to graphical issues or crashes. Please remove it and all dependent mods.</string>
+    <string name="delete_sodium">Delete Sodium and Launch report this if you see this it should have been removed</string>
+    <string name="sodium_override_title">Run sodium forcefully</string>
+    <string name="sodium_override_summaryOff">Using sodium may cause visual bugs and crashes. You have been warned.</string>
+    <string name="sodium_override_summaryOn">Sodium is not supported. No help will be given if you encounter any issues.</string>
+    <!--  Make sure the people turning this on can read English.  -->
+    <string name="sodium_math_warning_title" translatable="false">Solve the math question to enable</string>
+    <string name="sodium_math_warning_message" translatable="false">
+    Sodium is unsupported, you are on your own. No support will be given in the discord server.\nUsing sodium may result in bugs, glitches, and crashes. No help will be given even if you lose any of your worlds or saves.\n\nNow what\'s %1$s multiplied by %2$s plus %3$s minus %4$s?
+    </string>
+    <string name="not_modpack_file">Not a modpack file!</string>
+    <string name="global_not_installed">Not Installed</string>
+    <string name="global_download">Download</string>
+    <string name="multirt_no_internet">Failed to download, check your internet connection.</string>
+    <string name="global_installing">Installing…</string>
+
+    <string name="mod_deps_title">Select dependencies to install</string>
+    <string name="mod_deps_install_selected">Install selected</string>
+    <string name="mod_deps_install_without">Install without deps</string>
+
+    <!-- Launcher Landscape Layout Strings -->
+    <string name="cs_launcher_title">CS LAUNCHER PLUS</string>
+    <string name="cs_launcher_subtitle">YOUR MINECRAFT. YOUR WAY.</string>
+    <string name="cs_welcome_back_label">· WELCOME BACK,</string>
+    <string name="cs_welcome_username">STEVE</string>
+    <string name="cs_ready_subtitle">Ready to jump back into your adventure?</string>
+    <string name="mcl_edit">Edit</string>
+    <string name="mcl_tab_home">Home</string>
+
+    <!-- Mod Detail Page Strings -->
+    <string name="detail_select_version">Select a version</string>
+    <string name="detail_select_version_first">Select a version first</string>
+    <string name="mod_detail_install">INSTALL</string>
+    <string name="mod_detail_installed">INSTALLED</string>
+    <string name="mod_detail_install_mod">Install Mod</string>
+    <string name="mod_detail_install_modpack">Install Modpack</string>
+    <string name="mod_detail_install_resourcepack">Install Resource Pack</string>
+    <string name="mod_detail_install_shader">Install Shader</string>
+    <string name="mod_detail_install_datapack">Install Datapack</string>
+    <string name="mod_detail_blocked">NOT COMPATIBLE</string>
+    <string name="mod_detail_blocked_toast">This file is not compatible with the selected profile. Change the version first.</string>
+    <string name="mod_detail_change_version">Change version</string>
+    <string name="mod_detail_incompatible_notice">This file does not support %1$s. Pick a compatible version from CHANGE — the install stays blocked so the game cannot break.</string>
+    <string name="detail_download_now">DOWNLOAD NOW</string>
+    <string name="detail_screenshots">Screenshots</string>
+    <!-- Mod Install Screen Strings -->
+    <string name="mod_install_title">Install Mod</string>
+    <string name="mod_install_now">INSTALL NOW</string>
+    <string name="mod_installing">INSTALLING...</string>
+    <string name="mod_install_about">ABOUT</string>
+    <string name="mod_install_gallery">GALLERY</string>
+    <string name="mod_install_details">DETAILS</string>
+    <string name="mod_install_links_label">LINKS</string>
+    <string name="mod_install_changelog_label">CHANGELOG</string>
+    <string name="mod_install_dep_label">DEPENDENCIES</string>
+    <string name="mod_install_dep_message">%1$d required, %2$d optional — you will choose which ones to install.</string>
+    <string name="mod_install_dep_message_simple">%d required — you will choose which ones to install.</string>
+    <string name="mod_install_version_label">Version</string>
+    <string name="mod_install_last_updated">Last updated</string>
+    <string name="mod_install_source_label">Source</string>
+    <string name="mod_install_loaders_label">LOADERS</string>
+    <string name="mod_install_mcversions_label">MINECRAFT VERSIONS</string>
+    <string name="mod_install_categories_label">CATEGORIES</string>
+    <string name="mod_install_stats_downloads">Downloads</string>
+    <string name="mod_install_stats_followers">Followers</string>
+    <string name="mod_install_stats_license">License</string>
+    <string name="mod_install_link_website">Website</string>
+    <string name="mod_install_link_source">Source</string>
+    <string name="mod_install_link_issues">Issues</string>
+    <string name="mod_install_link_wiki">Wiki</string>
+    <string name="mod_install_link_discord">Discord</string>
+    <string name="mod_install_more_chip">+%d more</string>
+    <string name="mod_install_by_author">by %s</string>
+    <string name="browse_eyebrow">RESOURCE HUB</string>
+    <string name="browse_title">Browse Resources</string>
+    <string name="browse_search_hint">Search mods, packs, shaders…</string>
+    <string name="browse_search_hint_typed">Search %s…</string>
+    <string name="browse_filter_cd">Filters</string>
+    <string name="browse_install_cd">View project</string>
+    <string name="browse_like_cd">Like</string>
+    <string name="browse_loading_results">Finding the best results…</string>
+    <string name="browse_no_results">No results found.</string>
+    <string name="browse_filter_eyebrow">REFINE RESULTS</string>
+    <string name="browse_filter_title">Filters</string>
+    <string name="browse_filter_loader_label">MOD LOADER</string>
+    <string name="browse_filter_clear">Clear</string>
+    <string name="global_clear">Clear</string>
+    <string name="global_cancel">Cancel</string>
+    <string name="browse_sort_title">Sort by</string>
+    <string name="browse_sort_chip">Sort: %1$s</string>
+    <string name="rw_eyebrow">FIRST LAUNCH SETUP</string>
+    <string name="rw_title">Choose your Java runtimes</string>
+    <string name="rw_sub">Pick one or more — newer Minecraft needs newer Java. Java 17 and 21 cover almost everything today. You can also skip and install later from Settings.</string>
+    <string name="rw_java8_role">Minecraft 1.16.5 and older</string>
+    <string name="rw_java17_role">Minecraft 1.17 – 1.20.4</string>
+    <string name="rw_java21_role">Minecraft 1.20.5 and newer</string>
+    <string name="rw_java25_role">Latest JVM — upcoming releases</string>
+    <string name="rw_recommended">RECOMMENDED</string>
+
+    <!-- Runtime Setup (full-screen installer) -->
+    <string name="rs_eyebrow">FIRST-LAUNCH SETUP</string>
+    <string name="rs_title">Java Runtimes</string>
+    <string name="rs_summary">Minecraft needs the right Java version to run. Pick the runtimes to install now — recommended ones are pre-selected.</string>
+    <string name="rs_install_cta">Install Selected (%1$d)</string>
+    <string name="rs_continue_cta">Continue</string>
+    <string name="rs_skip">Skip for now</string>
+    <string name="rs_offline_note">You\'re offline — runtime downloads need an internet connection.</string>
+    <string name="rs_install_eyebrow">INSTALLING RUNTIMES</string>
+    <string name="rs_done_cta">Start Playing</string>
+    <string name="rs_step_installing">Installing Java %1$d…</string>
+    <string name="rs_step_done">Setup complete</string>
+    <string name="rs_step_partial">Setup finished with issues</string>
+    <string name="rs_stats_preparing">Contacting download server…</string>
+    <string name="rs_stats_queued">Waiting for earlier runtimes…</string>
+    <string name="rs_stats_ready">Installed and verified</string>
+    <string name="rs_stats_failed">Failed — tap to retry</string>
+    <string name="rs_stats_all_ready">Every selected runtime is ready to use.</string>
+    <string name="rs_stats_partial">Some runtimes failed. Tap a failed card to retry, or finish to continue.</string>
+    <string name="rs_failed_toast">Java %1$d installation failed. Tap the card to retry.</string>
+    <string name="rs_back_locked">Please wait — installation in progress…</string>
+    <string name="rs_summary_none">Nothing selected</string>
+    <string name="rs_summary_pick">%1$d selected  •  ~%2$d MB</string>
+    <string name="rs_step_downloading_all">Downloading selected runtimes</string>
+    <string name="rs_step_starting">Starting</string>
+    <string name="rs_step_preparing">Preparing</string>
+    <string name="rs_step_downloading">Downloading</string>
+    <string name="rs_step_installing_card">Installing</string>
+    <string name="rs_step_completed">Completed</string>
+    <string name="rs_step_failed">Failed</string>
+    <string name="rs_stats_starting">Starting the runtime installer…</string>
+    <string name="rs_stats_preparing_short">Preparing the download queue…</string>
+    <string name="rs_stats_downloading">Downloading Java %1$d — %2$d%% complete</string>
+    <string name="rs_stats_installing">Installing Java %1$d — unpacking the runtime…</string>
+    <string name="rs_stats_completed">All runtimes installed and verified. You are ready to play.</string>
+    <string name="rs_stats_failed_all">Every download failed. Check your connection and retry.</string>
+    <string name="rs_later_cta">Later</string>
+    <string name="rs_start_cta">Start</string>
+    <string name="rs_popular_none">No installs yet</string>
+    <string name="rs_popular_total">%1$d install(s) recorded</string>
+    <string name="rs_popular_empty">Install a runtime to build your usage chart.</string>
+    <string name="rw_installed">INSTALLED</string>
+    <string name="rw_size_estimate">~%d MB</string>
+    <string name="rw_queued">QUEUED</string>
+    <string name="rw_downloading">DOWNLOADING</string>
+    <string name="rw_ready">READY</string>
+    <string name="rw_failed">FAILED — TAP TO RETRY</string>
+    <string name="rw_progress_status">Setting up runtimes (%1$d/%2$d) — keep the app open</string>
+    <string name="rw_all_ready">All runtimes ready ✓</string>
+    <string name="rw_some_failed">Some downloads failed — tap a card to retry</string>
+    <string name="rw_finish">Done — let’s play</string>
+    <string name="rw_finish_anyway">Continue anyway</string>
+    <string name="rw_skip">Skip for now</string>
+    <string name="rw_download_cta">Download %d selected</string>
+    <string name="rw_download_cta_none">Select runtimes above</string>
+    <string name="rw_installing_cta">Downloading…</string>
+    <string name="loader_installer_eyebrow">LOADER INSTALLER</string>
+    <string name="loader_installer_sub">Pick a Minecraft version to continue</string>
+    <string name="loader_installer_ready_title">Ready to install</string>
+    <string name="loader_installer_summary_title">Version selected</string>
+    <string name="loader_installer_summary_sub">The loader will be downloaded and patched into a new profile automatically.</string>
+    <string name="loader_installer_start">INSTALL</string>
+    <string name="download">Download</string>
+    <string name="mod_description_label">Description</string>
+
+    <!-- Shortcut Strings -->
+    <string name="shortcut_add_title">Add to Home Screen</string>
+    <string name="shortcut_add_subtitle">Create a shortcut to launch this profile directly from your home screen</string>
+    <string name="shortcut_name_hint">Shortcut name</string>
+    <string name="shortcut_icon_label">Icon Preview</string>
+    <string name="shortcut_icon_choose">Choose icon source</string>
+    <string name="shortcut_icon_profile">Profile Icon</string>
+    <string name="shortcut_icon_skin">Skin Head</string>
+    <string name="shortcut_icon_custom">Custom Image</string>
+    <string name="shortcut_create_btn">Create Shortcut</string>
+    <string name="shortcut_no_account">No account found. Add an account first to use skin head icons.</string>
+    <string name="shortcut_downloading_skin">Downloading skin head...</string>
+    <string name="shortcut_skin_failed">Failed to download skin head. Try another icon source.</string>
+    <string name="shortcut_image_error">Failed to load image.</string>
+    <string name="shortcut_error">Failed to create shortcut.</string>
+    <string name="shortcut_name_required">Shortcut name is required.</string>
+    <string name="shortcut_created">Shortcut created!</string>
+    <string name="shortcut_add_subtitle_named">Pin %1$s to your home screen</string>
+    <string name="shortcut_name_label">Shortcut name</string>
+    <string name="shortcut_icon_loader">Loader</string>
+    <string name="shortcut_preview_hint">This is how the shortcut will look on your home screen. Adjust the action, icon and shape below.</string>
+
+    <!-- Shortcut actions -->
+    <string name="shortcut_action_label">What should it do?</string>
+    <string name="shortcut_action_caption">Each profile can have one shortcut per action.</string>
+    <string name="shortcut_action_launch">Launch game</string>
+    <string name="shortcut_action_launch_desc">Start Minecraft with this profile right away</string>
+    <string name="shortcut_action_open_profile">Open launcher</string>
+    <string name="shortcut_action_open_profile_desc">Open the launcher with this profile selected</string>
+    <string name="shortcut_action_mods">Browse mods</string>
+    <string name="shortcut_action_mods_desc">Jump straight into the mod browser for this profile</string>
+    <string name="shortcut_action_edit">Edit profile</string>
+    <string name="shortcut_action_edit_desc">Open this profile\'s settings</string>
+    <string name="shortcut_action_folder">Open folder</string>
+    <string name="shortcut_action_folder_desc">Open this profile\'s game directory in a file manager</string>
+    <string name="shortcut_action_exists">Added</string>
+
+    <!-- Suggested names -->
+    <string name="shortcut_suggested_mods">%1$s Mods</string>
+    <string name="shortcut_suggested_edit">%1$s Settings</string>
+    <string name="shortcut_suggested_folder">%1$s Files</string>
+
+    <!-- Icon shape -->
+    <string name="shortcut_shape_label">Icon shape</string>
+    <string name="shortcut_shape_squircle">Squircle</string>
+    <string name="shortcut_shape_circle">Circle</string>
+    <string name="shortcut_shape_rounded">Rounded</string>
+    <string name="shortcut_shape_square">Square</string>
+
+    <!-- Options -->
+    <string name="shortcut_options_label">Options</string>
+    <string name="shortcut_option_adaptive">Adaptive icon</string>
+    <string name="shortcut_option_adaptive_desc">Let your launcher apply its own icon mask. Recommended on Android 8 and newer.</string>
+    <string name="shortcut_option_badge">Show action badge</string>
+    <string name="shortcut_option_badge_desc">Adds a small corner glyph showing what the shortcut does.</string>
+    <string name="shortcut_option_dynamic">Quick menu on app icon</string>
+    <string name="shortcut_option_dynamic_desc">Long-press the launcher icon to jump into your recent profiles.</string>
+
+    <!-- Manage shortcuts -->
+    <string name="shortcut_manage_title">Manage shortcuts</string>
+    <string name="shortcut_manage_empty">No shortcuts yet</string>
+    <string name="shortcut_manage_empty_hint">Long-press a profile on the home screen, or tap its shortcut button, to pin it to your device.</string>
+    <string name="shortcut_entry_subtitle">%1$s · %2$s</string>
+    <string name="shortcut_entry_never_used">Created %1$s · not used yet</string>
+    <string name="shortcut_unknown_profile">Unknown profile</string>
+    <string name="shortcut_orphaned">Profile deleted</string>
+    <string name="shortcut_remove">Remove</string>
+    <string name="shortcut_remove_confirm">Remove “%1$s”? The icon will stop working, and you may need to drag it off your home screen manually.</string>
+    <string name="shortcut_remove_all">Remove all</string>
+    <string name="shortcut_remove_all_confirm">Remove every shortcut created by CS LAUNCHER PLUS? This cannot be undone.</string>
+    <string name="shortcut_removed">Shortcut removed</string>
+
+    <!-- Shortcut states -->
+    <string name="shortcut_already_exists">A shortcut for this action already exists. Creating another copy.</string>
+    <string name="shortcut_pin_unsupported">Your home screen app does not support pinned shortcuts, so this shortcut cannot be created.</string>
+    <string name="shortcut_disabled_message">This shortcut was removed in CS LAUNCHER PLUS.</string>
+    <string name="shortcut_profile_missing">That profile no longer exists. The shortcut has been removed.</string>
+    <string name="shortcut_folder_missing">This profile\'s game folder could not be found.</string>
+
+    <plurals name="shortcut_manage_count">
+        <item quantity="one">%1$d shortcut</item>
+        <item quantity="other">%1$d shortcuts</item>
+    </plurals>
+
+    <plurals name="shortcut_entry_used">
+        <item quantity="one">Used %1$d time · last %2$s</item>
+        <item quantity="other">Used %1$d times · last %2$s</item>
+    </plurals>
+
+    <!-- Modpack Builder Strings -->
+    <string name="modpack_builder_title">Modpack Builder</string>
+    <string name="mp_generate">Generate</string>
+    <string name="mp_generating">Generating...</string>
+    <string name="mp_already_generated">This modpack has already been generated</string>
+    <string name="mp_generated_success">Modpack \"%s\" created successfully!</string>
+    <string name="mp_generate_failed">Generation failed: %s</string>
+    <string name="mp_step1_short">Version</string>
+    <string name="mp_step2_short">Loader</string>
+    <string name="mp_step3_short">Mods</string>
+    <string name="mp_step4_short">RPs</string>
+    <string name="mp_step5_short">Shaders</string>
+    <string name="mp_step6_short">Review</string>
+    <string name="mp_step1_title">Select Version</string>
+    <string name="mp_step1_subtitle">Choose a Minecraft version for your modpack</string>
+    <string name="mp_step2_title">Select Loader</string>
+    <string name="mp_step2_subtitle">Choose your mod loader</string>
+    <string name="mp_step3_title">Select Mods</string>
+    <string name="mp_step3_subtitle">Choose mods for your modpack</string>
+    <string name="mp_step4_title">Select Resource Packs</string>
+    <string name="mp_step4_subtitle">Choose resource packs</string>
+    <string name="mp_step5_title">Select Shaders</string>
+    <string name="mp_step5_subtitle">Choose shader packs</string>
+    <string name="mp_step6_title">Review &amp; Generate</string>
+    <string name="mp_step6_subtitle">Review your modpack configuration</string>
+    <string name="mp_select_version_first">Select a Minecraft version first</string>
+    <string name="mp_no_versions_found">No installed Minecraft versions found. Install a version first.</string>
+    <string name="mp_loader_vanilla_desc">No mod loader. Play with the standard Minecraft experience.</string>
+    <string name="mp_loader_fabric_desc">Lightweight mod loader. Best for performance mods.</string>
+    <string name="mp_loader_forge_desc">The original major mod loader. Supports many large mods.</string>
+    <string name="mp_loader_neoforge_desc">A modern fork of Forge. Supports the latest versions.</string>
+    <string name="mp_loader_quilt_desc">A Fabric-compatible loader with modern tooling.</string>
+    <string name="mp_mods_selected_count">%d mods selected</string>
+    <string name="mp_rp_selected_count">%d resource packs selected</string>
+    <string name="mp_shader_selected_count">%d shaders selected</string>
+    <string name="mp_review_version">Version: %s</string>
+    <string name="mp_review_loader">Loader: %s</string>
+    <string name="mp_review_mods">Mods selected: %d</string>
+    <string name="mp_review_rp">Resource packs selected: %d</string>
+    <string name="mp_review_shader">Shaders selected: %d</string>
+    <string name="mp_review_summary">Summary</string>
+    <string name="mp_name_required">Modpack name is required</string>
+    <string name="mp_name_hint">Modpack Name</string>
+    <string name="mp_desc_hint">Description (optional)</string>
+    <string name="mp_recommended_badge">Recommended</string>
+
+    <string name="global_next">Next</string>
+    <string name="global_close">Close</string>
+
+    <!-- Share Code System Strings -->
+    <string name="mp_export_title">Export Share Code</string>
+    <string name="mp_share_title">Share Modpack Code</string>
+    <string name="mp_copy_code">Copy Code</string>
+    <string name="mp_share_code">Share Code</string>
+    <string name="mp_upload_gist">Upload to GitHub Gist</string>
+    <string name="mp_code_copied">Code copied to clipboard</string>
+    <string name="mp_code_too_long_hint">Code is too long for offline sharing.\nUpload to GitHub Gist instead.</string>
+    <string name="mp_gist_uploaded">✓ Uploaded to GitHub Gist</string>
+
+    <string name="mp_import_title">Import Share Code</string>
+    <string name="mp_import_instructions">Paste a modpack share code below to import and recreate the profile.</string>
+    <string name="mp_import_code_hint">Paste share code here</string>
+    <string name="mp_import_code_required">Please enter a share code</string>
+    <string name="mp_import_invalid_code">Invalid share code format. Must start with CS-MP- or CS-MP-GH-</string>
+    <string name="mp_import_decoding">Decoding share code…</string>
+    <string name="mp_import_downloading">Downloading from GitHub Gist…</string>
+    <string name="mp_import_success">Modpack imported successfully!</string>
+    <string name="mp_import_failed">Import failed: %s</string>
+    <string name="mp_import_action">Import Modpack</string>
+    <string name="mp_paste_code">Paste from Clipboard</string>
+
+
+    <!-- CS Premium redesign — Studio / Store / Cursor -->
+    <string name="cs_studio_title">Profile Studio</string>
+    <string name="cs_cancel">Cancel</string>
+    <string name="cs_confirm_delete">Tap again to delete</string>
+    <string name="cs_installed_profile">Installed in this Profile</string>
+    <string name="cs_update_available">Update Available</string>
+    <string name="cs_installed_newer">Installed (Newer Version)</string>
+    <string name="cs_ram_global_hint">Global default • applies to every profile</string>
+    <string name="cs_section_general">General</string>
+    <string name="cs_section_java">JVM Arguments</string>
+    <string name="cs_section_memory">RAM</string>
+    <string name="cs_section_graphics">Renderer</string>
+    <string name="cs_section_mods">Mods</string>
+    <string name="cs_section_rpacks">Resource Packs</string>
+    <string name="cs_section_shaders">Shaders</string>
+    <string name="cs_section_skin">Skin</string>
+    <string name="cs_section_cape">Cape</string>
+    <string name="cs_section_runtime">Java Runtime</string>
+    <string name="cs_section_advanced">Controls</string>
+
+    <!-- ═══════════ PHASE 2: Profile Studio / World Manager / Datapacks / Settings ═══════════ -->
+    <string name="cs_back">Back</string>
+    <string name="cs_section_worlds">Worlds</string>
+
+    <!-- World Manager -->
+    <string name="cs_world_manager_title">World Manager</string>
+    <string name="cs_world_subtitle_profile">Profile: %s</string>
+    <string name="cs_world_search_hint">Search worlds…</string>
+    <string name="cs_world_sort_last_played">Last Played</string>
+    <string name="cs_world_sort_name">Name</string>
+    <string name="cs_world_sort_size">Size</string>
+    <string name="cs_world_sort_version">Version</string>
+    <string name="cs_world_loading">Scanning worlds…</string>
+    <string name="cs_world_refresh">Refresh worlds</string>
+    <string name="cs_stage_title">Opening game window…</string>
+    <string name="cs_stage_sub">Minecraft is starting — controls appear automatically.</string>
+    <string name="cs_launch_preparing">Preparing launcher…</string>
+    <string name="cs_launch_verifying">Verifying assets…</string>
+    <string name="cs_launch_runtime">Checking runtime…</string>
+    <string name="cs_launch_starting">Opening game window…</string>
+    <string name="cs_world_empty">No worlds found</string>
+    <string name="cs_world_empty_search">No worlds match “%s”</string>
+    <string name="cs_world_empty_hint">Play a world once, or import one below</string>
+    <string name="cs_world_import">Import World (.zip)</string>
+    <string name="cs_world_open_folder">Open Folder</string>
+    <string name="cs_world_icon_desc">World icon</string>
+    <string name="cs_world_actions">World Actions</string>
+
+    <string name="cs_world_storage_title">World Storage</string>
+    <string name="cs_world_storage_loading">Calculating…</string>
+    <string name="cs_world_storage_summary">used by %s</string>
+    <string name="cs_world_storage_free">%s free</string>
+    <string name="cs_world_storage_total">of %s</string>
+
+    <string name="cs_world_info_version">Version</string>
+    <string name="cs_world_info_last_played">Last Played</string>
+    <string name="cs_world_info_size">World Size</string>
+    <string name="cs_world_info_datapacks">Datapacks</string>
+    <string name="cs_world_info_seed">Seed</string>
+    <string name="cs_world_info_folder">Folder</string>
+
+    <string name="cs_world_play">Play World</string>
+    <string name="cs_world_browse_datapacks">Browse Datapacks (Modrinth)</string>
+    <string name="cs_world_rename">Rename</string>
+    <string name="cs_world_duplicate">Duplicate</string>
+    <string name="cs_world_backup">Backup</string>
+    <string name="cs_world_restore">Restore Backup</string>
+    <string name="cs_world_export">Export</string>
+    <string name="cs_world_compress">Compress</string>
+    <string name="cs_world_delete">Delete World</string>
+    <string name="cs_world_delete_confirm">Delete “%s” permanently? This cannot be undone.</string>
+    <string name="cs_world_compress_keep">Zip only (keep original)</string>
+    <string name="cs_world_compress_remove">Zip and remove original</string>
+    <string name="cs_world_no_backups">No backups found for this world.</string>
+    <string name="cs_world_launching">Launching — %s is in your Singleplayer list</string>
+    <string name="cs_world_play_no_profile">Profile not found for this launch.</string>
+
+    <string name="cs_copy_path">Copy Path</string>
+    <string name="cs_path_copied">Path copied to clipboard</string>
+    <string name="cs_rename">Rename</string>
+
+    <!-- Datapack Browser -->
+    <string name="cs_datapacks_title">Datapacks</string>
+    <string name="cs_datapacks_search_hint">Search Modrinth datapacks…</string>
+    <string name="cs_dp_sort_relevance">Relevant</string>
+    <string name="cs_dp_sort_popular">Popular</string>
+    <string name="cs_dp_sort_new">New</string>
+    <string name="cs_dp_sort_updated">Updated</string>
+    <string name="cs_dp_version_all">All versions</string>
+    <string name="cs_dp_version_hint">e.g. 1.20.1</string>
+    <string name="cs_dp_version_title">Minecraft version</string>
+    <string name="cs_dp_install_path">Installs into: %s</string>
+
+    <!-- Settings -->
+    <string name="cs_settings_title">Launcher Settings</string>
+    <string name="cs_settings_unsaved">Unsaved changes</string>
+    <string name="cs_settings_apply">APPLY</string>
+
+    <!-- ═══════════ PHASE 3: Glass terminal + Settings v3 ═══════════ -->
+    <string name="cs_log_search_hint">filter logs…</string>
+    <string name="cs_log_pause">Pause</string>
+    <string name="cs_log_copy">Copy</string>
+    <string name="cs_log_export">Export log</string>
+    <string name="cs_log_clear">Clear</string>
+    <string name="cs_log_empty">Nothing to copy yet</string>
+    <string name="cs_log_copied">Logs copied to clipboard</string>
+
+    <string name="cs_settings_search_hint">Search settings…</string>
+    <string name="cs_settings_favorites">Favorites</string>
+    <string name="cs_settings_recent">Recently Changed</string>
+    <string name="cs_settings_no_results">No settings match that search</string>
+    <string name="cs_settings_fav_add">Add to favorites</string>
+    <string name="cs_settings_fav_remove">Remove from favorites</string>
+
+    <!-- Command Studio (multi-command automation) -->
+    <string name="customctrl_command_templates">Templates</string>
+    <string name="customctrl_command_history">History</string>
+    <string name="customctrl_command_validate">Validate</string>
+    <string name="customctrl_command_import">Import</string>
+    <string name="customctrl_command_export">Export</string>
+    <string name="customctrl_command_ready">Script ready — %d action(s)</string>
+    <string name="customctrl_command_empty">Add one command per line. Supports delay:ms, var:name=value, if:…, repeat:N /cmd</string>
+    <string name="customctrl_command_error_line">Line %1$d: %2$s</string>
+    <string name="customctrl_command_exported">Command script copied</string>
+    <string name="customctrl_command_imported">Command script imported</string>
+    <string name="customctrl_command_clipboard_empty">Clipboard is empty</string>
+    <string name="cs_play_button">Play</string>
+
+    <plurals name="cs_world_count">
+        <item quantity="one">%d world</item>
+        <item quantity="other">%d worlds</item>
+    </plurals>
+    <plurals name="cs_world_datapack_count">
+        <item quantity="one">%d datapack</item>
+        <item quantity="other">%d datapacks</item>
+    </plurals>
+    <plurals name="cs_dp_installed_count">
+        <item quantity="one">%d installed</item>
+        <item quantity="other">%d installed</item>
+    </plurals>
+    <string name="minecraft_no_username_set">This Microsoft account owns Minecraft but does not have a Java profile name yet.</string>
+    <string name="cursor_lab_tagline">Design • Tune • Play</string>
+    <string name="cursor_lab_badge">V4 LAB</string>
+    <string name="cursor_choose">CHOOSE</string>
+    <string name="cursor_upload_hint">PNG with transparent background</string>
+    <string name="cursor_section_style">STYLE</string>
+    <string name="cursor_section_tuning">TUNING</string>
+    <string name="cursor_section_color">GLOW COLOR</string>
+    <string name="cursor_tune_size">SIZE</string>
+    <string name="cursor_tune_opacity">OPACITY</string>
+    <string name="cursor_tune_anim">ANIMATION SPEED</string>
+    <string name="cursor_tune_glow">GLOW STRENGTH</string>
+    <string name="cursor_style_classic">CLASSIC</string>
+    <string name="cursor_style_gamepad">GAMEPAD</string>
+    <string name="cursor_style_custom">CUSTOM</string>
+    <string name="cursor_save_action">SAVE CURSOR</string>
+    <string name="cursor_export_action">EXPORT</string>
+    <string name="cursor_reset_action">RESET</string>
+    <string name="cursor_color">glow color</string>
+    <string name="back">Back</string>
+
+    <!-- Mod management — copy & update -->
+    <string name="mod_action_check_update">Check for update</string>
+    <string name="mod_action_copy_to_profile">Copy to another profile</string>
+    <string name="mod_copy_title">Copy mod to profile</string>
+    <string name="mod_copy_no_targets">No other profile to copy this mod into</string>
+    <string name="mod_copy_blocked_vanilla">Vanilla profiles cannot use mods</string>
+    <string name="mod_copy_blocked_optifine">OptiFine profiles cannot use mods</string>
+    <string name="mod_copy_exists_title">Already installed there</string>
+    <string name="mod_copy_exists_message">%1$s already has %2$s. Replace it?</string>
+    <string name="mod_copy_skip">Skip</string>
+    <string name="mod_copy_replace">Replace</string>
+    <string name="mod_copy_done">Copied to %1$s</string>
+    <string name="mod_copy_failed">Copy failed</string>
+    <string name="mod_copy_already_there">%1$s already has %2$s — nothing was copied</string>
+    <string name="mod_detail_already_in_folder">The same file is already in that folder — open Manage Mods to uninstall it</string>
+    <string name="mod_update_checking_title">Checking for update</string>
+    <string name="mod_update_checking">Looking up %1$s on Modrinth…</string>
+    <string name="mod_update_available_title">Update available</string>
+    <string name="mod_update_available_message">%1$s  →  %2$s</string>
+    <string name="mod_update_install">Update</string>
+    <string name="mod_update_later">Later</string>
+    <string name="mod_update_up_to_date">This mod is already up to date</string>
+    <string name="mod_update_not_found">Modrinth does not know this exact file, so it cannot be checked</string>
+    <string name="mod_update_error">Could not check for updates</string>
+    <string name="mod_update_done">Mod updated</string>
+    <string name="mod_update_failed">Update failed</string>
+
+    <!-- Mod detail — install / uninstall -->
+    <string name="mod_detail_uninstall">UNINSTALL</string>
+    <string name="mod_detail_installing">INSTALLING…</string>
+    <string name="mod_detail_install_done">Installed</string>
+    <string name="mod_detail_uninstalled">Mod removed</string>
+    <string name="mod_detail_uninstall_confirm_title">Uninstall this mod?</string>
+    <string name="mod_detail_uninstall_confirm_message">Remove %1$s from this profile? The file is deleted from the game folder.</string>
+
+    <!-- ═══ Server Hub (built-in + saved servers, opened from the profile editor) ═══ -->
+    <string name="hub_title">Server Hub</string>
+    <string name="hub_subtitle">Profile %1$s · live status and one-tap join</string>
+    <string name="hub_add">Add</string>
+    <string name="hub_refresh">Refresh</string>
+    <string name="hub_note">Everything on this list is written into the profile\'s servers.dat too, so the same servers show up in Multiplayer inside Minecraft.</string>
+    <string name="hub_status_idle">%1$d servers · tap Refresh for live status</string>
+    <string name="hub_status_empty">No servers yet · tap Add to type one in</string>
+    <string name="hub_status_pinging">%1$d servers · checking now</string>
+    <string name="hub_status_updated">%1$d servers · updated %2$s</string>
+    <string name="hub_added">Added %1$s</string>
+    <string name="hub_saved">Saved %1$s</string>
+    <string name="hub_removed">Removed %1$s</string>
+    <string name="hub_built_in_locked">Built-in servers stay in the list</string>
+    <string name="hub_launch_failed">Could not start the launcher</string>
+    <string name="hub_address_invalid">Enter an address like play.example.com:19015</string>
+    <string name="hub_address_builtin">That server is already built into the launcher</string>
+    <string name="hub_address_taken">That server is already on this list</string>
+    <string name="hub_add_title">Add a server</string>
+    <string name="hub_edit_title">Edit server</string>
+    <string name="hub_field_address">SERVER ADDRESS</string>
+    <string name="hub_field_name">SERVER NAME (OPTIONAL)</string>
+    <string name="hub_hint_address">play.indianpvp.fun:19015</string>
+    <string name="hub_hint_name">My server</string>
+    <string name="hub_helper_address">Port is optional · 25565 is used when you leave it out</string>
+    <string name="hub_save">Save</string>
+    <string name="hub_cancel">Cancel</string>
+    <string name="cs_section_servers">Servers</string>
+</resources>

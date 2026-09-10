@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- MP FILTER DOT — violet active indicator -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <gradient android:type="radial" android:gradientRadius="6dp"
+        android:startColor="#22C9CB" android:endColor="#888888" />
+    <size android:width="8dp" android:height="8dp" />
+</shape>

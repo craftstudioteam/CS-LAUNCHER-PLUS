@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Account picker — ring behind the 3D skin head. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="12dp" />
+    <gradient android:angle="315" android:startColor="#23262E" android:endColor="#15171C" />
+    <stroke android:width="1dp" android:color="#3B4049" />
+</shape>

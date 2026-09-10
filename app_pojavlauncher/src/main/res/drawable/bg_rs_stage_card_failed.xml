@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Runtime stage card (failed): muted rose rim iteration -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:angle="270"
+                android:startColor="#261419" android:centerColor="#201114" android:endColor="#180E10" />
+            <corners android:radius="18dp" />
+            <stroke android:width="1.2dp" android:color="#8A4048" />
+        </shape>
+    </item>
+    <item android:gravity="top">
+        <shape android:shape="rectangle">
+            <gradient android:angle="0"
+                android:startColor="#00F97066" android:centerColor="#A6F97066" android:endColor="#00F97066" />
+            <size android:height="2dp" />
+            <corners android:topLeftRadius="18dp" android:topRightRadius="18dp" />
+        </shape>
+    </item>
+    <item android:top="0.8dp" android:left="1dp" android:right="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00000000" />
+            <corners android:radius="17dp" />
+            <stroke android:width="0.8dp" android:color="#1EFFFFFF" />
+        </shape>
+    </item>
+</layer-list>

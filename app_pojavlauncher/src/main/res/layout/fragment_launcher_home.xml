@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════════════
+     CS Launcher — LAUNCHER HOME "STAGE" v2 (fixes pass)
+
+     Full-bleed primary-instance artwork + layered legibility scrim.
+     One intentional composition:
+
+       • left dock (edge-aligned, vertically centered)
+       • account chip (top-right)
+       • 3D player (left half of the central band, never overlapped)
+       • launch cluster (right half): eyebrow → instance → meta → PLAY →
+         CONTINUE pill — all in one visual column, no floating strays
+       • library carousel (bottom, clear of the dock)
+
+     Sizes via lh_* dimens (compact + h420dp variants).
+     ═══════════════════════════════════════════════════════════════════════ -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0B0713">
+
+    <!-- Background artwork (two layers for a crossfade when the primary changes) -->
+    <ImageView
+        android:id="@+id/lh_bg_a"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:alpha="0.55"
+        android:contentDescription="@null"
+        tools:src="@drawable/bg_hero_minecraft" />
+    <ImageView
+        android:id="@+id/lh_bg_b"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:alpha="0"
+        android:contentDescription="@null" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_lh_scrim" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/lh_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/lh_center_guide"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.47" />
+
+        <!-- ═══ BRAND CLUSTER (top-left, Phase 8) ═══
+             Launcher mark + name, then two community pills: YouTube (red)
+             and Discord (blurple). Mirrors the account chip on the right.
+             Links come from CsLinks (same URLs as the About page). -->
+        <LinearLayout
+            android:id="@+id/lh_brand_cluster"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_lh_glass"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <FrameLayout
+                android:id="@+id/lh_brand_mark"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/bg_lh_brand_mark">
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@drawable/cs_logo" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="10dp"
+                android:orientation="vertical">
+
+                <!-- Phase 10: full brand on ONE line, "Made in India" + tricolour below -->
+                <TextView
+                    android:id="@+id/lh_brand_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.06"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="CS LAUNCHER PLUS"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText,Deprecated" />
+
+                <LinearLayout
+                    android:id="@+id/lh_brand_origin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/lh_brand_flag"
+                        android:layout_width="15dp"
+                        android:layout_height="10dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_flag_india" />
+
+                    <TextView
+                        android:id="@+id/lh_brand_sub"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:includeFontPadding="false"
+                        android:letterSpacing="0.14"
+                        android:maxLines="1"
+                        android:text="MADE IN INDIA"
+                        android:textColor="#C9CED8"
+                        android:textSize="7.5sp"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText,SmallSp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="8dp"
+                android:background="#2EFFFFFF" />
+
+            <LinearLayout
+                android:id="@+id/lh_btn_youtube"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:background="@drawable/bg_lh_pill_youtube"
+                android:clickable="true"
+                android:contentDescription="Open the CS Launcher YouTube channel"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="9dp"
+                android:paddingEnd="11dp">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_brand_youtube" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.04"
+                    android:text="YouTube"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10.5sp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lh_btn_discord"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/bg_lh_pill_discord"
+                android:clickable="true"
+                android:contentDescription="Join the CS Launcher Discord"
+                android:focusable="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="9dp"
+                android:paddingEnd="11dp">
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="12dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_brand_discord" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:includeFontPadding="false"
+                    android:letterSpacing="0.04"
+                    android:text="Discord"
+                    android:textColor="#FFFFFF"
+                    android:textSize="10.5sp"
+                    android:textStyle="bold"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ═══ ACCOUNT CHIP (top-right) ═══ -->
+        <LinearLayout
+            android:id="@+id/lh_account_chip"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_lh_glass"
+            android:paddingHorizontal="11dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/lh_account_head"
+                android:layout_width="29dp"
+                android:layout_height="29dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/bg_lh_card_icon"
+                android:padding="2dp"
+                android:src="@drawable/ic_profile_player"
+                app:tint="#8B5CF6"
+                android:contentDescription="Account" />
+
+            <TextView
+                android:id="@+id/lh_account_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:maxWidth="110dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text="Player"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:includeFontPadding="false" />
+
+            <TextView
+                android:id="@+id/lh_account_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:text="LOCAL"
+                android:textColor="#FFFFFF"
+                android:textSize="8.5sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.06"
+                android:paddingHorizontal="7dp"
+                android:paddingVertical="3dp"
+                android:background="@drawable/bg_hd_badge_purple"
+                android:includeFontPadding="false" />
+
+            <ImageView
+                android:layout_width="13dp"
+                android:layout_height="13dp"
+                android:layout_marginStart="4dp"
+                android:src="@drawable/ic_chevron_down"
+                app:tint="#9A91B5"
+                android:contentDescription="@null" />
+        </LinearLayout>
+
+        <!-- ═══ STAGE (constraint-based so nothing overlaps) ═══
+             Layer order in this file: background → 3D character (lh_player)
+             → name tag (lh_hero_name, in the UI layer, ABOVE the GL surface so
+             it can never clip the raised hand) → controls (launch row).
+
+             Vertical composition, top→bottom, all pinned:
+               account chip
+                 ↓  name tag
+                 ↓  3D character  (fills the band, height=0dp → never overlaps)
+                 ↓  LAUNCH row    (bottom-anchored above the carousel + gap)
+               carousel                                                        -->
+
+        <!-- Selected account's username — Minecraft-style name plate, sits
+             directly above the character's head. Drawn in the UI layer; the GL
+             surface's top is anchored BELOW this view so the surface (which is
+             z-ordered on top) can never paint over and hide the tag. -->
+        <TextView
+            android:id="@+id/lh_hero_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:maxWidth="230dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text=""
+            android:fontFamily="@font/minecraftia"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="3dp"
+            android:background="@drawable/bg_lh_nametag"
+            android:includeFontPadding="false"
+            android:shadowColor="#B3000000"
+            android:shadowDy="1"
+            android:shadowRadius="6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lh_account_chip" />
+
+        <!-- 3D player. IMPORTANT: this GLSurfaceView has setZOrderOnTop(true),
+             so it is drawn ABOVE every sibling view. Its top is therefore
+             anchored to the BOTTOM of the name tag — never overlapping it — so
+             the name tag stays visible (the surface would otherwise paint over
+             and hide it). The band is still tall (down to the launch row) and
+             the renderer framing keeps the whole head + raised hand inside it,
+             with top headroom so nothing is clipped at the surface's top edge. -->
+        <android.opengl.GLSurfaceView
+            android:id="@+id/lh_player"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lh_hero_name"
+            app:layout_constraintBottom_toTopOf="@id/lh_launch_row" />
+
+        <!-- LAUNCH capsule + pencil. Bottom-anchored ABOVE the carousel with a
+             fixed gap → clear separation, can NEVER cover New Instance. -->
+        <!-- ═══ Download progress card — anchored to the SIDE (bottom-left),
+             never centered. Premium glass card: animated shimmer bar, live
+             percent ring accent, exact MB detail. Shown only while downloading. -->
+        <LinearLayout
+            android:id="@+id/lh_dl_pill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_lh_dl_pill"
+            android:elevation="14dp"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="14dp"
+            android:visibility="gone"
+            android:layout_marginStart="18dp"
+            android:layout_marginBottom="14dp"
+            android:minWidth="248dp"
+            app:layout_constraintWidth_max="330dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/lh_launch_row">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- Animated glowing download glyph -->
+                <FrameLayout
+                    android:id="@+id/lh_dl_icon_wrap"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bg_lh_dl_icon">
+
+                    <ImageView
+                        android:id="@+id/lh_dl_icon"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_download"
+                        app:tint="#0E0C15"
+                        android:contentDescription="@null" />
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="11dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/minecraftia"
+                        android:text="LAUNCHING"
+                        android:textColor="#A78BFA"
+                        android:textSize="8sp"
+                        android:letterSpacing="0.12"
+                        android:includeFontPadding="false" />
+
+                    <TextView
+                        android:id="@+id/lh_dl_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="Preparing…"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:includeFontPadding="false" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/lh_dl_percent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:gravity="end"
+                    android:fontFamily="@font/minecraftia"
+                    android:text="0%"
+                    android:textColor="#EDEAF7"
+                    android:textSize="13sp"
+                    android:includeFontPadding="false" />
+                    android:textStyle="bold"
+                    android:includeFontPadding="false" />
+            </LinearLayout>
+
+            <ProgressBar
+                android:id="@+id/lh_dl_bar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:layout_marginTop="12dp"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/bg_lh_dl_track" />
+
+            <TextView
+                android:id="@+id/lh_dl_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text=""
+                android:textColor="#B9B5C9"
+                android:textSize="10.5sp"
+                android:includeFontPadding="false" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lh_launch_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/lh_launch_specs"
+            android:layout_marginBottom="6dp">
+
+            <!-- Signature launch capsule: wave/glow morph + STOP-cancel. -->
+            <net.kdt.pojavlaunch.ui.PremiumPlayButtonView
+                android:id="@+id/lh_launch_button"
+                android:layout_width="168dp"
+                android:layout_height="@dimen/lh_launch_button_h"
+                android:contentDescription="Launch Minecraft">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="24dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:src="@drawable/ic_play_arrow"
+                        app:tint="#0E0E11"
+                        android:contentDescription="@null" />
+
+                    <TextView
+                        android:id="@+id/lh_launch_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="LAUNCH"
+                        android:textColor="#0E0E11"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.12"
+                        android:includeFontPadding="false" />
+                </LinearLayout>
+            </net.kdt.pojavlaunch.ui.PremiumPlayButtonView>
+
+            <!-- Pencil: opens THIS profile's edit page. -->
+            <FrameLayout
+                android:id="@+id/lh_edit_btn"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/bg_lh_glass"
+                android:clickable="true"
+                android:focusable="true">
+                <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_edit_profile"
+                    app:tint="#C9C4D8"
+                    android:contentDescription="Edit profile" />
+            </FrameLayout>
+        </LinearLayout>
+
+        <!-- Profile runtime Java version and RAM allocation spec pill -->
+        <LinearLayout
+            android:id="@+id/lh_launch_specs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_lh_specs_pill"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/lh_library">
+
+            <ImageView
+                android:id="@+id/lh_spec_java_icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/ic_settings_java"
+                app:tint="#9DA3B4"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/lh_spec_java_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="Java 21"
+                android:textColor="#C5C8D4"
+                android:textSize="11sp"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false" />
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="3dp"
+                android:layout_marginHorizontal="7dp"
+                android:background="@drawable/dot_separator" />
+
+            <ImageView
+                android:id="@+id/lh_spec_ram_icon"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/ic_settings_performance"
+                app:tint="#9DA3B4"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/lh_spec_ram_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:text="4096 MB RAM"
+                android:textColor="#C5C8D4"
+                android:textSize="11sp"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false" />
+        </LinearLayout>
+
+        <!-- ═══ INSTANCE LIBRARY CAROUSEL (bottom, clear of the dock) ═══ -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lh_library"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/lh_carousel_height"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- Empty-state hint (shown only with zero instances) -->
+        <TextView
+            android:id="@+id/lh_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="Your library will live here — create your first instance to begin."
+            android:textColor="#B9B5C9"
+            android:textSize="12sp"
+            android:includeFontPadding="false"
+            app:layout_constraintStart_toStartOf="@id/lh_library"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="44dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

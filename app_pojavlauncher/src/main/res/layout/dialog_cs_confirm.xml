@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ═══════════════════════════════════════════════════════════════════════
+     CS CONFIRM (Phase 8) — replaces system AlertDialogs for yes/no questions.
+     Icon well · title · message · optional detail chip · [Cancel] [Action]
+     Animated by CsConfirmDialog (card outBack in, ring pop, buttons fade-up).
+     ═══════════════════════════════════════════════════════════════════════ -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cfm_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/cfm_card"
+    android:orientation="vertical"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:id="@+id/cfm_icon_well"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/cfm_icon_ring">
+
+            <ImageView
+                android:id="@+id/cfm_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_menu_delete_forever"
+                app:tint="#F08A92"
+                xmlns:app="http://schemas.android.com/apk/res-auto" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/cfm_kicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
+                android:letterSpacing="0.16"
+                android:text="CONFIRM"
+                android:textColor="#8A909C"
+                android:textSize="8sp"
+                tools:ignore="HardcodedText,SmallSp" />
+
+            <TextView
+                android:id="@+id/cfm_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="sans-serif-medium"
+                android:includeFontPadding="false"
+                android:textColor="#F4F6F9"
+                android:textSize="15.5sp"
+                tools:text="Remove this account?" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/cfm_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:includeFontPadding="false"
+        android:lineSpacingMultiplier="1.3"
+        android:textColor="#9AA0AC"
+        android:textSize="11.5sp"
+        tools:text="Steve will be signed out and removed from this launcher. Worlds and settings stay on the device." />
+
+    <TextView
+        android:id="@+id/cfm_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rd_pill"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:paddingHorizontal="12dp"
+        android:textColor="#D2D6DE"
+        android:textSize="10sp"
+        android:visibility="gone"
+        tools:text="Steve  ·  LOCAL"
+        tools:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/cfm_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/cfm_cancel"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/cfm_btn_ghost"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.08"
+            android:text="@string/global_cancel"
+            android:textAllCaps="true"
+            android:textColor="#C9CED8"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/cfm_confirm"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:background="@drawable/cfm_btn_danger"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="sans-serif-medium"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:letterSpacing="0.08"
+            android:text="@string/global_delete"
+            android:textAllCaps="true"
+            android:textColor="#FFFFFF"
+            android:textSize="11sp" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One labelled block of the editor drawer: a raised grey card with a
+     hairline, so four groups read as four decisions instead of one long list. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#0AFFFFFF" />
+            <corners android:radius="20dp" />
+            <stroke android:width="1dp" android:color="@color/au_line" />
+        </shape>
+    </item>
+    <item android:top="1dp" android:bottom="1dp" android:left="1dp" android:right="1dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:endColor="#00FFFFFF"
+                android:startColor="#0DFFFFFF"
+                android:type="linear" />
+            <corners android:radius="19dp" />
+        </shape>
+    </item>
+</layer-list>

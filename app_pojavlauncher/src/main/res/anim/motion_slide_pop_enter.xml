@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shared-axis X back (cinematic): the page underneath rises from 0.9 depth and
+     slides back to centre from the left. -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shareInterpolator="false">
+    <translate
+        android:fromXDelta="-14%p"
+        android:toXDelta="0"
+        android:duration="520"
+        android:interpolator="@interpolator/motion_out_expo" />
+    <scale
+        android:fromXScale="0.90"
+        android:toXScale="1.0"
+        android:fromYScale="0.90"
+        android:toYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration="560"
+        android:interpolator="@interpolator/motion_out_expo" />
+    <alpha
+        android:fromAlpha="0"
+        android:toAlpha="1"
+        android:duration="260"
+        android:interpolator="@interpolator/motion_standard" />
+</set>

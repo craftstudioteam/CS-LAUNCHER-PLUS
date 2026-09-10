@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Mod Detail — the page is one card: the project's own artwork shows through
+     behind the hero and the install console, instead of a full-bleed banner that
+     competes with the content. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="#0F1014" />
+    <corners android:radius="16dp" />
+    <stroke android:width="1dp" android:color="#282A32" />
+</shape>

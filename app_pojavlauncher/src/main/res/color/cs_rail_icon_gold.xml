@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The Servers rail entry is the highlighted one, so it keeps its gold tint even when idle. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:color="#FFE9B84C" />
+    <item android:color="#FFD8A83E" />
+</selector>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ✦ Soft glow behind the spotlight ring: a radial fade from 18% accent to nothing, i.e.
+     the "subtle highlight" rather than a neon box. A fixed dp radius because
+     gradientRadius percentages need API 24 and this module is minSdk 21. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <gradient
+        android:type="radial"
+        android:gradientRadius="84dp"
+        android:centerX="0.5"
+        android:centerY="0.5"
+        android:startColor="#2E22C9CB"
+        android:centerColor="#1422C9CB"
+        android:endColor="#00000000" />
+    <corners android:radius="24dp" />
+</shape>

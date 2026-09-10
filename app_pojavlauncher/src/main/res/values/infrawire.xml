@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- ── Infrawire Partner branding ── -->
+    <string name="infrawire_name">Infrawire</string>
+    <string name="infrawire_tagline">High-Performance VPS &amp; Cloud Hosting</string>
+    <string name="infrawire_sub_text">Official Cloud Hosting Partner of CS Launcher Plus</string>
+    <string name="infrawire_badge_partner">OFFICIAL HOSTING PARTNER</string>
+    <string name="infrawire_badge_live">PARTNER</string>
+    <string name="infrawire_deploy_vps">Deploy VPS</string>
+    <string name="infrawire_learn_more">Learn More</string>
+    <string name="infrawire_description">Infrawire is the Official Hosting Partner of CS Launcher Plus — high-performance VPS and cloud infrastructure on latest-generation hardware with NVMe SSD storage, DDR4 memory and an independent 10 Gbps global network. Enterprise-grade security with multi-layer Anti-DDoS protection, hourly billing and worldwide datacenters.</string>
+
+    <!-- Chips -->
+    <string name="infrawire_chip_uptime">✓ 99.99% Uptime</string>
+    <string name="infrawire_chip_antiddos">✓ Anti-DDoS</string>
+    <string name="infrawire_chip_support">✓ 24/7 Support</string>
+    <string name="infrawire_chip_price">✓ from €0.007/hr</string>
+    <string name="infrawire_chip_network">✓ 10 Gbps Network</string>
+
+    <!-- Partner page sections -->
+    <string name="infrawire_partners_title">OFFICIAL PARTNERS</string>
+    <string name="infrawire_benefits_title">WHY INFRAWIRE</string>
+    <string name="infrawire_plans_title">VPS PLANS</string>
+    <string name="infrawire_view_plans">View Plans ↗</string>
+    <string name="infrawire_promo_title">Latest Promotions</string>
+    <string name="infrawire_promo_subtitle">Exclusive offers for CS Launcher players</string>
+    <string name="infrawire_promo_button">View Offers ↗</string>
+    <string name="infrawire_links_title">EXPLORE INFRAWIRE</string>
+    <string name="infrawire_link_website">Website</string>
+    <string name="infrawire_link_cloud">Cloud</string>
+    <string name="infrawire_link_docs">Docs</string>
+    <string name="infrawire_link_support">Support</string>
+    <string name="infrawire_footer_note">Infrawire is the Official Cloud Hosting Partner of CS Launcher Plus.\nLinks open in your browser — never inside the game.</string>
+
+    <!-- Downloads badge -->
+    <string name="infrawire_powered_badge">⚡ Powered by Infrawire Cloud Infrastructure</string>
+
+    <!-- Settings section -->
+    <string name="infrawire_settings_title">Sponsors</string>
+
+    <!-- First-launch welcome -->
+    <string name="infrawire_welcome_title">Welcome to CS Launcher Plus</string>
+    <string name="infrawire_welcome_body">We\'re proudly partnered with</string>
+    <string name="infrawire_welcome_partner_sub">High Performance Cloud Hosting</string>
+    <string name="infrawire_welcome_explore">Explore</string>
+    <string name="infrawire_welcome_skip">Skip</string>
+
+    <!-- ── Styles ── -->
+    <style name="InfrawireChip">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#D0D0D0</item>
+        <item name="android:textSize">10.5sp</item>
+        <item name="android:paddingHorizontal">11dp</item>
+        <item name="android:background">@drawable/bg_infrawire_chip</item>
+        <item name="android:layout_marginEnd">6dp</item>
+    </style>
+
+    <style name="InfrawireSectionTitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#F0F0F3</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:layout_marginTop">22dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
+    <style name="InfrawireLinkButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">#DADDE5</item>
+        <item name="android:textSize">11.5sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/bg_infrawire_button_ghost</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:layout_marginEnd">8dp</item>
+    </style>
+</resources>

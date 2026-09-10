@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DANGER BUTTON (DELETE) — premium destructive style: tinted glass + strong
+     danger border + white bold text + ripple. Solid fill variant used for the
+     armed/confirm state. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#40FF4D67">
+    <item android:id="@android:id/background">
+        <selector>
+            <item android:state_enabled="false">
+                <shape android:shape="rectangle">
+                    <corners android:radius="16dp" />
+                    <solid android:color="#1E1420" />
+                    <stroke android:width="1.5dp" android:color="#33FF4D67" />
+                </shape>
+            </item>
+            <item android:state_pressed="true">
+                <shape android:shape="rectangle">
+                    <corners android:radius="16dp" />
+                    <gradient
+                        android:angle="135"
+                        android:startColor="#D63A52"
+                        android:endColor="#FF4D67" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <corners android:radius="16dp" />
+                    <solid android:color="#2A1219" />
+                    <stroke android:width="1.5dp" android:color="#FF4D67" />
+                </shape>
+            </item>
+        </selector>
+    </item>
+</ripple>

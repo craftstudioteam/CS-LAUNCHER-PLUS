@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Seamless sweep-gradient ring (cyan -> violet -> cyan) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="ring"
+    android:useLevel="false" android:innerRadiusRatio="2.35" android:thicknessRatio="55">
+    <gradient android:type="sweep" android:startColor="#E63DC2FF"
+        android:centerColor="#E67C5CFF" android:endColor="#E63DC2FF"/>
+</shape>

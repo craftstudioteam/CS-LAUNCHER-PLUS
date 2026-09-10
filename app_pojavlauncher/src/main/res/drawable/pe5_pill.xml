@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Aurora pill: teal glow when selected. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="18dp" />
+            <gradient android:angle="135" android:startColor="#D4D8E0" android:endColor="#BCC1CB" />
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <corners android:radius="18dp" />
+            <solid android:color="#23262E" />
+        </shape>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="18dp" />
+            <solid android:color="#141A22" />
+            <stroke android:width="1dp" android:color="#24303E" />
+        </shape>
+    </item>
+</selector>

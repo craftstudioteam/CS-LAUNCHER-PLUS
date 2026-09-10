@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Drawer header (Phase 9): profile name + version + GAME MENU kicker. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="4dp"
+    android:paddingEnd="4dp"
+    android:paddingTop="6dp"
+    android:paddingBottom="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/igm_hdr_dot"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:background="@drawable/pk_check_dot" />
+
+        <TextView
+            android:id="@+id/igm_hdr_kicker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.18"
+            android:text="GAME MENU"
+            android:textColor="#8A909C"
+            android:textSize="9.5sp" />
+
+        <TextView
+            android:id="@+id/igm_hdr_esc"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:background="@drawable/igm_key_pill"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:paddingHorizontal="8dp"
+            android:text="SWIPE ›"
+            android:textColor="#5C6068"
+            android:textSize="9sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/igm_hdr_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
+        android:text="Profile"
+        android:textColor="#F4F6F9"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/igm_hdr_sub"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:fontFamily="monospace"
+        android:maxLines="1"
+        android:text="1.21"
+        android:textColor="#8A909C"
+        android:textSize="10.5sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:background="#2B2F38" />
+</LinearLayout>

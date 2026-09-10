@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Small premium badge: "Powered by Infrawire Cloud Infrastructure" -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/infrawire_powered_badge"
+    android:layout_width="match_parent"
+    android:layout_height="34dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_infrawire_badge"
+    android:paddingHorizontal="12dp"
+    android:clickable="true"
+    android:focusable="true">
+
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@drawable/ic_infrawire_mark_white"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/infrawire_powered_badge"
+        android:textColor="#D0D0D0"
+        android:textSize="10.5sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.03" />
+
+    <ImageView
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:src="@drawable/ic_infrawire_open_link"
+        android:contentDescription="@null" />
+</LinearLayout>

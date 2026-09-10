@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dashed upload drop-zone (premium) -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#1FFFFFFF">
+    <item android:id="@android:id/background">
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <solid android:color="#0AFFFFFF" />
+            <stroke
+                android:width="1.5dp"
+                android:color="#40FFFFFF"
+                android:dashWidth="10dp"
+                android:dashGap="8dp" />
+        </shape>
+    </item>
+</ripple>

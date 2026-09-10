@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shared-axis Z forward (cinematic): the parent screen pushes back a little further
+     and dims, so the new layer clearly sits above it. -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shareInterpolator="false">
+    <scale
+        android:fromXScale="1.0"
+        android:toXScale="1.10"
+        android:fromYScale="1.0"
+        android:toYScale="1.10"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration="420"
+        android:interpolator="@interpolator/motion_emphasized" />
+    <alpha
+        android:fromAlpha="1"
+        android:toAlpha="0"
+        android:duration="240"
+        android:interpolator="@interpolator/motion_in_quart" />
+</set>
