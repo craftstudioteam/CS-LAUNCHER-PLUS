@@ -7,6 +7,9 @@ on:
     branches: [ "main", "master" ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: Build Android APK
@@ -33,6 +36,23 @@ jobs:
 
     - name: Upload Debug APK Artifact
       uses: actions/upload-artifact@v4
+      continue-on-error: true
       with:
         name: CS-Launcher-Plus-Debug-APK
         path: app_pojavlauncher/build/outputs/apk/debug/*.apk
+
+    - name: Publish Release APK
+      if: github.ref == 'refs/heads/main'
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: v3.1.0-plus
+        name: CS Launcher Plus v3.1.0
+        body: |
+          ### CS Launcher Plus v3.1.0 (Build Artifact)
+          - Updated application package name to `com.cslaucher.plus`
+          - Integrated updated Firebase `google-services.json`
+          - Redesigned Client Download & Installation UI with holographic cyber gyroscope rings and live stage telemetry
+          - Redesigned Shortcut Creator UI for 1-tap desktop shortcuts
+        files: app_pojavlauncher/build/outputs/apk/debug/*.apk
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
