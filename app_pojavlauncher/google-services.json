@@ -27,9 +27,47 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:732724476857:android:1be4e89fd19fc620b35468",
+        "android_client_info": {
+          "package_name": "com.craftstudio.cslauncherv3.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAQxumO_kMIWOHOv7oN52SC0MN28vo9ms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:732724476857:android:42cf7968f8ae8791b35468",
         "android_client_info": {
           "package_name": "com.cslaucher.plus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAQxumO_kMIWOHOv7oN52SC0MN28vo9ms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732724476857:android:42cf7968f8ae8791b35468",
+        "android_client_info": {
+          "package_name": "com.cslaucher.plus.debug"
         }
       },
       "oauth_client": [],
