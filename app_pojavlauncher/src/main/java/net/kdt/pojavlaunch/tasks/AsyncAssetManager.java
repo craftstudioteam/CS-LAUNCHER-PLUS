@@ -103,11 +103,8 @@ public class AsyncAssetManager {
             ProgressLayout.clearProgress(ProgressLayout.EXTRACT_COMPONENTS);
         });
     }
-    // The natives keep their own marker file (.natives-version). They must not share lwjgl3/<ver>/version
-    // with the Java jars: unpackComponent() treats that file as "this folder is up to date". When both tasks
-    // shared it, whichever one finished first made the other skip its update, so a new native library could
-    // run next to old Java jars (or the other way round). LWJGL reports that as
-    // "Incompatible Java and native library versions".
+    // Piggybacks off of the java modules extracting later to use their version files for update checks
+    // This is indeed prone to breaking.
     private static void unpackLwjglNatives(Context ctx) throws IOException {
         AssetManager am = ctx.getAssets();
         String rootDir = Tools.DIR_DATA;
@@ -115,63 +112,49 @@ public class AsyncAssetManager {
 
         String[] lwjglVersions = {"3.3.3", "3.4.1"};
         for (String lwjglVer : lwjglVersions) {
+            File versionFile = new File(Tools.DIR_GAME_HOME + String.format("/lwjgl3/%s/version", lwjglVer));
             String pathToLwjglNatives = String.format("lwjgl-%s-natives/", lwjglVer) + sArch;
-            File nativesTargetDir = new File(rootDir, pathToLwjglNatives);
-            File nativesMarker = new File(nativesTargetDir, ".natives-version");
-            File sentinelFile = new File(nativesTargetDir, "liblwjgl.so");
 
-            String assetVersion;
+            boolean shouldUpdate = true;
             try (InputStream is = am.open("components/lwjgl3/" + lwjglVer + "/version")) {
-                assetVersion = Tools.read(is);
-            }
-
-            // Up to date only if the marker matches the bundled version and the sentinel library is present.
-            boolean upToDate = false;
-            if (nativesMarker.isFile() && sentinelFile.isFile() && sentinelFile.length() > 0) {
-                try (FileInputStream fis = new FileInputStream(nativesMarker)) {
-                    upToDate = assetVersion.equals(Tools.read(fis));
+                if (versionFile.exists()) {
+                    try (FileInputStream fis = new FileInputStream(versionFile)) {
+                        String release1 = Tools.read(is);
+                        String release2 = Tools.read(fis);
+                        if (release1.equals(release2))
+                            shouldUpdate = false;
+                    }
                 }
             }
-            if (upToDate) {
-                Log.i("UnpackLwjgl", lwjglVer + " natives are up-to-date with the launcher, continuing...");
-                continue;
+
+            // Validate that the target natives directory actually contains the expected .so files.
+            // Without this check, a stale/corrupt folder from a previous run would be silently used.
+            if (!shouldUpdate) {
+                File nativesTargetDir = new File(rootDir, pathToLwjglNatives);
+                File sentinelFile = new File(nativesTargetDir, "liblwjgl.so");
+                if (!nativesTargetDir.isDirectory() || !sentinelFile.exists() || sentinelFile.length() == 0) {
+                    Log.w("UnpackLwjgl", lwjglVer + " natives directory is missing or corrupt, forcing re-extraction...");
+                    shouldUpdate = true;
+                }
             }
 
-            String[] fileList = am.list("components/" + pathToLwjglNatives);
-            if (fileList == null || fileList.length == 0) {
-                Log.w("UnpackLwjgl", lwjglVer + " has no natives bundled for " + sArch + ", skipping.");
-                continue;
-            }
-
-            Log.i("UnpackLwjgl", lwjglVer + " natives are missing or outdated, unpacking new...");
-            try {
-                // Start from an empty folder. A .so that the new build no longer ships would otherwise stay
-                // on java.library.path and could still be loaded next to the new Java classes.
-                FileUtils.deleteDirectory(nativesTargetDir);
+            if (shouldUpdate) {
+                Log.i("UnpackLwjgl", lwjglVer + " was installed manually, or does not exist, unpacking new...");
+                String[] fileList = am.list("components/" + pathToLwjglNatives);
                 for (String fileName : fileList) {
-                    Tools.copyAssetFile(ctx, "components/" + pathToLwjglNatives + "/" + fileName,
-                            nativesTargetDir.getAbsolutePath(), true);
+                    Tools.copyAssetFile(ctx, "components/" + pathToLwjglNatives + "/" + fileName, rootDir + "/" + pathToLwjglNatives, true);
                 }
-                if (!sentinelFile.isFile() || sentinelFile.length() == 0) {
-                    throw new IOException("liblwjgl.so was not extracted for " + lwjglVer);
+                // After extraction, update the version file so future checks are faster
+                try (InputStream is = am.open("components/lwjgl3/" + lwjglVer + "/version")) {
+                    String versionContent = Tools.read(is);
+                    FileUtils.writeStringToFile(versionFile, versionContent, "UTF-8");
+                } catch (IOException e) {
+                    Log.w("UnpackLwjgl", "Failed to write version file for " + lwjglVer, e);
                 }
-                // Written last, so an interrupted extraction is retried on the next launch.
-                FileUtils.writeStringToFile(nativesMarker, assetVersion, "UTF-8");
-            } catch (IOException e) {
-                Log.e("UnpackLwjgl", "Failed to unpack " + lwjglVer + " natives", e);
+            } else {
+                Log.i("UnpackLwjgl", lwjglVer + " is up-to-date with the launcher, continuing...");
             }
         }
-    }
-
-    // Copies every file of a component except its version marker. The marker is copied last, so a copy that
-    // dies halfway is retried on the next launch instead of being treated as complete.
-    private static void copyComponentFiles(Context ctx, AssetManager am, String component, String rootDir) throws IOException {
-        String[] fileList = am.list("components/" + component);
-        for (String fileName : fileList) {
-            if ("version".equals(fileName)) continue;
-            Tools.copyAssetFile(ctx, "components/" + component + "/" + fileName, rootDir + "/" + component, true);
-        }
-        Tools.copyAssetFile(ctx, "components/" + component + "/version", rootDir + "/" + component, true);
     }
 
     private static void unpackComponent(Context ctx, String component, boolean privateDirectory) throws IOException {
@@ -187,7 +170,10 @@ public class AsyncAssetManager {
                 versionFile.getParentFile().mkdir();
 
                 Log.i("UnpackPrep", component + ": Pack was installed manually, or does not exist, unpacking new...");
-                copyComponentFiles(ctx, am, component, rootDir);
+                String[] fileList = am.list("components/" + component);
+                for (String s : fileList) {
+                    Tools.copyAssetFile(ctx, "components/" + component + "/" + s, rootDir + "/" + component, true);
+                }
             } else {
                 try (FileInputStream fis = new FileInputStream(versionFile)) {
                     String release1 = Tools.read(is);
@@ -197,7 +183,11 @@ public class AsyncAssetManager {
                             FileUtils.deleteDirectory(versionFile.getParentFile());
                         }
                         versionFile.getParentFile().mkdir();
-                        copyComponentFiles(ctx, am, component, rootDir);
+
+                        String[] fileList = am.list("components/" + component);
+                        for (String fileName : fileList) {
+                            Tools.copyAssetFile(ctx, "components/" + component + "/" + fileName, rootDir + "/" + component, true);
+                        }
                     } else {
                         Log.i("UnpackPrep", component + ": Pack is up-to-date with the launcher, continuing...");
                     }
