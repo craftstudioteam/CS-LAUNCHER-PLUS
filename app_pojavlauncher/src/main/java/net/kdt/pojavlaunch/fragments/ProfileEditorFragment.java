@@ -39,7 +39,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import net.kdt.pojavlaunch.PojavApplication;
-import net.kdt.pojavlaunch.utils.RendererCrashGuard;
 import net.kdt.pojavlaunch.R;
 import net.kdt.pojavlaunch.servers.ServerHubActivity;
 import net.kdt.pojavlaunch.Tools;
@@ -492,14 +491,8 @@ public class ProfileEditorFragment extends Fragment implements CropperUtils.Crop
                     ? null : Tools.LAUNCHERPROFILES_RTPREFIX + selectedRuntime.name;
         }
 
-        String previousRenderer = mTempProfile.pojavRendererName;
         if(mDefaultRenderer.getSelectedItemPosition() == mRenderNames.size()) mTempProfile.pojavRendererName = null;
         else mTempProfile.pojavRendererName = mRenderNames.get(mDefaultRenderer.getSelectedItemPosition());
-        // Choosing MobileGlues by hand lifts the crash guard. Saving a profile that already had it does not.
-        if (RendererCrashGuard.MOBILEGLUES.equals(mTempProfile.pojavRendererName)
-                && !RendererCrashGuard.MOBILEGLUES.equals(previousRenderer)) {
-            RendererCrashGuard.onMobileGluesSelectedManually(getContext());
-        }
     }
 
     @Override
