@@ -29,13 +29,13 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
       - name: Install SDK components
         run: |
-          SDK_ROOT="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
-          SDKMANAGER="$(ls -d "$SDK_ROOT"/cmdline-tools/*/bin/sdkmanager | sort -V | tail -n 1)"
-          echo "Using $SDKMANAGER"
-          yes | "$SDKMANAGER" --licenses > /dev/null || true
-          "$SDKMANAGER" "platforms;android-34" "build-tools;34.0.0" "ndk;27.3.13750724"
+          yes | sdkmanager --licenses > /dev/null || true
+          sdkmanager "platforms;android-34" "build-tools;34.0.0" "ndk;27.3.13750724"
 
       - name: Provide google-services.json
         env:
