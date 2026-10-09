@@ -67,6 +67,7 @@ import net.kdt.pojavlaunch.services.GameService;
 import net.kdt.pojavlaunch.utils.JREUtils;
 import net.kdt.pojavlaunch.utils.MCOptionUtils;
 import net.kdt.pojavlaunch.utils.TouchControllerUtils;
+import net.kdt.pojavlaunch.utils.RendererCrashGuard;
 import net.kdt.pojavlaunch.value.MinecraftAccount;
 import net.kdt.pojavlaunch.value.launcherprofiles.LauncherProfiles;
 import net.kdt.pojavlaunch.value.launcherprofiles.MinecraftProfile;
@@ -925,6 +926,16 @@ public class MainActivity extends BaseActivity implements ControlButtonMenuListe
         if (hasMods("sodium"))
             Logger.appendToLog("WARNING: Sodium is being used. CS LAUNCHER PLUS supports it, but if you encounter visual glitches or crashes, report them in our community!");
         Tools.printLauncherInfo(versionId, Tools.isValidString(minecraftProfile.javaArgs) ? minecraftProfile.javaArgs : LauncherPreferences.PREF_CUSTOM_JAVA_ARGS, Tools.getTotalDeviceMemory(this));
+        // Crash guard: MobileGlues crashed the game natively in an earlier session, so use another renderer
+        // until the user selects MobileGlues again by hand.
+        if (Tools.LOCAL_RENDERER != null && RendererCrashGuard.MOBILEGLUES.equals(Tools.LOCAL_RENDERER)
+                && RendererCrashGuard.isMobileGluesBlocked(this)) {
+            String fallbackRenderer = RendererCrashGuard.pickFallback(this);
+            if (fallbackRenderer != null) {
+                Logger.appendToLog("[CrashGuard] MobileGlues crashed the game natively before; using " + fallbackRenderer + " instead.");
+                Tools.LOCAL_RENDERER = fallbackRenderer;
+            }
+        }
         if(Tools.LOCAL_RENDERER.equals("opengles_mobileglues")) {
             try {
                 // MobileGlues needs its config.json freshly written before every launch,

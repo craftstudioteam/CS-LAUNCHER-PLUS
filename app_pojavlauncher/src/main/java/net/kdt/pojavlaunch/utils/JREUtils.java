@@ -603,7 +603,10 @@ public class JREUtils {
             }
             Logger.appendToLog("=== END JVM ARGS ===");
 
+            RendererCrashGuard.onSessionStart(activity, Tools.LOCAL_RENDERER,
+                    gameDirectory != null ? gameDirectory : new File(Tools.DIR_GAME_NEW));
             final int exitCode = VMLauncher.launchJVM(userArgs.toArray(new String[0]));
+            RendererCrashGuard.onSessionEnd(activity);
             Logger.appendToLog("Java Exit code: " + exitCode);
             if (exitCode != 0) {
                 net.kdt.pojavlaunch.Tools.captureCrashLog();

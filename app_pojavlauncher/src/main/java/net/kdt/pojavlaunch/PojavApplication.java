@@ -14,6 +14,7 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
+import net.kdt.pojavlaunch.utils.RendererCrashGuard;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -54,6 +55,7 @@ public class PojavApplication extends Application {
 	public void onCreate() {
 		sInstance = this;
 		ContextExecutor.setApplication(this);
+		RendererCrashGuard.onAppStart(this);
 
 		// Post-mortem for NATIVE crashes: the GL renderer persists its phase to
 		// gl_breadcrumb.txt; "ok" means a healthy session. Anything else means the
