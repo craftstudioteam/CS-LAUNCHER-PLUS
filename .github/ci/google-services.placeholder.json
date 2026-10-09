@@ -1,0 +1,28 @@
+{
+  "project_info": {
+    "project_number": "123456789012",
+    "project_id": "cs-launcher-ci-placeholder",
+    "storage_bucket": "cs-launcher-ci-placeholder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123456789012:android:0123456789abcdef01234567",
+        "android_client_info": { "package_name": "com.cslaucher.plus" }
+      },
+      "oauth_client": [],
+      "api_key": [ { "current_key": "CI-PLACEHOLDER-KEY" } ],
+      "services": { "appinvite_service": { "other_platform_oauth_client": [] } }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:123456789012:android:fedcba9876543210fedcba98",
+        "android_client_info": { "package_name": "com.cslaucher.plus.debug" }
+      },
+      "oauth_client": [],
+      "api_key": [ { "current_key": "CI-PLACEHOLDER-KEY" } ],
+      "services": { "appinvite_service": { "other_platform_oauth_client": [] } }
+    }
+  ],
+  "configuration_version": "1"
+}
