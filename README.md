@@ -1,10 +1,12 @@
 <div align="center">
 
+<img src="assets/readme/logo.png" alt="CS Launcher Plus" width="140">
+
 # CS Launcher Plus
 
-**A fast, modern Minecraft: Java Edition launcher for Android**
-<br>
-<sub>Faster. Smoother. More customisable.</sub>
+**Minecraft: Java Edition on Android — fast, modern, and now with two engines.**
+
+<sub>by CRAFT STUDIO</sub>
 
 <br>
 
@@ -14,7 +16,7 @@
 &nbsp;
 <img src="https://img.shields.io/badge/Android-5.0%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android 5.0+">
 &nbsp;
-<a href="LICENSE"><img src="https://img.shields.io/badge/License-LGPL--3.0-6e7681?style=for-the-badge" alt="License"></a>
+<img src="https://img.shields.io/badge/License-LGPL--3.0%20%2B%20MIT-6e7681?style=for-the-badge" alt="License">
 
 <br><br>
 
@@ -23,138 +25,167 @@
 <a href="https://discord.gg/dmteYqZZyY"><img src="https://img.shields.io/badge/Discord-Join%20the%20community-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord"></a>
 &nbsp;
 <a href="https://youtube.com/@craft-studio-official"><img src="https://img.shields.io/badge/YouTube-Craft%20Studio-FF0000?style=for-the-badge&logo=youtube&logoColor=white" alt="YouTube"></a>
+&nbsp;
+<a href="https://official.craftstudios.site"><img src="https://img.shields.io/badge/Website-craftstudios.site-16161A?style=for-the-badge" alt="Website"></a>
 
-<br>
+<br><br>
 
-<img src="assets/readme/home.jpg" alt="CS Launcher Plus home screen" width="100%">
+<img src="assets/readme/screenshots/home.png" alt="CS Launcher Plus — home" width="100%">
 
 </div>
 
-<br>
+---
 
-## About
+## What is CS Launcher Plus?
 
-CS Launcher Plus lets you play Minecraft: Java Edition on Android with a clean, redesigned interface, one-tap mod loaders, built-in mod and world downloads, and tools that fix crashes for you. It is built by **Craft Studio** on top of the open-source PojavLauncher project.
+CS Launcher Plus lets you play **Minecraft: Java Edition** on your Android phone or tablet — every
+version from the earliest alphas to the newest **26.x** snapshots, with Forge, Fabric, NeoForge, Quilt,
+OptiFine, shaders, resource packs and modpacks from Modrinth and CurseForge.
 
-<br>
+Version **1.6** is the biggest update so far: a second game engine written in Rust, a built-in friends
+system, one-tap multiplayer hosting and voice chat — all inside the launcher you already know.
 
-## Highlights
+> You need your own Minecraft: Java Edition account to play online. CS Launcher Plus is not affiliated
+> with Mojang Studios or Microsoft and ships none of their code or assets.
 
-| | Feature | What you get |
-|:--|:--|:--|
-| <img src="https://img.shields.io/badge/-UI-8957e5?style=flat-square" alt="UI"> | **Completely new UI** | Every screen rebuilt on one design system, smooth animations, light and dark theme |
-| <img src="https://img.shields.io/badge/-Multiplayer-1f6feb?style=flat-square" alt="Multiplayer"> | **Virtual LAN** <sub>Beta</sub> | Play Open-to-LAN worlds with friends over the internet, no port forwarding |
-| <img src="https://img.shields.io/badge/-Loaders-2ea043?style=flat-square" alt="Loaders"> | **One-tap loaders** | Fabric, Forge, NeoForge, Quilt, OptiFine, Legacy Fabric and BTA, any loader version |
-| <img src="https://img.shields.io/badge/-CurseForge-f16436?style=flat-square" alt="CurseForge"> | **Modrinth + CurseForge** | Mods, resource packs, shaders and worlds, in the launcher and in-game |
-| <img src="https://img.shields.io/badge/-Auto%20Fix-da3633?style=flat-square" alt="Auto Fix"> | **Crash Auto Fix** | Reads the crash log, finds the cause and repairs it with one tap |
-| <img src="https://img.shields.io/badge/-Storage-d29922?style=flat-square" alt="Storage"> | **Custom storage folder** | Keep your game data wherever you want, with a built-in migration tool |
-| <img src="https://img.shields.io/badge/-Controls-3fb950?style=flat-square" alt="Controls"> | **Control customisation** | Move, resize and re-skin every on-screen button |
-| <img src="https://img.shields.io/badge/-Discord-5865F2?style=flat-square" alt="Discord"> | **Discord Rich Presence** | Shows the profile, version and server you are playing |
+---
 
-<br>
+## What's new in 1.6
+
+### CS Rust Edition — a second engine
+
+<img src="assets/readme/screenshots/cs-rust-edition.png" alt="CS Rust Edition" width="100%">
+
+**CS Rust Edition** (shown in the app as **CS Engine — Powered by Craft Studio**) is a complete Minecraft
+Java 26.3 client rewritten in Rust and rendered with Vulkan. No Java runtime, no translation layers,
+far less memory — it starts in seconds and runs smoothly on phones that struggle with the Java engine.
+
+- Pick it when you create a profile: **Java engine** or **CS Rust Edition**, side by side.
+- Same CS controls, cursor, keyboard and settings in both engines.
+- Sandboxed `.hmod` mods, shaders and resource packs, a built-in mod browser.
+- Craft Studio title screen, loading screen and in-game menu with your 3D skin.
+- Android 9+ · 64-bit (arm64). Source: [craftstudioteam/cs-rust-edition-](https://github.com/craftstudioteam/cs-rust-edition-) (MIT).
+
+### CS Friends
+
+<img src="assets/readme/screenshots/friends.png" alt="CS Friends" width="100%">
+
+A friends system that lives in the launcher **and** in the game.
+
+- Create a free CS username and password (only needed for friends; a local account is enough to play).
+- Friend requests, online status, direct messages and a notification bell next to your account.
+- **Invites that work**: a friend hosts a world, you get a 🟢 *Join World* card, tap, and the launcher
+  installs the right version, starts the game and joins automatically.
+- Skin sharing between friends; chat bubbles above players in CS Rust Edition.
+- The launcher and the engine each have their own friends panel with the same features.
+
+### CS Multiplayer — host from your phone
+
+<img src="assets/readme/screenshots/multiplayer.png" alt="CS Multiplayer" width="100%">
+
+- **Host a world** with one tap. Your singleplayer world becomes a public server through the free
+  **e4mc** relay — no port forwarding, no VPN, no PC.
+- Works in both engines; host sees a guest list and can kick a guest.
+- Join a friend's host straight from an invite, or share the address with anyone.
+- Server icon for your hosted world; Discord Rich Presence shows the server you are on.
+
+### Built-in Voice Chat
+
+- Push-to-talk / open mic voice chat inside the game, no extra app.
+- Password-protected **voice groups** with invites and per-player mute — the same model as
+  Simple Voice Chat servers.
+
+### Everything else in 1.6
+
+| Area | What changed |
+|:--|:--|
+| **Renderers** | New **CSGE** renderer (Craft Studio Graphics Engine, a MobileGlues build with 26.3 shader fixes) next to Holy GL4ES, LTW, MobileGlues, Zink and Virgl. Per-renderer icons and a redesigned renderer picker. |
+| **Cursor** | Your own in-game pointer: any image, click point, size — for both engines. |
+| **Controls** | CS Control System on both engines; keybinds page; cursor behaves like PojavLauncher. |
+| **Accounts** | Local accounts by default; Microsoft, Ely.by and custom Yggdrasil servers (authlib-injector) with one-field "Add auth server". Animated account creation, Steve as default skin, skin editor. |
+| **Profiles** | New create-profile flow (engine choice, every loader version listed, Horizon install inside the same flow), edit profile with "Open folder", per-profile icons, home shortcuts that start the game directly. |
+| **Content** | Mod/modpack/shader/resource-pack browser (Modrinth + CurseForge), OptiFine profiles, Thorium recommended-mod card, native mods pipeline for CS Rust Edition. |
+| **Play** | "Downloading" only when something really downloads, rocket "Launching" animation, auto download + start, crash post-mortem with fixes. |
+| **Play Time & Discord** | Redesigned Play Time page (both engines count). Discord Rich Presence: home, launching, menu, world, LAN or server with the profile's icon; link/unlink optional. |
+| **Settings** | New Settings hub with uniform cards; redesigned sub-pages; Storage (scoped or default) front and centre; Updates → **Update to Pro**. |
+| **Languages** | English, Hinglish, Hindi and ten more. |
+| **Polish** | Premium dark design system, smooth animations everywhere, first-launch terms and tutorial, About page with full credits and licenses. |
+
+---
 
 ## Screenshots
 
-<table>
-<tr>
-<td width="50%"><img src="assets/readme/create-instance.jpg" alt="Create instance"><br><sub><b>Create instance</b> — Normal, CS Client or Modpack</sub></td>
-<td width="50%"><img src="assets/readme/profiles.jpg" alt="Profiles"><br><sub><b>Profiles</b> — switch, edit and create instances</sub></td>
-</tr>
-<tr>
-<td><img src="assets/readme/mod-library.jpg" alt="Mod library"><br><sub><b>Mod library</b> — Modrinth and CurseForge, compatibility checked</sub></td>
-<td><img src="assets/readme/manage-content.jpg" alt="Manage content"><br><sub><b>Manager</b> — installed mods, packs, shaders and worlds</sub></td>
-</tr>
-<tr>
-<td><img src="assets/readme/account.jpg" alt="Offline account"><br><sub><b>Accounts</b> — offline player with 3D skin preview</sub></td>
-<td><img src="assets/readme/home.jpg" alt="Home"><br><sub><b>Home</b> — selected profile, one-tap PLAY, resources and manager</sub></td>
-</tr>
-</table>
+| Home | Create profile |
+|:--:|:--:|
+| <img src="assets/readme/screenshots/home.png" width="100%"> | <img src="assets/readme/screenshots/create-profile.png" width="100%"> |
 
-<br>
+| Friends | Host a world |
+|:--:|:--:|
+| <img src="assets/readme/screenshots/friends.png" width="100%"> | <img src="assets/readme/screenshots/multiplayer.png" width="100%"> |
 
-## Features
+| CS Rust Edition in game | Settings |
+|:--:|:--:|
+| <img src="assets/readme/screenshots/cs-rust-edition.png" width="100%"> | <img src="assets/readme/screenshots/settings.png" width="100%"> |
 
-### Interface
-- New **home screen** with banner, profile card, version chip and a PLAY button that downloads and launches in one tap
-- **Top navigation dock** — Home · Downloads · Mods · Multiplayer · Controls · Logs · Play Time
-- Redesigned **settings hub**, account creation, account picker and 3D skin preview
-- Brand-new **Play Time** page with per-day statistics
-- Simple first-launch tutorial and a contextual help button
-- **Languages:** English, Hinglish, Hindi and 8+ more
-
-### Profiles and versions
-- Every profile can use the classic **Vanilla look** or the custom **CS look**
-- Profile editor with phone and tablet layouts, icon picker, loader and version pickers with search
-- Per-profile RAM, Java runtime, renderer and shared or separate game folder
-- Home-screen **shortcuts** that start a profile directly
-
-### Mods, packs and worlds
-- Browse and install from **Modrinth and CurseForge** with dependency handling and exact version matching
-- **In-game resource browser** — download packs and shaders without leaving the game
-- **World downloader** and world management: view, rename, delete, backup and restore
-- One **Manager** tab for installed mods, packs and worlds, with mod updates
-
-### Multiplayer
-- **Virtual LAN (Beta):** host creates a session, shares a short code, friends join in one tap
-- Works on Wi-Fi and mobile data, direct or relay connection, automatic reconnect
-- Live member list, connection status, kick, diagnostics and Send logs
-
-### Stability
-- **Advanced Crash Auto Fix:** 15 crash categories detected, common problems repaired automatically
-- Crash screen with AUTO FIX · VIEW CRASH REPORT · VIEW DETAILS · RETRY LAUNCH
-- Silent crashes explained with a post-mortem report
-
-<br>
+---
 
 ## Install
 
-1. Download the latest **CS-Launcher-Plus-vX.Y.Z.apk** from [Releases](https://github.com/craftstudioteam/CS-LAUNCHER-PLUS/releases/latest)
-2. Open the file and allow installation from this source if Android asks
-3. Launch, sign in or create a local account, pick a version and press **PLAY**
+1. Download `CS-Launcher-Plus-release.apk` from the
+   [latest release](https://github.com/craftstudioteam/CS-LAUNCHER-PLUS/releases/latest).
+2. Allow installs from your browser / file manager if Android asks.
+3. Open the launcher, accept the terms, add an account (local is fine) and press **PLAY**.
 
-> **Updating from v1.5.0 or older?** v1.5.1 and newer use a new app signature, so they install as a separate app the first time. Install once and move your profiles over; every later update installs on top.
+**Requirements**
 
-**Requirements:** Android 5.0+ (64-bit recommended), about 1 GB free storage, 3 GB RAM or more for modded play.
+| | Java engine | CS Rust Edition |
+|:--|:--|:--|
+| Android | 5.0+ | 9.0+ |
+| CPU | arm64, arm32, x86_64 | arm64 |
+| RAM | 2 GB (4 GB for mods / 1.17+) | 2 GB |
+| Storage | ~1 GB + game files | ~300 MB + game files |
 
-<br>
+---
 
-## Releases
+## Compatibility
 
-| Version | Notes |
-|:--|:--|
-| [v1.5.1](https://github.com/craftstudioteam/CS-LAUNCHER-PLUS/releases/tag/v1.5.1) | Hotfix: "App not installed" error, Loader Version picker now lists every loader version |
-| [v1.5.0](https://github.com/craftstudioteam/CS-LAUNCHER-PLUS/releases/tag/v1.5.0) | The Big Update: new UI, Virtual LAN, CurseForge, Crash Auto Fix, custom storage and more |
+- **Game versions:** rd-132211 → 26.x snapshots (Java engine); 26.3 (CS Rust Edition).
+- **Mod loaders (Java engine):** Forge, NeoForge, Fabric, Quilt, OptiFine.
+- **CS Rust Edition** runs sandboxed `.hmod` mods only — Fabric/Forge/NeoForge Java mods do **not** run on it.
+- **Servers:** any Java Edition server; hosted worlds via e4mc. Third-party clients may be disallowed by
+  some servers' rules — check before you join.
 
-Full changelogs are on the [Releases](https://github.com/craftstudioteam/CS-LAUNCHER-PLUS/releases) page.
+---
 
-<br>
+## Community
 
-## Support and community
+- **Discord:** <https://discord.gg/dmteYqZZyY> — support, Pro upgrade, announcements
+- **YouTube:** <https://youtube.com/@craft-studio-official> — tutorials and showcases
+- **Website:** <https://official.craftstudios.site>
+- **Issues:** use the GitHub issue tracker of this repository; share logs with the in-app **Share log** button.
 
-- **Discord:** https://discord.gg/dmteYqZZyY — help, announcements and feedback
-- **YouTube:** https://youtube.com/@craft-studio-official — tutorials and update videos
-- **Bugs:** open an [issue](https://github.com/craftstudioteam/CS-LAUNCHER-PLUS/issues) and attach the crash report from the crash screen or the Logs tab
+---
 
-If the game crashes after an update, open the crash screen and press **AUTO FIX** first. It solves most cases automatically.
+## License and credits
 
-<br>
+CS Launcher Plus is free software under the **GNU LGPL v3**, a fork of the
+[PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) family
+([Amethyst](https://github.com/AngelAuraMC/Amethyst-Android)).
+**CS Rust Edition** is **MIT** licensed, derived from [Horizon](https://github.com/horizon-rust/horizon)
+by Ludovic Marie and the Horizon contributors and [Horizon Android](https://github.com/Vasysik/horizon-android)
+by Vasysik; Craft Studio's changes are published under the same license at
+[craftstudioteam/cs-rust-edition-](https://github.com/craftstudioteam/cs-rust-edition-).
 
-## Partners
+Every bundled component, author and license is listed in the app under **About › Legal › Open source
+notices**, and in `NOTICE` / `assets/licenses` in this repository. Highlights: OpenJDK (GPL-2.0+CE),
+LWJGL (BSD-3), GLFW / SDL3 (zlib), Holy GL4ES, Mesa/Zink (MIT), LTW (LGPL-3), MobileGlues / CSGE (LGPL-2.1),
+wgpu, winit, e4mc (MIT/Apache-2.0), authlib-injector (AGPL-3, separate program).
 
-CS Launcher Plus is the official launcher of **OPTL (Official Pojav Tierlist)**. See the **Partners** page inside the launcher for details and perks.
-
-<br>
-
-## Credits and license
-
-Built on [PojavLauncher](https://github.com/PojavLauncherTeam/PojavLauncher) and its open-source components (LWJGL, GL4ES, Mobile GLues and others). Minecraft is a trademark of Mojang Studios; this project is not affiliated with Mojang or Microsoft.
-
-Licensed under the **GNU LGPL v3.0** — see [LICENSE](LICENSE). Read our [Privacy Policy](PRIVACY_POLICY_en).
-
-<br>
+Minecraft is a trademark of Mojang Synergies AB / Microsoft. "Craft Studio", "CS Launcher Plus",
+"CS Engine" and "CS Rust Edition" are Craft Studio's. Privacy policy: in the app (About › Privacy
+policy) and in `PRIVACY_POLICY_en` / `PRIVACY_POLICY_hi`.
 
 <div align="center">
-
-<sub>Made with care by <b>Craft Studio</b></sub>
-
+<br>
+<sub>Made with ❤ by CRAFT STUDIO and the open source community.</sub>
 </div>
